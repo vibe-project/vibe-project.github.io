@@ -6,8 +6,18 @@ pre code {font-weight: normal; color: inherit;}
 .top-bar {height: auto;}
 
 .top-bar-wrapper {background: #333;}
+.sidebar {background: #fafafa; padding: 30px 20px;}
+.sidebar h5 {font-weight: bold; font-size: 0.85rem;}
+.sidebar input[type="search"] {font-size: 0.85rem; margin: 0 0 0.97rem 0; padding: 0.49rem; height: 2.06rem;}
+.side-nav li {font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-size: 0.85rem;}
+.side-nav li.active a:first-child {font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: bold; color: #008cba;}
+.side-nav li label {cursor: default;}
+.side-nav li a.button {color: #fff;}
 .text {padding-top: 25px;}
 .highlight {margin-bottom: 1.25rem; line-height: 1.35rem;}
+
+.news-all .pricing-table li {text-align: inherit;}
+.news-all .pricing-table li:last-child {border: none}
 
 .footer {margin-top: 20px; padding: 10px 0; color: #777;}
 .footer p, .footer li {font-size: 0.9rem;}
