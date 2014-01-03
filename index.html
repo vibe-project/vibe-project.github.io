@@ -15,8 +15,8 @@ title: wes
 <div class="row">
 	<div class="large-12 columns">
 		<div class="main">
-			<p>The <strong>wes</strong> (Web Event Source) is an abstraction layer in the form of event source for various event-driven asynchronous web client and server that runs on the JVM allowing the end user to choose the desired library.</p>
-			<p>An application written with <strong>wes</strong> can run on any supported server and client, on Java.</p>
+			<p>The <strong>wes</strong> (Web Event Source) is an abstraction layer in the form of event source for various event-driven asynchronous web client and server that runs on the Java Virtual Machine allowing the end user to choose the desired library.</p>
+			<p>An application written with <strong>wes</strong> can run on any supported server, on Java.</p>
 		</div>
 	</div>
 	<div class="large-12 columns">
@@ -31,5 +31,26 @@ title: wes
 		<p>As you already know, <em>Run anywhere</em> makes inevitable <em>Debug everywhere</em>. Even though wes is guaranteed to work with a framework you use, it doesn't ensure your application will work in production as expected. You should write integrated test suite for your application.</p>
 		<h3>Full stack frameworks are from Mars, IO frameworks are from Venus</h3>
 		<p>When it comes to interface to handle HTTP and WebSocket, full stack frameworks such as Play tend to have very simplified API but IO frameworks such as Netty tend to have very delicate API. Therefore, interfaces provided by wes are limited to their intersection and may be less rich than you expect.</p>
+		<hr />
+		<h2>Compatibility</h2>
+		<p>The following frameworks are supported.</p>
+		<ul class="inline-list">
+			<li>Atmosphere 2 (Servlet)</li>
+			<li>Vert.x 2</li>
+			<li>Play 2</li>
+		</ul>
+		<p>To be supported.</p>
+		<ul class="inline-list">
+			<li>Spring MVC</li>
+			<li>Java Servlet</li>
+			<li>Java WebSocket</li>
+			<li>Netty</li>
+			<li>Jetty</li>
+			<li>Tomcat</li>
+			<li>Undertow</li>
+			<li>Grizzly</li>
+			<li>Weblogic</li>
+			<li>GWT</li>
+		</ul>
 	</div>
 </div>
