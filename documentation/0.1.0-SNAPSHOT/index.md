@@ -52,7 +52,7 @@ http.onload = function() {
 **wes**
 
 ```java
-ServerHttpExchange http; // given by wes
+ServerHttpExchange http; // given by bridge
 http.bodyAction(new Action<Data>() {
     public void on(Data data) {
         http.setStatus(StatusCode.OK)
@@ -97,7 +97,7 @@ ws.onmessage = function(event) {
 **wes**
 
 ```java
-ServerWebSocket ws; // given by wes
+ServerWebSocket ws; // given by bridge
 ws.messageAction(new Action<Data>() {
     public void on(Data data) {
         ws.send(data.as(String.class));
