@@ -4,57 +4,50 @@ title: Vert.x 2
 ---
 
 # Vert.x 2
-`wes-vertx2` module integrates wes application with the [Vert.x 2](http://vertx.io/) which is an event driven application framework.
+This bridge integrates wes application with the [Vert.x 2](http://vertx.io/) which is an event driven application framework.
 
 ## Install
-Install via `vertx` or include the following module in a basic manner:
+Install via `vertx` console or include the following module in a basic manner.
 
 ```
-com.github.flowersinthesand~wes-vertx2~${wes.version}
+io.github.flowersinthesand~wes-vertx2~${wes.version}
 ```
 
-To install a wes in Vert.x, prepare `Vertx`.
+## Run
 
 ```java
-public class Initializer extends Verticle {
+public class Bootstrap extends Verticle {
+
     @Override
     public void start() {
-        // Available as a protected field.
-        vertx; 
+        HttpServer httpServer = vertx.createHttpServer();
+        httpServer.requestHandler(new Handler<HttpServerRequest>() {
+            @Override
+            public void handle(HttpServerRequest req) {
+                if (req.path().startsWith("/portal")) {
+                    new VertxServerHttpExchange(req);
+                }
+            }
+        });
+        httpServer.websocketHandler(new Handler<org.vertx.java.core.http.ServerWebSocket>() {
+            @Override
+            public void handle(org.vertx.java.core.http.ServerWebSocket socket) {
+                if (socket.path().startsWith("/portal")) {
+                    new VertxServerWebSocket(socket);
+                }
+            }
+        });
+        httpServer.listen(8080);
     }
 }
 ```
 
-Using `Vertx`, create `HttpServer`, register a request handler and a websocket handler and start it.
-
-```java
-HttpServer httpServer = vertx.createHttpServer();
-httpServer.requestHandler(requestHandler);
-httpServer.websocketHandler(websocketHandler);
-httpServer.listen(8080);
-```
-
-In the handlers, check path, wrap a given event with `VertxServerHttpExchange` or `VertxServerWebSocket` and dispatch them to somewhere.
-
-```java
-Handler<HttpServerRequest> requestHandler = new Handler<HttpServerRequest>() {
-    @Override
-    public void handle(HttpServerRequest req) {
-        // Path
-        if (req.path().startsWith("/portal")) {
-            // ServerHttpExchange
-            new VertxServerHttpExchange(req);
-        }
-    }
-};
-Handler<org.vertx.java.core.http.ServerWebSocket> websocketHandler = new Handler<org.vertx.java.core.http.ServerWebSocket>() {
-    @Override
-    public void handle(org.vertx.java.core.http.ServerWebSocket socket) {
-        // Path
-        if (socket.path().startsWith("/portal")) {
-            // ServerWebSocket
-            new VertxServerWebSocket(socket);
-        }
-    }
-};
-```
+1. Prepare `HttpServer`
+    1. Define `Verticle`.
+1. Add `requestHandler`.
+    1. Create `VertxServerHttpExchange` checking the path.
+    1. Dispatch it to wes application.
+1. Add `websocketHandler`.
+    1. Create `VertxServerWebSocket` checking the path.
+    1. Dispatch it to wes application.
+1. Starts the server.

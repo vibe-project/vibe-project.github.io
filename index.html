@@ -15,22 +15,22 @@ title: wes
 <div class="row">
 	<div class="large-12 columns">
 		<div class="main">
-			<p>The <strong>wes</strong> (Web Event Source) is an abstraction layer in the form of event source for various event-driven asynchronous web client and server that runs on the Java Virtual Machine allowing the end user to choose the desired library.</p>
+			<p>The <strong>wes</strong> (Web Event Source) is an abstraction layer in the form of event source for various event-driven asynchronous web client and server that runs on the Java Virtual Machine allowing the end user to choose the desired framework. The <strong>wes</strong> fits well when you need to write web application running on as many framework as possible like protocol implementation or middleware.</p>
 			<p>An application written with <strong>wes</strong> can run on any supported server or client, on Java.</p>
 		</div>
 	</div>
 	<div class="large-12 columns">
 		<hr />
 		<h2>Write once, run anywhere</h2>
-		<p>Servlet specification had been designed to bring this paradigm to web applications, but it could not have lasted long. Because of the lack of support of asynchronous IO, uncomfortable API and so on, so many application framework and IO framework arose to hide or drop to Servlet. That's why it comes as not easy to refer to some implementation written in Java as Java implementation. The author have to specify supported frameworks and do more work to support others.</p>
-		<div class="panel"><p>The <strong>wes</strong> has been designed to run your web application on as many as possible providing event-driven API, just as jQuery does on browser.</p></div>
+		<p>Servlet specification had been designed to bring this paradigm to web applications, but it could not have lasted long. Because of the lack of support of asynchronous I/O, uncomfortable API and so on, so many application framework and I/O framework arose to hide or drop to Servlet. That's why it comes as not easy to refer to some web implementation written in Java as Java implementation and the author have to specify supported frameworks and do more work to support others.</p>
+		<div class="panel"><p>The <strong>wes</strong> has been designed to run your web application on as many framework as possible providing event-driven API, just as jQuery does on browser.</p></div>
 		<p>In fact it has started to help write true Java implementation of <a href="http://flowersinthesand.github.io/portal/">Portal</a>, the realtime web application framework.</p>
 		<hr />
 		<p>That being said, wes is not a silver bullet.</p>
 		<h3>Write once, debug everywhere</h3>
 		<p>As you already know, <em>Run anywhere</em> makes inevitable <em>Debug everywhere</em>. Even though wes is guaranteed to work with a framework you use, it doesn't ensure your application will work in production as expected. You should write integrated test suite for your application.</p>
-		<h3>Full stack frameworks are from Mars, IO frameworks are from Venus</h3>
-		<p>When it comes to interface to handle HTTP and WebSocket, full stack frameworks such as Play tend to have very simplified API but IO frameworks such as Netty tend to have very delicate API. Therefore, interfaces provided by wes are limited to their intersection and may be less rich than you expect.</p>
+		<h3>Full stack frameworks are from Mars, I/O frameworks are from Venus</h3>
+		<p>When it comes to interface to handle HTTP and WebSocket, full stack frameworks such as Play tend to have very simplified API but I/O frameworks such as Netty tend to have very delicate API. Therefore, interfaces provided by wes are limited to their intersection and may be less rich than you expect.</p>
 		<hr />
 		<h2>Compatibility</h2>
 		<p>The following frameworks are supported.</p>

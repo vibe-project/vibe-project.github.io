@@ -4,12 +4,12 @@ title: Introduction
 ---
 
 # Introduction
-The **wes** (Web Event Source) is an abstraction layer in the form of event source for various event-driven asynchronous web client and server.
 
+<p>The <strong>wes</strong> (Web Event Source) is an abstraction layer in the form of event source for various event-driven asynchronous web client and server that runs on the Java Virtual Machine allowing the end user to choose the desired framework. The <strong>wes</strong> fits well when you need to write web application running on as many framework as possible like protocol implementation or middleware.</p>
 
 ### To run wes application
 
-You need to place bridge between wes application and framework, `wes-${framework}-${version}.jar` to classpath including its dependent jars. Nevertheless, how to install bridge and run final application vary for what your framework is.
+Running wes application is to create `HttpExchange` and `WebSocket` from bridge integrating wes application with framework and dispatch them to wes application. Of course, how to install bridge and run final application vary for what your framework is.
 
 See each bridge's document.
 
@@ -23,11 +23,7 @@ See each bridge's document.
 
 ### To write wes application
 
-Place the wes, `wes-${version}.jar` to classpath including its dependent jars. However, you should have to test your wes application so see how to run wes application as well.
-
-#### Type
-
-The wes gives you `HttpExchange` and `WebSocket` written in event-driven style wherever you want. All you need to write wes application is to call their methods and to register actions to them. The followings are brief review of them. For the details, see [JavaDoc]({{ site.baseurl }}/documentation/0.1.0-SNAPSHOT/apidocs/).
+Writing wes application is to handle `HttpExchange` and `WebSocket` given by bridge, to call method and to register action. The followings are brief review of them. For the details, see [JavaDoc]({{ site.baseurl }}/documentation/0.1.0-SNAPSHOT/apidocs/).
 
 ##### `ServerHttpExchange`
 

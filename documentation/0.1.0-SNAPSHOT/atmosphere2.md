@@ -4,10 +4,12 @@ title: Atmosphere 2
 ---
 
 # Atmosphere 2
-`wes-atmosphere2` module integrates wes application with the [Atmosphere 2](https://github.com/atmosphere/atmosphere/) which makes the application run on most servlet containers that support the Servlet Specification 2.3. That being said, this module requires Servlet 3.1 containers.
+This bridge integrates wes application with the [Atmosphere 2](https://github.com/atmosphere/atmosphere/) which makes the application run on most servlet containers that support the Servlet Specification 2.3. 
+
+That being said, this module requires Servlet 3.1 containers. If you want to use Atmosphere 2 with containers implementing Servlet 2.3, check Atmosphere supports that container and open a feature request.
 
 ## Install
-With Atmosphere, you can write a web application, a war project in Maven. Add the following dependency to your pom.xml or include it on your classpath.
+With Atmosphere, you can write a traditional Java web application, a war project in Maven. Add the following dependency to your pom.xml or include it on your classpath.
 
 ```xml
 <dependency>
@@ -17,51 +19,52 @@ With Atmosphere, you can write a web application, a war project in Maven. Add th
 </dependency>
 ```
 
-To install a wes in Servlet environment, prepare `ServletContext`.
+## Run
 
 ```java
 @WebListener
-public class Initializer implements ServletContextListener {
+public class Bootstrap implements ServletContextListener {
+
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        // ServletContext
-        ServletContext context = event.getServletContext());
+        try {
+            ServletContext context = event.getServletContext();
+            AtmosphereServlet servlet = context.createServlet(AtmosphereServlet.class);
+            AtmosphereFramework framework = servlet.framework();
+            
+            ServletRegistration.Dynamic reg = context.addServlet("wes", servlet);
+            reg.setAsyncSupported(true);
+            reg.addMapping("/portal");
+            
+            framework.addAtmosphereHandler("/", new AtmosphereHandlerAdapter() {
+                @Override
+                public void onRequest(AtmosphereResource resource) throws IOException {
+                    if (resource.transport() == TRANSPORT.WEBSOCKET) {
+                        if (resource.getRequest().getMethod().equals("GET")) {
+                            new AtmosphereServerWebSocket(resource);
+                        }
+                    } else {
+                        new AtmosphereServerHttpExchange(resource);
+                    }
+                }
+            });
+        } catch (ServletException e) {}
     }
     
     @Override
     public void contextDestroyed(ServletContextEvent sce) {}
+    
 }
 ```
 
-Create a servlet of `AtmosphereServlet` and register it to `ServletContext` with some options.
+1. Prepare `AtmosphereFramework`
+    1. Define `ServletContextListener` annotating with `@WebListener`.
+    1. Create `AtmosphereServlet`.
+        1. Set `asyncSupported` option to `true`.
+        1. Configure the path by adding `mapping`.
+1. Add `AtmosphereHandler` with root path, `/`.
+    1. When the resource's transport and method is WebSocket and GET, create `AtmosphereServerWebSocket`.
+    1. When the resource's transport is not WebSocket, create `AtmosphereServerHttpExchange`.
+    1. Dispatch them to wes application.
 
-```java
-AtmosphereServlet servlet = context.createServlet(AtmosphereServlet.class);
-ServletRegistration.Dynamic reg = context.addServlet("wes", servlet);
-reg.setLoadOnStartup(0);
-reg.setAsyncSupported(true);
-// Path
-reg.addMapping("/portal");
-```
-
-Define a `AtmosphereHandler` and add it to `AtmosphereFramework` mapping to the root path, `/`. In the handler, wrap a given resource with `AtmosphereServerWebSocket` if transport is WebSocket and request method is GET or with `AtmosphereServerHttpExchange` if transport is not WebSocket.
-
-```java
-AtmosphereFramework framework = servlet.framework();
-framework.addAtmosphereHandler("/", new AtmosphereHandlerAdapter() {
-    @Override
-    public void onRequest(AtmosphereResource resource) throws IOException {
-        if (resource.transport() == TRANSPORT.WEBSOCKET) {
-            if (resource.getRequest().getMethod().equals("GET")) {
-                // ServerWebSocket
-                new AtmosphereServerWebSocket(resource);
-            }
-        } else {
-            // ServerHttpExchange
-            new AtmosphereServerHttpExchange(resource);
-        }
-    }
-});
-```
-
-There are so many ways to bootstrap Atmosphere, however, if you don't know Atmosphere well, just follow the above way.
+However, there are many ways to bootstrap Atmosphere, for example you can use web.xml instead of Servlet 3.0 features, if you don't know Atmosphere well, just follow the above way.
