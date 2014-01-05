@@ -15,6 +15,34 @@ io.github.flowersinthesand~wes-vertx2~${wes.version}
 
 ## Run
 
+### Simplest
+
+The simplest way is to use `VertxBridge`.
+
+```java
+public class Bootstrap extends Verticle {
+
+    @Override
+    public void start() {
+        // Assume Portal is wes application
+        Portal portal;
+        
+        HttpServer httpServer = vertx.createHttpServer();
+        // Register your request and websocket handler first
+        
+        // Bridge wes application and Vert.x
+        new VertxBridge(httpServer, "/portal")
+        .httpAction(portal.httpAction()).websocketAction(portal.websocketAction());
+        
+        // Starts the server
+        httpServer.listen(8080);
+    }
+    
+}
+```
+
+### Without helper
+
 You need to write request handler and websocket handler as event source and attach them to `HttpServer`.
 
 ```java
@@ -44,6 +72,8 @@ public class Bootstrap extends Verticle {
                 }
             }
         });
+        
+        // Starts the server
         httpServer.listen(8080);
     }
 }

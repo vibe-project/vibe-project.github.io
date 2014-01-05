@@ -6,7 +6,9 @@ title: Play 2
 # Play 2
 This bridge integrates wes application with the [Play framework](http://www.playframework.org/) 2 which is a high productivity Java and Scala web application framework.
 
-Because I'm not familiar with Scala, I used Play's Java API. Be aware of package name when importing class and note there are some quirks in [PlayServerHttpExchange]({{ site.baseurl }}/documentation/0.1.0-SNAPSHOT/apidocs/io/github/flowersinthesand/wes/play/PlayServerHttpExchange.html). If you have an idea to solve the quirks even in introducing scala, please open a pull request.
+Because I'm not familiar with Scala, I used Play's Java API. Be aware of package name when importing class and note there are some quirks in [PlayServerHttpExchange]({{ site.baseurl }}/documentation/0.1.0-SNAPSHOT/apidocs/io/github/flowersinthesand/wes/play/PlayServerHttpExchange.html).
+
+**If you have an idea to solve the quirks or improve usability even in introducing scala, please open a pull request.**
 
 ## Install
 Add the following dependency to your `build.sbt`:
@@ -16,6 +18,12 @@ Add the following dependency to your `build.sbt`:
 ```
 
 ## Run
+
+### Simplest
+
+There are things you have to specify in advance and quirks in controller. That's why helper is not provided.
+
+### Without helper
 
 You need to write entry point for HTTP request and WebSocket in `Controller`.
 
@@ -72,7 +80,7 @@ GET     /portal                  controllers.Bootstrap.http()
 GET     /portal/ws               controllers.Bootstrap.ws()
 ```
 
-### Sharing URI
+#### Sharing URI
 If you want to share URI for HTTP and WebSocket entries, remove routes from `routes`, write `Global.scala` and override `onRouteRequest`. It's not easy to do that in Java, if any.
 
 Note that this is an internal API and not documented. Actually, these API have broken in minor release and even in patch release. I've confirmed the following code works in `2.2.0`.

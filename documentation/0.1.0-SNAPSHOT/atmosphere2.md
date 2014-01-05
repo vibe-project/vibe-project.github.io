@@ -23,7 +23,7 @@ With Atmosphere, you can write a traditional Java web application, a war project
 
 ### Simplest
 
-This is the simplest solution, `AtmosphereBridge`, to run wes application with Atmosphere in Servlet environment.
+This is the simplest solution, `AtmosphereBridge`.
 
 ```java
 @WebListener

@@ -9,7 +9,7 @@ title: Introduction
 
 ### To run wes application
 
-Running wes application is to create `HttpExchange` and `WebSocket` from bridge integrating wes application with framework and dispatch them to wes application. Of course, how to install bridge and run final application vary for what your framework is.
+Running wes application is for bridge integrating wes application with framework to create `HttpExchange` and `WebSocket` and dispatch them to wes application. Of course, how to install bridge and run final application vary for what your framework is.
 
 See each bridge's document.
 
