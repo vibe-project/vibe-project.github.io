@@ -55,7 +55,7 @@ http.onload = function() {
 ServerHttpExchange http; // given by bridge
 http.bodyAction(new Action<Data>() {
     public void on(Data data) {
-        http.setStatus(StatusCode.OK)
+        http.setStatus(HttpStatus.OK)
         .setResponseHeader("content-type", "text/html")
         .write(data.as(String.class))
         .close();
