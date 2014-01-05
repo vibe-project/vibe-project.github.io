@@ -15,25 +15,32 @@ io.github.flowersinthesand~wes-vertx2~${wes.version}
 
 ## Run
 
+You need to write request handler and websocket handler as event source and attach them to `HttpServer`.
+
 ```java
 public class Bootstrap extends Verticle {
 
     @Override
     public void start() {
+        // Assume Portal is wes application
+        Portal portal;
+        
         HttpServer httpServer = vertx.createHttpServer();
         httpServer.requestHandler(new Handler<HttpServerRequest>() {
             @Override
             public void handle(HttpServerRequest req) {
+                // Check path
                 if (req.path().startsWith("/portal")) {
-                    new VertxServerHttpExchange(req);
+                     portal.httpAction().on(new VertxServerHttpExchange(req));
                 }
             }
         });
         httpServer.websocketHandler(new Handler<org.vertx.java.core.http.ServerWebSocket>() {
             @Override
             public void handle(org.vertx.java.core.http.ServerWebSocket socket) {
+                // Check path
                 if (socket.path().startsWith("/portal")) {
-                    new VertxServerWebSocket(socket);
+                     portal.websocketAction().on(new VertxServerWebSocket(socket));
                 }
             }
         });
@@ -41,13 +48,3 @@ public class Bootstrap extends Verticle {
     }
 }
 ```
-
-1. Prepare `HttpServer`
-    1. Define `Verticle`.
-1. Add `requestHandler`.
-    1. Create `VertxServerHttpExchange` checking the path.
-    1. Dispatch it to wes application.
-1. Add `websocketHandler`.
-    1. Create `VertxServerWebSocket` checking the path.
-    1. Dispatch it to wes application.
-1. Starts the server.
