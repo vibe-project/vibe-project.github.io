@@ -14,7 +14,7 @@ Because I'm not familiar with Scala, I used Play's Java API. Be aware of package
 Add the following dependency to your `build.sbt`:
 
 ```scala
-"io.github.flowersinthesand" % "wes-play2" % "${wes.version}"
+"io.github.flowersinthesand" % "wes-play2" % "0.1.0"
 ```
 
 ## Run
