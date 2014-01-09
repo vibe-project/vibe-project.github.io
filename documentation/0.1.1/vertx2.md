@@ -10,7 +10,7 @@ This bridge integrates wes application with the [Vert.x 2](http://vertx.io/) whi
 Install via `vertx` console or include the following module in a basic manner.
 
 ```
-io.github.flowersinthesand~wes-vertx2~0.1.0
+io.github.flowersinthesand~wes-vertx2~0.1.1
 ```
 
 ## Run

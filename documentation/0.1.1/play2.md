@@ -6,7 +6,7 @@ title: Play 2
 # Play 2
 This bridge integrates wes application with the [Play framework](http://www.playframework.org/) 2 which is a high productivity Java and Scala web application framework.
 
-Because I'm not familiar with Scala, I used Play's Java API. Be aware of package name when importing class and note there are some quirks in [PlayServerHttpExchange]({{ site.baseurl }}/documentation/0.1.0/apidocs/io/github/flowersinthesand/wes/play/PlayServerHttpExchange.html).
+Because I'm not familiar with Scala, I used Play's Java API. Be aware of package name when importing class and note there are some quirks in [PlayServerHttpExchange]({{ site.baseurl }}/documentation/0.1.1/apidocs/io/github/flowersinthesand/wes/play/PlayServerHttpExchange.html).
 
 **If you have an idea to solve the quirks or improve usability even in introducing scala, please open a pull request.**
 
@@ -14,7 +14,7 @@ Because I'm not familiar with Scala, I used Play's Java API. Be aware of package
 Add the following dependency to your `build.sbt`:
 
 ```scala
-"io.github.flowersinthesand" % "wes-play2" % "0.1.0"
+"io.github.flowersinthesand" % "wes-play2" % "0.1.1"
 ```
 
 ## Run

@@ -14,16 +14,16 @@ Running wes application is for bridge integrating wes application with framework
 See each bridge's document.
 
 <ul class="inline-list">
-<li><a href="{{ site.baseurl }}/documentation/0.1.0/atmosphere2/">Atmosphere 2</a></li>
-<li><a href="{{ site.baseurl }}/documentation/0.1.0/vertx2/">Vert.x 2</a></li>
-<li><a href="{{ site.baseurl }}/documentation/0.1.0/play2/">Play 2</a></li>
+<li><a href="{{ site.baseurl }}/documentation/0.1.1/atmosphere2/">Atmosphere 2</a></li>
+<li><a href="{{ site.baseurl }}/documentation/0.1.1/vertx2/">Vert.x 2</a></li>
+<li><a href="{{ site.baseurl }}/documentation/0.1.1/play2/">Play 2</a></li>
 </ul>
 
 <hr />
 
 ### To write wes application
 
-Writing wes application is to handle `HttpExchange` and `WebSocket` given by bridge, to call method and to register action. The followings are brief review of them. For the details, see [JavaDoc]({{ site.baseurl }}/documentation/0.1.0/apidocs/).
+Writing wes application is to handle `HttpExchange` and `WebSocket` given by bridge, to call method and to register action. The followings are brief review of them. For the details, see [JavaDoc]({{ site.baseurl }}/documentation/0.1.1/apidocs/).
 
 ##### `ServerHttpExchange`
 
