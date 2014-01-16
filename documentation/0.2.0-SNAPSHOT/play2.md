@@ -10,22 +10,19 @@ Because I'm not familiar with Scala, I used Play's Java API. Be aware of package
 
 **If you have an idea to solve the quirks or improve usability even in introducing scala, please open a pull request.**
 
-## Install
-Add the following dependency to your `build.sbt`:
+---
+
+Add the following dependency to your `build.sbt` or include it on your classpath manually.
 
 ```scala
 "io.github.flowersinthesand" % "wes-play2" % "0.2.0-SNAPSHOT"
 ```
 
-## Run
+---
 
-### Simplest
+## Bootstrap
 
-There are things you have to specify in advance and quirks in controller. That's why helper is not provided.
-
-### Without helper
-
-You need to write entry point for HTTP request and WebSocket in `Controller`.
+Write entry point for HTTP request and WebSocket in `Controller`.
 
 ```java
 // Don't confuse Play's Java API and Scala API
@@ -40,8 +37,8 @@ import play.mvc.WebSocket;
 
 public class Bootstrap extends Controller {
 
-    // Assume Portal is wes application
-    static Portal portal;
+    // Assume Server is wes application
+    static io.github.flowersinthesand.portal.Server server = new DefaultServer();
 
     // Specify body type to text
     @BodyParser.Of(BodyParser.TolerantText.class)
@@ -53,7 +50,7 @@ public class Bootstrap extends Controller {
         return ok(new Chunks<String>(JavaResults.writeString(Codec.utf_8())) {
             @Override
             public void onReady(Chunks.Out<String> out) {
-                portal.httpAction().on(new PlayServerHttpExchange(request, response, out));
+                server.httpAction().on(new PlayServerHttpExchange(request, response, out));
             }
         });
     }
@@ -65,7 +62,7 @@ public class Bootstrap extends Controller {
         return new WebSocket<String>() {
             @Override
             public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
-                portal.websocketAction().on(new PlayServerWebSocket(request, in, out));
+                server.websocketAction().on(new PlayServerWebSocket(request, in, out));
             }
         };
     }
@@ -80,7 +77,8 @@ GET     /portal                  controllers.Bootstrap.http()
 GET     /portal/ws               controllers.Bootstrap.ws()
 ```
 
-#### Sharing URI
+### Sharing URI
+
 If you want to share URI for HTTP and WebSocket entries, remove routes from `routes`, write `Global.scala` and override `onRouteRequest`. It's not easy to do that in Java, if any.
 
 Note that this is an internal API and not documented. Actually, these API have broken in minor release and even in patch release. I've confirmed the following code works in `2.2.0`.

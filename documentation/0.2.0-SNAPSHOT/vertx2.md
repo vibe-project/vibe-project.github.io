@@ -6,75 +6,38 @@ title: Vert.x 2
 # Vert.x 2
 This bridge integrates wes application with the [Vert.x 2](http://vertx.io/) which is an event driven application framework.
 
-## Install
-Install via `vertx` console or include the following module in a basic manner.
+---
+
+This bridge is also a Vert.x module. Install via `vertx` console or include it on your classpath manually.
 
 ```
 io.github.flowersinthesand~wes-vertx2~0.2.0-SNAPSHOT
 ```
 
-## Run
+---
 
-### Simplest
+## Bootstrap
 
-The simplest way is to use `VertxBridge`.
+To run wes application in Servlet environment with Atmosphere, you need to prepare `HttpServer` not listening and pass it to `VertxBridge`. Before doing that, you have to attach your request handler or WebSocket handler first.
 
 ```java
 public class Bootstrap extends Verticle {
 
     @Override
     public void start() {
-        // Assume Portal is wes application
-        Portal portal;
+        // Assume Server is wes application
+        io.github.flowersinthesand.portal.Server server = new DefaultServer();
         
+        // Create HttpServer and register your handler first
         HttpServer httpServer = vertx.createHttpServer();
-        // Register your request and websocket handler first
         
         // Bridge wes application and Vert.x
         new VertxBridge(httpServer, "/portal")
-        .httpAction(portal.httpAction()).websocketAction(portal.websocketAction());
+        .httpAction(server.httpAction()).websocketAction(server.websocketAction());
         
         // Starts the server
         httpServer.listen(8080);
     }
     
-}
-```
-
-### Without helper
-
-You need to write request handler and websocket handler as event source and attach them to `HttpServer`.
-
-```java
-public class Bootstrap extends Verticle {
-
-    @Override
-    public void start() {
-        // Assume Portal is wes application
-        Portal portal;
-        
-        HttpServer httpServer = vertx.createHttpServer();
-        httpServer.requestHandler(new Handler<HttpServerRequest>() {
-            @Override
-            public void handle(HttpServerRequest req) {
-                // Check path
-                if (req.path().startsWith("/portal")) {
-                     portal.httpAction().on(new VertxServerHttpExchange(req));
-                }
-            }
-        });
-        httpServer.websocketHandler(new Handler<org.vertx.java.core.http.ServerWebSocket>() {
-            @Override
-            public void handle(org.vertx.java.core.http.ServerWebSocket socket) {
-                // Check path
-                if (socket.path().startsWith("/portal")) {
-                     portal.websocketAction().on(new VertxServerWebSocket(socket));
-                }
-            }
-        });
-        
-        // Starts the server
-        httpServer.listen(8080);
-    }
 }
 ```
