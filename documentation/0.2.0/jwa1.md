@@ -1,5 +1,5 @@
 ---
-layout: documentation
+layout: home
 title: Java WebSocket API 1
 ---
 

@@ -1,14 +1,15 @@
 ---
-layout: documentation
+layout: home
 title: Introduction
 ---
+
+# Getting Started <small>v0.2.0</small>
 
 <p>The <strong>wes</strong> (Web Event Source) is an event-driven abstraction layer for various web application platforms that runs on the Java Virtual Machine.</p>
 
 ---
-
-## Getting Started
-### Installing
+ 
+## Installing
 
 To install wes application is to bridge wes application and platform, that is to say, to produce `HttpExchange` and `WebSocket` from platform and pass them to wes application. wes is distributed via [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cwes) as jar and you need to bring required jars to your classpath by Maven, Grails or a framework-specific way. But of course how to run wes application varies for what your framework or platform is. 
 
