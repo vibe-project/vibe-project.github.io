@@ -4,9 +4,11 @@ title: Servlet 3
 ---
 
 # Servlet 3
-This bridge integrates wes application with the [Java Servlet 3.1](http://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm#BNAFD) from Java EE 7. Please open an issue if you want Servlet 3.0 support.
+This bridge integrates wes application with the [Java Servlet 3.1](http://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm#BNAFD) from Java EE 7. There is no WebSocket part in Servlet API and WebSocket API exists as a separate specification. To use WebSocket, see [Java WebSocket API bridge]({{ site.baseurl }}/documentation/0.2.0/jwa1/).
 
-There is no WebSocket part in Servlet API and WebSocket API exists as a separate specification. To use both Servlet and WebSocket, see [Java WebSocket API bridge]({{ site.baseurl }}/documentation/0.2.0/jwa1/).
+Please open an issue if you want Servlet 3.0 support.
+
+See [working example](https://github.com/flowersinthesand/portal-java-examples/tree/master/server/platform/jee7).
 
 ---
 
@@ -27,23 +29,43 @@ Servlet is a traditional Java web application, a war project in Maven. Add the f
 To run wes application in Servlet environment, you need to prepare initialized `ServletContext` and pass it to `ServletBridge`.
 
 ```java
+package io.github.flowersinthesand.portal.testsuite;
+
+import io.github.flowersinthesand.portal.DefaultServer;
+import io.github.flowersinthesand.portal.Server;
+import io.github.flowersinthesand.portal.Socket;
+import io.github.flowersinthesand.wes.Action;
+import io.github.flowersinthesand.wes.servlet.ServletBridge;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
+
 @WebListener
 public class Bootstrap implements ServletContextListener {
 
-    @Override
-    public void contextInitialized(ServletContextEvent event) {
-        // Assume Server is wes application
-        io.github.flowersinthesand.portal.Server server = new DefaultServer();
-        
-        // Prepare ServletContext
-        ServletContext servletContext = event.getServletContext();
-        
-        // Bridge wes application and Servlet
-        new ServletBridge(servletContext, "/portal").httpAction(server.httpAction());
-    }
-    
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {}
+	@Override
+	public void contextInitialized(ServletContextEvent event) {
+		// Server is wes application
+		Server server = new DefaultServer();
+		// This is about Portal
+		server.socketAction(new Action<Socket>() {
+			@Override
+			public void on(final Socket socket) {
+				// Your logic here
+			}
+		});
+		
+		// Deliver HttpExchange produced by Servlet to the server
+		new ServletBridge(event.getServletContext(), "/test").httpAction(server.httpAction());
+	}
 
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {}
+	
 }
 ```
+
+### In conjunction with Java WebSocket API 1.
+
+Without the help of dependency injection, you have to declare wes application as static. See [Bootstrap.java](https://github.com/flowersinthesand/portal-java-examples/blob/master/server/platform/jee7/src/main/java/io/github/flowersinthesand/portal/testsuite/Bootstrap.java) from working example.

@@ -6,6 +6,8 @@ title: Java WebSocket API 1
 # Java WebSocket API 1
 This bridge integrates wes application with the [Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) from Java EE 7.
 
+See [working example](https://github.com/flowersinthesand/portal-java-examples/tree/master/server/platform/jee7).
+
 ---
 
 Java WebSocket API (JWA) is a traditional Java web application, a war project in Maven. Add the following dependency to your pom.xml or include it on your classpath manually.
@@ -27,60 +29,48 @@ To run wes application using JWA, you need to write `ServerApplicationConfig` to
 In case of embedded server, it may not scan instances of `ServerApplicationConfig` and you may have to follow their server-specific alternatives. 
 
 ```java
+package io.github.flowersinthesand.portal.testsuite;
+
+import io.github.flowersinthesand.portal.DefaultServer;
+import io.github.flowersinthesand.portal.Server;
+import io.github.flowersinthesand.portal.Socket;
+import io.github.flowersinthesand.wes.Action;
+import io.github.flowersinthesand.wes.VoidAction;
+import io.github.flowersinthesand.wes.jwa.JwaBridge;
+
+import java.util.Collections;
+import java.util.Set;
+
+import javax.websocket.Endpoint;
+import javax.websocket.server.ServerApplicationConfig;
+import javax.websocket.server.ServerEndpointConfig;
+
 public class Bootstrap implements ServerApplicationConfig {
 
-    // Assume Server is wes application
-    io.github.flowersinthesand.portal.Server server = new DefaultServer();
+	@Override
+	public Set<ServerEndpointConfig> getEndpointConfigs( Set<Class<? extends Endpoint>> classes) {
+		// Server is wes application
+		Server server = new DefaultServer();
+		// This is about Portal
+		server.socketAction(new Action<Socket>() {
+			@Override
+			public void on(final Socket socket) {
+				// Your logic here
+			}
+		});
+		
+		// Deliver WebSocket produced by JWA to the portal server
+		return Collections.singleton(new JwaBridge("/test").websocketAction(server.websocketAction()).config());
+	}
 
-    @Override
-    public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> classes) {
-        // Bridge wes application and JWA
-        return Collections.singleton(new JwaBridge("/portal").websocketAction(server.websocketAction()).config());
-    }
-
-    @Override
-    public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scanned) {
-        return Collections.emptySet();
-    }
+	@Override
+	public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scanned) {
+		return Collections.emptySet();
+	}
 
 }
 ```
 
 ### In conjunction with Servlet 3.
 
-Without the help of dependency injection, you have to declare wes application as static.
-
-```java
-// Note that this class will be instantiated twice by container 
-// as a ServletContextListener and a ServerApplicationConfig
-@WebListener
-public class Bootstrap implements ServletContextListener, ServerApplicationConfig {
-
-    // Assume Server is wes application
-    static io.github.flowersinthesand.portal.Server server = new DefaultServer();
-    
-    @Override
-    public void contextInitialized(ServletContextEvent event) {
-        // Prepare ServletContext
-        ServletContext servletContext = event.getServletContext();
-        
-        // Bridge wes application and Servlet 3
-        new ServletBridge(servletContext, "/portal").httpAction(server.httpAction());
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {}
-    
-    @Override
-    public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> classes) {
-        // Bridge wes application and JWA 1
-        return Collections.singleton(new JwaBridge("/portal").websocketAction(server.websocketAction()).config());
-    }
-
-    @Override
-    public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scanned) {
-        return Collections.emptySet();
-    }
-    
-}
-```
+Without the help of dependency injection, you have to declare wes application as static. See [Bootstrap.java](https://github.com/flowersinthesand/portal-java-examples/blob/master/server/platform/jee7/src/main/java/io/github/flowersinthesand/portal/testsuite/Bootstrap.java) from working example.
