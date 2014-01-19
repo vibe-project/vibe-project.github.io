@@ -13,7 +13,6 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .side-nav li.active a:first-child {font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: bold; color: #008cba;}
 .side-nav li label {cursor: default;}
 .side-nav li a.button {color: #fff;}
-.text {padding-top: 25px;}
 .highlight {margin-bottom: 1.25rem; line-height: 1.35rem;}
 
 .news-all .pricing-table li {text-align: inherit;}
