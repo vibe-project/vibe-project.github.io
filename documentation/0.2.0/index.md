@@ -87,7 +87,7 @@ for (String name : http.requestHeaderNames()) {
 </div>
 
 #### Reading body
-`bodyAction` attaches a body event handler to be called with [Data](http://localhost:4000/documentation/0.2.0/apidocs/io/github/flowersinthesand/wes/Data.html) wrapping the request body. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
+`bodyAction` attaches a body event handler to be called with [Data]({{ site.baseurl }}/documentation/0.2.0/apidocs/io/github/flowersinthesand/wes/Data.html) wrapping the request body. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
 
 ```java
 http.bodyAction(new Action<Data>() {
@@ -162,7 +162,7 @@ URI.create(ws.uri()).getQuery();
 ```
 
 #### Receiving message
-Message event handlers attached via `messageAction` are called with [Data](http://localhost:4000/documentation/0.2.0/apidocs/io/github/flowersinthesand/wes/Data.html) wrapping the WebSocket message. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
+Message event handlers attached via `messageAction` are called with [Data]({{ site.baseurl }}/documentation/0.2.0/apidocs/io/github/flowersinthesand/wes/Data.html) wrapping the WebSocket message. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
 
 ```java
 ws.messageAction(new Action<Data>() {
