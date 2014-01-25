@@ -6,6 +6,13 @@ title: Servlet 3
 # Servlet 3
 This bridge integrates wes application with the [Java Servlet 3.1](http://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm#BNAFD) from Java EE 7. There is no WebSocket part in Servlet API and it exists as a separate specification. To use WebSocket, see [Java WebSocket API bridge]({{ site.baseurl }}/documentation/0.2.0/jwa1/). Because Servlet is a just specification, server implementing Servlet 3 should work with this module but in the real world some servers are not. To help this situation, a subproject, [wes-servlet3-test](https://github.com/flowersinthesand/wes-servlet3-test), is created which tests if a given server is suitable for this module.
 
+As a result of testing the following servers are confirmed to work. But non-listed servers are likely to work as well.
+
+<ul class="inline-list">
+	<li>Jetty 9</li>
+	<li>Tomcat 8</li>
+</ul>
+
 Please open an issue if you want Servlet 3.0 support.
 
 See [working example](https://github.com/flowersinthesand/portal-java-examples/tree/master/server/platform/jee7).
