@@ -4,13 +4,13 @@ title: Java WebSocket API 1
 ---
 
 # Java WebSocket API 1
-This bridge integrates wes application with the [Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) from Java EE 7.
+This bridge integrates wes application with the [Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7. Because JWA is a just specification, server implementing JWA 1 should work with this module but in the real world some servers are not. To help this situation, a subproject, [wes-jwa1-test](https://github.com/flowersinthesand/wes-jwa1-test), is created which tests if a given server is suitable for this module.
 
 See [working example](https://github.com/flowersinthesand/portal-java-examples/tree/master/server/platform/jee7).
 
 ---
 
-Java WebSocket API (JWA) is a traditional Java web application, a war project in Maven. Add the following dependency to your pom.xml or include it on your classpath manually.
+Server-side JWA is a traditional Java web application, a war project in Maven. Add the following dependency to your pom.xml or include it on your classpath manually.
 
 ```xml
 <dependency>
