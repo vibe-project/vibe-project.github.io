@@ -10,6 +10,7 @@ As a result of testing the following servers are confirmed to work. But non-list
 
 <ul class="inline-list">
 	<li>Jetty 9</li>
+	<li>Tomcat 7</li>
 	<li>Tomcat 8</li>
 </ul>
 
