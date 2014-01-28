@@ -12,6 +12,7 @@ As a result of testing the following servers are confirmed to work. But non-list
 	<li>Jetty 9</li>
 	<li>Tomcat 7</li>
 	<li>Tomcat 8</li>
+	<li>Glassfish 3</li>
 </ul>
 
 See [working example](https://github.com/flowersinthesand/portal-java-examples/tree/master/server/platform/jee7).
