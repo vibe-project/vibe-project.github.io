@@ -1,7 +1,7 @@
-baseurl: /wes
-name: wes
-description: The wes (Web Event Source) is an event-driven abstraction layer for various web application platforms that runs on the Java Virtual Machine
-url: http://flowersinthesand.github.io/wes/
+baseurl: /react.io
+name: react.io
+description: The react.io is an event-driven abstraction layer for various web application platforms that runs on the Java Virtual Machine
+url: http://atmosphere.github.io/react.io/
 markdown: redcarpet
 redcarpet:
   extensions:
