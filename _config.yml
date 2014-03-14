@@ -1,7 +1,7 @@
-baseurl: /react.io
-name: react.io
-description: The react.io is an event-driven abstraction layer for various web application platforms that runs on the Java Virtual Machine
-url: http://atmosphere.github.io/react.io/
+baseurl: /react
+name: react
+description: The react is an event-driven abstraction layer for various web application platforms that runs on the Java Virtual Machine
+url: http://atmosphere.github.io/react/
 markdown: redcarpet
 redcarpet:
   extensions:
