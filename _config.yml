@@ -1,7 +1,9 @@
 baseurl: /react
 name: react
-description: The react is an event-driven abstraction layer for various web application platforms that runs on the Java Virtual Machine
+description: The react is a real-time web application framework.
 url: http://atmosphere.github.io/react/
+relative_permalinks: false
+permalink: /news/:year/:month/:day/:title/
 markdown: redcarpet
 redcarpet:
   extensions:
@@ -12,5 +14,3 @@ redcarpet:
     - fenced_code_blocks
     - tables
     - with_toc_data
-relative_permalinks: false
-permalink: pretty
