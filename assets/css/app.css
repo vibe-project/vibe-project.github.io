@@ -17,7 +17,7 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .news-all .pricing-table li {text-align: inherit;}
 .news-all .pricing-table li:last-child {border: none}
 
-.footer {margin-top: 20px; padding: 10px 0; color: #777;}
+.footer {padding: 10px 0; color: #777;}
 .footer p, .footer li {font-size: 0.9rem;}
 .footer p:not(:last-of-type) {margin: 0;}
 .footer ul {margin-left: 0; margin-bottom: 0.9rem;}
