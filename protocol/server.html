@@ -53,19 +53,7 @@ easy-to-read JavaScript running on Node.js.</p>
 <li>For production use, see the <a href="http://atmosphere.github.io/react/java-server/">React Java Server</a>.</li>
 <li>JavaScript runs in a single thread, so mind thread-safety.</li>
 </ul>
-<p>The react server is installed by passing request and upgrade events 
-dispatched by Node’s HTTP/HTTPS server to the server.</p>
-<pre><code><span class="hljs-keyword">var</span> server = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./server"</span>).server(),
-    httpServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>).createServer();
 
-server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(socket)</span> {</span>
-  socket.send(<span class="hljs-string">"greetings"</span>, <span class="hljs-string">"Hi"</span>);
-});
-
-httpServer.listen(<span class="hljs-number">8080</span>)
-.on(<span class="hljs-string">"request"</span>, server.handleRequest)
-.on(<span class="hljs-string">"upgrade"</span>, server.handleUpgrade);
-</code></pre>
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> events  = <span class="hljs-built_in">require</span>(<span class="hljs-string">"events"</span>), 
@@ -82,6 +70,34 @@ httpServer.listen(<span class="hljs-number">8080</span>)
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
+              <h2 id="exports">Exports</h2>
+<h3 id="server">server</h3>
+<p>Returns a new react server. It is installed by passing request 
+and upgrade events dispatched by Node’s HTTP/HTTPS server to the server.</p>
+<pre><code><span class="hljs-keyword">var</span> server = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./server"</span>).server(),
+    httpServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>).createServer();
+
+server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(socket)</span> {</span>
+  socket.send(<span class="hljs-string">"greetings"</span>, <span class="hljs-string">"Hi"</span>);
+});
+
+httpServer.listen(<span class="hljs-number">8080</span>)
+.on(<span class="hljs-string">"request"</span>, server.handleRequest)
+.on(<span class="hljs-string">"upgrade"</span>, server.handleUpgrade);
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>exports.server = server;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
               <h2 id="server">Server</h2>
 <p>A react server.</p>
 <p><strong>Events</strong></p>
@@ -96,18 +112,18 @@ httpServer.listen(<span class="hljs-number">8080</span>)
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>exports.server = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">server</span><span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> sockets = {}, 
         server = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
             
         </li>
         
         
-        <li id="section-4">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <h3 id="handling-http-request">Handling HTTP request</h3>
 <p>An HTTP exchange is used for HTTP transports. 
@@ -121,11 +137,11 @@ If you are going to use only WebSocket, skip this part.</p>
         </li>
         
         
-        <li id="section-5">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <h3 id="get">GET</h3>
 <p><code>GET</code> method is used to establish and manage transports
@@ -138,11 +154,11 @@ as a channel for the server to push something to the client.</p>
         </li>
         
         
-        <li id="section-6">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>This HTTP persistent connection must not be cached.</p>
 
@@ -153,11 +169,11 @@ as a channel for the server to push something to the client.</p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>A client using transport based on XDomainRequest needs CORS
 headers even in same-origin connection.</p>
@@ -169,11 +185,11 @@ headers even in same-origin connection.</p>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Stores a map of all the parameters to the request for future use.</p>
 
@@ -184,11 +200,11 @@ headers even in same-origin connection.</p>
         </li>
         
         
-        <li id="section-9">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p><code>when</code> param indicates a goal of <code>GET</code> request.</p>
 
@@ -199,11 +215,11 @@ headers even in same-origin connection.</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <h4 id="open">open</h4>
 <p>Open a new socket establishing required transport and fires the
@@ -223,11 +239,11 @@ headers even in same-origin connection.</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>If the server doesn’t support the required transport,
 responds with <code>501 Not Implemented</code>.</p>
@@ -243,11 +259,11 @@ responds with <code>501 Not Implemented</code>.</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <h4 id="poll">poll</h4>
 <p>Inject a new exchange of request and response to the long polling
@@ -265,11 +281,11 @@ be a persistent connection.</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <p>If there is no socket using the required transport,
 responds with <code>500 Internal Server Error</code>.</p>
@@ -284,11 +300,11 @@ responds with <code>500 Internal Server Error</code>.</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <h4 id="abort">abort</h4>
 <p>This notification means the client considers the socket whose id
@@ -309,11 +325,11 @@ number of simultaneous connections.</p>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>In case of browser, the abort request is performed by script
 tag so set content-type header to <code>text/javascript</code> to avoid
@@ -328,11 +344,11 @@ warning.</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>If the given <code>when</code> param is unsupported, responds with <code>501 Not
 Implemented</code>.</p>
@@ -348,11 +364,11 @@ Implemented</code>.</p>
         </li>
         
         
-        <li id="section-17">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <h3 id="post">POST</h3>
 <p><code>POST</code> method is used to supply HTTP transports with message
@@ -365,11 +381,11 @@ as a channel for the client to push something to the server.</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>Old browsers like Internet Explorer 7 caches <code>POST</code> request.</p>
 
@@ -380,11 +396,11 @@ as a channel for the client to push something to the server.</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>A client using transport based on XDomainRequest needs CORS
 headers even in same-origin connection.</p>
@@ -396,11 +412,11 @@ headers even in same-origin connection.</p>
         </li>
         
         
-        <li id="section-20">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>Reads body to retrieve message. Only text payload is allowed now.</p>
 
@@ -415,11 +431,11 @@ headers even in same-origin connection.</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>Make JSON string by stripping off leading <code>data=</code> 
 and find a socket id.</p>
@@ -432,11 +448,11 @@ and find a socket id.</p>
         </li>
         
         
-        <li id="section-22">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>Fires a message event to the socket’s transport 
 whose id is <code>id</code> with the JSON string.</p>
@@ -449,11 +465,11 @@ whose id is <code>id</code> with the JSON string.</p>
         </li>
         
         
-        <li id="section-23">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>If the specified socket is not found, 
 responds with <code>500 Internal Server Error</code>.</p>
@@ -470,11 +486,11 @@ responds with <code>500 Internal Server Error</code>.</p>
         </li>
         
         
-        <li id="section-24">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>If the method is neither <code>GET</code> nor <code>POST</code>, responds with <code>405 Method
 Not Allowed</code>.</p>
@@ -504,11 +520,11 @@ Not Allowed</code>.</p>
         </li>
         
         
-        <li id="section-25">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <h3 id="handling-http-upgrade">Handling HTTP upgrade</h3>
 <p>An HTTP upgrade is used to upgrade an HTTP request to the WebSocket
@@ -526,11 +542,11 @@ protocol and open a new socket establishing the WebSocket transport.</p>
         </li>
         
         
-        <li id="section-26">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <h3 id="initializing-a-socket">Initializing a socket</h3>
 
@@ -541,11 +557,11 @@ protocol and open a new socket establishing the WebSocket transport.</p>
         </li>
         
         
-        <li id="section-27">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p>Registers a new socket to the repository, <code>sockets</code>, and deletes it
 when it’s been closed to make the repository have only opened sockets. </p>
@@ -564,11 +580,11 @@ when it’s been closed to make the repository have only opened sockets. </p>
         </li>
         
         
-        <li id="section-28">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <h2 id="transport">Transport</h2>
 <p>A transport hides internal techniques and policies for Comet 
@@ -591,11 +607,11 @@ or WebSocket and provides a simple view of frame-based connection.</p>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <h3 id="websocket">WebSocket</h3>
 <p>Covers <code>ws</code>.</p>
@@ -607,11 +623,11 @@ or WebSocket and provides a simple view of frame-based connection.</p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Simply delegates WebSocket’s events to transport and transport’s behaviors to WebSocket.</p>
 
@@ -636,11 +652,11 @@ or WebSocket and provides a simple view of frame-based connection.</p>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <h3 id="http-streaming">HTTP Streaming</h3>
 <p>Covers <code>sse</code>, <code>streamxhr</code>, <code>streamxdr</code>, <code>streamiframe</code>.</p>
@@ -655,11 +671,11 @@ or WebSocket and provides a simple view of frame-based connection.</p>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <h4 id="handling-http-exchange">Handling HTTP exchange</h4>
 <p>The content-type headers should be <code>text/event-stream</code> for <code>sse</code> and
@@ -674,11 +690,11 @@ parsing the response as HTML. Also the response should be encoded in
         </li>
         
         
-        <li id="section-33">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>The padding is required, which makes the client-side transport be aware
 of change of the response and the client-side socket fire open event.
@@ -694,11 +710,11 @@ lower than 3.</p>
         </li>
         
         
-        <li id="section-34">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>When either client or server closes the transport, fires a close event.</p>
 
@@ -713,11 +729,11 @@ lower than 3.</p>
         </li>
         
         
-        <li id="section-35">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <h4 id="send">send</h4>
 
@@ -728,11 +744,11 @@ lower than 3.</p>
         </li>
         
         
-        <li id="section-36">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>The response text should be formatted in the event stream format.
 This is a requirement of <code>sse</code> but the rest also accept that format
@@ -745,11 +761,11 @@ for convenience.</p>
         </li>
         
         
-        <li id="section-37">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>Android browser lower than 3 needs 4KB padding at the top of each
 event.</p>
@@ -761,11 +777,11 @@ event.</p>
         </li>
         
         
-        <li id="section-38">
+        <li id="section-39">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <p>Breaks data up by <code>\r</code>, <code>\n</code>, or <code>\r\n</code>, and append <code>data:</code> to the
 beginning of each line.</p>
@@ -780,11 +796,11 @@ beginning of each line.</p>
         </li>
         
         
-        <li id="section-39">
+        <li id="section-40">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-40">&#182;</a>
               </div>
               <p>Prints <code>\n</code> to mark the end of a single data.</p>
 
@@ -795,11 +811,11 @@ beginning of each line.</p>
         </li>
         
         
-        <li id="section-40">
+        <li id="section-41">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-40">&#182;</a>
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <p>Just to be sure, don’t be confused with the chunked transfer encoding.
 It’s the web server’s business.</p>
@@ -812,11 +828,11 @@ It’s the web server’s business.</p>
         </li>
         
         
-        <li id="section-41">
+        <li id="section-42">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-41">&#182;</a>
+                <a class="pilcrow" href="#section-42">&#182;</a>
               </div>
               <h4 id="close">close</h4>
 
@@ -827,11 +843,11 @@ It’s the web server’s business.</p>
         </li>
         
         
-        <li id="section-42">
+        <li id="section-43">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-42">&#182;</a>
+                <a class="pilcrow" href="#section-43">&#182;</a>
               </div>
               <p>By ending the response.</p>
 
@@ -845,11 +861,11 @@ It’s the web server’s business.</p>
         </li>
         
         
-        <li id="section-43">
+        <li id="section-44">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-43">&#182;</a>
+                <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
               <h3 id="http-long-polling">HTTP Long polling</h3>
 <p>Covers <code>longpollajax</code>, <code>longpollxdr</code>, <code>longpolljsonp</code>.</p>
@@ -861,11 +877,11 @@ It’s the web server’s business.</p>
         </li>
         
         
-        <li id="section-44">
+        <li id="section-45">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-44">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
               <p>Current response.</p>
 
@@ -876,11 +892,11 @@ It’s the web server’s business.</p>
         </li>
         
         
-        <li id="section-45">
+        <li id="section-46">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-45">&#182;</a>
+                <a class="pilcrow" href="#section-46">&#182;</a>
               </div>
               <p>Whether the current response has ended or not.</p>
 
@@ -891,11 +907,11 @@ It’s the web server’s business.</p>
         </li>
         
         
-        <li id="section-46">
+        <li id="section-47">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-46">&#182;</a>
+                <a class="pilcrow" href="#section-47">&#182;</a>
               </div>
               <p>Whether data is written on the current response or not.
 if this is true, then <code>ended</code> is also true but not vice versa.</p>
@@ -907,11 +923,11 @@ if this is true, then <code>ended</code> is also true but not vice versa.</p>
         </li>
         
         
-        <li id="section-47">
+        <li id="section-48">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-47">&#182;</a>
+                <a class="pilcrow" href="#section-48">&#182;</a>
               </div>
               <p>A timer to prevent from being idle connection.</p>
 
@@ -922,11 +938,11 @@ if this is true, then <code>ended</code> is also true but not vice versa.</p>
         </li>
         
         
-        <li id="section-48">
+        <li id="section-49">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-48">&#182;</a>
+                <a class="pilcrow" href="#section-49">&#182;</a>
               </div>
               <p>The parameters of the first request. That of subsequent requests are not used.</p>
 
@@ -937,11 +953,11 @@ if this is true, then <code>ended</code> is also true but not vice versa.</p>
         </li>
         
         
-        <li id="section-49">
+        <li id="section-50">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-49">&#182;</a>
+                <a class="pilcrow" href="#section-50">&#182;</a>
               </div>
               <p>A queue containing data needed to be sent again.</p>
 
@@ -953,11 +969,11 @@ if this is true, then <code>ended</code> is also true but not vice versa.</p>
         </li>
         
         
-        <li id="section-50">
+        <li id="section-51">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-50">&#182;</a>
+                <a class="pilcrow" href="#section-51">&#182;</a>
               </div>
               <h4 id="refreshing-http-exchange">Refreshing HTTP exchange</h4>
 <p>In long polling, an exchange of request and response is disposable
@@ -970,11 +986,11 @@ so expose this method to supply with subsequent exchanges.</p>
         </li>
         
         
-        <li id="section-51">
+        <li id="section-52">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-51">&#182;</a>
+                <a class="pilcrow" href="#section-52">&#182;</a>
               </div>
               <p>The content-type header should be <code>text/javascript</code> for <code>longpolljsonp</code>
 and <code>text/plain</code> for the others.</p>
@@ -986,11 +1002,11 @@ and <code>text/plain</code> for the others.</p>
         </li>
         
         
-        <li id="section-52">
+        <li id="section-53">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-52">&#182;</a>
+                <a class="pilcrow" href="#section-53">&#182;</a>
               </div>
               <p>When either client or server closes the current exchange. </p>
 
@@ -1001,11 +1017,11 @@ and <code>text/plain</code> for the others.</p>
         </li>
         
         
-        <li id="section-53">
+        <li id="section-54">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-53">&#182;</a>
+                <a class="pilcrow" href="#section-54">&#182;</a>
               </div>
               <p>The current exchange’s life ends but this has nothing to do with
 <code>written</code>.</p>
@@ -1017,11 +1033,11 @@ and <code>text/plain</code> for the others.</p>
         </li>
         
         
-        <li id="section-54">
+        <li id="section-55">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-54">&#182;</a>
+                <a class="pilcrow" href="#section-55">&#182;</a>
               </div>
               <p>If the request is to <code>poll</code> and the server didn’t write anything,
 completion of this response is the end of the transport.</p>
@@ -1035,11 +1051,11 @@ completion of this response is the end of the transport.</p>
         </li>
         
         
-        <li id="section-55">
+        <li id="section-56">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-55">&#182;</a>
+                <a class="pilcrow" href="#section-56">&#182;</a>
               </div>
               <p>Sets a timer to fire close event between polls.
 Without the timer, if the client disconnects connection during
@@ -1057,11 +1073,11 @@ dispatching event, this connection will remain in limbo.</p>
         </li>
         
         
-        <li id="section-56">
+        <li id="section-57">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-56">&#182;</a>
+                <a class="pilcrow" href="#section-57">&#182;</a>
               </div>
               <h5 id="request-to-open">Request to open</h5>
 <p>If the request is to <code>open</code>, end it. 
@@ -1075,11 +1091,11 @@ The purpose of this is to tell the client that the server is alive.</p>
         </li>
         
         
-        <li id="section-57">
+        <li id="section-58">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-57">&#182;</a>
+                <a class="pilcrow" href="#section-58">&#182;</a>
               </div>
               <h5 id="request-to-poll">Request to poll</h5>
 <p>If the request is to <code>poll</code>, remove the client-received data from queue 
@@ -1092,11 +1108,11 @@ and flush the rest in queue if they exsits or wait the next data.</p>
         </li>
         
         
-        <li id="section-58">
+        <li id="section-59">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-58">&#182;</a>
+                <a class="pilcrow" href="#section-59">&#182;</a>
               </div>
               <p>Resets the response, flags, timers as new exchange is supplied.</p>
 
@@ -1109,11 +1125,11 @@ and flush the rest in queue if they exsits or wait the next data.</p>
         </li>
         
         
-        <li id="section-59">
+        <li id="section-60">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-59">&#182;</a>
+                <a class="pilcrow" href="#section-60">&#182;</a>
               </div>
               <p>Removes client-received events from the queue. <code>lastEventIds</code> param 
 is a comma-separated values of id of client-received events.</p>
@@ -1133,11 +1149,11 @@ is a comma-separated values of id of client-received events.</p>
         </li>
         
         
-        <li id="section-60">
+        <li id="section-61">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-60">&#182;</a>
+                <a class="pilcrow" href="#section-61">&#182;</a>
               </div>
               <p>If cached data remain in the queue, flushes them in the form of
 JSON array. This is not the same with <code>JSON.stringify(queue)</code> because
@@ -1154,11 +1170,11 @@ elements in queue are already JSON string.</p>
         </li>
         
         
-        <li id="section-61">
+        <li id="section-62">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-61">&#182;</a>
+                <a class="pilcrow" href="#section-62">&#182;</a>
               </div>
               <p>Refreshes with the first exchange.</p>
 
@@ -1169,11 +1185,11 @@ elements in queue are already JSON string.</p>
         </li>
         
         
-        <li id="section-62">
+        <li id="section-63">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-62">&#182;</a>
+                <a class="pilcrow" href="#section-63">&#182;</a>
               </div>
               <h4 id="send">send</h4>
 
@@ -1184,11 +1200,11 @@ elements in queue are already JSON string.</p>
         </li>
         
         
-        <li id="section-63">
+        <li id="section-64">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-63">&#182;</a>
+                <a class="pilcrow" href="#section-64">&#182;</a>
               </div>
               <p>If data is not from the queue, caches it.</p>
 
@@ -1201,11 +1217,11 @@ elements in queue are already JSON string.</p>
         </li>
         
         
-        <li id="section-64">
+        <li id="section-65">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-64">&#182;</a>
+                <a class="pilcrow" href="#section-65">&#182;</a>
               </div>
               <p>Only when the current response is not ended it’s possible to send.
 If it is ended, the cached data will be sent in next poll.</p>
@@ -1217,11 +1233,11 @@ If it is ended, the cached data will be sent in next poll.</p>
         </li>
         
         
-        <li id="section-65">
+        <li id="section-66">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-65">&#182;</a>
+                <a class="pilcrow" href="#section-66">&#182;</a>
               </div>
               <p>Flags the current response is written.</p>
 
@@ -1233,11 +1249,11 @@ If it is ended, the cached data will be sent in next poll.</p>
         </li>
         
         
-        <li id="section-66">
+        <li id="section-67">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-66">&#182;</a>
+                <a class="pilcrow" href="#section-67">&#182;</a>
               </div>
               <p>In case of <code>longpolljsonp</code>, the response text should be a
 JavaScript code snippet executing a callback with data.
@@ -1251,11 +1267,11 @@ param so the data have to be escaped to a JavaScript string literal.</p>
         </li>
         
         
-        <li id="section-67">
+        <li id="section-68">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-67">&#182;</a>
+                <a class="pilcrow" href="#section-68">&#182;</a>
               </div>
               <p>For others, no formatting is needed.</p>
 
@@ -1266,11 +1282,11 @@ param so the data have to be escaped to a JavaScript string literal.</p>
         </li>
         
         
-        <li id="section-68">
+        <li id="section-69">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-68">&#182;</a>
+                <a class="pilcrow" href="#section-69">&#182;</a>
               </div>
               <p>All the long polling transports has to finish the request after
 processing. The <code>ended</code> will be true after this.</p>
@@ -1284,11 +1300,11 @@ processing. The <code>ended</code> will be true after this.</p>
         </li>
         
         
-        <li id="section-69">
+        <li id="section-70">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-69">&#182;</a>
+                <a class="pilcrow" href="#section-70">&#182;</a>
               </div>
               <h4 id="close">close</h4>
 
@@ -1299,11 +1315,11 @@ processing. The <code>ended</code> will be true after this.</p>
         </li>
         
         
-        <li id="section-70">
+        <li id="section-71">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-70">&#182;</a>
+                <a class="pilcrow" href="#section-71">&#182;</a>
               </div>
               <p>By ending response if possible.</p>
 
@@ -1319,11 +1335,11 @@ processing. The <code>ended</code> will be true after this.</p>
         </li>
         
         
-        <li id="section-71">
+        <li id="section-72">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-71">&#182;</a>
+                <a class="pilcrow" href="#section-72">&#182;</a>
               </div>
               <h2 id="socket">Socket</h2>
 <p>A socket is a connectivity between the two react endpoints and an interface
@@ -1357,11 +1373,11 @@ resolved and rejected callbacks to be called by the client.</li>
         </li>
         
         
-        <li id="section-72">
+        <li id="section-73">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-72">&#182;</a>
+                <a class="pilcrow" href="#section-73">&#182;</a>
               </div>
               <h3 id="handling-transport">Handling transport</h3>
 
@@ -1370,11 +1386,11 @@ resolved and rejected callbacks to be called by the client.</li>
         </li>
         
         
-        <li id="section-73">
+        <li id="section-74">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-73">&#182;</a>
+                <a class="pilcrow" href="#section-74">&#182;</a>
               </div>
               <p>I don’t recommend to expose transport but it’s needed here for HTTP transports. </p>
 
@@ -1385,11 +1401,11 @@ resolved and rejected callbacks to be called by the client.</li>
         </li>
         
         
-        <li id="section-74">
+        <li id="section-75">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-74">&#182;</a>
+                <a class="pilcrow" href="#section-75">&#182;</a>
               </div>
               <p>Fires the close event if the underlying transport has been closed.</p>
 
@@ -1402,11 +1418,11 @@ resolved and rejected callbacks to be called by the client.</li>
         </li>
         
         
-        <li id="section-75">
+        <li id="section-76">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-75">&#182;</a>
+                <a class="pilcrow" href="#section-76">&#182;</a>
               </div>
               <p>Fires an event if the underlying transport has received a message 
 from the client.</p>
@@ -1418,11 +1434,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-76">
+        <li id="section-77">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-76">&#182;</a>
+                <a class="pilcrow" href="#section-77">&#182;</a>
               </div>
               <p>The latch prevents double reply.</p>
 
@@ -1433,11 +1449,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-77">
+        <li id="section-78">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-77">&#182;</a>
+                <a class="pilcrow" href="#section-78">&#182;</a>
               </div>
               <p>Converts JSON text to an event object.</p>
 
@@ -1448,11 +1464,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-78">
+        <li id="section-79">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-78">&#182;</a>
+                <a class="pilcrow" href="#section-79">&#182;</a>
               </div>
               <h4 id="an-event-sent-by-the-client">An event sent by the client</h4>
 <p>It should have the following properties:</p>
@@ -1471,11 +1487,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-79">
+        <li id="section-80">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-79">&#182;</a>
+                <a class="pilcrow" href="#section-80">&#182;</a>
               </div>
               <p>Calls the client’s resolved callback whose event id is <code>event.id</code> with <code>value</code>.</p>
 
@@ -1491,11 +1507,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-80">
+        <li id="section-81">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-80">&#182;</a>
+                <a class="pilcrow" href="#section-81">&#182;</a>
               </div>
               <p>Calls the client’s rejected callback whose event id is <code>event.id</code> with <code>reason</code>.</p>
 
@@ -1513,11 +1529,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-81">
+        <li id="section-82">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-81">&#182;</a>
+                <a class="pilcrow" href="#section-82">&#182;</a>
               </div>
               <h3 id="id">id</h3>
 <p>Assign an id that is UUID generated by client.</p>
@@ -1530,11 +1546,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-82">
+        <li id="section-83">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-82">&#182;</a>
+                <a class="pilcrow" href="#section-83">&#182;</a>
               </div>
               <p>A map for reply callbacks to be handled by the client.</p>
 
@@ -1545,11 +1561,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-83">
+        <li id="section-84">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-83">&#182;</a>
+                <a class="pilcrow" href="#section-84">&#182;</a>
               </div>
               <h3 id="send">send</h3>
 
@@ -1560,11 +1576,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-84">
+        <li id="section-85">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-84">&#182;</a>
+                <a class="pilcrow" href="#section-85">&#182;</a>
               </div>
               <h4 id="an-event-to-be-sent-to-the-client">An event to be sent to the client</h4>
 <p>It should have the following properties:</p>
@@ -1587,11 +1603,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-85">
+        <li id="section-86">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-85">&#182;</a>
+                <a class="pilcrow" href="#section-86">&#182;</a>
               </div>
               <p>Stores resolved and rejected callbacks if they are given.</p>
 
@@ -1604,11 +1620,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-86">
+        <li id="section-87">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-86">&#182;</a>
+                <a class="pilcrow" href="#section-87">&#182;</a>
               </div>
               <p>Convert event object to JSON string and sends it through the transport.
 It will be formatted properly according to which the transport is used.</p>
@@ -1621,11 +1637,11 @@ It will be formatted properly according to which the transport is used.</p>
         </li>
         
         
-        <li id="section-87">
+        <li id="section-88">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-87">&#182;</a>
+                <a class="pilcrow" href="#section-88">&#182;</a>
               </div>
               <h3 id="close">close</h3>
 <p>By closing the transport.</p>
@@ -1639,11 +1655,11 @@ It will be formatted properly according to which the transport is used.</p>
         </li>
         
         
-        <li id="section-88">
+        <li id="section-89">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-88">&#182;</a>
+                <a class="pilcrow" href="#section-89">&#182;</a>
               </div>
               <h3 id="reply">reply</h3>
 <p>If the client sends the reply event, executes the stored reply
@@ -1665,11 +1681,11 @@ callbacks with data and deletes it.</p>
         </li>
         
         
-        <li id="section-89">
+        <li id="section-90">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-89">&#182;</a>
+                <a class="pilcrow" href="#section-90">&#182;</a>
               </div>
               <h3 id="heartbeat">heartbeat</h3>
 <p>If <code>heartbeat</code> param is not <code>false</code> and is a number, prepares 
@@ -1683,11 +1699,11 @@ and <code>+5000</code> gives <code>5000</code> equal to <code>true</code> in Jav
         </li>
         
         
-        <li id="section-90">
+        <li id="section-91">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-90">&#182;</a>
+                <a class="pilcrow" href="#section-91">&#182;</a>
               </div>
               <p>Sets a timer to close the socket after the heartbeat interval.</p>
 
@@ -1704,11 +1720,11 @@ and <code>+5000</code> gives <code>5000</code> equal to <code>true</code> in Jav
         </li>
         
         
-        <li id="section-91">
+        <li id="section-92">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-91">&#182;</a>
+                <a class="pilcrow" href="#section-92">&#182;</a>
               </div>
               <p>The client will start to heartbeat on its open event and send the
 heartbaet event periodically. Then, cancels the timer, sets it up
