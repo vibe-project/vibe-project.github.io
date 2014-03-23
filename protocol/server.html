@@ -11,6 +11,27 @@
   <div id="container">
     <div id="background"></div>
     
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="client.html">
+                client.js
+              </a>
+            
+              
+              <a class="source" href="server.html">
+                server.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
     <ul class="sections">
         
           <li id="title">
@@ -56,10 +77,10 @@ easy-to-read JavaScript running on Node.js.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> events  = <span class="hljs-built_in">require</span>(<span class="hljs-string">"events"</span>), 
-    url     = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>), 
-    crypto  = <span class="hljs-built_in">require</span>(<span class="hljs-string">"crypto"</span>), 
-    ws      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"ws"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> events      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"events"</span>), 
+    url         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>), 
+    crypto      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"crypto"</span>), 
+    WebSocket   = <span class="hljs-built_in">require</span>(<span class="hljs-string">"ws"</span>);</pre></div></div>
             
         </li>
         
@@ -532,9 +553,9 @@ protocol and open a new socket establishing the WebSocket transport.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> wsServer = <span class="hljs-keyword">new</span> ws.Server({noServer: <span class="hljs-literal">true</span>});
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> webSocketServer = <span class="hljs-keyword">new</span> WebSocket.Server({noServer: <span class="hljs-literal">true</span>});
     server.handleUpgrade = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, sock, head)</span> {</span>
-        wsServer.handleUpgrade(req, sock, head, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ws)</span> {</span>
+        webSocketServer.handleUpgrade(req, sock, head, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ws)</span> {</span>
             server.emit(<span class="hljs-string">"socket"</span>, socket(url.parse(req.url, <span class="hljs-literal">true</span>).query, transports.ws(ws)));
         });
     };</pre></div></div>
@@ -1477,7 +1498,7 @@ from the client.</p>
 <li><code>id: string</code>: an event identifier.</li>
 <li><code>type: string</code>: an event type.</li>
 <li><code>data: any</code>: an event data.</li>
-<li><code>reply: boolean</code>: whehter to handle reply or not.</li>
+<li><code>reply: boolean</code>: true if this event requires the reply.</li>
 </ul>
 
             </div>
@@ -1588,7 +1609,7 @@ from the client.</p>
 <li><code>id: string</code>: an event identifier.</li>
 <li><code>type: string</code>: an event type.</li>
 <li><code>data: any</code>: an event data.</li>
-<li><code>reply: boolean</code>: whehter to handle reply or not.</li>
+<li><code>reply: boolean</code>: true if this event requires the reply.</li>
 </ul>
 
             </div>
@@ -1670,7 +1691,7 @@ callbacks with data and deletes it.</p>
             <div class="content"><div class='highlight'><pre>    socket.on(<span class="hljs-string">"reply"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reply)</span> {</span>
         <span class="hljs-keyword">if</span> (reply.id <span class="hljs-keyword">in</span> callbacks) {
             <span class="hljs-keyword">var</span> cbs = callbacks[reply.id],
-                fn = cbs.exception ? cbs.rejected : cbs.resolved;
+                fn = reply.exception ? cbs.rejected : cbs.resolved;
             <span class="hljs-keyword">if</span> (fn) {
                 fn(reply.data);
             }
@@ -1689,8 +1710,8 @@ callbacks with data and deletes it.</p>
               </div>
               <h3 id="heartbeat">heartbeat</h3>
 <p>If <code>heartbeat</code> param is not <code>false</code> and is a number, prepares 
-the heartbeat handshakes. FYI <code>+false</code> gives <code>NaN</code> equal to <code>false</code> 
-and <code>+5000</code> gives <code>5000</code> equal to <code>true</code> in JavaScript.</p>
+the heartbeat handshakes. FYI <code>+&quot;false&quot;</code> gives <code>NaN</code> equal to <code>false</code> 
+and <code>+&quot;5000&quot;</code> gives <code>5000</code> equal to <code>true</code> in JavaScript.</p>
 
             </div>
             
