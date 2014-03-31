@@ -100,8 +100,10 @@ http.globalAgent.maxSockets = <span class="hljs-literal">Infinity</span>;</pre><
               <h2 id="exports">Exports</h2>
 <h3 id="open">open</h3>
 <p>Opens a new socket and returns it. The react client works as standalone.</p>
-<pre><code><span class="hljs-keyword">var</span> client = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./client"</span>),
-    socket = client.open(<span class="hljs-string">"http://localhost:8080/test"</span>);
+<pre><code><span class="hljs-keyword">var</span> client = <span class="hljs-built_in">require</span>(<span class="hljs-string">"../lib/client"</span>),
+    socket = client.open(<span class="hljs-string">"http://localhost:8080/react"</span>, {
+        transport: <span class="hljs-string">"ws"</span>
+    });
 
 socket.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
   socket.send(<span class="hljs-string">"greetings"</span>, <span class="hljs-string">"Hi"</span>);
@@ -146,7 +148,7 @@ additional params are attached to query string.</p>
 <li><code>longpolljsonp</code>: JSONP Long Polling. </li>
 </ul>
 </li>
-<li><code>heartbeat</code>: A heartbeat interval value in milliseconds. It have to be larger than <code>5000</code>.<ul>
+<li><code>heartbeat</code>: a heartbeat interval value in milliseconds. It have to be larger than <code>5000</code>.<ul>
 <li><code>20000</code>: a recommended value.</li>
 <li><code>false</code>: no heartbeat.</li>
 </ul>
@@ -187,7 +189,11 @@ events in the preceding response.</li>
         <span class="hljs-keyword">break</span>;
     <span class="hljs-keyword">default</span>:
         <span class="hljs-keyword">return</span>;
-    }</pre></div></div>
+    }
+    
+    <span class="hljs-keyword">delete</span> urlObj.search;
+    <span class="hljs-keyword">return</span> url.format(urlObj);
+}</pre></div></div>
             
         </li>
         
@@ -198,26 +204,14 @@ events in the preceding response.</li>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Node specific thing: <code>query</code> is used only if <code>search</code> is absent.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">delete</span> urlObj.search;
-    <span class="hljs-keyword">return</span> url.format(urlObj);
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-6">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
-              </div>
               <h2 id="socket">Socket</h2>
 <p>A socket is a connectivity between the two react endpoints and an interface
 for developers creating react applications.</p>
+<p><strong>Options</strong></p>
+<ul>
+<li><code>transport:string</code>: a transport id.</li>
+<li><code>heartbeat:number</code>: a heartbeat interval value in milliseconds.</li>
+</ul>
 <p><strong>Events</strong></p>
 <ul>
 <li><code>open()</code>: when the socket has been opened.</li>
@@ -238,8 +232,24 @@ resolved and rejected callbacks to be called by the server.</li>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socket</span><span class="hljs-params">(u, opts)</span> {</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socket</span><span class="hljs-params">(u, options)</span> {</span>
     <span class="hljs-keyword">var</span> socket = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Set default options</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    options.heartbeat = options.heartbeat || <span class="hljs-literal">false</span>;
+    options._heartbeat = options._heartbeat || <span class="hljs-number">5000</span>;</pre></div></div>
             
         </li>
         
@@ -250,17 +260,13 @@ resolved and rejected callbacks to be called by the server.</li>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <h3 id="options">Options</h3>
-<p>How to organize options is out of the protocol. Do it as you please.
-Here to run the test suite, <code>id:string</code>, <code>transport:string</code> and
-<code>heartbeat:string</code> are exposed as options.</p>
+              <h3 id="id">id</h3>
+<p>Generate an UUID as an identifier of this socket. It should be
+universally unique literally.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    opts = opts || {};
-    opts.id = uuid.v4();
-    opts.transport = opts.transport || <span class="hljs-string">"ws"</span>;
-    opts.heartbeat = opts.heartbeat || <span class="hljs-string">"false"</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    socket.id = uuid.v4();</pre></div></div>
             
         </li>
         
@@ -276,7 +282,8 @@ Here to run the test suite, <code>id:string</code>, <code>transport:string</code
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> transport = transports[opts.transport](u, opts);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> params = {id: socket.id, transport: options.transport, heartbeat: options.heartbeat},
+        transport = transports[options.transport](u, params);</pre></div></div>
             
         </li>
         
@@ -460,7 +467,7 @@ from the server.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> event = {
-                socket: opts.id,
+                socket: socket.id,
                 id: crypto.randomBytes(<span class="hljs-number">3</span>).toString(<span class="hljs-string">"hex"</span>), 
                 type: type, 
                 data: data, 
@@ -538,7 +545,7 @@ callbacks with data and deletes it.</p>
             <span class="hljs-keyword">var</span> cbs = callbacks[reply.id],
                 fn = reply.exception ? cbs.rejected : cbs.resolved;
             <span class="hljs-keyword">if</span> (fn) {
-                fn(reply.data);
+                fn.call(<span class="hljs-keyword">this</span>, reply.data);
             }
             <span class="hljs-keyword">delete</span> callbacks[reply.id];
         }
@@ -570,12 +577,13 @@ the heartbeat handshakes on <code>open</code> event. </p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
-              <p>FYI <code>+&quot;false&quot;</code> gives <code>NaN</code> equal to <code>false</code> and <code>+&quot;5000&quot;</code> gives <code>5000</code>
-equal to <code>true</code> in JavaScript.</p>
+              <p>The option <code>_heartbeat</code> is just to speed up heartbeat test and do not
+provide such option for production use. It means the time to wait
+for the server’s response. The default value is <code>5000</code>.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (+opts.heartbeat &gt; <span class="hljs-number">5000</span>) {
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (options.heartbeat &gt; options._heartbeat) {
             <span class="hljs-keyword">var</span> heartbeatTimer;
             <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setHeartbeatTimer</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
@@ -588,8 +596,8 @@ equal to <code>true</code> in JavaScript.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
-              <p>Sets a timer to send an heartbeat event after <code>heartbeat -
-5000</code> miliseconds.</p>
+              <p>Sets a timer to send an heartbeat event after
+<code>heartbeat - _heartbeat</code> miliseconds.</p>
 
             </div>
             
@@ -606,14 +614,14 @@ equal to <code>true</code> in JavaScript.</p>
                 <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>Sets a timer to close the socket if the server doesn’t
-respond in the <code>heartbeat</code> interval.</p>
+respond in the <code>_heartbeat</code> interval.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>                    heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                         socket.close();
-                    }, <span class="hljs-number">5000</span>);
-                }, +opts.heartbeat - <span class="hljs-number">5000</span>);
+                    }, options._heartbeat);
+                }, options.heartbeat - options._heartbeat);
             }</pre></div></div>
             
         </li>
@@ -717,7 +725,7 @@ environment.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>transports.ws = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(u, opts)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>transports.ws = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(u, params)</span> {</span></pre></div></div>
             
         </li>
         
@@ -733,7 +741,7 @@ to the server over WebSocket protocol.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> WebSocket(uri(u, {id: opts.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"ws"</span>, heartbeat: opts.heartbeat}).replace(<span class="hljs-regexp">/^http/</span>, <span class="hljs-string">"ws"</span>)),
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> WebSocket(uri(u, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"ws"</span>, heartbeat: params.heartbeat}).replace(<span class="hljs-regexp">/^http/</span>, <span class="hljs-string">"ws"</span>)),
         transport = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
             
         </li>
@@ -783,7 +791,7 @@ behaviors to WebSocket.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>transports.sse = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(u, opts)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>transports.sse = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(u, params)</span> {</span></pre></div></div>
             
         </li>
         
@@ -799,7 +807,7 @@ EventSource uses <code>GET</code> method.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> es = <span class="hljs-keyword">new</span> EventSource(uri(u, {id: opts.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"sse"</span>, heartbeat: opts.heartbeat})),
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> es = <span class="hljs-keyword">new</span> EventSource(uri(u, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"sse"</span>, heartbeat: params.heartbeat})),
         transport = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
             
         </li>
@@ -952,7 +960,7 @@ closes event immediately.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        http.get(url.parse(uri(u, {id: opts.id, when: <span class="hljs-string">"abort"</span>})));
+            <div class="content"><div class='highlight'><pre>        http.get(url.parse(uri(u, {id: params.id, when: <span class="hljs-string">"abort"</span>})));
     };
     <span class="hljs-keyword">return</span> transport;
 };</pre></div></div>
@@ -973,7 +981,7 @@ pretends to be a persistent connection.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>transports.longpollajax = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(u, opts)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>transports.longpollajax = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(u, params)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1006,7 +1014,7 @@ they use <code>GET</code> method.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    req = http.get(uri(u, {id: opts.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"longpollajax"</span>, heartbeat: opts.heartbeat}))</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    req = http.get(uri(u, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"longpollajax"</span>, heartbeat: params.heartbeat}))</pre></div></div>
             
         </li>
         
@@ -1107,7 +1115,7 @@ is needed.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            req = http.get(uri(u, {id: opts.id, when: <span class="hljs-string">"poll"</span>, lastEventIds: lastEventIds.join(<span class="hljs-string">","</span>)}))</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            req = http.get(uri(u, {id: params.id, when: <span class="hljs-string">"poll"</span>, lastEventIds: lastEventIds.join(<span class="hljs-string">","</span>)}))</pre></div></div>
             
         </li>
         
@@ -1443,7 +1451,7 @@ one in Node.js wisely.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        http.get(url.parse(uri(u, {id: opts.id, when: <span class="hljs-string">"abort"</span>})));
+            <div class="content"><div class='highlight'><pre>        http.get(url.parse(uri(u, {id: params.id, when: <span class="hljs-string">"abort"</span>})));
     };
     <span class="hljs-keyword">return</span> transport;
 }</pre></div></div>
