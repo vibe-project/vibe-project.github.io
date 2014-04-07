@@ -161,8 +161,7 @@ If you are going to use only WebSocket, skip this part.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    server.handleRequest = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
-        <span class="hljs-keyword">switch</span> (req.method) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    server.handleRequest = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span></pre></div></div>
             
         </li>
         
@@ -172,6 +171,22 @@ If you are going to use only WebSocket, skip this part.</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Stores a map of all the parameters to the request for future use.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        req.params = url.parse(req.url, <span class="hljs-literal">true</span>).query;
+        <span class="hljs-keyword">switch</span> (req.method) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <h3 id="get">GET</h3>
 <p><code>GET</code> method is used to establish and manage transports
@@ -184,11 +199,11 @@ as a channel for the server to push something to the client.</p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>This HTTP persistent connection must not be cached.</p>
 
@@ -199,11 +214,11 @@ as a channel for the server to push something to the client.</p>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>A client using transport based on XDomainRequest needs CORS
 headers even in same-origin connection.</p>
@@ -211,21 +226,6 @@ headers even in same-origin connection.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            cors(req, res);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-9">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
-              </div>
-              <p>Stores a map of all the parameters to the request for future use.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            req.params = url.parse(req.url, <span class="hljs-literal">true</span>).query;</pre></div></div>
             
         </li>
         
@@ -467,13 +467,11 @@ headers even in same-origin connection.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
-              <p>Make JSON string by stripping off leading <code>data=</code> 
-and find a socket id.</p>
+              <p>Make JSON string by stripping off leading <code>data=</code>.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> text = <span class="hljs-regexp">/^data=(.+)/</span>.exec(body)[<span class="hljs-number">1</span>],
-                    id = <span class="hljs-regexp">/"socket":"([^\"]+)"/</span>.exec(text)[<span class="hljs-number">1</span>];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> text = body.substring(<span class="hljs-string">"data="</span>.length);</pre></div></div>
             
         </li>
         
@@ -485,12 +483,12 @@ and find a socket id.</p>
                 <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>Fires a message event to the socket’s transport 
-whose id is <code>id</code> with the JSON string.</p>
+whose id is <code>id</code> param with the JSON string.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (id <span class="hljs-keyword">in</span> sockets) {
-                    sockets[id].transport.emit(<span class="hljs-string">"message"</span>, text);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (req.params.id <span class="hljs-keyword">in</span> sockets) {
+                    sockets[req.params.id].transport.emit(<span class="hljs-string">"message"</span>, text);</pre></div></div>
             
         </li>
         
@@ -598,11 +596,11 @@ when it’s been closed to make the repository have only opened sockets. </p>
             <div class="content"><div class='highlight'><pre>        sockets[socket.id] = socket;
         socket.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
             <span class="hljs-keyword">delete</span> sockets[socket.id];
-        })
+        });
     });
     
     <span class="hljs-keyword">return</span> server;
-};</pre></div></div>
+}</pre></div></div>
             
         </li>
         
@@ -1537,7 +1535,6 @@ from the client.</p>
               <h4 id="an-event-sent-by-the-client">An event sent by the client</h4>
 <p>It should have the following properties:</p>
 <ul>
-<li><code>socket: string</code>: a target socket used in handling POST.</li>
 <li><code>id: string</code>: an event identifier.</li>
 <li><code>type: string</code>: an event type.</li>
 <li><code>data: any</code>: an event data.</li>
