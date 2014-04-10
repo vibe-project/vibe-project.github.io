@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	{% include header.html %}
+</head>
+<body>
+    <div class="top-bar-wrapper">
+        <div class="row">
+            <div class="large-12 columns">
+                <nav class="top-bar" data-topbar>
+                    <ul class="title-area">
+                        <li class="name">
+                            <h1><a href="{{ site.baseurl }}/">React JavaScript Client</a></h1>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns text">
+        {{ content }}
+        </div>
+    </div>
+	{% include footer.html %}
+</body>
+</html>
