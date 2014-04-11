@@ -5,6 +5,7 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 
 .row {max-width: 80rem;}
 .top-bar-wrapper {background: #333;}
+.highlight {margin-bottom: 1.25rem; line-height: 1.2rem;}
 
 .alone {margin-left: auto; margin-right: auto; float: none;}
 .text {padding-top: 2rem;}
