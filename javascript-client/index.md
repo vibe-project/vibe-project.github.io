@@ -58,6 +58,7 @@ Once the open event is fired, you can access the above socket by `socket`. Have 
 		    	<li><a href="http://groups.google.com/group/atmosphere-framework" title="Forum"><i class="fi-comments size-36"></i></a></li>
 		    </ul>
 	    </li>
+	    <li class="description">Licensed under the Apache License 2.0</li>
 	    <li class="bullet-item">
 		    <ul class="inline-list documentation">
 		    	<li class="version"><code>3.0.0-alpha1</code> <span class="secondary label">snapshot</span></li>
