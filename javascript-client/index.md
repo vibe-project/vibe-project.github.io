@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: home
 title: React JavaScript Client
 ---
 <div class="row">
