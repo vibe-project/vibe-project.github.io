@@ -22,13 +22,10 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .alone {margin-left: auto; margin-right: auto; float: none;}
 .text {padding-top: 2rem;}
 
-.index > div:first-child {margin: 5rem auto;}
-.index h1 {font-size: 4rem;}
-.index h1 + h4 {color: inherit;}
+.index > div:first-child {margin: 8rem auto;}
+.index h1 {font-size: 5rem;}
 .index h1, .index h2 {font-style: normal; font-weight: 300;}
-.index h4.subheader {margin-bottom: 1rem;}
-.index a.project-link {line-height: 1; color: inherit; background-color: inherit;}
-.index a.project-link:hover {color: #007ba0;}
+
 .project-widget .inline-list {margin-bottom: 0;}
 .project-widget .icons a {color: #666;}
 .project-widget .icons a:hover {color: #007ba0;}
