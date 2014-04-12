@@ -29,6 +29,17 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .index h4.subheader {margin-bottom: 1rem;}
 .index a.project-link {line-height: 1; color: inherit; background-color: inherit;}
 .index a.project-link:hover {color: #007ba0;}
+.project-widget .inline-list {margin-bottom: 0;}
+.project-widget .icons a {color: #666;}
+.project-widget .icons a:hover {color: #007ba0;}
+.project-widget .bullet-item, .project-widget .description {margin-left: 1rem;}
+.project-widget .release-link {text-align: right; margin-right: 1.5rem;}
+.project-widget .documentation li {margin-left: 1rem;}
+.project-widget .documentation .version {width: 160px; text-align: left;}
+.project-widget .documentation .version code {color: inherit;}
+.project-widget .documentation .version * {display: inline-block;}
+.project-links {background: inherit;}
+.project-links h5 {margin-top: 1rem;}
 .footer {padding: 10px 0; color: #777;}
 .footer p, .footer li {font-size: 0.8rem;}
 .footer p:not(:last-of-type) {margin: 0;}
