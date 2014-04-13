@@ -62,9 +62,7 @@ Once the open event is fired, you can access the above socket by `socket`. Have 
 	    <li class="bullet-item">
 		    <ul class="inline-list documentation">
 		    	<li class="version"><code>3.0.0-alpha1</code> <span class="secondary label">snapshot</span></li>
-		    	<li><a href="#">Reference</a></li>
-		    	<li>|</li>
-		    	<li><a href="#">API</a></li>
+		    	<li><a href="{{ site.baseurl }}/javascript-client/3.0.0-Alpha1/reference/">Reference</a></li>
 		    </ul>
 	    </li>
 	    <li class="description release-link"><a href="https://github.com/Atmosphere/react-javascript-client/releases">See all the releases notes</a></li>
