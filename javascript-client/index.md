@@ -18,7 +18,7 @@ The **React** JavaScript Client not only provides **React** connectivity on ever
 * Runs in Node.js and all browsers including Internet Explorer 6
 * Event-based API akin to W3C WebSocket API
 * No dependencies
-* Lightweight (16.52KB minified, 5.91KB minified and gzipped)
+* Lightweight (16.52KB minified, 5.89KB minified and gzipped)
 
 \* experimental yet.
 
