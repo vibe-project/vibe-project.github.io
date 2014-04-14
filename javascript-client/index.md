@@ -7,7 +7,7 @@ title: React JavaScript Client
 {% capture panel %}
 ## Introduction
 
-The **React** JavaScript Client not only provides **React** connectivity on every browser-based and Node-based applications but also focuses on making the best use of realtime connectivity in place of AJAX. In other words, it is not just for writing chat application, but for writing enterprise web application in economical way so that teams can create high performance web application easily.
+The **React** JavaScript Client is a concise and lightweight client-side JavaScript library. It not only provides **React** connectivity on every browser-based and Node-based applications but also focuses on making the best use of realtime connectivity in place of Ajax to help write low-latency and event-driven web applications, not just for chat application.
 
 ---
 
@@ -67,12 +67,5 @@ Once the open event is fired, you can access the above socket by `socket`. Have 
 	    </li>
 	    <li class="description release-link"><a href="https://github.com/Atmosphere/react-javascript-client/releases">See all the releases notes</a></li>
 	</ul>
-	<div class="panel project-links">
-		<h5>Examples</h5>
-		<ul class="no-bullet">
-			<li><a href="#">A basic example</a></li>
-			<li><a href="#">A advanced example</a></li>
-		</ul>
-	</div>
 </div>
 </div>
