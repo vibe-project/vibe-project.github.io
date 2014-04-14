@@ -207,9 +207,10 @@ Socket always is in a specific state that can be accessed by `state` method. Acc
      
     State transition occurs to
     
-    * closed(error): if heartbeat communication fails.
+    * closed(error): if heartbeat fails.
     * closed(error): if connection is disconnected due to some error.
     * closed(done): if connection is closed cleanly.
+    * closed(done): if connection established by `sse` transport is disconnected due to some error.
     * closed(aborted): if `close` method is called.<p>
     
 * **closed**
