@@ -7,18 +7,6 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .top-bar-wrapper {background: #333;}
 .highlight {margin-bottom: 1.25rem; line-height: 1.2rem;}
 
-/* icon */
-.size-12 {font-size: 12px;}
-.size-14 {font-size: 14px;}
-.size-16 {font-size: 16px;}
-.size-18 {font-size: 18px;}
-.size-21 {font-size: 21px;}
-.size-24 {font-size: 24px;}
-.size-36 {font-size: 36px;}
-.size-48 {font-size: 48px;}
-.size-60 {font-size: 60px;}
-.size-72 {font-size: 72px;}
-
 .alone {margin-left: auto; margin-right: auto; float: none;}
 .text {padding-top: 2rem;}
 
@@ -26,17 +14,7 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .index h1 {font-size: 5rem;}
 .index h1, .index h2 {font-style: normal; font-weight: 300;}
 
-.project-widget .inline-list {margin-bottom: 0;}
-.project-widget .icons a {color: #666;}
-.project-widget .icons a:hover {color: #007ba0;}
-.project-widget .bullet-item, .project-widget .description {margin-left: 1rem;}
-.project-widget .release-link {text-align: right; margin-right: 1.5rem;}
-.project-widget .documentation li {margin-left: 1rem;}
-.project-widget .documentation .version {width: 160px; text-align: left;}
-.project-widget .documentation .version code {color: inherit;}
-.project-widget .documentation .version * {display: inline-block;}
-.project-links {background: inherit;}
-.project-links h5 {margin-top: 1rem;}
-.footer {padding: 10px 0; color: #777;}
-.footer p, .footer li {font-size: 0.8rem;}
-.footer p:not(:last-of-type) {margin: 0;}
+.project-bar {margin-bottom: 1rem;}
+.doc-list .inline-list {margin-bottom: 0;}
+.doc-list .bullet-item * {display: inline-block;}
+.doc-list code {color: inherit;}
