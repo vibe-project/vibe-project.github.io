@@ -20,23 +20,24 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 1. [Introduction](#toc_0)
   1. [Features](#toc_1)
   1. [Versions](#toc_2)
-1. [Quick Start](#toc_3)
-1. [Installation](#toc_4)
-  1. [As browser client](#toc_5)
-  1. [As Node.js client](#toc_6)
-1. [Socket](#toc_7)
-  1. [Event](#toc_8)
-  1. [Life Cycle](#toc_9)
-  1. [Sending and Receiving Event](#toc_10)
-  1. [Sending and Receiving Replyable Event](#toc_11) 
-  1. [Heartbeat](#toc_12)
-  1. [Connection Sharing](#toc_13) 
-  1. [Reconnection](#toc_14) 
-  1. [Transport](#toc_15)
-1. [Transport](#toc_16) 
-  1. [Implementation](#toc_17) 
-  1. [Compatibility](#toc_18)
-1. [Quirks](#toc_23)
+  1. [License](#toc_3)
+1. [Quick Start](#toc_4)
+1. [Installation](#toc_5)
+  1. [As browser client](#toc_6)
+  1. [As Node.js client](#toc_7)
+1. [Socket](#toc_8)
+  1. [Event](#toc_9)
+  1. [Life Cycle](#toc_10)
+  1. [Sending and Receiving Event](#toc_11)
+  1. [Sending and Receiving Replyable Event](#toc_12) 
+  1. [Heartbeat](#toc_13)
+  1. [Connection Sharing](#toc_14) 
+  1. [Reconnection](#toc_15)
+  1. [Transport](#toc_16)
+1. [Transport](#toc_17) 
+  1. [Implementation](#toc_18) 
+  1. [Compatibility](#toc_19)
+1. [Quirks](#toc_24)
 
 ---
 
@@ -64,6 +65,10 @@ The mapping between the specifications and the respective React JavaScript Clien
 | 3 | 3 | 3.0 |
 
 That being said, compatiblity of react.js depends on [compatibility of transport](#toc_18) which varies depending on runtime environment such as Node.js and Browser.
+
+### License
+
+Licensed under the Apache License 2.0.
 
 ---
 

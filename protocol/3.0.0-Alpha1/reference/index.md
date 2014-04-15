@@ -20,12 +20,13 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 1. [Introduction](#toc_0)
   1. [Features](#toc_1)
   1. [Versioning](#toc_2)
-1. [Reference Implementation](#toc_3)
-  1. [Installation](#toc_4)
-  1. [Interactive Mode](#toc_5)
-1. [Test Suite](#toc_6)
-  1. [Testee](#toc_7)
-  1. [Running Test](#toc_8)
+  1. [License](#toc_3)
+1. [Reference Implementation](#toc_4)
+  1. [Installation](#toc_5)
+  1. [Interactive Mode](#toc_6)
+1. [Test Suite](#toc_7)
+  1. [Testee](#toc_8)
+  1. [Running Test](#toc_9)
 
 ---
 
@@ -57,6 +58,10 @@ For example, given a version number 3.0.0, the version number will be
 1. 4.0.0 if the feature requires incompatible changes.
 
 Therefore, when talking about protocol specification, you can ignore PATCH version, e.g. React Lua Server 0.1 for React Protocol 3.2.
+
+### License
+
+Licensed under the Apache License 2.0.
 
 ---
 
