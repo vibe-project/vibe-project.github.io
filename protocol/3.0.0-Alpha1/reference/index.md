@@ -1,6 +1,6 @@
 ---
 layout: reference
-title: Reference
+title: React Protocol Reference
 ---
 
 <h1>Reference <small>React Protocol</small></h1>

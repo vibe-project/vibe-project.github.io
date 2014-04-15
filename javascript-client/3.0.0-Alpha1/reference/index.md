@@ -1,6 +1,6 @@
 ---
 layout: reference
-title: Reference
+title: React JavaScript Client Reference
 ---
 
 <h1>Reference <small>React JavaScript Client</small></h1>
