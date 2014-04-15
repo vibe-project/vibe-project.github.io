@@ -19,23 +19,24 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 
 1. [Introduction](#toc_0)
   1. [Features](#toc_1)
-1. [Quick Start](#toc_2)
-1. [Installation](#toc_3)
-  1. [As browser client](#toc_4)
-  1. [As Node.js client](#toc_5)
-1. [Socket](#toc_6)
-  1. [Event](#toc_7)
-  1. [Life Cycle](#toc_8)
-  1. [Sending and Receiving Event](#toc_9)
-  1. [Sending and Receiving Replyable Event](#toc_10) 
-  1. [Heartbeat](#toc_11)
-  1. [Connection Sharing](#toc_12) 
-  1. [Reconnection](#toc_13) 
-  1. [Transport](#toc_14)
-1. [Transport](#toc_15) 
-  1. [Implementation](#toc_16) 
-  1. [Compatibility](#toc_17)
-1. [Quirks](#toc_22)
+  1. [Versions](#toc_2)
+1. [Quick Start](#toc_3)
+1. [Installation](#toc_4)
+  1. [As browser client](#toc_5)
+  1. [As Node.js client](#toc_6)
+1. [Socket](#toc_7)
+  1. [Event](#toc_8)
+  1. [Life Cycle](#toc_9)
+  1. [Sending and Receiving Event](#toc_10)
+  1. [Sending and Receiving Replyable Event](#toc_11) 
+  1. [Heartbeat](#toc_12)
+  1. [Connection Sharing](#toc_13) 
+  1. [Reconnection](#toc_14) 
+  1. [Transport](#toc_15)
+1. [Transport](#toc_16) 
+  1. [Implementation](#toc_17) 
+  1. [Compatibility](#toc_18)
+1. [Quirks](#toc_23)
 
 ---
 
@@ -53,6 +54,16 @@ The **React** JavaScript Client is a concise and lightweight client-side JavaScr
 * Lightweight (16.52KB minified, 5.89KB minified and gzipped)
 
 \* experimental yet.
+
+### Versions
+
+The mapping between the specifications and the respective React JavaScript Client versions is:
+
+| Version | ECMAScript | React Protocol |
+|---|---|---|
+| 3 | 3 | 3.0 |
+
+That being said, compatiblity of react.js depends on [compatibility of transport](#toc_18) which varies depending on runtime environment such as Node.js and Browser.
 
 ---
 
