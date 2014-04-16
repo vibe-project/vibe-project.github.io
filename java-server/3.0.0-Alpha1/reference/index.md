@@ -58,7 +58,7 @@ The mapping between the specifications and the respective React Java Server vers
 |---|---|---|
 | 3 | 7 | 3.0 |
 
-TODO explain platform module and its support once module structure is defined.
+TODO explain platform module and its support once module structure is determine.
 
 ### License
 Licensed under the Apache License 2.0.
@@ -167,8 +167,6 @@ Once `socket` have been logged, you can access the opened socket by `socket` in 
 
 ## Installation
 How to install and run varies for what your platform or framework is.
-
-TODO Separatino of concern safn. .so you can... it's fine if you know verty well...
 
 ### Atmosphere 2
 The [Atmosphere 2](https://github.com/atmosphere/atmosphere/) makes the application run on most servlet containers that support the Servlet Specification 2.3. That being said, Servlet 3.0 containers is required here. With Atmosphere, you can write a traditional Java web application, a war project in Maven.
@@ -688,7 +686,7 @@ server.socketAction(new Action<Socket>() {
 
 ```javascript
 var client = require("react-???/lib/client");
-client.open("http://localhost:8000/react", {transport: ws})
+client.open("http://localhost:8000/react", {transport: "ws"})
 .on("open", function(data) {
     this.send("account:find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
