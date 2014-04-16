@@ -31,7 +31,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 ---
 
 ## Introduction
-The **React** Protocol is a feature-rich and application-level protocol built over HTTP and WebSocket protocol for real-time web application development. It is designed by carefully considering known issues and best practices of real-time web to provide and take advantage of a reliable full duplex connection for modern web application development, and focuses on providing elegant patterns to write low-latency, event-driven and real-time web applications.
+The React Protocol is a feature-rich and application-level protocol built over HTTP and WebSocket protocol for real-time web application development. It is designed by carefully considering known issues and best practices of real-time web to provide and take advantage of a reliable full duplex connection for modern web application development, and focuses on providing elegant patterns to write low-latency, event-driven and real-time web applications.
 
 ### Features
 * Provides low-latency and real-time event channel.
