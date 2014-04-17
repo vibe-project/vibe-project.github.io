@@ -194,12 +194,7 @@ public class Bootstrap implements ServletContextListener {
   @Override
   public void contextInitialized(ServletContextEvent event) {
     Server server = new DefaultServer();
-    server.socketAction(new Action<Socket>() {
-      @Override
-      public void on(final Socket socket) {
-        // Your logic here
-      }
-    });
+    // server.socketAction(socket -> {/* Your logic here */});
 
     new AtmosphereBridge(event.getServletContext(), "/react")
     .httpAction(server.httpAction()).websocketAction(server.websocketAction());
@@ -257,12 +252,7 @@ public class Bootstrap extends Verticle {
   @Override
   public void start() {
     Server server = new DefaultServer();
-    server.socketAction(new Action<Socket>() {
-      @Override
-      public void on(final Socket socket) {
-        // Your logic here
-      }
-    });
+    // server.socketAction(socket -> {/* Your logic here */});
 
     HttpServer httpServer = vertx.createHttpServer();
     // Attach request and websocket handler first before installation
@@ -310,12 +300,7 @@ public class Bootstrap implements ServletContextListener {
   @Override
   public void contextInitialized(ServletContextEvent event) {
     Server server = new DefaultServer();
-    server.socketAction(new Action<Socket>() {
-      @Override
-      public void on(final Socket socket) {
-        // Your logic here
-      }
-    });
+    // server.socketAction(socket -> {/* Your logic here */});
     
     new ServletBridge(event.getServletContext(), "/react").httpAction(server.httpAction());
   }
@@ -374,12 +359,7 @@ public class Bootstrap implements ServerApplicationConfig {
   @Override
   public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> _) {
     Server server = new DefaultServer();
-    server.socketAction(new Action<Socket>() {
-      @Override
-      public void on(final Socket socket) {
-        // Your logic here
-      }
-    });
+    // server.socketAction(socket -> {/* Your logic here */});
 
     return Collections.singleton(new JwaBridge("/react")
     .websocketAction(server.websocketAction()).config());
