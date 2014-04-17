@@ -27,12 +27,12 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
   1. [Vert.x 2](#toc_7)
   1. [Servlet 3](#toc_8)
   1. [Java WebSocket API 1](#toc_9)
-  1. [Others](#toc_10)
-1. [Server](#toc_11)
+1. [Server](#toc_10)
+  1. [Integrating with I/O Platform](#toc_11)
   1. [Handling Socket](#toc_12)
   1. [Selecting Sockets](#toc_13)
   1. [Writing Sentence](#toc_17)
-  1. [With Dependency Injection](#toc_18)
+  1. [Working with Dependency Injection Framework](#toc_18)
   1. [Clustering](#toc_19)
 1. [Socket](#toc_20)
   1. [Life Cycle](#toc_21)
@@ -417,17 +417,20 @@ Add the following dependency to your build or include it on your classpath manua
 </div>
 </div>
 
-### Others
-All you need to bridge React Java Server and a specific platform is to produce `ServerHttpExchange` which is a server-side HTTP request-response exchange and `ServerWebSocket` which is a server-side WebSocket session from the platform. These interfaces require the least functionality to support as many platform as possible so you won't have no serious problems.
-
-**Note**
-
-* Those interfaces can be modified at anytime until GA release. 
-
 ---
 
 ## Server
-Server provides and manages socket processing HTTP exchange and WebSocket.
+Server is a react application in a nutshell producing and managing socket consuming HTTP exchange and WebSocket.
+
+### Integrating with I/O Platform
+As covered in installation section, installing React Java Server on the specific platform is simply to create Server and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
+
+If your favorite platform is not supported, all you need to do is to implement `ServerHttpExchange` and `ServerWebSocket` according to the platform.
+
+```java
+server.httpAction().on(new MyServerHttpExchange(req));
+server.websocketAction().on(new MyServerWebSocket(ws));
+```
 
 ### Handling Socket
 When a socket is opened, actions added via `socketAction` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
@@ -490,14 +493,13 @@ server.all().send("foo", "bar");
 server.byTag("room#201").send("message", "time to say goodbye").close();
 ```
 
-### Using With Dependency Injection
+### Working with Dependency Injection Framework
 
 TODO
 
 ### Clustering
 
 TODO
-
 
 ---
 
