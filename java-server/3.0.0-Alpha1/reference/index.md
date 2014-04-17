@@ -18,28 +18,29 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 **Table of Contents**
 
 1. [Introduction](#toc_0)
-  1. [Features](#toc_1)
-  1. [Versions](#toc_2)
-  1. [License](#toc_3)
+    1. [Features](#toc_1)
+    1. [Versions](#toc_2)
+    1. [License](#toc_3)
 1. [Quick Start](#toc_4)
 1. [Installation](#toc_5)
-  1. [Atmosphere 2](#toc_6)
-  1. [Vert.x 2](#toc_7)
-  1. [Servlet 3](#toc_8)
-  1. [Java WebSocket API 1](#toc_9)
+    1. [Atmosphere 2](#toc_6)
+    1. [Vert.x 2](#toc_7)
+    1. [Servlet 3](#toc_8)
+    1. [Java WebSocket API 1](#toc_9)
 1. [Server](#toc_10)
-  1. [Integrating with I/O Platform](#toc_11)
-  1. [Handling Socket](#toc_12)
-  1. [Selecting Sockets](#toc_13)
-  1. [Writing Sentence](#toc_17)
-  1. [Working with Dependency Injection Framework](#toc_18)
-  1. [Clustering](#toc_19)
-1. [Socket](#toc_20)
-  1. [Life Cycle](#toc_21)
-  1. [Properties](#toc_22)
-  1. [Sending and Receiving Events](#toc_23)
-  1. [Sending and Receiving Replyable Event](#toc_24) 
-
+    1. [Handling Socket](#toc_11)
+    1. [Selecting Sockets](#toc_12)
+    1. [Writing Sentence](#toc_16)
+1. [Socket](#toc_17)
+    1. [Life Cycle](#toc_18)
+    1. [Properties](#toc_19)
+    1. [Sending and Receiving Events](#toc_20)
+    1. [Sending and Receiving Replyable Event](#toc_21)
+1. [Integration](#toc_22)
+    1. [I/O Platform](#toc_23)
+    1. [Dependency Injection Framework](#toc_24)
+    1. [Message Oriented Middleware](#toc_25) 
+    
 ---
 
 ## Introduction
@@ -402,16 +403,6 @@ Add the following dependency to your build or include it on your classpath manua
 ## Server
 Server is a react application in a nutshell producing and managing socket consuming HTTP exchange and WebSocket.
 
-### Integrating with I/O Platform
-As covered in installation section, installing React Java Server on the specific platform is simply to create Server and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
-
-If your favorite platform is not supported, all you need to do is to implement `ServerHttpExchange` and `ServerWebSocket` according to the platform.
-
-```java
-server.httpAction().on(new MyServerHttpExchange(req));
-server.websocketAction().on(new MyServerWebSocket(ws));
-```
-
 ### Handling Socket
 When a socket is opened, actions added via `socketAction` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
 
@@ -472,14 +463,6 @@ server.all().send("foo", "bar");
 ```java
 server.byTag("room#201").send("message", "time to say goodbye").close();
 ```
-
-### Working with Dependency Injection Framework
-
-TODO
-
-### Clustering
-
-TODO
 
 ---
 
@@ -743,3 +726,26 @@ client.open("http://localhost:8000/react", {transport: "ws"})
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
+
+---
+
+## Integration
+Here are how to integrate React Java Server with awesome frameworks.
+
+### I/O Platform
+As covered in installation section, installing React Java Server on the specific platform is simply to create Server and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
+
+If your favorite platform is not supported, all you need to do is to implement `ServerHttpExchange` and `ServerWebSocket` according to the platform.
+
+```java
+server.httpAction().on(new MyServerHttpExchange(req));
+server.websocketAction().on(new MyServerWebSocket(ws));
+```
+
+### Dependency Injection Framework
+
+TODO
+
+### Message Oriented Middleware
+
+TODO
