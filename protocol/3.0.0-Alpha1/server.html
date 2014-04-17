@@ -79,7 +79,6 @@ easy-to-read JavaScript running on Node.js.</p>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> events      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"events"</span>), 
     url         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>), 
-    crypto      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"crypto"</span>), 
     WebSocket   = <span class="hljs-built_in">require</span>(<span class="hljs-string">"ws"</span>);</pre></div></div>
             
         </li>
@@ -1612,11 +1611,11 @@ from the client.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-85">&#182;</a>
               </div>
-              <p>A map for reply callbacks to be handled by the client.</p>
+              <p>An auto-increment id for event.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> callbacks = {};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> eventId = <span class="hljs-number">0</span>;</pre></div></div>
             
         </li>
         
@@ -1627,11 +1626,11 @@ from the client.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-86">&#182;</a>
               </div>
-              <h3 id="send">send</h3>
+              <p>A map for reply callbacks to be handled by the client.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    socket.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(type, data, resolved, rejected)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> callbacks = {};</pre></div></div>
             
         </li>
         
@@ -1641,6 +1640,21 @@ from the client.</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-87">&#182;</a>
+              </div>
+              <h3 id="send">send</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    socket.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(type, data, resolved, rejected)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-88">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-88">&#182;</a>
               </div>
               <h4 id="an-event-to-be-sent-to-the-client">An event to be sent to the client</h4>
 <p>It should have the following properties:</p>
@@ -1653,8 +1667,25 @@ from the client.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> event = {
-                id: crypto.randomBytes(<span class="hljs-number">3</span>).toString(<span class="hljs-string">"hex"</span>), 
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> event = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-89">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-89">&#182;</a>
+              </div>
+              <p>In case of long polling, these ids are echoed back as a query
+string to the URL in GET. To avoid <code>414 Request-URI Too Long</code>
+error, though it is really not that important, it would be
+better to use small sized id.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                id: <span class="hljs-string">""</span> + eventId++, 
                 type: type, 
                 data: data, 
                 reply: !!(resolved || rejected)
@@ -1663,11 +1694,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-88">
+        <li id="section-90">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-88">&#182;</a>
+                <a class="pilcrow" href="#section-90">&#182;</a>
               </div>
               <p>Stores resolved and rejected callbacks if they are given.</p>
 
@@ -1680,11 +1711,11 @@ from the client.</p>
         </li>
         
         
-        <li id="section-89">
+        <li id="section-91">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-89">&#182;</a>
+                <a class="pilcrow" href="#section-91">&#182;</a>
               </div>
               <p>Convert event object to JSON string and sends it through the transport.
 It will be formatted properly according to which the transport is used.</p>
@@ -1697,11 +1728,11 @@ It will be formatted properly according to which the transport is used.</p>
         </li>
         
         
-        <li id="section-90">
+        <li id="section-92">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-90">&#182;</a>
+                <a class="pilcrow" href="#section-92">&#182;</a>
               </div>
               <h3 id="close">close</h3>
 <p>By closing the transport.</p>
@@ -1715,11 +1746,11 @@ It will be formatted properly according to which the transport is used.</p>
         </li>
         
         
-        <li id="section-91">
+        <li id="section-93">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-91">&#182;</a>
+                <a class="pilcrow" href="#section-93">&#182;</a>
               </div>
               <h3 id="reply">reply</h3>
 <p>If the client sends the reply event, executes the stored reply
@@ -1741,11 +1772,11 @@ callbacks with data and deletes it.</p>
         </li>
         
         
-        <li id="section-92">
+        <li id="section-94">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-92">&#182;</a>
+                <a class="pilcrow" href="#section-94">&#182;</a>
               </div>
               <h3 id="heartbeat">heartbeat</h3>
 <p>If <code>heartbeat</code> param is not <code>false</code> and is a number, prepares 
@@ -1759,11 +1790,11 @@ and <code>+&quot;5000&quot;</code> gives <code>5000</code> equal to <code>true</
         </li>
         
         
-        <li id="section-93">
+        <li id="section-95">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-93">&#182;</a>
+                <a class="pilcrow" href="#section-95">&#182;</a>
               </div>
               <p>Sets a timer to close the socket after the heartbeat interval.</p>
 
@@ -1780,11 +1811,11 @@ and <code>+&quot;5000&quot;</code> gives <code>5000</code> equal to <code>true</
         </li>
         
         
-        <li id="section-94">
+        <li id="section-96">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-94">&#182;</a>
+                <a class="pilcrow" href="#section-96">&#182;</a>
               </div>
               <p>The client will start to heartbeat on its open event and send the
 heartbaet event periodically. Then, cancels the timer, sets it up
@@ -1801,11 +1832,11 @@ again and sends the heartbeat event as a response.</p>
         </li>
         
         
-        <li id="section-95">
+        <li id="section-97">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-95">&#182;</a>
+                <a class="pilcrow" href="#section-97">&#182;</a>
               </div>
               <p>To prevent a side effect of the timer, clears it on the close event.</p>
 
