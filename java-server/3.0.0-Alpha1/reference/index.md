@@ -633,11 +633,11 @@ server.socketAction(new Action<Socket>() {
             public void on(Reply<String> reply) {
                 String id = reply.data();
                 System.out.println(id);
-		        try {
-		            reply.resolve(Account.find.byId(id));
-		        } catch(EntityNotFoundException e) {
-		            reply.reject("¯\(°_o)/¯");
-		        }
+                try {
+                    reply.resolve(Account.find.byId(id));
+                } catch(EntityNotFoundException e) {
+                    reply.reject("¯\(°_o)/¯");
+                }
             }
         });
     }
@@ -730,10 +730,10 @@ client.open("http://localhost:8000/react", {transport: "ws"})
 ---
 
 ## Integration
-Here are how to integrate React Java Server with awesome frameworks.
+Here are how to integrate React Java Server with awesome technologies.
 
 ### I/O Platform
-As covered in installation section, installing React Java Server on the specific platform is simply to create Server and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
+As covered in installation section, installing React Java Server on the specific platform is simply to create `Server` and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
 
 If your favorite platform is not supported, all you need to do is to implement `ServerHttpExchange` and `ServerWebSocket` according to the platform.
 
@@ -743,8 +743,95 @@ server.websocketAction().on(new MyServerWebSocket(ws));
 ```
 
 ### Dependency Injection Framework
+With the help of dependency injection framework like Spring and Guice, you can inject Server wherever you need like the following cases:
 
-TODO
+<div class="row">
+<div class="large-3 medium-6 columns">
+{% capture panel %}
+Making Server as component.
+
+```java
+@Configuration
+public class Config {
+  @Bean
+  public Server server() {
+    return new DefaultServer();
+  }
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-3 medium-6 columns">
+{% capture panel %}
+Integrating with I/O platform.
+
+```java
+@Component
+public class Feeder {
+  @Autowired
+  private Server server;
+
+  @OnHttpExchange
+  public void http(HttpExchange h) {
+    server.httpAction()
+    .on(new MyServerHttpExchange(h));
+  }
+
+  @OnWebSocket
+  public void ws(WebSocket ws) {
+    server.websocketAction()
+    .on(new MyServerWebSocket(ws));
+  }
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-3 medium-6 columns">
+{% capture panel %}
+Handling socket.
+
+```java
+@Component
+public class Controller {
+  @Autowired
+  private Server server;
+  
+  @PostContruct
+  public void handle() {
+    server.socketAction(
+      new Action<Socket>() {
+      @Override
+      public void on(Socket socket) {
+        socket.tags().add("tag");
+      }
+    });
+  }
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-3 medium-6 columns">
+{% capture panel %}
+Sending event.
+
+```java
+@Component
+public class Ticker {
+  @Autowired
+  private Server server;
+
+  @Scheduled(fixedRate = 1000)
+  public void tick() {
+    server.byTag("tag")
+    .send("t", currentTimeMillis());
+  }
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
+
+
 
 ### Message Oriented Middleware
 
