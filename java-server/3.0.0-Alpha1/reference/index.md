@@ -804,7 +804,7 @@ public class BahServerWebSocket implements ServerWebSocket {
 </div>
 
 ### Dependency Injection Framework
-With the help of dependency injection framework like Spring and Guice, you can inject Server wherever you need like the following cases:
+With the help of Dependency Injection (DI) framework like Spring and Guice, you can inject Server wherever you need like the following cases:
 
 <div class="row">
 <div class="large-3 medium-6 columns">
@@ -896,4 +896,54 @@ public class Ticker {
 
 ### Message Oriented Middleware
 
-TODO
+All of the Message Oriented Middleware (MOM) supporting publish and subscribe model like JMS and Hazelcast can be used to cluster multiple react applications by using `ClusteredServer`.
+
+`ClusteredServer` intercepts a call to `all`, `byId` and `byTag`, converts the call into a message and pass the message to actions added via `publishAction` which is supposed to publish message to all nodes including the one issued in cluster with the message. If one of node receives a message, it should pass the message to `messageAction` in `ClusteredServer`.
+
+**Note**
+
+* Most MOM in Java requires message to be serialized. In other words, `Action` instance used in `all`, `byId` and `byTag` (not `socketAction`) should implement `Serializable`. Whereas `Action` is generally used as anonymous class, but `Serializable` [can't be used in that manner](http://docs.oracle.com/javase/7/docs/platform/serialization/spec/serial-arch.html#4539). Therefore always use `Sentence` instead of `Action` especially in this case.
+
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+Hermaphrodite case. It will work exactly like `DefaultServer`.
+
+```java
+final ClusteredServer server = new ClusteredServer();
+
+server.publishAction(new Action<Map<String, Object>>() {
+	@Override
+	public void on(Map<String, Object> message) {
+		server.messageAction().on(message);
+	}
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+Hazelcast case. You can regard `topic` as node in the above explanation.
+
+```java
+HazelcastInstance hazelcast = 
+HazelcastInstanceFactory.newHazelcastInstance(new Config());
+final ClusteredServer server = new ClusteredServer();
+final ITopic<Map<String, Object>> topic = hazelcast.getTopic("react:app");
+
+topic.addMessageListener(new MessageListener<Map<String, Object>>() {
+	@Override
+	public void onMessage(Message<Map<String, Object>> message) {
+		server.messageAction().on(message.getMessageObject());
+	}
+});
+server.publishAction(new Action<Map<String, Object>>() {
+	@Override
+	public void on(Map<String, Object> message) {
+		topic.publish(message);
+	}
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
