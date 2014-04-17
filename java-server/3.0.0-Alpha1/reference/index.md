@@ -404,7 +404,7 @@ Add the following dependency to your build or include it on your classpath manua
 Server is a react application in a nutshell producing and managing socket consuming HTTP exchange and WebSocket.
 
 ### Handling Socket
-When a socket is opened, actions added via `socketAction` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
+When a socket is opened, actions added via `socketAction(Action<Socket> action)` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
 
 ```java
 server.socketAction(new Action<Socket>() {
@@ -419,7 +419,7 @@ server.socketAction(new Action<Socket>() {
 It's a common use case to select some sockets and do something with them like dealing with persistence entities or HTML elements. When a socket has been closed, it is evicted from the server immediately, so socket being passed to action is always in the open state where I/O operations are available.
 
 #### All
-`all` executes the given action finding all of the socket in this server.
+`all(Action<Socket> action)` executes the given action finding all of the socket in this server.
 
 ```java
 server.all(new Action<Socket>() {
@@ -431,7 +431,7 @@ server.all(new Action<Socket>() {
 ```
 
 #### By Id
-Every socket has a unique id. `byId` finds socket by id and executes the given action only once or not if no socket is found.
+Every socket has a unique id. `byId(String id, Action<Socket> action)` finds socket by id and executes the given action only once or not if no socket is found.
 
 ```java
 server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<Socket>() {
@@ -443,7 +443,7 @@ server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<Socket>() {
 ```
 
 #### By Tag
-A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag` finds socket accepting one or more tag names and executes the given action. It is desirable to use tag when dealing with a specific concept in the real world (e.g. person and topic). Tag set is managed only by server and unknown to client.
+A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag(String[] names, Action<Socket> action)` finds socket accepting one or more tag names and executes the given action. It is desirable to use tag when dealing with a specific concept in the real world (e.g. person and topic). Tag set is managed only by server and unknown to client.
 
 ```java
 server.byTag("room#201", new Action<Socket>() {
@@ -515,13 +515,13 @@ tags.add("account#flowersinthesand");
 </div>
 
 ### Sending and Receiving Events
-`on` attaches an event handler. The `close` event is the only reserved event, which fires when a socket has been clsoed. In receiving events, the allowed Java types, `T`, for data are corresponding to JSON types:
+`on(String event, Action<T> action)` attaches an event handler. The `close` event is the only reserved event, which fires when a socket has been clsoed. In receiving events, the allowed Java types, `T`, for data are corresponding to JSON types:
 
 | Number | String | Boolean | Array | Object | null |
 |---|---|---|---|---|---|
 |`Integer` or `Double` | `String` | `Boolean` | `List<T>` | `Map<String, T>` | `null` or `Void` |
 
-`send` sends an event with or without data. Unlike when receiving event, when sending event you can use any type of data and it will be internally stringified by Jackson. However, don't rely on detail features of Jackson too much, e.g. use of annotations. There is no restriction on event name but to avoid confusion don't use `connecting`, `waiting`, `open` and `close`, which are reserved event in React JavaScript Client.
+`send(String event)` and `send(String event, Object data)` sends an event with or without data, respectively. Unlike when receiving event, when sending event you can use any type of data and it will be internally stringified by Jackson. However, don't rely on detail features of Jackson too much, e.g. use of annotations. There is no restriction on event name but to avoid confusion don't use `connecting`, `waiting`, `open` and `close`, which are reserved event in React JavaScript Client.
 
 The client sends events and the server echoes back to the client.
 
@@ -610,7 +610,7 @@ client.open("http://localhost:8000/react", {transport: "ws"})
 </div>
 
 ### Sending and Receiving Replyable Event
-Through replayable event, you can receive data in sending event by using overloaded signatures of `send` where allowed data types are the same with in reciving event and send data in receiving event by using `Reply` as data type in an asynchrnous manner like Remote Procedure Call (RPC) or controller from MVC model.
+Through replayable event, you can receive data in sending event by using overloaded signatures of `send(String event, Object data, Action<T> resolved)` and `send(String event, Object data, Action<T> resolved, Action<U> rejected)` where allowed data types are the same with in reciving event and send data in receiving event by using `Reply` as data type in an asynchrnous manner like Remote Procedure Call (RPC) or controller from MVC model.
 
 **Note**
 
@@ -898,7 +898,7 @@ public class Ticker {
 
 All of the Message Oriented Middleware (MOM) supporting publish and subscribe model like JMS and Hazelcast can be used to cluster multiple react applications by using `ClusteredServer`.
 
-`ClusteredServer` intercepts a call to `all`, `byId` and `byTag`, converts the call into a message and pass the message to actions added via `publishAction` which is supposed to publish message to all nodes including the one issued in cluster with the message. If one of node receives a message, it should pass the message to `messageAction` in `ClusteredServer`.
+`ClusteredServer` intercepts a call to `all`, `byId` and `byTag`, converts the call into a message and pass the message to actions added via `publishAction(Action<Map<String,Object>> action)` which is supposed to publish message to all nodes including the one issued in cluster with the message. If one of node receives a message, it should pass the message to `messageAction()` in `ClusteredServer`.
 
 **Note**
 
