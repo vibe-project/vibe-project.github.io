@@ -735,12 +735,73 @@ Here are how to integrate React Java Server with awesome technologies.
 ### I/O Platform
 As covered in installation section, installing React Java Server on the specific platform is simply to create `Server` and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
 
-If your favorite platform is not supported, all you need to do is to implement `ServerHttpExchange` and `ServerWebSocket` according to the platform.
+If your favorite platform is not supported, all you need to do is to implement `ServerHttpExchange` and `ServerWebSocket` according to the platform and pass them to `Server`.
+
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+Typical controller.
 
 ```java
-server.httpAction().on(new MyServerHttpExchange(req));
-server.websocketAction().on(new MyServerWebSocket(ws));
+@Component
+public class Controller {
+    @Inject
+    private Server server;
+    
+    @Init
+    public void post() {
+        server.socketAction(new Action<Socket>() {
+            @Override
+            public void on(Socket socket) {
+                // Your logic here
+            }
+        });
+    }
+    
+    @HttpAction("/react")
+    public void onHttpExchange(HttpRequest req, HttpResponse res) {
+        server.httpAction().on(new BahServerHttpExchange(req, res));
+    }
+    
+    @WebSocketAction("/react")
+    public void onWebSocket(WebSocket ws) {
+        server.websocketAction().on(new BahServerWebSocket(ws));
+    }
+}
 ```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+What you need to write.
+
+```java
+public class BahServerHttpExchange implements ServerHttpExchange {
+    private final HttpRequest req;
+    private final HttpResponse res;
+    
+    public BahServerHttpExchange(HttpRequest req, HttpResponse res) {
+        this.req = req;
+        this.res = res;
+    }
+    
+    // Your implementation here
+}
+```
+```java
+public class BahServerWebSocket implements ServerWebSocket {
+    private final WebSocket ws;
+    
+    public BahServerWebSocket(WebSocket ws) {
+        this.ws = ws;
+    }
+    
+    // Your implementation here
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
 
 ### Dependency Injection Framework
 With the help of dependency injection framework like Spring and Guice, you can inject Server wherever you need like the following cases:
