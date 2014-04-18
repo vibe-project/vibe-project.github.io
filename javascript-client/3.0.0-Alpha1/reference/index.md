@@ -448,6 +448,7 @@ To enalbe, set `sharing:boolean` option to `true`. As long as the cookie is enab
 
 **Note**
 
+* Applies to only browser.
 * In the current implementation, the server can't see socket using shared connection apart from one which possesses a real physical connection. Sockets using shared connection are a kind of mirror of socket having shared the connection but there is no restriction in functionalities. In next major version in protocol, it will be proposed as enhancement or replacement to allow for the server to recognize a socket using shared connection as a indipendent socket.
 * With the current implementation, use of repliable events is not recommended.
 
