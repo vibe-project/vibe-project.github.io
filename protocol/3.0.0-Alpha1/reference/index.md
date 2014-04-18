@@ -82,14 +82,14 @@ To help understand the protocol, reference implementation is provided taking the
 First you need to install [Node.js](http://nodejs.org). Then type the following to install the reference implementation:
 
 ```bash
-npm install react-???
+npm install react-protocol
 ```
 
 Then you can import client and server in Node console as follows:
 
 ```javascript
-var client = require("react-???/lib/client");
-var server = require("react-???/lib/server");
+var client = require("react-protocol/lib/client");
+var server = require("react-protocol/lib/server");
 ```
 
 ### Interactive Mode
@@ -101,7 +101,7 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 **Client**
 
 ```javascript
-var client = require("react-???/lib/client"),
+var client = require("react-protocol/lib/client"),
     socket;
 
 client.open("http://localhost:8000/react", {transport: "ws"})
@@ -125,7 +125,7 @@ socket.on("greeting", function(data) {
 **Server**
 
 ```javascript
-var server = require("react-???/lib/server").server(),
+var server = require("react-protocol/lib/server").server(),
     httpServer = require("http").createServer(),
     sockets = [];
 
@@ -183,7 +183,7 @@ Testee is a web server which brokers between test and implementation to be teste
 First you need to install [Node.js](http://nodejs.org). Then type the following to install the test suite locally and Mocha globally: 
 
 ```bash
-npm install react-???
+npm install react-protocol
 npm install mocha -g
 ```
 
@@ -192,13 +192,13 @@ Run your testee. Once it's ready, open Node console and run mocha to test
 * client implementation
 
     ```bash
-    mocha ./node_modules/react-???/test/client.js
+    mocha ./node_modules/react-protocol/test/client.js
     ```
     
 * server implementation
 
     ```bash
-    mocha ./node_modules/react-???/test/server.js
+    mocha ./node_modules/react-protocol/test/server.js
     ```
     
 And see the result on the console.

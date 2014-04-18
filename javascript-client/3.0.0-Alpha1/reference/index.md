@@ -73,7 +73,7 @@ Licensed under the Apache License 2.0.
 ---
 
 ## Quick Start
-You already have all you need to run react.js. Let's deal with the client in an interactive mode. If you have Node.js, you can deal with the server in an interactive mode also.
+You already have all you need to run react.js. Let's deal with the client in an interactive mode.
 
 <div class="row">
 <div class="large-6 columns">
@@ -99,23 +99,10 @@ Once `socket` have been logged, you can access the opened socket by `socket` in 
 {% capture panel %}
 **Server**
 
-Clone React Protocol repository, open node console, copy the following script and paste into the console.
+You can use:
 
-```javascript
-var server = require("./lib/server").server(),
-    httpServer = require("http").createServer(),
-    sockets = [];
-
-httpServer.on("request", server.handleRequest);
-httpServer.on("upgrade", server.handleUpgrade);
-httpServer.listen(8000);
-
-server.on("socket", function(socket) {
-  console.log("sockets[" + (sockets.push(socket) - 1) + "]");
-});
-```
-
-Once `sockets[0]` have been logged, you can access the opened socket by `sockets[0]` in the console.
+* [Reference implementation]({{ site.baseurl }}/protocol/3.0.0-Alpha1/reference/#toc_5)
+* [React Java Server](http://localhost:4000/java-server/3.0.0-Alpha1/reference/#toc_4)
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
@@ -129,7 +116,7 @@ Download react.js the way you want.
 <ul class="inline-list">
 <li><a href="https://raw.githubusercontent.com/Atmosphere/react-javascript-client/master/react.js">The compressed for production</a></li>
 <li><a href="https://raw.githubusercontent.com/Atmosphere/react-javascript-client/master/react.js">The uncompressed for development</a></li>
-<li><code>bower install react-???</code></li>
+<li><code>bower install react-client</code></li>
 </ul>
 
 Then load it by using either script tag or [Asynchronous Module Definition](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) loader.
@@ -161,7 +148,7 @@ require(["react"], function(react) {
 </div>
 
 ### As Node.js client
-react.js is available on [npm](https://npmjs.org/package/react-???) under the name of `react-???`. Add `react-???` to your `package.json` and install the dependencies. If you are on Windows, you may have trouble in installing Contextify. See a [installation guide](https://github.com/tmpvar/jsdom#contextify) from jsdom.
+react.js is available on [npm](https://npmjs.org/package/react-client) under the name of `react-client`. Add `react-client` to your `package.json` and install the dependencies. If you are on Windows, you may have trouble in installing Contextify. See a [installation guide](https://github.com/tmpvar/jsdom#contextify) from jsdom.
   
 ```bash
 npm install
@@ -170,7 +157,7 @@ npm install
 Then load it as a Node.js module.
 
 ```javascript
-var react = require("react-???");
+var react = require("react-client");
 react.open("http://localhost:8000/react");
 ```
 

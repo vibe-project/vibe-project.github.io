@@ -139,27 +139,10 @@ With the help of debug, you can deal with the opened socket in pseudo interactiv
 {% capture panel %}
 **Client**
 
-To use the reference implementation, you need to install [Node.js](http://nodejs.org/). If you are not happy, however, you can use React JavaScript Client running on browser. 
+You can use:
 
-Once you've installed Node.js, then type the following to install the reference implementation:
-
-```bash
-npm install react-???
-```
-
-Open Node console, copy the following script and paste into the console. 
-
-```javascript
-var client = require("react-???/lib/client"),
-    socket;
-
-client.open("http://localhost:8000/", {transport: "ws"})
-.on("open", function() {
-    socket = this;
-    console.log("socket");
-});
-```
-Once `socket` have been logged, you can access the opened socket by `socket` in the console.
+* [Reference implementation]({{ site.baseurl }}/protocol/3.0.0-Alpha1/reference/#toc_5)
+* [React JavaScript Client](http://localhost:4000/javascript-client/3.0.0-Alpha1/reference/#toc_4)
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
@@ -551,7 +534,7 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-???/lib/client");
+var client = require("react-protocol/lib/client");
 client.open("http://localhost:8000/react", {transport: "ws"})
 .on("open", function() {
     this.send("echo", Math.PI)
@@ -598,7 +581,7 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-???/lib/client");
+var client = require("react-protocol/lib/client");
 client.open("http://localhost:8000/react", {transport: "ws"})
 .on("echo", function(data) {
     console.log(data);
@@ -650,7 +633,7 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-???/lib/client");
+var client = require("react-protocol/lib/client");
 client.open("http://localhost:8000/react", {transport: "ws"})
 .on("open", function(data) {
     this.send("account:find", "flowersinthesand", function(data) {
@@ -712,7 +695,7 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-???/lib/client");
+var client = require("react-protocol/lib/client");
 client.open("http://localhost:8000/react", {transport: "ws"})
 .on("account:find", function(id, reply) {
     console.log(id);
@@ -730,7 +713,7 @@ client.open("http://localhost:8000/react", {transport: "ws"})
 ---
 
 ## Integration
-Here are how to integrate React Java Server with awesome technologies.
+Here is how to integrate React Java Server with awesome technologies.
 
 ### I/O Platform
 As covered in installation section, installing React Java Server on the specific platform is simply to create `Server` and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
@@ -857,13 +840,13 @@ public class Controller {
   @Autowired
   private Server server;
   
-  @PostContruct
+  @PostConstruct
   public void handle() {
     server.socketAction(
       new Action<Socket>() {
       @Override
       public void on(Socket socket) {
-        socket.tags().add("tag");
+        socket.tag("tag");
       }
     });
   }
