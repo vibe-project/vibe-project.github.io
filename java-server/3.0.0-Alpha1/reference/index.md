@@ -34,12 +34,13 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 1. [Socket](#toc_17)
     1. [Life Cycle](#toc_18)
     1. [Properties](#toc_19)
-    1. [Sending and Receiving Events](#toc_20)
-    1. [Sending and Receiving Replyable Event](#toc_21)
-1. [Integration](#toc_22)
-    1. [I/O Platform](#toc_23)
-    1. [Dependency Injection Framework](#toc_24)
-    1. [Message Oriented Middleware](#toc_25) 
+    1. [Tagging](#toc_20)
+    1. [Sending and Receiving Events](#toc_21)
+    1. [Sending and Receiving Replyable Event](#toc_22)
+1. [Integration](#toc_23)
+    1. [I/O Platform](#toc_24)
+    1. [Dependency Injection Framework](#toc_25)
+    1. [Message Oriented Middleware](#toc_26) 
     
 ---
 
@@ -426,7 +427,7 @@ server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<Socket>() {
 ```
 
 #### By Tag
-A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag(String[] names, Action<Socket> action)` finds socket accepting one or more tag names and executes the given action. It is desirable to use tag when dealing with a specific concept in the real world (e.g. person and topic). Tag set is managed only by server and unknown to client.
+A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag(String[] names, Action<Socket> action)` finds socket accepting one or more tag names and executes the given action.
 
 ```java
 server.byTag("room#201", new Action<Socket>() {
@@ -492,6 +493,45 @@ A set of tag names. It's modifiable, deal with it as a plain set.
 ```java
 Set<String> tags = socket.tags();
 tags.add("account#flowersinthesand");
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
+
+### Tagging
+As `Socket` is a just connectivity, id is not suibtable for handling a specific entity in the real world. For example, when an user signs in using multiple devices, if someone sends a message, it should be delivered to all devices where the user signed in. To do that, using id is annoying and error-prone.
+
+That's why tag is introduced. A tag is used to point to a group of sockets like class attribute in HTML. Tag set is managed only by server and unknown to client. `tag(String... names)`/`untag(String... names)` attcahes/detaches given names of tags to/from a socket.
+
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+**Tagging**
+
+```java
+server.socketAction(new Action<Socket>() {
+    @Override
+    public void on(final Socket socket) {
+        socket.tag(Uris.parse(socket.uri()).param("username"));
+    }
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+**Using tag**
+
+```java
+public class EntityListener {
+    @Inject
+    Server server;
+    
+    @PostUpdate
+    public void notifyAccount(Account account) {
+        server.byTag(account.username()).send("account:update", account);
+    }
+}
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
