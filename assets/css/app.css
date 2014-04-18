@@ -6,14 +6,7 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .row {max-width: 80rem;}
 .top-bar-wrapper {background: #333;}
 .highlight {margin-bottom: 1.25rem; line-height: 1.2rem;}
-
-.alone {margin-left: auto; margin-right: auto; float: none;}
 .text {padding-top: 2rem;}
-
-.index > div:first-child {margin: 8rem auto;}
-.index h1 {font-size: 5rem;}
-.index h1, .index h2 {font-style: normal; font-weight: 300;}
-
 .project-bar {margin-bottom: 1rem;}
 .doc-list .inline-list {margin-bottom: 0;}
 .doc-list .bullet-item * {display: inline-block;}
