@@ -148,11 +148,13 @@ require(["react"], function(react) {
 </div>
 
 ### As Node.js client
-react.js is available on [npm](https://npmjs.org/package/react-client) under the name of `react-client`. Add `react-client` to your `package.json` and install the dependencies. If you are on Windows, you may have trouble in installing Contextify. See a [installation guide](https://github.com/tmpvar/jsdom#contextify) from jsdom.
+react.js is available on [npm](https://npmjs.org/package/react-client) under the name of `react-client`. Install the module.
   
 ```bash
-npm install
+npm install react-client --save
 ```
+
+It will install the latest version adding it to dependencies entry in `package.json` in the current project folder. If you are on Windows, you may have trouble in installing Contextify. See a [installation guide](https://github.com/tmpvar/jsdom#contextify) from jsdom.
 
 Then load it as a Node.js module.
 
