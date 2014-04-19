@@ -3,7 +3,6 @@ html {font-size: 90%;}
 h1,h2,h3 {font-family: "Open Sans"}
 pre code {font-size: 90%; font-weight: normal; color: inherit;}
 
-.row {max-width: 80rem;}
 .top-bar-wrapper {background: #333;}
 .highlight {margin-bottom: 1.25rem; line-height: 1.2rem;}
 .text {padding-top: 2rem;}
