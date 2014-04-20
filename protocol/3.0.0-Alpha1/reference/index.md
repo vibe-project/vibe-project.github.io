@@ -85,13 +85,6 @@ First you need to install [Node.js](http://nodejs.org). Then type the following 
 npm install react-protocol
 ```
 
-Then you can import client and server in Node console as follows:
-
-```javascript
-var client = require("react-protocol/lib/client");
-var server = require("react-protocol/lib/server");
-```
-
 ### Interactive Mode
 JavaScript is a dynamic language so you can deal with both client and server in an interactive mode. Open two Node console, copy the following scripts and paste into the each console.
 
@@ -101,10 +94,10 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 **Client**
 
 ```javascript
-var client = require("react-protocol/lib/client"),
+var react = require("react-protocol"),
     socket;
 
-client.open("http://localhost:8000/react", {transport: "ws"})
+react.open("http://localhost:8000/react", {transport: "ws"})
 .on("open", function() {
     socket = this;
     console.log("socket");
@@ -125,7 +118,8 @@ socket.on("greeting", function(data) {
 **Server**
 
 ```javascript
-var server = require("react-protocol/lib/server").server(),
+var react = require("react-protocol"),
+    server = react.server(),
     httpServer = require("http").createServer(),
     sockets = [];
 

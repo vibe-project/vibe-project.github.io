@@ -97,13 +97,12 @@ http.globalAgent.maxSockets = <span class="hljs-literal">Infinity</span>;</pre><
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <h2 id="exports">Exports</h2>
-<h3 id="open">open</h3>
-<p>Opens a new socket and returns it. The react client works as standalone.</p>
-<pre><code><span class="hljs-keyword">var</span> client = <span class="hljs-built_in">require</span>(<span class="hljs-string">"../lib/client"</span>),
-    socket = client.open(<span class="hljs-string">"http://localhost:8080/react"</span>, {
-        transport: <span class="hljs-string">"ws"</span>
-    });
+              <h2 id="api">API</h2>
+<p><code>require(&quot;react-protocol&quot;).open</code> opens a new socket and returns it.</p>
+<pre><code><span class="hljs-keyword">var</span> react = <span class="hljs-built_in">require</span>(<span class="hljs-string">"react-protocol"</span>),
+<span class="hljs-keyword">var</span> socket = react.open(<span class="hljs-string">"http://localhost:8080/react"</span>, {
+    transport: <span class="hljs-string">"ws"</span>
+});
 
 socket.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
   socket.send(<span class="hljs-string">"greetings"</span>, <span class="hljs-string">"Hi"</span>);
@@ -111,7 +110,7 @@ socket.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><
 </code></pre>
             </div>
             
-            <div class="content"><div class='highlight'><pre>exports.open = socket;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>module.exports = socket;</pre></div></div>
             
         </li>
         

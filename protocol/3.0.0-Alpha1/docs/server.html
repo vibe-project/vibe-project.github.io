@@ -90,13 +90,14 @@ easy-to-read JavaScript running on Node.js.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <h2 id="exports">Exports</h2>
-<h3 id="server">server</h3>
-<p>Returns a new react server. It is installed by passing request 
-and upgrade events dispatched by Node’s HTTP/HTTPS server to the server.</p>
-<pre><code><span class="hljs-keyword">var</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>),
-    server = <span class="hljs-built_in">require</span>(<span class="hljs-string">"../lib/server"</span>).server(),
-    httpServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>).createServer();
+              <h2 id="api">API</h2>
+<p><code>require(&quot;react-protocol&quot;).server()</code> creates a react server that is installed
+by passing request and upgrade events dispatched by Node’s HTTP/HTTPS server
+to the server.</p>
+<pre><code><span class="hljs-keyword">var</span> react = <span class="hljs-built_in">require</span>(<span class="hljs-string">"react-protocol"</span>);
+<span class="hljs-keyword">var</span> server = react.server();
+<span class="hljs-keyword">var</span> httpServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>).createServer();
+<span class="hljs-keyword">var</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>);
 
 server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(socket)</span> {</span>
   socket.send(<span class="hljs-string">"greetings"</span>, <span class="hljs-string">"Hi"</span>);
@@ -116,7 +117,7 @@ httpServer.listen(<span class="hljs-number">8080</span>)
 </code></pre>
             </div>
             
-            <div class="content"><div class='highlight'><pre>exports.server = server;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>module.exports = server;</pre></div></div>
             
         </li>
         
