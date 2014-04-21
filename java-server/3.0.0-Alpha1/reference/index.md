@@ -390,6 +390,11 @@ Server is a react application in a nutshell producing and managing socket consum
 ### Handling Socket
 When a socket is opened, actions added via `socketAction(Action<Socket> action)` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
 
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+**Java 7**
+
 ```java
 server.socketAction(new Action<Socket>() {
     @Override
@@ -398,12 +403,31 @@ server.socketAction(new Action<Socket>() {
     }
 });
 ```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+**Java 8**
+
+```java
+server.socketAction(socket -> {
+    // Your logic here
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
 
 ### Selecting Sockets
 It's a common use case to select some sockets and do something with them like dealing with persistence entities or HTML elements. When a socket has been closed, it is evicted from the server immediately, so socket being passed to action is always in the open state where I/O operations are available.
 
 #### All
 `all(Action<Socket> action)` executes the given action finding all of the socket in this server.
+
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+**Java 7**
 
 ```java
 server.all(new Action<Socket>() {
@@ -413,9 +437,28 @@ server.all(new Action<Socket>() {
     }
 });
 ```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+**Java 8**
+
+```java
+server.all(socket -> {
+    // Your logic here
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
 
 #### By Id
 Every socket has a unique id. `byId(String id, Action<Socket> action)` finds socket by id and executes the given action only once or not if no socket is found.
+
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+**Java 7**
 
 ```java
 server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<Socket>() {
@@ -425,9 +468,28 @@ server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<Socket>() {
     }
 });
 ```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+**Java 8**
+
+```java
+server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", socket -> {
+    // Your logic here
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
 
 #### By Tag
 A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag(String[] names, Action<Socket> action)` finds socket accepting one or more tag names and executes the given action.
+
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+**Java 7**
 
 ```java
 server.byTag("room#201", new Action<Socket>() {
@@ -437,6 +499,20 @@ server.byTag("room#201", new Action<Socket>() {
     }
 });
 ```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+**Java 8**
+
+```java
+server.byTag("room#201", socket -> {
+    // Your logic here
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
 
 ### Writing Sentence
 `Sentence` is a fluent interface to deal with a group of sockets. Finder methods return a sentence when being called without action. Use of sentence is preferred to that of action if the goal is same. Because, it enables to write one-liner action and uses an action implementing `Serializable` in execution, which is picky to use in anonymous class and typically needed in clustering.
@@ -445,7 +521,7 @@ server.byTag("room#201", new Action<Socket>() {
 server.all().send("foo", "bar");
 ```
 ```java
-server.byTag("room#201").send("message", "time to say goodbye").close();
+server.byTag("room#201", "room#301").send("message", "time to say goodbye").close();
 ```
 
 ---
