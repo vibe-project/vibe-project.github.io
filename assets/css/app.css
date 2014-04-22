@@ -5,6 +5,7 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 
 .top-bar-wrapper {background: #333;}
 .highlight {margin-bottom: 1.25rem; line-height: 1.2rem;}
+.has-form input {height: 28px;}
 .text {padding-top: 2rem;}
 .project-bar {margin-bottom: 1rem;}
 .doc-list .inline-list {margin-bottom: 0;}

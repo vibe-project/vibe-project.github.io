@@ -6,7 +6,18 @@
 					<li class="name">
 						<h1><a href="{{ site.baseurl }}/">React</a></h1>
 					</li>
+                    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
 				</ul>
+                <section class="top-bar-section">
+                    <ul class="right">
+                        <li class="has-form">
+                            <form action="http://www.google.com/search">
+                                <input type="hidden" name="sitesearch" value="{{ site.url }}" />
+                                <input type="search" name="q" placeholder="Search via Google" autocomplete="off" />
+                            </form>
+                        </li>
+                    </ul>
+                </section>
 			</nav>
 		</div>
 	</div>
