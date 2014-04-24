@@ -1,0 +1,20 @@
+---
+layout: blog
+---
+
+<div data-alert class="alert-box alert">
+This post is fake.<a href="#" class="close">&times;</a>
+</div>
+
+<article>
+    <h1 class="title"><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></h1>
+    <div class="information">
+        <p>
+            <a href="https://github.com/{{ page.author }}" class="post-author">
+                <img src="https://github.com/{{ page.author }}.png" alt="{{ page.author }}" width="24" height="24"> {{ page.author }}
+            </a>
+            wrote this on <time>{{ page.date | date_to_string }}</time> in {{ page.categories | array_to_sentence_string }}
+        </p>
+    </div>
+    <div class="content">{{ content }}</div>
+</article>

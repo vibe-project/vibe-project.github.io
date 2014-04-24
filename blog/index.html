@@ -1,0 +1,23 @@
+---
+layout: blog
+title: React Blog
+---
+
+<div data-alert class="alert-box alert">
+These posts are fake.<a href="#" class="close">&times;</a>
+</div>
+
+{% for post in site.posts %}
+    <div class="row">
+        <div class="large-12 columns">
+        {% include post.html %}
+        </div>
+    </div>
+    {% if forloop.last == false %}
+        <div class="row">
+            <div class="large-12 columns">
+                <hr />
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

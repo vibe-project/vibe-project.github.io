@@ -12,3 +12,6 @@ pre code {font-size: 90%; font-weight: normal; color: inherit;}
 .doc-list .bullet-item * {display: inline-block;}
 .doc-list code {color: inherit;}
 .copyright {color: #777;}
+
+article h1 {font-size: 2rem;}
+article .information {color: #888;}

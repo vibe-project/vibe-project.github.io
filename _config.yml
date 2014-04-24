@@ -3,7 +3,7 @@ name: React
 description: React, the modern web framework for writing real-time web applications.
 url: http://atmosphere.github.io/react/
 relative_permalinks: false
-permalink: /news/:year/:month/:day/:title/
+permalink: /blog/:year/:month/:day/:title/
 markdown: redcarpet
 redcarpet:
   extensions:

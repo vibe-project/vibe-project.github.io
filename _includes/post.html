@@ -1,0 +1,12 @@
+<article>
+    <h1 class="title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+    <div class="information">
+        <p>
+            <a href="https://github.com/{{ post.author }}" class="post-author">
+                <img src="https://github.com/{{ post.author }}.png" alt="{{ post.author }}" width="24" height="24"> {{ post.author }}
+            </a>
+            wrote this on <time>{{ post.date | date_to_string }}</time> in {{ post.categories | array_to_sentence_string }}
+        </p>
+    </div>
+    <div class="content">{{ post.content }}</div>
+</article>
