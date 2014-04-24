@@ -3,7 +3,7 @@ layout: reference
 title: React JavaScript Client Reference
 ---
 
-<div data-alert class="alert-box warning">
+<div data-alert class="alert-box alert">
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
