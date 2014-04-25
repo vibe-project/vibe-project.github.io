@@ -38,6 +38,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
   1. [Implementation](#toc_18) 
   1. [Compatibility](#toc_19)
 1. [Quirks](#toc_24)
+1. [Examples](#toc_29)
 
 ---
 
@@ -674,3 +675,9 @@ If a given url is cross-origin and the browser doesn't support CORS such as Inte
 Applies to: Internet Explorer whose version is higher than `8.0.7601.17514` and lower than `9.0`
 
 When `sharing` option is `true`, if there is trace of a shared connection, new sockets try to utilize it. In doing this, some Internet Explorer versions don't allow to access other windows so that a blank page pops up instead of getting a reference to targeted window. No workaround. Sorry...
+
+---
+
+## Examples
+### Simple
+The simple example is a basic echo and chat client. By default, it connects to `http://localhost:8080/react`. [Here](https://github.com/Atmosphere/react-examples/tree/master/javascript-client/simple).
