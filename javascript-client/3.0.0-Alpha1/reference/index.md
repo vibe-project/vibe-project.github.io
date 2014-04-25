@@ -114,12 +114,12 @@ You can use:
 Download react.js the way you want.
 
 <ul class="inline-list">
-<li><a href="https://raw.githubusercontent.com/Atmosphere/react-javascript-client/master/react.js">The compressed for production</a></li>
-<li><a href="https://raw.githubusercontent.com/Atmosphere/react-javascript-client/master/react.js">The uncompressed for development</a></li>
+<li><a href="{{ site.baseurl }}/javascript-client/3.0.0-Alpha1/react.min.js">The compressed for production</a></li>
+<li><a href="{{ site.baseurl }}/javascript-client/3.0.0-Alpha1/react.js">The uncompressed for development</a></li>
 <li><code>bower install react-client</code></li>
 </ul>
 
-Then load it by using either script tag or [Asynchronous Module Definition](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) loader.
+Then load or link it by using either script tag or [Asynchronous Module Definition](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) loader.
 
 <div class="row">
 <div class="large-6 columns">
