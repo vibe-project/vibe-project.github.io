@@ -24,24 +24,24 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 1. [Quick Start](#toc_4)
 1. [Installation](#toc_5)
     1. [Atmosphere 2](#toc_6)
-    1. [Vert.x 2](#toc_7)
-    1. [Servlet 3](#toc_8)
-    1. [Java WebSocket API 1](#toc_9)
-1. [Server](#toc_10)
-    1. [Handling Socket](#toc_11)
-    1. [Selecting Sockets](#toc_12)
-    1. [Writing Sentence](#toc_16)
-1. [Socket](#toc_17)
-    1. [Life Cycle](#toc_18)
-    1. [Properties](#toc_19)
-    1. [Tagging](#toc_20)
-    1. [Sending and Receiving Events](#toc_21)
-    1. [Sending and Receiving Replyable Event](#toc_22)
-1. [Integration](#toc_23)
-    1. [I/O Platform](#toc_24)
-    1. [Dependency Injection Framework](#toc_25)
-    1. [Message Oriented Middleware](#toc_26) 
-1. [Examples](#toc_27)
+    1. [Vert.x 2](#toc_9)
+    1. [Servlet 3](#toc_12)
+    1. [Java WebSocket API 1](#toc_15)
+1. [Server](#toc_18)
+    1. [Handling Socket](#toc_19)
+    1. [Selecting Sockets](#toc_20)
+    1. [Writing Sentence](#toc_24)
+1. [Socket](#toc_25)
+    1. [Life Cycle](#toc_26)
+    1. [Properties](#toc_27)
+    1. [Tagging](#toc_28)
+    1. [Sending and Receiving Events](#toc_29)
+    1. [Sending and Receiving Replyable Event](#toc_30)
+1. [Integration](#toc_31)
+    1. [I/O Platform](#toc_32)
+    1. [Dependency Injection Framework](#toc_33)
+    1. [Message Oriented Middleware](#toc_34) 
+1. [Examples](#toc_35)
     
 ---
 
@@ -160,42 +160,9 @@ The [Atmosphere 2](https://github.com/atmosphere/atmosphere/) makes the applicat
 **Note**
 
 * Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, React Java Server uses it as a platform but in the future it might be deprecated or replaced with new modules dealing with their vendor-specific code, e.g. react-tomcat8 and react-jetty9.
+* Now only atmosphere 2.0 works.
 
-<div class="row">
-<div class="large-7 columns">
-{% capture panel %}
-**Bootstrap**
-
-Installation will be done once the servlet container starts.
-
-```java
-// TODO react imports
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
-
-@WebListener
-public class Bootstrap implements ServletContextListener {
-  @Override
-  public void contextInitialized(ServletContextEvent event) {
-    Server server = new DefaultServer();
-    // server.socketAction(socket -> {/* Your logic here */});
-
-    new AtmosphereBridge(event.getServletContext(), "/react")
-    .httpAction(server.httpAction()).websocketAction(server.websocketAction());
-  }
-
-  @Override
-  public void contextDestroyed(ServletContextEvent sce) {}
-}
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-5 columns">
-{% capture panel %}
-**Dependency**
-
+#### Dependency
 Add the following dependency to your build or include it on your classpath manually.
 
 ```xml
@@ -210,68 +177,15 @@ Add the following dependency to your build or include it on your classpath manua
         <artifactId>react-runtime</artifactId>
         <version>3.0.0.Alpha1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+        <groupId>org.atmosphere</groupId>
+        <artifactId>atmosphere-runtime</artifactId>
+        <version>2.0.6</version>
+    </dependency>
 </dependencies>
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
-### Vert.x 2
-The [Vert.x 2](http://vertx.io/) which is an event driven application framework.
-
-<div class="row">
-<div class="large-7 columns">
-{% capture panel %}
-**Bootstrap**
-
-Installation will be done once the verticle starts.
-
-```java
-// TODO react imports
-
-import org.vertx.java.core.Handler;
-import org.vertx.java.core.http.HttpServer;
-import org.vertx.java.core.http.HttpServerRequest;
-import org.vertx.java.platform.Verticle;
-
-public class Bootstrap extends Verticle {
-  @Override
-  public void start() {
-    Server server = new DefaultServer();
-    // server.socketAction(socket -> {/* Your logic here */});
-
-    HttpServer httpServer = vertx.createHttpServer();
-    // Attach request and websocket handler first before installation
-
-    new VertxBridge(httpServer, "/react")
-    .httpAction(server.httpAction()).websocketAction(server.websocketAction());
-    httpServer.listen(8080);
-  }
-}
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-5 columns">
-{% capture panel %}
-**Dependency**
-
-Install the module via `vertx` console or include it on your classpath manually.
-
-```bash
-org.atmosphere~react-vertx2~3.0.0.Alpha1-SNAPSHOT
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
-
-### Servlet 3
-[Java Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Java Servlet 3.1](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 7. There is no WebSocket part in Servlet API and it exists as a separate specification. To use WebSocket in a JSR way, use Java WebSocket API in the next section. Servlet is a traditional Java web application, a war project in Maven.
-
-<div class="row">
-<div class="large-7 columns">
-{% capture panel %}
-**Bootstrap**
-
+#### Bootstrap
 Installation will be done once the servlet container starts.
 
 ```java
@@ -283,23 +197,70 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class Bootstrap implements ServletContextListener {
-  @Override
-  public void contextInitialized(ServletContextEvent event) {
-    Server server = new DefaultServer();
-    // server.socketAction(socket -> {/* Your logic here */});
-    
-    new ServletBridge(event.getServletContext(), "/react").httpAction(server.httpAction());
-  }
-  
-  @Override
-  public void contextDestroyed(ServletContextEvent sce) {}
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+        Server server = new DefaultServer();
+        // server.socketAction(socket -> {/* Your logic here */});
+
+        new AtmosphereBridge(event.getServletContext(), "/react").httpAction(server.httpAction()).websocketAction(server.websocketAction());
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {}
 }
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-5 columns">
-{% capture panel %}
-**Dependency**
+
+### Vert.x 2
+The [Vert.x 2](http://vertx.io/) is an event driven application framework.
+
+#### Dependency
+Add the following dependency to your build or include it on your classpath manually.
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.atmosphere</groupId>
+        <artifactId>react-vertx2</artifactId>
+        <version>3.0.0.Alpha1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>org.atmosphere</groupId>
+        <artifactId>react-runtime</artifactId>
+        <version>3.0.0.Alpha1-SNAPSHOT</version>
+    </dependency>
+</dependencies>
+```
+
+#### Bootstrap
+Installation will be done once the verticle starts.
+
+```java
+// TODO react imports
+
+import org.vertx.java.core.Handler;
+import org.vertx.java.core.http.HttpServer;
+import org.vertx.java.core.http.HttpServerRequest;
+import org.vertx.java.platform.Verticle;
+
+public class Bootstrap extends Verticle {
+    @Override
+    public void start() {
+        Server server = new DefaultServer();
+        // server.socketAction(socket -> {/* Your logic here */});
+
+        HttpServer httpServer = vertx.createHttpServer();
+        // Attach request and websocket handler first before installation
+
+        new VertxBridge(httpServer, "/react").httpAction(server.httpAction()).websocketAction(server.websocketAction());
+        httpServer.listen(8080);
+    }
+}
+```
+
+### Servlet 3
+[Java Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Java Servlet 3.1](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 7. There is no WebSocket part in Servlet API and it exists as a separate specification. To use WebSocket in a JSR way, use Java WebSocket API in the next section.
+
+#### Dependency
 
 Add the following dependency to your build or include it on your classpath manually.
 
@@ -317,51 +278,37 @@ Add the following dependency to your build or include it on your classpath manua
     </dependency>
 </dependencies>
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
-### Java WebSocket API 1
-[Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7. There is no HTTP part in WebSocket API and it exists as a separate specification. To deal with HTTP in a JSR way, use Java Servlet in the previous section. 
+#### Bootstrap
 
-<div class="row">
-<div class="large-7 columns">
-{% capture panel %}
-**Bootstrap**
-
-Installation will be done once the container starts by scanning `ServerApplicationConfig` instance. In case of embedded container, however, it may not scan it and you may have to follow their alternatives.
+Installation will be done once the servlet container starts.
 
 ```java
 // TODO react imports
 
-import java.util.Collections;
-import java.util.Set;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
-import javax.websocket.Endpoint;
-import javax.websocket.server.ServerApplicationConfig;
-import javax.websocket.server.ServerEndpointConfig;
-
-public class Bootstrap implements ServerApplicationConfig {
-  @Override
-  public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> _) {
-    Server server = new DefaultServer();
-    // server.socketAction(socket -> {/* Your logic here */});
-
-    return Collections.singleton(new JwaBridge("/react")
-    .websocketAction(server.websocketAction()).config());
-  }
-
-  @Override
-  public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scanned) {
-    return Collections.emptySet();
-  }
+@WebListener
+public class Bootstrap implements ServletContextListener {
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+        Server server = new DefaultServer();
+        // server.socketAction(socket -> {/* Your logic here */});
+        
+        new ServletBridge(event.getServletContext(), "/react").httpAction(server.httpAction());
+    }
+    
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {}
 }
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-5 columns">
-{% capture panel %}
-**Dependency**
+
+### Java WebSocket API 1
+[Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7. There is no HTTP part in WebSocket API and it exists as a separate specification. To deal with HTTP in a JSR way, use Java Servlet in the previous section. 
+
+#### Dependency
 
 Add the following dependency to your build or include it on your classpath manually.
 
@@ -379,9 +326,36 @@ Add the following dependency to your build or include it on your classpath manua
     </dependency>
 </dependencies>
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
+
+#### Bootstrap
+
+Installation will be done once the container starts by scanning `ServerApplicationConfig` instance. In case of embedded container, however, it may not scan it and you may have to follow their alternatives.
+
+```java
+// TODO react imports
+
+import java.util.Collections;
+import java.util.Set;
+
+import javax.websocket.Endpoint;
+import javax.websocket.server.ServerApplicationConfig;
+import javax.websocket.server.ServerEndpointConfig;
+
+public class Bootstrap implements ServerApplicationConfig {
+    @Override
+    public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> _) {
+        Server server = new DefaultServer();
+        // server.socketAction(socket -> {/* Your logic here */});
+
+        return Collections.singleton(new JwaBridge("/react").websocketAction(server.websocketAction()).config());
+    }
+
+    @Override
+    public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scanned) {
+        return Collections.emptySet();
+    }
+}
+```
 
 ---
 
