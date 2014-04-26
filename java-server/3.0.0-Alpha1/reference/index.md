@@ -27,21 +27,21 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
     1. [Vert.x 2](#toc_9)
     1. [Servlet 3](#toc_12)
     1. [Java WebSocket API 1](#toc_15)
-1. [Server](#toc_18)
-    1. [Handling Socket](#toc_19)
-    1. [Selecting Sockets](#toc_20)
-    1. [Writing Sentence](#toc_24)
-1. [Socket](#toc_25)
-    1. [Life Cycle](#toc_26)
-    1. [Properties](#toc_27)
-    1. [Tagging](#toc_28)
-    1. [Sending and Receiving Events](#toc_29)
-    1. [Sending and Receiving Replyable Event](#toc_30)
-1. [Integration](#toc_31)
-    1. [I/O Platform](#toc_32)
-    1. [Dependency Injection Framework](#toc_33)
-    1. [Message Oriented Middleware](#toc_34) 
-1. [Examples](#toc_35)
+1. [Server](#toc_22)
+    1. [Handling Socket](#toc_23)
+    1. [Selecting Sockets](#toc_24)
+    1. [Writing Sentence](#toc_28)
+1. [Socket](#toc_29)
+    1. [Life Cycle](#toc_30)
+    1. [Properties](#toc_31)
+    1. [Tagging](#toc_32)
+    1. [Sending and Receiving Events](#toc_33)
+    1. [Sending and Receiving Replyable Event](#toc_34)
+1. [Integration](#toc_35)
+    1. [I/O Platform](#toc_36)
+    1. [Dependency Injection Framework](#toc_37)
+    1. [Message Oriented Middleware](#toc_38)
+1. [Examples](#toc_39)
     
 ---
 
@@ -357,6 +357,86 @@ public class Bootstrap implements ServerApplicationConfig {
 }
 ```
 
+### Play 2
+[Play framework 2](http://www.playframework.org/) is a high productivity Java and Scala web application framework.
+
+#### Dependency
+Add the following dependency to your `build.sbt` or include it on your classpath manually.
+
+```scala
+libraryDependencies ++= Seq(
+  "org.atmosphere" % "react-runtime" % "3.0.0.Alpha1-SNAPSHOT",
+  "org.atmosphere" % "react-play2" % "3.0.0.Alpha1-SNAPSHOT"
+)
+```
+
+#### Bootstrap
+Write entry point for HTTP exchange and WebSocket extending `Controller`.
+
+```java
+// TODO react imports
+
+import play.libs.F.Promise;
+import play.mvc.BodyParser;
+import play.mvc.Controller;
+import play.mvc.Http.Request;
+import play.mvc.Result;
+import play.mvc.WebSocket;
+
+public class Bootstrap extends Controller {
+    static Server server = new DefaultServer();
+    static {
+        // server.socketAction(socket -> {/* Your logic here */});
+    }
+
+    @BodyParser.Of(BodyParser.TolerantText.class)
+    public static Promise<Result> http() {
+        PlayServerHttpExchange http = new PlayServerHttpExchange(request(), response());
+        server.httpAction().on(http);
+        return http.result();
+    }
+    
+    public static WebSocket<String> ws() {
+        final Request request = request();
+        return new WebSocket<String>() {
+            @Override
+            public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
+                server.websocketAction().on(new PlayServerWebSocket(request, in, out));
+            }
+        };
+    }
+}
+
+```
+
+#### Mapping
+Play doesn't allow to share URI between HTTP and WebSocket entry points. Instead of `routes`, write `Global.scala` in the default package and override `onRouteRequest`. It's not easy to do that in Java, if any. Note that this uses internal API that has broken in minor release and even in patch release. I've confirmed the following code works in `2.2.2`.
+
+```scala
+import echo.{Bootstrap => T}
+
+import play.api.GlobalSettings
+import play.api.mvc._
+import play.core.j._
+
+object Global extends GlobalSettings {
+  override def onRouteRequest(req: RequestHeader): Option[Handler] = {
+    if (req.path == "/react") {
+      if (req.method == "GET" && req.headers.get("Upgrade").exists(_.equalsIgnoreCase("websocket"))) {
+        Some(JavaWebSocket.ofString(T.ws))
+      } else {
+        Some(new JavaAction {
+          val annotations = new JavaActionAnnotations(classOf[T], classOf[T].getMethod("http"))
+          val parser = annotations.parser
+          def invocation = T.http
+        })
+      }
+    } else {
+      super.onRouteRequest(req)
+    }
+  }
+}
+```
 ---
 
 ## Server
@@ -1035,6 +1115,7 @@ It can run on the following platform:
     <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/jwa1">Java WebSocket API 1</a></li>
     <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/servlet3">Servlet 3</a></li>
     <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/vertx2">Vert.x 2</a></li>
+    <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/play2">Play 2</a></li>
 </ul>
 
 It can be clustered through the following projects:
