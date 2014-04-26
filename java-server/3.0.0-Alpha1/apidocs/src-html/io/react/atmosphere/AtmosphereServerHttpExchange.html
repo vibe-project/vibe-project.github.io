@@ -153,7 +153,7 @@
 <span class="sourceLineNo">145</span><a name="line.145"></a>
 <span class="sourceLineNo">146</span>        void read() throws IOException {<a name="line.146"></a>
 <span class="sourceLineNo">147</span>            int bytesRead = -1;<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            byte buffer[] = new byte[4096];<a name="line.148"></a>
+<span class="sourceLineNo">148</span>            byte buffer[] = new byte[8192];<a name="line.148"></a>
 <span class="sourceLineNo">149</span>            while (ready() &amp;&amp; (bytesRead = input.read(buffer)) != -1) {<a name="line.149"></a>
 <span class="sourceLineNo">150</span>                String data = new String(buffer, 0, bytesRead, charset);<a name="line.150"></a>
 <span class="sourceLineNo">151</span>                body.append(data);<a name="line.151"></a>
