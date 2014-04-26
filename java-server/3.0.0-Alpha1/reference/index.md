@@ -27,6 +27,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
     1. [Vert.x 2](#toc_9)
     1. [Servlet 3](#toc_12)
     1. [Java WebSocket API 1](#toc_15)
+    1. [Play 2](#toc_18)
 1. [Server](#toc_22)
     1. [Handling Socket](#toc_23)
     1. [Selecting Sockets](#toc_24)
