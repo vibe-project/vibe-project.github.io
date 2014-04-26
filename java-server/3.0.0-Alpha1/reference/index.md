@@ -1,6 +1,7 @@
 ---
 layout: reference
 title: React Java Server Reference
+version: 3.0.0.Alpha1
 ---
 
 <div data-alert class="alert-box alert">
@@ -11,7 +12,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 
 ---
 
-**3.0.0-Alpha1-SNAPSHOT**
+**{{ page.version }}**
 
 ---
 
@@ -81,8 +82,8 @@ Add the following dependencies to dependency management system or include them o
 
 ```groovy
 dependencies {
-  compile 'org.atmosphere:react-vertx2:3.0.0.Alpha1-SNAPSHOT'
-  compile 'org.atmosphere:react-runtime:3.0.0.Alpha1-SNAPSHOT'
+  compile 'org.atmosphere:react-vertx2:{{ page.version }}'
+  compile 'org.atmosphere:react-runtime:{{ page.version }}'
   compile('io.vertx:vertx-core:2.0.2-final') {
     exclude group: 'com.fasterxml.jackson.core'
   }
@@ -171,12 +172,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-atmosphere2</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-runtime</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
@@ -222,12 +223,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-vertx2</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-runtime</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
 </dependencies>
 ```
@@ -270,12 +271,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-servlet3</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-runtime</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
 </dependencies>
 ```
@@ -318,12 +319,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-jwa1</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>react-runtime</artifactId>
-        <version>3.0.0.Alpha1-SNAPSHOT</version>
+        <version>{{ page.version }}</version>
     </dependency>
 </dependencies>
 ```
@@ -366,8 +367,8 @@ Add the following dependency to your `build.sbt` or include it on your classpath
 
 ```scala
 libraryDependencies ++= Seq(
-  "org.atmosphere" % "react-runtime" % "3.0.0.Alpha1-SNAPSHOT",
-  "org.atmosphere" % "react-play2" % "3.0.0.Alpha1-SNAPSHOT"
+  "org.atmosphere" % "react-runtime" % "{{ page.version }}",
+  "org.atmosphere" % "react-play2" % "{{ page.version }}"
 )
 ```
 

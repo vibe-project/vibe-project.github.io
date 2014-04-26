@@ -1,6 +1,7 @@
 ---
 layout: reference
 title: React JavaScript Client Reference
+version: 3.0.0-Alpha1
 ---
 
 <div data-alert class="alert-box alert">
@@ -11,7 +12,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 
 ---
 
-**3.0.0-Alpha1-SNAPSHOT**
+**{{ page.version }}**
 
 ---
 
@@ -102,8 +103,8 @@ Once `socket` have been logged, you can access the opened socket by `socket` in 
 
 You can use:
 
-* [Reference implementation]({{ site.baseurl }}/protocol/3.0.0-Alpha1/reference/#toc_5)
-* [React Java Server](http://localhost:4000/java-server/3.0.0-Alpha1/reference/#toc_4)
+* [Reference implementation]({{ site.baseurl }}/protocol/{{ page.version }}/reference/#toc_5)
+* [React Java Server](http://localhost:4000/java-server/{{ page.version }}/reference/#toc_4)
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
@@ -115,8 +116,8 @@ You can use:
 Download react.js the way you want.
 
 <ul class="inline-list">
-<li><a href="{{ site.baseurl }}/javascript-client/3.0.0-Alpha1/react.min.js">The compressed for production</a></li>
-<li><a href="{{ site.baseurl }}/javascript-client/3.0.0-Alpha1/react.js">The uncompressed for development</a></li>
+<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.min.js">The compressed for production</a></li>
+<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.js">The uncompressed for development</a></li>
 <li><code>bower install react-client</code></li>
 </ul>
 

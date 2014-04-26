@@ -1,6 +1,7 @@
 ---
 layout: reference
 title: React Protocol Reference
+version: 3.0.0-Alpha1
 ---
 
 <div data-alert class="alert-box alert">
@@ -11,7 +12,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 
 ---
 
-**3.0.0-Alpha1-SNAPSHOT**
+**{{ page.version }}**
 
 ---
 
