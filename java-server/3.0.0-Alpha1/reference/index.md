@@ -415,7 +415,7 @@ public class Bootstrap extends Controller {
 Play doesn't allow to share URI between HTTP and WebSocket entry points. Instead of `routes`, write `Global.scala` in the default package and override `onRouteRequest`. It's not easy to do that in Java, if any. Note that this uses internal API that has broken in minor release and even in patch release. I've confirmed the following code works in `2.2.2`.
 
 ```scala
-import echo.{Bootstrap => T}
+import simple.{Bootstrap => T}
 
 import play.api.GlobalSettings
 import play.api.mvc._
