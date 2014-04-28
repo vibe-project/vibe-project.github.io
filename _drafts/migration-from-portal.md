@@ -71,4 +71,13 @@ TODO
 TODO
 
 ## Protocol
-TODO
+You might implement the portal protocol partially as needed and want to do that again this time. Fortunately it may work in this time because in the first alpha there is only one necessary change. Nevertheless, various features will be added following community's feedback so watch reference implementation from React Protocol project.
+
+* In `POST` request, a socket id should be passed as query string under the name of `id` and `socket` property in an event object in `POST` request body should be removed. *
+* If a user aborts the socket based on long polling transport during idle time that is between poll, the next HTTP exchange should be aborted. Use a flag meaning being aborted, mark it on close and when the new exchange is supplied, if the flag is set, end the exchange.
+* A server should use an auto-increment id when setting event id instead of UUID to avoid `414 Request-URI Too Long` in long polling transport.
+* A server don't need to handle `Access-Control-Request-Headers` header.
+* A client should be able to handle resolved and rejected callback in receiving event.
+* A server should be able to accept resolved and rejected callback in sending event.
+
+\* Necessary.
