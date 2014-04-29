@@ -1,6 +1,6 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 html {font-size: 90%;}
-h1,h2,h3 {font-family: "Open Sans"}
+h1,h2,h3 {font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;}
 pre code {font-size: 90%; font-weight: normal; color: inherit;}
 
 .top-bar-wrapper {background: #333;}
