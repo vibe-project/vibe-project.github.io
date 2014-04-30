@@ -236,7 +236,7 @@ Socket always is in a specific state that can be accessed by `state` method. Acc
     * closed(aborted): if `close` method is called.
 
 ### Sending and Receiving Event
-You can send event using `send(event:string, data?:any)` and receive event using `on(event:string, onEvent:(data?:any) => void)`. Any event name can be used, except `connecting`, `open`, `close` and `waiting` and any data can be sent and received but it should be able to be marshalled/unmarshalled to JSON.
+You can send event using `send(event: string, data?: any)` and receive event using `on(event: string, onEvent: (data?: any) => void)`. Any event name can be used, except `connecting`, `open`, `close` and `waiting` and any data can be sent and received but it should be able to be marshalled/unmarshalled to JSON.
 
 **Note**
 
@@ -316,7 +316,7 @@ server.on("socket", function(socket) {
 </div>
 
 ### Sending and Receiving Replyable Event
-You can receive data in sending event using `send(event:string, data?:any, onResolved?:(data?:any) => void, onRejected?:(data?:any) => void)` and send data in receiving event using `on(event:string, handler:(data?:any, reply: {[resolve-or-reject:string]:(data?:any) => void}) => void)`.
+You can receive data in sending event using `send(event: string, data?: any, onResolved?: (data?: any) => void, onRejected?: (data?: any) => void)` and send data in receiving event using `on(event: string, handler:(data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void)`.
 
 It looks nothing new to traditional Ajax or Remote Procedure Call (RPC), but comparing to them, WebSocket can reduce unnecessary traffic like HTTP headers and the result can be shared by multiple tabs and windows. To write a economical webapp, you can utilize replyable events in place of Ajax.
 
@@ -511,7 +511,7 @@ server.on("socket", function(socket) {
 </div>
 
 ### Reconnection
-Reconnection has been disabled in the above code snippets for convenience of test, but it's essential for production so that it's enabled by default. The default strategy generates a geometric progression with initial delay `500` and ratio `2` (500, 1000, 2000, 4000 ...). To change it, set `reconnect:(delay?:number, attempts:number) => number` function which receives the last delay in ms or null at first and the total number of reconnection attempts and should return a delay in ms or `false` not to reconnect.
+Reconnection has been disabled in the above code snippets for convenience of test, but it's essential for production so that it's enabled by default. The default strategy generates a geometric progression with initial delay `500` and ratio `2` (500, 1000, 2000, 4000 ...). To change it, set `reconnect (delay: number, attempts: number): number` function which receives the last delay in ms or null at first and the total number of reconnection attempts and should return a delay in ms or `false` not to reconnect.
 
 **Note**
 
