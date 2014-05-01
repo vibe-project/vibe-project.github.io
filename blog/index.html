@@ -7,17 +7,26 @@ title: React Blog
 These posts are fake.<a href="#" class="close">&times;</a>
 </div>
 
-{% for post in site.posts %}
-    <div class="row">
-        <div class="large-12 columns">
-        {% include post.html %}
-        </div>
+{% for post in paginator.posts %}
+<div class="row">
+    <div class="large-12 columns">
+    {% include post.html %}
     </div>
-    {% if forloop.last == false %}
-        <div class="row">
-            <div class="large-12 columns">
-                <hr />
-            </div>
-        </div>
-    {% endif %}
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <hr />
+    </div>
+</div>
 {% endfor %}
+<ul class="pagination">
+{% for page in (1..paginator.total_pages) %}
+    <li class="{% if page == paginator.page %}current{% endif %}">
+    {% if page == 1 %}
+        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: 'page:num/', '' }}">{{ page }}</a>
+    {% else %}
+        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: ':num', page }}">{{ page }}</a>
+    {% endif %}
+    </li>
+{% endfor %}
+</ul>

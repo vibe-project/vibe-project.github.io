@@ -4,6 +4,8 @@ description: React, the modern web framework for writing real-time web applicati
 url: http://atmosphere.github.io/react/
 relative_permalinks: false
 permalink: /blog/:year/:month/:day/:title/
+paginate: 5
+paginate_path: "/blog/page:num/"
 markdown: redcarpet
 redcarpet:
   extensions:
