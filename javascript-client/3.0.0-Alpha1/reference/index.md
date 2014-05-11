@@ -574,9 +574,9 @@ The compatiblity of react.js depends on transport compatibility.
 #### Browser
 The policy for browser support is the same with the one of [jQuery 1.x](http://jquery.com/browser-support/), but browsers on mobile devices have not specified and tested yet.
 
-| Internet Explorer | Chrome | Firefox | Safari | Opera |
-|---|---|---|---|---|
-| 6+ | (Current - 1) or Current | (Current - 1) or Current | 5.1+ | 12.1x, (Current - 1) or Current|
+| Internet Explorer | Chrome | Firefox | Safari | Opera | Android |
+|---|---|---|---|---|---|
+| 6+ | (Current - 1) or Current | (Current - 1) or Current | 5.1+ | 12.1x, (Current - 1) or Current| 2.1 |
 
 The following table have been tested with portal.js which is a predecessor of react.js. Transport list in each cell is ordered by recommendation. As to `ws`, a word in parentheses means WebSocket protocol. So in order to use `ws`, the server has to be able to support that protocol. You will see that unsupported browsers are also listed. They are tested with portal.js 1.0 and might work OK with the latest version of react.js. If not, modify your react.js according to this [issue](https://github.com/flowersinthesand/portal/issues/116) and relevant commits. 
 
