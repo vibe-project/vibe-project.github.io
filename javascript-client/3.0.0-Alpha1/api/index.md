@@ -9,6 +9,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
 <h1>API <small>React JavaScript Client</small></h1>
+<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.js"></script>
 
 ---
 
@@ -43,7 +44,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 ---
 
 ## `module react`
-A module acting as a factory for react client. 
+A module acting as a factory for react client. This page already loaded the module. Open a console and type `react`.
 
 _Loading module._
 

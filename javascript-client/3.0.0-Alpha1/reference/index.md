@@ -9,6 +9,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
 <h1>Reference <small>React JavaScript Client</small></h1>
+<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.js"></script>
 
 ---
 
@@ -75,14 +76,12 @@ Licensed under the Apache License 2.0.
 ---
 
 ## Quick Start
-You already have all you need to run react.js. Let's deal with the client in an interactive mode.
+You already have all you need to run react.js. Just open a console and type `react`.
 
 <div class="row">
 <div class="large-6 columns">
 {% capture panel %}
 **Client**
-
-Open JavaScript console in browser, copy a [`react.js`](https://raw.githubusercontent.com/Atmosphere/react-javascript-client/master/react.js) and paste into the console. Then type the following script:
 
 ```javascript
 var socket;
