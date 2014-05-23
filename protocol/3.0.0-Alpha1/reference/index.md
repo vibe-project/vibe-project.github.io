@@ -197,3 +197,12 @@ Run your client/server testee. Once it's ready, open Node console and run mocha 
     ```
     
 And see the result on the console.
+
+#### Choosing Transport
+By default both test suites verify all the available transport: `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp`. However, in development environment, `ws`, `sse` and `longpollajax` are actually enough to use. To chose transports to be tested, you can use `grep` option from mocha.
+
+```bash
+mocha ./node_modules/react-protocol/test/server.js --grep "ws|sse|longpollajax"
+```
+
+Note that `grep` is evaluated as a regular expression in JavaScript and you should use `"` to escape `|` in Windows CMD.
