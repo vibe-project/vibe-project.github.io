@@ -154,8 +154,8 @@ Testee is a web server which brokers between test and implementation to be teste
     * listen on 8000
     * delegate a request to the implementation if the request's path is `/react`, and a newly created socket should:
         * send `echo` event with data on `echo` event
-        * execute resolved callback on `reaction` event if data is `true`
-        * execute rejected callback on `reaction` event if data is `false`<p>
+        * execute resolved callback on `replyable` event if data is `true`
+        * execute rejected callback on `replyable` event if data is `false`<p>
     
     Here is an [example](https://github.com/Atmosphere/react-protocol/blob/master/test/testee/server.js) for testing server reference implementation.  
   
@@ -169,8 +169,8 @@ Testee is a web server which brokers between test and implementation to be teste
         * if socket has been opened, it should:
             * close itself on `abort` event
             * send `echo` event with data on `echo` event
-            * execute resolved callback on `reaction` event if data is `true`
-            * execute rejected callback on `reaction` event if data is `false`<p>
+            * execute resolved callback on `replyable` event if data is `true`
+            * execute rejected callback on `replyable` event if data is `false`<p>
     
     Here is an [example](https://github.com/Atmosphere/react-protocol/blob/master/test/testee/client.js) for testing client reference implementation.  
   
