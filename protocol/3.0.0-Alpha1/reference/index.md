@@ -145,10 +145,10 @@ sockets[0].send("greeting", "Hello World");
 ---
 
 ## Test Suite
-Test suite is provided to help write and verify implementation. Tests are written in JavaScript and runs by [Mocha](http://visionmedia.github.io/mocha/), JavaScript test framework, in Node.js using reference implementation, namely client.js for testing server implementation and server.js for testing client implementation.
+Test suite is provided to help write and verify implementation. Tests are written in JavaScript and runs by [Mocha](http://visionmedia.github.io/mocha/), JavaScript test framework, in Node.js using reference implementation.
 
 ### Testee
-Testee is a web server which brokers between test and implementation to be tested, which is you need to write.
+Testee is a web server which brokers between test and implementation to be tested over HTTP, which is you need to write. Also these testee can play the part of test runner proxy by running test on a certain URI and that way may be more convenient to integrate 3rd party tool.
 
 * **Server testee** should:
     * listen on 8000
@@ -172,17 +172,17 @@ Testee is a web server which brokers between test and implementation to be teste
             * execute resolved callback on `replyable` event if data is `true`
             * execute rejected callback on `replyable` event if data is `false`<p>
     
-    Here is an [example](https://github.com/Atmosphere/react-protocol/blob/master/test/testee/client.js) for testing client reference implementation.  
+    Here is an [example](https://github.com/Atmosphere/react-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
   
 ### Running Test
-First you need to install [Node.js](http://nodejs.org). Then type the following to install the test suite locally and Mocha globally: 
+First you need to install [Node.js](http://nodejs.org). Then type the following to install this module locally and Mocha globally: 
 
 ```bash
 npm install react-protocol
 npm install mocha -g
 ```
 
-Run your testee. Once it's ready, open Node console and run mocha to test
+Run your client/server testee. Once it's ready, open Node console and run mocha to test.
 
 * client implementation
 
