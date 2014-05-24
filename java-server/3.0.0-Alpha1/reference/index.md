@@ -1,6 +1,6 @@
 ---
 layout: reference
-title: React Java Server Reference
+title: Vibe Java Server Reference
 version: 3.0.0.Alpha1
 ---
 
@@ -8,7 +8,7 @@ version: 3.0.0.Alpha1
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
-<h1>Reference <small>React Java Server</small></h1>
+<h1>Reference <small>Vibe Java Server</small></h1>
 
 ---
 
@@ -48,7 +48,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 ---
 
 ## Introduction
-The React Java Server is a versatile and flexible Java server. It provides an application model and pattern for modern Java based enterprise web applications by implementing React protocol, which is based on I/O abstraction layer designed to run application on every platforms and frameworks on Java Virtual Machine like Servlet and Netty.
+The Vibe Java Server is a versatile and flexible Java server. It provides an application model and pattern for modern Java based enterprise web applications by implementing Vibe protocol, which is based on I/O abstraction layer designed to run application on every platforms and frameworks on Java Virtual Machine like Servlet and Netty.
 
 ### Features
 * Based on I/O abstraction layer to run on any full-stack application framework (Play, Spring), micro framework (Grizzly, Spark) and platform (Netty, Undertow).
@@ -57,9 +57,9 @@ The React Java Server is a versatile and flexible Java server. It provides an ap
 * Scalable by clustering and clouding.
 
 ### Versions
-The mapping between the specifications and the respective React Java Server versions is:
+The mapping between the specifications and the respective Vibe Java Server versions is:
 
-| Version | Java | React Protocol |
+| Version | Java | Vibe Protocol |
 |---|---|---|
 | 3 | 7 | 3.0 |
 
@@ -82,8 +82,8 @@ Add the following dependencies to dependency management system or include them o
 
 ```groovy
 dependencies {
-  compile 'org.atmosphere:react-vertx2:{{ page.version }}'
-  compile 'org.atmosphere:react-runtime:{{ page.version }}'
+  compile 'org.atmosphere:vibe-vertx2:{{ page.version }}'
+  compile 'org.atmosphere:vibe-runtime:{{ page.version }}'
   compile('io.vertx:vertx-core:2.0.2-final') {
     exclude group: 'com.fasterxml.jackson.core'
   }
@@ -94,7 +94,7 @@ dependencies {
 Once you've set up your build, you'll be able to write `Application.java`:
 
 ```java
-// TODO react imports
+// TODO vibe imports
 
 import java.io.IOException;
 
@@ -146,7 +146,7 @@ With the help of debug, you can deal with the opened socket in pseudo interactiv
 You can use:
 
 * [Reference implementation]({{ site.baseurl }}/protocol/3.0.0-Alpha1/reference/#toc_5)
-* [React JavaScript Client](http://localhost:4000/javascript-client/3.0.0-Alpha1/reference/#toc_4)
+* [Vibe JavaScript Client](http://localhost:4000/javascript-client/3.0.0-Alpha1/reference/#toc_4)
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
@@ -161,7 +161,7 @@ The [Atmosphere 2](https://github.com/atmosphere/atmosphere/) makes the applicat
 
 **Note**
 
-* Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, React Java Server uses it as a platform but in the future it might be deprecated or replaced with new modules dealing with their vendor-specific code, e.g. react-tomcat8 and react-jetty9.
+* Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, Vibe Java Server uses it as a platform but in the future it might be deprecated or replaced with new modules dealing with their vendor-specific code, e.g. vibe-tomcat8 and vibe-jetty9.
 * Now only atmosphere 2.0 works.
 
 #### Dependency
@@ -171,12 +171,12 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-atmosphere2</artifactId>
+        <artifactId>vibe-atmosphere2</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-runtime</artifactId>
+        <artifactId>vibe-runtime</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
     <dependency>
@@ -191,7 +191,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-// TODO react imports
+// TODO vibe imports
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -204,7 +204,7 @@ public class Bootstrap implements ServletContextListener {
         Server server = new DefaultServer();
         // server.socketAction(socket -> {/* Your logic here */});
 
-        new AtmosphereBridge(event.getServletContext(), "/react").httpAction(server.httpAction()).websocketAction(server.websocketAction());
+        new AtmosphereBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
     }
 
     @Override
@@ -222,12 +222,12 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-vertx2</artifactId>
+        <artifactId>vibe-vertx2</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-runtime</artifactId>
+        <artifactId>vibe-runtime</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
 </dependencies>
@@ -237,7 +237,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the verticle starts.
 
 ```java
-// TODO react imports
+// TODO vibe imports
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServer;
@@ -253,7 +253,7 @@ public class Bootstrap extends Verticle {
         HttpServer httpServer = vertx.createHttpServer();
         // Attach request and websocket handler first before installation
 
-        new VertxBridge(httpServer, "/react").httpAction(server.httpAction()).websocketAction(server.websocketAction());
+        new VertxBridge(httpServer, "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
         httpServer.listen(8080);
     }
 }
@@ -270,12 +270,12 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-servlet3</artifactId>
+        <artifactId>vibe-servlet3</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-runtime</artifactId>
+        <artifactId>vibe-runtime</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
 </dependencies>
@@ -286,7 +286,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-// TODO react imports
+// TODO vibe imports
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -299,7 +299,7 @@ public class Bootstrap implements ServletContextListener {
         Server server = new DefaultServer();
         // server.socketAction(socket -> {/* Your logic here */});
         
-        new ServletBridge(event.getServletContext(), "/react").httpAction(server.httpAction());
+        new ServletBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction());
     }
     
     @Override
@@ -318,12 +318,12 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-jwa1</artifactId>
+        <artifactId>vibe-jwa1</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>react-runtime</artifactId>
+        <artifactId>vibe-runtime</artifactId>
         <version>{{ page.version }}</version>
     </dependency>
 </dependencies>
@@ -334,7 +334,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the container starts by scanning `ServerApplicationConfig` instance. In case of embedded container, however, it may not scan it and you may have to follow their alternatives.
 
 ```java
-// TODO react imports
+// TODO vibe imports
 
 import java.util.Collections;
 import java.util.Set;
@@ -349,7 +349,7 @@ public class Bootstrap implements ServerApplicationConfig {
         Server server = new DefaultServer();
         // server.socketAction(socket -> {/* Your logic here */});
 
-        return Collections.singleton(new JwaBridge("/react").websocketAction(server.websocketAction()).config());
+        return Collections.singleton(new JwaBridge("/vibe").websocketAction(server.websocketAction()).config());
     }
 
     @Override
@@ -367,8 +367,8 @@ Add the following dependency to your `build.sbt` or include it on your classpath
 
 ```scala
 libraryDependencies ++= Seq(
-  "org.atmosphere" % "react-runtime" % "{{ page.version }}",
-  "org.atmosphere" % "react-play2" % "{{ page.version }}"
+  "org.atmosphere" % "vibe-runtime" % "{{ page.version }}",
+  "org.atmosphere" % "vibe-play2" % "{{ page.version }}"
 )
 ```
 
@@ -376,7 +376,7 @@ libraryDependencies ++= Seq(
 Write entry point for HTTP exchange and WebSocket extending `Controller`.
 
 ```java
-// TODO react imports
+// TODO vibe imports
 
 import play.libs.F.Promise;
 import play.mvc.BodyParser;
@@ -423,7 +423,7 @@ import play.core.j._
 
 object Global extends GlobalSettings {
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
-    if (req.path == "/react") {
+    if (req.path == "/vibe") {
       if (req.method == "GET" && req.headers.get("Upgrade").exists(_.equalsIgnoreCase("websocket"))) {
         Some(JavaWebSocket.ofString(T.ws))
       } else {
@@ -442,7 +442,7 @@ object Global extends GlobalSettings {
 ---
 
 ## Server
-Server is a react application in a nutshell producing and managing socket consuming HTTP exchange and WebSocket.
+Server is a vibe application in a nutshell producing and managing socket consuming HTTP exchange and WebSocket.
 
 ### Handling Socket
 When a socket is opened, actions added via `socketAction(Action<Socket> action)` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
@@ -584,7 +584,7 @@ server.byTag("room#201", "room#301").send("message", "time to say goodbye").clos
 ---
 
 ## Socket
-Socket is a connectivity between the two react endpoints where event occurs.
+Socket is a connectivity between the two vibe endpoints where event occurs.
 
 ### Life Cycle
 Socket can be in opened state where I/O operations are possible or closed state where `close` event fires and I/O operations are not possible but it is always expected in the opened state. In other words, do not hold a reference on socket unless the reference shares the same life cycle of socket. It makes things complicated since it is stateful and also may result in a problem in clustered environment.
@@ -677,7 +677,7 @@ public class EntityListener {
 |---|---|---|---|---|---|
 |`Integer` or `Double` | `String` | `Boolean` | `List<T>` | `Map<String, T>` | `null` or `Void` |
 
-`send(String event)` and `send(String event, Object data)` sends an event with or without data, respectively. Unlike when receiving event, when sending event you can use any type of data and it will be internally stringified by Jackson. However, don't rely on detail features of Jackson too much, e.g. use of annotations. There is no restriction on event name but to avoid confusion don't use `connecting`, `waiting`, `open` and `close`, which are reserved event in React JavaScript Client.
+`send(String event)` and `send(String event, Object data)` sends an event with or without data, respectively. Unlike when receiving event, when sending event you can use any type of data and it will be internally stringified by Jackson. However, don't rely on detail features of Jackson too much, e.g. use of annotations. There is no restriction on event name but to avoid confusion don't use `connecting`, `waiting`, `open` and `close`, which are reserved event in Vibe JavaScript Client.
 
 The client sends events and the server echoes back to the client.
 
@@ -707,8 +707,8 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-protocol/lib/client");
-client.open("http://localhost:8000/react", {transport: "ws"})
+var client = require("vibe-protocol/lib/client");
+client.open("http://localhost:8000/vibe", {transport: "ws"})
 .on("open", function() {
     this.send("echo", Math.PI)
     .send("echo", "pi")
@@ -754,8 +754,8 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-protocol/lib/client");
-client.open("http://localhost:8000/react", {transport: "ws"})
+var client = require("vibe-protocol/lib/client");
+client.open("http://localhost:8000/vibe", {transport: "ws"})
 .on("echo", function(data) {
     console.log(data);
     this.send("echo", data);
@@ -806,8 +806,8 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-protocol/lib/client");
-client.open("http://localhost:8000/react", {transport: "ws"})
+var client = require("vibe-protocol/lib/client");
+client.open("http://localhost:8000/vibe", {transport: "ws"})
 .on("open", function(data) {
     this.send("account:find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
@@ -868,8 +868,8 @@ server.socketAction(new Action<Socket>() {
 **Client**
 
 ```javascript
-var client = require("react-protocol/lib/client");
-client.open("http://localhost:8000/react", {transport: "ws"})
+var client = require("vibe-protocol/lib/client");
+client.open("http://localhost:8000/vibe", {transport: "ws"})
 .on("account:find", function(id, reply) {
     console.log(id);
     if (id === "flowersinthesand") {
@@ -886,10 +886,10 @@ client.open("http://localhost:8000/react", {transport: "ws"})
 ---
 
 ## Integration
-Here is how to integrate React Java Server with awesome technologies.
+Here is how to integrate Vibe Java Server with awesome technologies.
 
 ### I/O Platform
-As covered in installation section, installing React Java Server on the specific platform is simply to create `Server` and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
+As covered in installation section, installing Vibe Java Server on the specific platform is simply to create `Server` and have it consume HTTP exchange and WebSocket produced by the specific platform. Here I/O Platform stands for full-stack application framework like Play and Spring, micro framework like Grizzly and Spark and raw server like Servlet and Netty.
 
 If your favorite platform is not supported, all you need to do is to implement `ServerHttpExchange` and `ServerWebSocket` according to the platform and pass them to `Server`.
 
@@ -914,12 +914,12 @@ public class Controller {
         });
     }
     
-    @HttpAction("/react")
+    @HttpAction("/vibe")
     public void onHttpExchange(HttpRequest req, HttpResponse res) {
         server.httpAction().on(new BahServerHttpExchange(req, res));
     }
     
-    @WebSocketAction("/react")
+    @WebSocketAction("/vibe")
     public void onWebSocket(WebSocket ws) {
         server.websocketAction().on(new BahServerWebSocket(ws));
     }
@@ -1052,7 +1052,7 @@ public class Ticker {
 
 ### Message Oriented Middleware
 
-All of the Message Oriented Middleware (MOM) supporting publish and subscribe model like JMS and Hazelcast can be used to cluster multiple react applications by using `ClusteredServer`.
+All of the Message Oriented Middleware (MOM) supporting publish and subscribe model like JMS and Hazelcast can be used to cluster multiple vibe applications by using `ClusteredServer`.
 
 `ClusteredServer` intercepts a call to `all`, `byId` and `byTag`, converts the call into a message and pass the message to actions added via `publishAction(Action<Map<String,Object>> action)` which is supposed to publish message to all nodes including the one issued in cluster with the message. If one of node receives a message, it should pass the message to `messageAction()` in `ClusteredServer`.
 
@@ -1085,7 +1085,7 @@ Hazelcast case. You can regard `topic` as node in the above explanation.
 HazelcastInstance hazelcast = 
 HazelcastInstanceFactory.newHazelcastInstance(new Config());
 final ClusteredServer server = new ClusteredServer();
-final ITopic<Map<String, Object>> topic = hazelcast.getTopic("react:app");
+final ITopic<Map<String, Object>> topic = hazelcast.getTopic("vibe:app");
 
 topic.addMessageListener(new MessageListener<Map<String, Object>>() {
 	@Override
@@ -1108,20 +1108,20 @@ server.publishAction(new Action<Map<String, Object>>() {
 
 ## Examples
 ### Simple
-The simple example is a basic echo and chat server to demonstrate that React Java Server can work with some projects. By default, it runs at `8080` port under `/react` URI.
+The simple example is a basic echo and chat server to demonstrate that Vibe Java Server can work with some projects. By default, it runs at `8080` port under `/vibe` URI.
 
 It can run on the following platform:
 
 <ul class="inline-list">
-    <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/atmosphere2">Atmosphere 2</a></li>
-    <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/jwa1">Java WebSocket API 1</a></li>
-    <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/servlet3">Servlet 3</a></li>
-    <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/vertx2">Vert.x 2</a></li>
-    <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/platform/play2">Play 2</a></li>
+    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/atmosphere2">Atmosphere 2</a></li>
+    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/jwa1">Java WebSocket API 1</a></li>
+    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/servlet3">Servlet 3</a></li>
+    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/vertx2">Vert.x 2</a></li>
+    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/play2">Play 2</a></li>
 </ul>
 
 It can be clustered through the following projects:
 
 <ul class="inline-list">
-    <li><a href="https://github.com/Atmosphere/react-examples/tree/master/java-server/clustering/hazelcast3">Hazelcast 3</a></li>
+    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/clustering/hazelcast3">Hazelcast 3</a></li>
 </ul>

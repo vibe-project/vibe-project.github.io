@@ -1,6 +1,6 @@
 ---
 layout: reference
-title: React JavaScript Client Reference
+title: Vibe JavaScript Client Reference
 version: 3.0.0-Alpha1
 ---
 
@@ -8,8 +8,8 @@ version: 3.0.0-Alpha1
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
-<h1>Reference <small>React JavaScript Client</small></h1>
-<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.js"></script>
+<h1>Reference <small>Vibe JavaScript Client</small></h1>
+<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.js"></script>
 
 ---
 
@@ -46,11 +46,11 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 
 ## Introduction
 
-The React JavaScript Client is a concise and lightweight client-side JavaScript library. It not only provides React connectivity on every browser-based and Node-based applications but also focuses on making the best use of realtime connectivity in place of Ajax to help write low-latency and event-driven web applications, not just for chat application.
+The Vibe JavaScript Client is a concise and lightweight client-side JavaScript library. It not only provides Vibe connectivity on every browser-based and Node-based applications but also focuses on making the best use of realtime connectivity in place of Ajax to help write low-latency and event-driven web applications, not just for chat application.
 
 ### Features
 
-* Provides React connectivity to replace AJAX
+* Provides Vibe connectivity to replace AJAX
 * Connection sharing between tabs and windows *
 * Runs in Node.js and all browsers including Internet Explorer 6
 * Event-based API akin to W3C WebSocket API
@@ -61,13 +61,13 @@ The React JavaScript Client is a concise and lightweight client-side JavaScript 
 
 ### Versions
 
-The mapping between the specifications and the respective React JavaScript Client versions is:
+The mapping between the specifications and the respective Vibe JavaScript Client versions is:
 
-| Version | ECMAScript | React Protocol |
+| Version | ECMAScript | Vibe Protocol |
 |---|---|---|
 | 3 | 3 | 3.0 |
 
-That being said, compatiblity of react.js depends on [compatibility of transport](#toc_18) which varies depending on runtime environment such as Node.js and Browser.
+That being said, compatiblity of vibe.js depends on [compatibility of transport](#toc_18) which varies depending on runtime environment such as Node.js and Browser.
 
 ### License
 
@@ -76,7 +76,7 @@ Licensed under the Apache License 2.0.
 ---
 
 ## Quick Start
-You already have all you need to run react.js. Just open a console and type `react`.
+You already have all you need to run vibe.js. Just open a console and type `vibe`.
 
 <div class="row">
 <div class="large-6 columns">
@@ -86,7 +86,7 @@ You already have all you need to run react.js. Just open a console and type `rea
 ```javascript
 var socket;
 
-react.open("http://localhost:8000/", {reconnect: false})
+vibe.open("http://localhost:8000/", {reconnect: false})
 .on("open", function() {
     socket = this;
     console.log("socket");
@@ -103,7 +103,7 @@ Once `socket` have been logged, you can access the opened socket by `socket` in 
 You can use:
 
 * [Reference implementation]({{ site.baseurl }}/protocol/{{ page.version }}/reference/#toc_5)
-* [React Java Server](http://localhost:4000/java-server/{{ page.version }}/reference/#toc_4)
+* [Vibe Java Server](http://localhost:4000/java-server/{{ page.version }}/reference/#toc_4)
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
@@ -112,12 +112,12 @@ You can use:
 
 ## Installation
 ### As browser client
-Download react.js the way you want.
+Download vibe.js the way you want.
 
 <ul class="inline-list">
-<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.min.js">The compressed for production</a></li>
-<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.js">The uncompressed for development</a></li>
-<li><code>bower install react-client</code></li>
+<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.min.js">The compressed for production</a></li>
+<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.js">The uncompressed for development</a></li>
+<li><code>bower install vibe-client</code></li>
 </ul>
 
 Then load or link it by using either script tag or [Asynchronous Module Definition](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) loader.
@@ -128,9 +128,9 @@ Then load or link it by using either script tag or [Asynchronous Module Definiti
 **Script tag**
 
 ```html
-<script src="/react/react.min.js"></script>
+<script src="/vibe/vibe.min.js"></script>
 <script>
-react.open("/react");
+vibe.open("/vibe");
 </script>
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -140,8 +140,8 @@ react.open("/react");
 **AMD loader**
 
 ```javascript
-require(["react"], function(react) {
-    react.open("/react");
+require(["vibe"], function(vibe) {
+    vibe.open("/vibe");
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -149,10 +149,10 @@ require(["react"], function(react) {
 </div>
 
 ### As Node.js client
-react.js is available on [npm](https://npmjs.org/package/react-client) under the name of `react-client`. Install the module.
+vibe.js is available on [npm](https://npmjs.org/package/vibe-client) under the name of `vibe-client`. Install the module.
   
 ```bash
-npm install react-client --save
+npm install vibe-client --save
 ```
 
 It will install the latest version adding it to dependencies entry in `package.json` in the current project folder. If you are on Windows, you may have trouble in installing Contextify. See a [installation guide](https://github.com/tmpvar/jsdom#contextify) from jsdom.
@@ -160,8 +160,8 @@ It will install the latest version adding it to dependencies entry in `package.j
 Then load it as a Node.js module.
 
 ```javascript
-var react = require("react-client");
-react.open("http://localhost:8000/react");
+var vibe = require("vibe-client");
+vibe.open("http://localhost:8000/vibe");
 ```
 
 ---
@@ -249,7 +249,7 @@ The client sends events and the server echoes back to the client.
 **Client**
 
 ```javascript
-react.open("http://localhost:8000/react", {reconnect: false})
+vibe.open("http://localhost:8000/vibe", {reconnect: false})
 .on("open", function() {
     this.send("echo", Math.PI)
     .send("echo", "pi")
@@ -287,7 +287,7 @@ The server sends events and the client echoes back to the server.
 
 ```javascript
 
-react.open("http://localhost:8000/react", {reconnect: false})
+vibe.open("http://localhost:8000/vibe", {reconnect: false})
 .on("echo", function(data) {
     console.log(data);
     this.send("echo", data);
@@ -333,7 +333,7 @@ The client sends replyable events and the server executes callbacks with event d
 **Client**
 
 ```javascript
-react.open("http://localhost:8000/react", {reconnect: false})
+vibe.open("http://localhost:8000/vibe", {reconnect: false})
 .on("open", function(data) {
     this.send("account:find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
@@ -377,7 +377,7 @@ The server sends replyable events and the client executes callbacks with event d
 **Client**
 
 ```javascript
-react.open("http://localhost:8000/react", {reconnect: false})
+vibe.open("http://localhost:8000/vibe", {reconnect: false})
 .on("account:find", function(id, reply) {
     console.log(id);
     if (id === "flowersinthesand") {
@@ -422,7 +422,7 @@ Eavesdropping heartbeat of client and server.
 **Client**
 
 ```javascript
-react.open("http://localhost:8000", {reconnect: false, heartbeat: 20000})
+vibe.open("http://localhost:8000", {reconnect: false, heartbeat: 20000})
 .on("heartbeat", function() {
     console.log("heartbeat at " + Date.now());
 });
@@ -445,7 +445,7 @@ server.on("socket", function(socket) {
 </div>
 
 ### Connection Sharing
-It's common case that user opens multiple tabs of same website and each tab have its persistent connection like react. In the case of a web portal consisting of many portlets, if portlet has a persistent connection, it may not be able to send any request, receive and display anything in violation of the simultaneous connection limit. By sharing a connection, it can be avoided.
+It's common case that user opens multiple tabs of same website and each tab have its persistent connection like vibe. In the case of a web portal consisting of many portlets, if portlet has a persistent connection, it may not be able to send any request, receive and display anything in violation of the simultaneous connection limit. By sharing a connection, it can be avoided.
 
 To enalbe, set `sharing:boolean` option to `true`. As long as the cookie is enabled, socket will automatically find and use a shared connection if it exists within the cookie's scope and share its connection if there is no corresponding one. Note that if the web page or computer becomes horribly busy, a newly created socket might establish a physical connection.
 
@@ -463,7 +463,7 @@ Sending and reciving event via shared connection.
 **Client A**
 
 ```javascript
-react.open("http://localhost:8000", {
+vibe.open("http://localhost:8000", {
     reconnect: false, 
     sharing: true
 })
@@ -481,7 +481,7 @@ react.open("http://localhost:8000", {
 **Client B**
 
 ```javascript
-react.open("http://localhost:8000", {
+vibe.open("http://localhost:8000", {
     reconnect: false, 
     sharing: true
 })
@@ -568,7 +568,7 @@ As specified in the protocol, in case of HTTP Streaming and HTTP Long polling, t
 * Form tag: works alwayas but makes a clicking sound.
 
 ### Compatibility
-The compatiblity of react.js depends on transport compatibility.
+The compatiblity of vibe.js depends on transport compatibility.
 
 #### Browser
 The policy for browser support is the same with the one of [jQuery 1.x](http://jquery.com/browser-support/), but browsers on mobile devices have not specified and tested yet.
@@ -577,7 +577,7 @@ The policy for browser support is the same with the one of [jQuery 1.x](http://j
 |---|---|---|---|---|---|
 | 6+ | (Current - 1) or Current | (Current - 1) or Current | 5.1+ | 12.1x, (Current - 1) or Current| 2.1 |
 
-The following table have been tested with portal.js which is a predecessor of react.js. Transport list in each cell is ordered by recommendation. As to `ws`, a word in parentheses means WebSocket protocol. So in order to use `ws`, the server has to be able to support that protocol. You will see that unsupported browsers are also listed. They are tested with portal.js 1.0 and might work OK with the latest version of react.js. If not, modify your react.js according to this [issue](https://github.com/flowersinthesand/portal/issues/116) and relevant commits. 
+The following table have been tested with portal.js which is a predecessor of vibe.js. Transport list in each cell is ordered by recommendation. As to `ws`, a word in parentheses means WebSocket protocol. So in order to use `ws`, the server has to be able to support that protocol. You will see that unsupported browsers are also listed. They are tested with portal.js 1.0 and might work OK with the latest version of vibe.js. If not, modify your vibe.js according to this [issue](https://github.com/flowersinthesand/portal/issues/116) and relevant commits. 
 
 **Note**
 
@@ -641,7 +641,7 @@ As a result of test on Node.js 0.10.x, only `ws`, `sse` and `longpollajax` are s
 ---
 
 ## Quirks
-The react.js always has tried to deal with any quirks in non-invasive way. However, it is not possible sometimes.
+The vibe.js always has tried to deal with any quirks in non-invasive way. However, it is not possible sometimes.
 
 #### The browser limits the number of simultaneous connections
 
@@ -680,4 +680,4 @@ When `sharing` option is `true`, if there is trace of a shared connection, new s
 
 ## Examples
 ### Simple
-The simple example is a basic echo and chat client. By default, it connects to `http://localhost:8080/react`. [Here](https://github.com/Atmosphere/react-examples/tree/master/javascript-client/simple).
+The simple example is a basic echo and chat client. By default, it connects to `http://localhost:8080/vibe`. [Here](https://github.com/Atmosphere/vibe-examples/tree/master/javascript-client/simple).

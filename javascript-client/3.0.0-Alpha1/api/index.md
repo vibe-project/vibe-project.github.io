@@ -1,6 +1,6 @@
 ---
 layout: reference
-title: React JavaScript Client API
+title: Vibe JavaScript Client API
 version: 3.0.0-Alpha1
 ---
 
@@ -8,8 +8,8 @@ version: 3.0.0-Alpha1
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
-<h1>API <small>React JavaScript Client</small></h1>
-<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/react.js"></script>
+<h1>API <small>Vibe JavaScript Client</small></h1>
+<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.js"></script>
 
 ---
 
@@ -19,7 +19,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 
 **Table of Contents**
 
-1. [module react](#toc_0)
+1. [module vibe](#toc_0)
     1. [export function open(uri: string, options?: SocketOptions): Socket](#toc_1)
     1. [interface SocketOptions](#toc_2)
         1. [heartbeat?: any](#toc_3)
@@ -43,8 +43,8 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 
 ---
 
-## `module react`
-A module acting as a factory for react client. This page already loaded the module. Open a console and type `react`.
+## `module vibe`
+A module acting as a factory for vibe client. This page already loaded the module. Open a console and type `vibe`.
 
 _Loading module._
 
@@ -54,8 +54,8 @@ _Loading module._
 **Script tag**
 
 ```html
-<script src="/react/react.min.js"></script>
-<script>react;</script>
+<script src="/vibe/vibe.min.js"></script>
+<script>vibe;</script>
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
@@ -64,7 +64,7 @@ _Loading module._
 **AMD loader**
 
 ```javascript
-require(["react"], function(react) {});
+require(["vibe"], function(vibe) {});
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
@@ -73,7 +73,7 @@ require(["react"], function(react) {});
 **Node.js**
 
 ```javascript
-var react = require("react-client");
+var vibe = require("vibe-client");
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
@@ -85,7 +85,7 @@ Opens a socket and returns it. `uri` can be relative in browser.
 _Hello world._
 
 ```javascript
-react.open(uri);
+vibe.open(uri);
 ```
 
 ### `interface SocketOptions`
@@ -99,7 +99,7 @@ _All possible options along with their default values._
 **Browser**
 
 ```javascript
-react.open(uri, {
+vibe.open(uri, {
     heartbeat: false,
     reconnect: function(lastDelay) {
         return 2 * lastDelay || 500;
@@ -117,7 +117,7 @@ react.open(uri, {
 **Node.js**
 
 ```javascript
-react.open(uri, {
+vibe.open(uri, {
     heartbeat: false,
     reconnect: function(lastDelay) {
         return 2 * lastDelay || 500;
@@ -133,7 +133,7 @@ react.open(uri, {
 _My configuration for testing._
 
 ```javascript
-react.open(uri, {reconnect: false, timeout: 1000, xdrURL: function(url) {return url;}});
+vibe.open(uri, {reconnect: false, timeout: 1000, xdrURL: function(url) {return url;}});
 ```
 
 #### `heartbeat?: any`
@@ -160,7 +160,7 @@ The value `false` indicates no reconnection. It is useful in testing.
 _A Fibonacci series with first delay `500` and second delay `1000`._
 
 ```javascript
-react.open(uri, {
+vibe.open(uri, {
     reconnect: function(lastDelay) {
         var beforeLastDelay = this.beforeLastDelay || 0;
         lastDelay = lastDelay || 500;
@@ -206,7 +206,7 @@ _Session tracking by modifying url_
 **Java Servlet**
 
 ```javascript
-react.open(uri, {
+vibe.open(uri, {
     // input: url?k=v
     // output: url;jsessionid=${cookie.JSESSIONID}?k=v
     xdrURL: function(uri) {
@@ -223,7 +223,7 @@ react.open(uri, {
 **PHP**
 
 ```javascript
-react.open(uri, {
+vibe.open(uri, {
     // input: url?k=v
     // output: url?PHPSESSID=${cookie.PHPSESSID}&k=v
     xdrURL: function(uri) {
@@ -238,12 +238,12 @@ react.open(uri, {
 </div>
 
 ### `interface Socket`
-An interface representing a socket created by calling `react.open`.
+An interface representing a socket created by calling `vibe.open`.
 
 _Echo_
 
 ```javascript
-react.open(uri).on("open", function() {
+vibe.open(uri).on("open", function() {
     this.send("echo", "Hello World");
 })
 .on("echo", function(data) {
@@ -268,7 +268,7 @@ _Notifying a user of connection_
 ```javascript
 // If this socket is in connecting, it will be executed immediately.
 // If this socket is in opened, closed or waiting, it will be ignored.
-react.open(uri).on("connecting", function() {
+vibe.open(uri).on("connecting", function() {
     console.log("Trying connection");
 });
 ```
@@ -281,7 +281,7 @@ _Providing the application with an event channel with the server._
 ```javascript
 // If this socket is in connecting, it will be executed immediately.
 // If this socket is in opened, closed or waiting, it will be ignored.
-react.open(uri).on("open", function() {
+vibe.open(uri).on("open", function() {
     app.bridge(this);
 });
 ```
@@ -302,7 +302,7 @@ _Releasing resources that it has been holding._
 ```javascript
 // If this socket is in connecting and opened, it will be executed on close event.
 // If this socket is in closed or waiting, it will be executed immediately.
-react.open(uri).on("close", function(reason) {
+vibe.open(uri).on("close", function(reason) {
     writer.close();
 });
 ```
@@ -315,7 +315,7 @@ _Notifiying a user of delay, the time have to wait for_
 ```javascript
 // If this socket is in connecting and opened, it will be executed on waiting event.
 // If this socket is in closed or waiting, it will be executed immediately.
-react.open(uri).on("waiting", function(delay, attempts) {
+vibe.open(uri).on("waiting", function(delay, attempts) {
     console.log("This is " + attempts + (["st", "nd", "rd"][attempts - 1] || "th") + " attempt. It will connect in " + (delay / 1000) + " sec");
 });
 ```
@@ -328,7 +328,7 @@ _Receiving data_
 ```javascript
 // If this socket is in connecting and opened, it will be executed every time an event has been received.
 // If this socket is in closed or waiting, it will be ignored.
-react.open(uri).on("chat", function(message) {
+vibe.open(uri).on("chat", function(message) {
     console.dir(message);
 });
 ```
@@ -336,7 +336,7 @@ react.open(uri).on("chat", function(message) {
 _Replying to event_
 
 ```javascript
-react.open(uri).on("blinddate.request", function(account, reply) {
+vibe.open(uri).on("blinddate.request", function(account, reply) {
     if (account.sex === "female") {
         background.check.look(account.name, function(look) {
             if (look.straightHair && (look.noGlasses || look.contactLenses) && look.cleanSkin) {
@@ -378,7 +378,7 @@ Sends the event with data attaching resolved and rejected callbacks. If a socket
 _Sending simple event._
 
 ```javascript
-react.open(uri).on("open", function() {
+vibe.open(uri).on("open", function() {
     this.send("start");
 });
 ```
@@ -386,7 +386,7 @@ react.open(uri).on("open", function() {
 _Getting data from the server._
 
 ```javascript
-react.open(uri).on("open", function() {
+vibe.open(uri).on("open", function() {
     this.send("account.find", "flowersinthesand", function(account) {
         console.dir(account);
     }, function(reason) {
@@ -398,7 +398,7 @@ react.open(uri).on("open", function() {
 _Sending events in order._
 
 ```javascript
-react.open(uri).on("open", function() {
+vibe.open(uri).on("open", function() {
     this.send("event", 1, function() {
         this.send("event", 2, function() {
             this.send("event", 3, function() {
@@ -419,5 +419,5 @@ function logState() {
     console.log(this.state());
 }
 
-react.open(uri).on("connecting", logState).on("open", logState).on("close", logState).on("waiting", logState);
+vibe.open(uri).on("connecting", logState).on("open", logState).on("close", logState).on("waiting", logState);
 ```

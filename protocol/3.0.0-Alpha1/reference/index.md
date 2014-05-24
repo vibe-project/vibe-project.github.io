@@ -1,6 +1,6 @@
 ---
 layout: reference
-title: React Protocol Reference
+title: Vibe Protocol Reference
 version: 3.0.0-Alpha1
 ---
 
@@ -8,7 +8,7 @@ version: 3.0.0-Alpha1
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
-<h1>Reference <small>React Protocol</small></h1>
+<h1>Reference <small>Vibe Protocol</small></h1>
 
 ---
 
@@ -32,7 +32,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 ---
 
 ## Introduction
-The React Protocol is a feature-rich and application-level protocol built over HTTP and WebSocket protocol for real-time web application development. It is designed by carefully considering known issues and best practices of real-time web to provide and take advantage of a reliable full duplex connection for modern web application development, and focuses on providing elegant patterns to write low-latency, event-driven and real-time web applications.
+The Vibe Protocol is a feature-rich and application-level protocol built over HTTP and WebSocket protocol for real-time web application development. It is designed by carefully considering known issues and best practices of real-time web to provide and take advantage of a reliable full duplex connection for modern web application development, and focuses on providing elegant patterns to write low-latency, event-driven and real-time web applications.
 
 ### Features
 * Provides low-latency and real-time event channel.
@@ -58,7 +58,7 @@ For example, given a version number 3.0.0, the version number will be
 1. 3.1.4 even if test suite is fully rewritten.
 1. 4.0.0 if the feature requires incompatible changes.
 
-Therefore, when talking about protocol specification, you can ignore PATCH version, e.g. React Lua Server 0.1 for React Protocol 3.2.
+Therefore, when talking about protocol specification, you can ignore PATCH version, e.g. Vibe Lua Server 0.1 for Vibe Protocol 3.2.
 
 ### License
 
@@ -83,7 +83,7 @@ To help understand the protocol, reference implementation is provided taking the
 First you need to install [Node.js](http://nodejs.org). Then type the following to install the reference implementation:
 
 ```bash
-npm install react-protocol
+npm install vibe-protocol
 ```
 
 ### Interactive Mode
@@ -95,10 +95,10 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 **Client**
 
 ```javascript
-var react = require("react-protocol"),
+var vibe = require("vibe-protocol"),
     socket;
 
-react.open("http://localhost:8000/react", {transport: "ws"})
+vibe.open("http://localhost:8000/vibe", {transport: "ws"})
 .on("open", function() {
     socket = this;
     console.log("socket");
@@ -119,8 +119,8 @@ socket.on("greeting", function(data) {
 **Server**
 
 ```javascript
-var react = require("react-protocol"),
-    server = react.server(),
+var vibe = require("vibe-protocol"),
+    server = vibe.server(),
     httpServer = require("http").createServer(),
     sockets = [];
 
@@ -152,12 +152,12 @@ Testee is a web server which brokers between test and implementation to be teste
 
 * **Server testee** should:
     * listen on 8000
-    * delegate a request to the implementation if the request's path is `/react`, and a newly created socket should:
+    * delegate a request to the implementation if the request's path is `/vibe`, and a newly created socket should:
         * send `echo` event with data on `echo` event
         * execute resolved callback on `replyable` event if data is `true`
         * execute rejected callback on `replyable` event if data is `false`<p>
     
-    Here is an [example](https://github.com/Atmosphere/react-protocol/blob/master/test/testee/server.js) for testing server reference implementation.  
+    Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/server.js) for testing server reference implementation.  
   
 * **Client testee** should: 
     * listen on 9000
@@ -172,13 +172,13 @@ Testee is a web server which brokers between test and implementation to be teste
             * execute resolved callback on `replyable` event if data is `true`
             * execute rejected callback on `replyable` event if data is `false`<p>
     
-    Here is an [example](https://github.com/Atmosphere/react-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
+    Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
   
 ### Running Test
 First you need to install [Node.js](http://nodejs.org). Then type the following to install this module locally and Mocha globally: 
 
 ```bash
-npm install react-protocol
+npm install vibe-protocol
 npm install mocha -g
 ```
 
@@ -187,13 +187,13 @@ Run your client/server testee. Once it's ready, open Node console and run mocha 
 * client implementation
 
     ```bash
-    mocha ./node_modules/react-protocol/test/client.js
+    mocha ./node_modules/vibe-protocol/test/client.js
     ```
     
 * server implementation
 
     ```bash
-    mocha ./node_modules/react-protocol/test/server.js
+    mocha ./node_modules/vibe-protocol/test/server.js
     ```
     
 And see the result on the console.
@@ -202,7 +202,7 @@ And see the result on the console.
 By default both test suites verify all the available transport: `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp`. However, in development environment, `ws`, `sse` and `longpollajax` are actually enough to use. To chose transports to be tested, you can use `grep` option from mocha.
 
 ```bash
-mocha ./node_modules/react-protocol/test/server.js --grep "ws|sse|longpollajax"
+mocha ./node_modules/vibe-protocol/test/server.js --grep "ws|sse|longpollajax"
 ```
 
 Note that `grep` is evaluated as a regular expression in JavaScript and you should use `"` to escape `|` in Windows CMD.

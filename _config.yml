@@ -1,7 +1,7 @@
-baseurl: /react
-name: React
-description: React, the modern web framework for writing real-time web applications.
-url: http://atmosphere.github.io/react/
+baseurl: /vibe
+name: Vibe
+description: Vibe, the modern web framework for writing real-time web applications.
+url: http://atmosphere.github.io/vibe/
 relative_permalinks: false
 permalink: /blog/:year/:month/:day/:title/
 paginate: 5

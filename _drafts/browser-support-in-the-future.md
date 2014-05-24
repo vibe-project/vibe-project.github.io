@@ -5,7 +5,7 @@ author: flowersinthesand
 categories: [article]
 ---
 
-jQuery team has [mentioned](http://blog.jquery.com/2014/04/02/browser-support-in-jquery-1-12-and-beyond/) about future changes in browser support with Microsoft ending Windows XP support a month ago. Accordingly React JavaScript Client will reduce browser coverage. As they already said, **don't panic!** It will happen 2014 end or early 2015.
+jQuery team has [mentioned](http://blog.jquery.com/2014/04/02/browser-support-in-jquery-1-12-and-beyond/) about future changes in browser support with Microsoft ending Windows XP support a month ago. Accordingly Vibe JavaScript Client will reduce browser coverage. As they already said, **don't panic!** It will happen 2014 end or early 2015.
 
 Browsers to be not supported are Internet Explorer 6 and 7, Opera 12.1x, Safari 5.1 and Android 2 and 3. So the new browser support table will be:
 
