@@ -1,6 +1,6 @@
 /*
- * React v3.0.0-Alpha1
- * http://atmosphere.github.io/react/
+ * Vibe v3.0.0-Alpha1
+ * http://atmosphere.github.io/vibe/
  * 
  * Copyright 2011-2014, Donghwan Kim 
  * Licensed under the Apache License, Version 2.0
@@ -26,7 +26,7 @@
         module.exports.util.corsable = true;
     } else {
         // Browser globals, Window
-        root.react = factory(root);
+        root.vibe = factory(root);
     }
 }(this, function(window) {
     
@@ -1023,14 +1023,13 @@
         },
         // HTTP Base
         httpbase: function(socket, options) {
-            var url = util.url(options.url, {id: options.id}),
-                self = transports.base(socket, options);
+            var self = transports.base(socket, options);
             
             self.send = !options.crossOrigin || util.corsable ?
             // By XMLHttpRequest
             function(data) {
                 var xhr = util.xhr();
-                xhr.open("POST", url);
+                xhr.open("POST", util.url(options.url, {id: options.id}));
                 xhr.setRequestHeader("content-type", "text/plain; charset=UTF-8");
                 if (util.corsable) {
                     xhr.withCredentials = true;
@@ -1042,7 +1041,7 @@
                 // Only text/plain is supported for the request's Content-Type header
                 // from the fourth at http://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx
                 var xdr = new window.XDomainRequest();
-                xdr.open("POST", options.xdrURL.call(socket, url));
+                xdr.open("POST", options.xdrURL.call(socket, util.url(options.url, {id: options.id})));
                 xdr.send("data=" + data);
             } :
             // By HTMLFormElement
@@ -1050,7 +1049,7 @@
                 var iframe,
                     textarea,
                     form = document.createElement("form");
-                form.action = url;
+                form.action = util.url(options.url, {id: options.id});
                 form.target = "socket-" + (guid++);
                 form.method = "POST";
                 // Internet Explorer 6 needs encoding property
@@ -1441,8 +1440,7 @@
                 script.src = url;
                 script.clean = function() {
                     // Assigns null to attributes to avoid memory leak in IE
-                    // doing it to src stops connection in IE 6 and 7
-                    script.clean = script.src = script.onerror = script.onload = script.onreadystatechange = null;
+                    script.clean = script.onerror = script.onload = script.onreadystatechange = null;
                     if (script.parentNode) {
                         script.parentNode.removeChild(script);
                     }
@@ -1470,21 +1468,21 @@
         }
     };
     
-    var // Defines the react
-        react = {},
+    var // Defines the vibe
+        vibe = {},
         // Socket instances
         sockets = [];
 
     // Creates a new socket and connects to the given url
-    react.open = function(url, options) {
+    vibe.open = function(url, options) {
         // Opens a new socket
         var socket = Socket(url, options);
         sockets.push(socket);
         return socket; 
     };
     // Exposes to help debug or apply hotfix but not public
-    react.util = util;
-    react.transports = transports;
+    vibe.util = util;
+    vibe.transports = transports;
     
     // For browser environment
     util.on(window, "unload", function() {
@@ -1519,5 +1517,5 @@
         }
     });
     
-    return react;
+    return vibe;
 }));
