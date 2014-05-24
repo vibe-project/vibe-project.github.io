@@ -49,7 +49,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <pre><code>Server <span class="hljs-number">3.0</span><span class="hljs-number">.0</span>-Alpha1-SNAPSHOT
-http:<span class="hljs-comment">//atmosphere.github.io/react/</span>
+http:<span class="hljs-comment">//atmosphere.github.io/vibe/</span>
 
 Copyright <span class="hljs-number">2014</span>-<span class="hljs-number">2014</span>, Donghwan Kim 
 Licensed under the Apache License, Version <span class="hljs-number">2.0</span>
@@ -67,7 +67,7 @@ http:<span class="hljs-comment">//www.apache.org/licenses/LICENSE-2.0</span>
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <p>This is the server-side reference implementation of the 
-<a href="http://atmosphere.github.io/react/">Vibe protocol</a> written in
+<a href="http://atmosphere.github.io/vibe/">Vibe protocol</a> written in
 easy-to-read JavaScript running on Node.js.</p>
 <p><strong>Note</strong></p>
 <ul>
@@ -91,11 +91,11 @@ easy-to-read JavaScript running on Node.js.</p>
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <h2 id="api">API</h2>
-<p><code>require(&quot;react-protocol&quot;).server()</code> creates a react server that is installed
+<p><code>require(&quot;vibe-protocol&quot;).server()</code> creates a vibe server that is installed
 by passing request and upgrade events dispatched by Node’s HTTP/HTTPS server
 to the server.</p>
-<pre><code><span class="hljs-keyword">var</span> react = <span class="hljs-built_in">require</span>(<span class="hljs-string">"react-protocol"</span>);
-<span class="hljs-keyword">var</span> server = react.server();
+<pre><code><span class="hljs-keyword">var</span> vibe = <span class="hljs-built_in">require</span>(<span class="hljs-string">"vibe-protocol"</span>);
+<span class="hljs-keyword">var</span> server = vibe.server();
 <span class="hljs-keyword">var</span> httpServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>).createServer();
 <span class="hljs-keyword">var</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>);
 
@@ -105,12 +105,12 @@ server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"
 
 httpServer.listen(<span class="hljs-number">8080</span>)
 .on(<span class="hljs-string">"request"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
-  <span class="hljs-keyword">if</span> (url.parse(req.url).pathname === <span class="hljs-string">"/react"</span>) {
+  <span class="hljs-keyword">if</span> (url.parse(req.url).pathname === <span class="hljs-string">"/vibe"</span>) {
     server.handleRequest(req, res);
   }
 })
 .on(<span class="hljs-string">"upgrade"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, sock, head)</span> {</span>
-  <span class="hljs-keyword">if</span> (url.parse(req.url).pathname === <span class="hljs-string">"/react"</span>) {
+  <span class="hljs-keyword">if</span> (url.parse(req.url).pathname === <span class="hljs-string">"/vibe"</span>) {
     server.handleUpgrade(req, sock, head);
   }
 })
@@ -129,7 +129,7 @@ httpServer.listen(<span class="hljs-number">8080</span>)
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <h2 id="server">Server</h2>
-<p>A react server.</p>
+<p>A vibe server.</p>
 <p><strong>Events</strong></p>
 <ul>
 <li><code>socket(socket)</code>: when the socket has been opened. </li>
@@ -1404,8 +1404,8 @@ fire the close event. So you don’t need to manually dispatch the close event h
                 <a class="pilcrow" href="#section-74">&#182;</a>
               </div>
               <h2 id="socket">Socket</h2>
-<p>A socket is a connectivity between the two react endpoints and an interface
-for developers creating react applications.</p>
+<p>A socket is a connectivity between the two vibe endpoints and an interface
+for developers creating vibe applications.</p>
 <p><strong>Events</strong></p>
 <ul>
 <li><code>close()</code>: when the socket has been closed.</li>

@@ -49,7 +49,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <pre><code>Client <span class="hljs-number">3.0</span><span class="hljs-number">.0</span>-Alpha1-SNAPSHOT
-http:<span class="hljs-comment">//atmosphere.github.io/react/</span>
+http:<span class="hljs-comment">//atmosphere.github.io/vibe/</span>
 
 Copyright <span class="hljs-number">2014</span>-<span class="hljs-number">2014</span>, Donghwan Kim 
 Licensed under the Apache License, Version <span class="hljs-number">2.0</span>
@@ -67,7 +67,7 @@ http:<span class="hljs-comment">//www.apache.org/licenses/LICENSE-2.0</span>
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <p>This is the client-side reference implementation of the 
-<a href="http://atmosphere.github.io/react/">Vibe protocol</a> written in
+<a href="http://atmosphere.github.io/vibe/">Vibe protocol</a> written in
 easy-to-read JavaScript running on Node.js.</p>
 <p><strong>Note</strong></p>
 <ul>
@@ -98,9 +98,9 @@ http.globalAgent.maxSockets = <span class="hljs-literal">Infinity</span>;</pre><
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <h2 id="api">API</h2>
-<p><code>require(&quot;react-protocol&quot;).open</code> opens a new socket and returns it.</p>
-<pre><code><span class="hljs-keyword">var</span> react = <span class="hljs-built_in">require</span>(<span class="hljs-string">"react-protocol"</span>),
-<span class="hljs-keyword">var</span> socket = react.open(<span class="hljs-string">"http://localhost:8080/react"</span>, {
+<p><code>require(&quot;vibe-protocol&quot;).open</code> opens a new socket and returns it.</p>
+<pre><code><span class="hljs-keyword">var</span> vibe = <span class="hljs-built_in">require</span>(<span class="hljs-string">"vibe-protocol"</span>),
+<span class="hljs-keyword">var</span> socket = vibe.open(<span class="hljs-string">"http://localhost:8080/vibe"</span>, {
     transport: <span class="hljs-string">"ws"</span>
 });
 
@@ -122,7 +122,7 @@ socket.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <h2 id="uri">URI</h2>
-<p>An URI is the complete path to the react server endpoint. The protocol uses
+<p>An URI is the complete path to the vibe server endpoint. The protocol uses
 the query string to pass information to interact with the server in <code>GET</code>
 request so be aware of reserved parameters.</p>
 <h3 id="params">Params</h3>
@@ -204,8 +204,8 @@ events in the preceding response.</li>
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <h2 id="socket">Socket</h2>
-<p>A socket is a connectivity between the two react endpoints and an interface
-for developers creating react applications.</p>
+<p>A socket is a connectivity between the two vibe endpoints and an interface
+for developers creating vibe applications.</p>
 <p><strong>Options</strong></p>
 <ul>
 <li><code>transport:string</code>: a transport id.</li>
