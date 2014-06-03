@@ -67,7 +67,7 @@ The mapping between the specifications and the respective Vibe JavaScript Client
 |---|---|---|
 | 3 | 3 | 3.0 |
 
-That being said, compatiblity of vibe.js depends on [compatibility of transport](#toc_18) which varies depending on runtime environment such as Node.js and Browser.
+That being said, compatiblity of vibe.js depends on [compatibility of transport](#toc_19) which varies depending on runtime environment such as Node.js and Browser.
 
 ### License
 
@@ -571,72 +571,42 @@ As specified in the protocol, in case of HTTP Streaming and HTTP Long polling, t
 The compatiblity of vibe.js depends on transport compatibility.
 
 #### Browser
-The policy for browser support is the same with the one of [jQuery 1.x](http://jquery.com/browser-support/), but browsers on mobile devices have not specified and tested yet.
+The policy for browser support is the same with the one of [jQuery 1.x](http://jquery.com/browser-support/).
 
-| Internet Explorer | Chrome | Firefox | Safari | Opera | Android |
-|---|---|---|---|---|---|
-| 6+ | (Current - 1) or Current | (Current - 1) or Current | 5.1+ | 12.1x, (Current - 1) or Current| 2.1 |
+| Internet Explorer | Chrome | Firefox | Safari | Opera | iOS | Android |
+|---|---|---|---|---|---|---|
+| 6+ | (Current - 1) or Current | (Current - 1) or Current | 5.1+ | 12.1x, (Current - 1) or Current| 6.0+ | 2.1+ |
 
-The following table have been tested with portal.js which is a predecessor of vibe.js. Transport list in each cell is ordered by recommendation. As to `ws`, a word in parentheses means WebSocket protocol. So in order to use `ws`, the server has to be able to support that protocol. You will see that unsupported browsers are also listed. They are tested with portal.js 1.0 and might work OK with the latest version of vibe.js. If not, modify your vibe.js according to this [issue](https://github.com/flowersinthesand/portal/issues/116) and relevant commits. 
+Transport list in each cell is ordered by recommendation. As to `ws`, a word in parentheses means WebSocket protocol. So in order to use `ws`, the server has to be able to support that protocol.
+
+| Browser | Version | WebSocket | HTTP Streaming | HTTP Long polling |
+|---|---|---|---|---|
+|Firefox|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|Chrome|25|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|Internet Explorer|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`|`longpollajax`, `longpolljsonp`|
+|                 |10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`, `streamxdr`, `streamiframe` <sup>1</sup>, <sup>2</sup>|`longpollajax`, `longpollxdr`, `longpolljsonp`|
+|                 |8||`streamxdr`, `streamiframe` <sup>1</sup>|`longpollajax` <sup>1</sup>, `longpollxdr`, `longpolljsonp`|
+|                 |6||`streamiframe` <sup>1</sup>|`longpollajax` <sup>1</sup>, `longpolljsonp`|
+|Safari|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|      |6.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|      |5.1|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|Opera|15|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|     |12.10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`|`longpollajax`, `longpolljsonp`|
+|iOS|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))| `sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|   |6.0|| `sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|Android|2.1|| `streamxhr`|`longpollajax`, `longpolljsonp`|
 
 **Note**
 
-* `streamiframe`: not supported in 10 Metro.
-
-##### Same origin connection
-| Browser | Version | WebSocket | HTTP Streaming | HTTP Long polling |
-|---|---|---|---|---|
-|Firefox|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||7|`ws` ([hybi-10](http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||6|`ws` ([hybi-07](http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-07))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||3||`streamxhr`|`longpollajax`, `longpolljsonp`|
-|Chrome|16|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||14|`ws` ([hybi-10](http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||6|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||5|`ws` ([hixie-75](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-75))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||2||`streamxhr`|`longpollajax`, `longpolljsonp`|
-|Internet Explorer|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`, `streamxdr`, `streamiframe`|`longpollajax`, `longpollxdr`, `longpolljsonp`|
-||8||`streamxdr`, `streamiframe`|`longpollajax`, `longpollxdr`, `longpolljsonp`|
-||6||`streamiframe`|`longpollajax`, `longpolljsonp`|
-|Safari|5.1|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||5.0.1|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||3.1||`streamxhr`|`longpollajax`, `longpolljsonp`|
-|Opera|15|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||12.10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`|`longpollajax`, `longpolljsonp`|
-||12||`sse`|`longpollajax`, `longpolljsonp`|
-||11.60||`sse`|`longpollajax`, `longpolljsonp`|
-||11.0||`sse`|`longpollajax`|
-||10.0|||`longpollajax`|
-|Android|2.1|| `streamxhr`|`longpollajax`, `longpolljsonp`|
-
-##### Cross origin connection
-| Browser | Version | WebSocket | HTTP Streaming | HTTP Long polling |
-|---|---|---|---|---|
-|Firefox|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||7|`ws` ([hybi-10](http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||6|`ws` ([hybi-07](http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-07))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||3.6||`streamxhr`|`longpollajax`, `longpolljsonp`|
-||3|||`longpolljsonp`|
-|Chrome|25|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||16|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||14|`ws` [hybi-10](http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10)|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||6|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||3||`streamxhr`|`longpollajax`, `longpolljsonp`|
-|Internet Explorer|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`, `streamxdr`|`longpollajax`, `longpollxdr`, `longpolljsonp`|
-||8||`streamxdr`|`longpollxdr`, `longpolljsonp`|
-||6|||`longpolljsonp`|
-|Safari|5.0.1|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-||4.0||`streamxhr`|`longpollajax`, `longpolljsonp`|
-|Opera|15|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-||12.10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`|`longpollajax`, `longpolljsonp`|
-||12||`sse`|`longpollajax`, `longpolljsonp`|
-||11.60|||`longpolljsonp`|
-|Android|2.1|| `streamxhr`|`longpollajax`, `longpolljsonp`|
+* 1: only availabe in same origin connection
+* 2: not available in Metro.
 
 #### Node.js
-As a result of test on Node.js 0.10.x, only `ws`, `sse` and `longpollajax` are supported but they are enough to use in Node.js.
+Node.js lower than 0.10 may work.
+
+| Version | WebSocket | HTTP Streaming | HTTP Long polling |
+|---|---|---|---|
+|0.10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`|`longpollajax`|
 
 ---
 
