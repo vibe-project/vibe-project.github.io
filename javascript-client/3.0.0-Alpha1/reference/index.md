@@ -575,7 +575,7 @@ The policy for browser support is the same with the one of [jQuery 1.x](http://j
 
 | Internet Explorer | Chrome | Firefox | Safari | Opera | iOS | Android |
 |---|---|---|---|---|---|---|
-| 6+ | (Current - 1) or Current | (Current - 1) or Current | 5.1+ | 12.1x, (Current - 1) or Current| 6.0+ | 2.1+ |
+| 6+ | (Current - 1) or Current | (Current - 1) or Current | 5.1+ | 12.1x, (Current - 1) or Current| 6.0+ | 4.0+ |
 
 Transport list in each cell is ordered by recommendation. As to `ws`, a word in parentheses means WebSocket protocol. So in order to use `ws`, the server has to be able to support that protocol.
 
@@ -592,9 +592,10 @@ Transport list in each cell is ordered by recommendation. As to `ws`, a word in 
 |      |5.1|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |Opera|15|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |     |12.10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`|`longpollajax`, `longpolljsonp`|
-|iOS|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))| `sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
-|   |6.0|| `sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
-|Android|2.1|| `streamxhr`|`longpollajax`, `longpolljsonp`|
+|iOS|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|   |6.0||`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|Android|4.4|`ws`|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|       |4.0||`streamxhr`|`longpollajax`, `longpolljsonp`|
 
 **Note**
 
