@@ -594,7 +594,7 @@ Transport list in each cell is ordered by recommendation. As to `ws`, a word in 
 |     |12.10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`|`longpollajax`, `longpolljsonp`|
 |iOS|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |   |6.0||`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
-|Android|4.4|`ws`|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|Android|4.4|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |       |4.0||`streamxhr`|`longpollajax`, `longpolljsonp`|
 
 **Note**
