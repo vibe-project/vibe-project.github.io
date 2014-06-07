@@ -544,8 +544,8 @@ According to the technology, available transport implementations can be sorted i
 
     The client performs a HTTP persistent connection and watches changes in response text and the server prints chunk as data over the connection. Generally, streaming transports are faster than WebSocket.
      
-    * `sse`: works if browser supports `EventSource`. By reason of the spec's ambiguity, there is no way to determine whether a connection closed normally or not so that the close event's reason will be always `done` even though the connection closed due to an error.
-    * `streamxhr`: in case of same origin connection, works without qualification. In case of cross origin, works if `XMLHttpRequest` supports CORS. However for both cases, if the browser is Internet Explorer, the version should be equal to or higher than 10.
+    * `sse`: works if browser supports `EventSource`. If the browser is Safari 5 or 6, only same origin connection works. By reason of the spec's ambiguity, there is no way to determine whether a connection closed normally or not so that the close event's reason will be always `done` even though the connection closed due to an error.
+    * `streamxhr`: in case of same origin connection, works without qualification. In case of cross origin, works if `XMLHttpRequest` supports CORS. However for both cases, if the browser is Internet Explorer, the version should be equal to or higher than 10 and if the browser is Opera, the version should be equal to or higher than 13.
     * `streamxdr`: works if browser supports `XDomainRequest` and `xdrURL` option is set.
     * `streamiframe`: works if it's same origin connection and browser supports `ActiveXObject`. This transport differs from the traditional [Hidden Iframe](http://en.wikipedia.org/wiki/Comet_%28programming%29#Hidden_iframe) in terms of fetching a response text. The traditional transport expects script tags, whereas this transport periodically polls the response text.<p>
     
@@ -584,16 +584,16 @@ Transport list in each cell is ordered by recommendation. As to `ws`, a word in 
 |Firefox|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |Chrome|25|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |Internet Explorer|11|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`|`longpollajax`, `longpolljsonp`|
-|                 |10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`, `streamxdr`, `streamiframe` <sup>1</sup>, <sup>2</sup>|`longpollajax`, `longpollxdr`, `longpolljsonp`|
-|                 |8||`streamxdr`, `streamiframe` <sup>1</sup>|`longpollajax` <sup>1</sup>, `longpollxdr`, `longpolljsonp`|
-|                 |6||`streamiframe` <sup>1</sup>|`longpollajax` <sup>1</sup>, `longpolljsonp`|
+|                 |10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`streamxhr`, `streamxdr`<sup>3</sup>, `streamiframe`<sup>1</sup>, <sup>2</sup>|`longpollajax`, `longpollxdr`<sup>3</sup>, `longpolljsonp`|
+|                 |8||`streamxdr`<sup>3</sup>, `streamiframe`<sup>1</sup>|`longpollajax`<sup>1</sup>, `longpollxdr`<sup>3</sup>, `longpolljsonp`|
+|                 |6||`streamiframe`<sup>1</sup>|`longpollajax`<sup>1</sup>, `longpolljsonp`|
 |Safari|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
-|      |6.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
-|      |5.1|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|      |6.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`<sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|      |5.1|`ws` ([hixie-76](http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76))|`sse`<sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |Opera|15|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |     |12.10|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`|`longpollajax`, `longpolljsonp`|
-|iOS|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
-|   |6.0||`sse` <sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|iOS|7.0|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`<sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
+|   |6.0||`sse`<sup>1</sup>, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |Android|4.4|`ws` ([rfc6455](http://tools.ietf.org/html/rfc6455))|`sse`, `streamxhr`|`longpollajax`, `longpolljsonp`|
 |       |4.0||`streamxhr`|`longpollajax`, `longpolljsonp`|
 
@@ -601,6 +601,7 @@ Transport list in each cell is ordered by recommendation. As to `ws`, a word in 
 
 * 1: only availabe in same origin connection
 * 2: not available in Metro.
+* 3: `xdrURL` option is required.
 
 #### Node.js
 Node.js lower than 0.10 may work.
