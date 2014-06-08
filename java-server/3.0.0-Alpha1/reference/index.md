@@ -162,7 +162,6 @@ The [Atmosphere 2](https://github.com/atmosphere/atmosphere/) makes the applicat
 **Note**
 
 * Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, Vibe Java Server uses it as a platform but in the future it might be deprecated or replaced with new modules dealing with their vendor-specific code, e.g. vibe-tomcat8 and vibe-jetty9.
-* Now only atmosphere 2.0 works.
 
 #### Dependency
 Add the following dependency to your build or include it on your classpath manually.
@@ -178,11 +177,6 @@ Add the following dependency to your build or include it on your classpath manua
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-runtime</artifactId>
         <version>{{ page.version }}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.atmosphere</groupId>
-        <artifactId>atmosphere-runtime</artifactId>
-        <version>2.0.6</version>
     </dependency>
 </dependencies>
 ```
