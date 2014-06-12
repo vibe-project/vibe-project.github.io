@@ -10,7 +10,7 @@ ul.pagination {height: inherit;}
 div.text {padding-top: 2rem;}
 
 div.copyright {color: #777;}
-div.copyright p {font-size: 0.9rem;}
+div.copyright p, div.copyright ul {font-size: 0.9rem;}
 
 article h1 {font-size: 2rem;}
 article .information {color: #888;}
