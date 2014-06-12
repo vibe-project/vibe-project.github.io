@@ -1,131 +1,17 @@
 ---
-layout: home
+layout: default
 title: Vibe
 ---
-<div class="row">
-    <div class="large-12 columns">
-        <h1>Vibe</h1>
-        <p>The modern web framework for writing real-time web applications.</p>
+<header class="index">
+    <div class="row">
+        <div class="large-12 columns">
+            <h1>A real-time web application framework</h1>
+        </div>
     </div>
-</div>
+</header>
 <div class="row">
     <div class="large-12 columns">
-        <hr />
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <h2>Introduction</h2>
-        <p>The Vibe is a new web framework to write low-latency, event-driven, real-time web application and service based on its own protocol built over HTTP and WebSocket, not just a disposable framework to write chat application. Vibe focuses on providing reliable full duplex connection and making the best use of it for modern web application development so that teams can focus on application-level business logic and event handling without unnecessary ties to low-level details like transport mechanisms.</p>
+        <p>Vibe is a new web framework to write low-latency, event-driven, real-time web application and service based on its own protocol built over HTTP and WebSocket, not just a disposable framework to write chat application. Vibe focuses on providing reliable full duplex connection and making the best use of it for modern web application development so that teams can focus on application-level business logic and event handling without unnecessary ties to low-level details like transport mechanisms and message loss.</p>
         <p>It has started as Atmosphere 3, a collaboration of Atmosphere by Jeanfrancois Arcand and Portal by Donghwan Kim by taking advantage of both projects, but as its synergy effect, Vibe is birthed.</p>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <hr />
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <h2>Projects</h2>
-        <p>Each project covers more than its name suggests.</p>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <nav class="top-bar project-bar" data-topbar>
-            <ul class="title-area">
-                <li class="name"><h1><a id="project-protocol" href="#project-protocol">Vibe Protocol</a></h1></li>
-                <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
-            </ul>
-            <section class="top-bar-section">
-                <ul class="left">
-                </ul>
-                <ul class="right">
-                    <li><a href="https://github.com/Atmosphere/vibe-protocol">Source</a></li>
-                    <li><a href="https://github.com/Atmosphere/vibe-protocol/issues">Issues</a></li>
-                    <li><a href="https://travis-ci.org/Atmosphere/vibe-protocol">CI</a></li>
-                    <li><a href="https://github.com/Atmosphere/vibe-protocol/releases">Changelog</a></li>
-                </ul>
-            </section>
-        </nav>
-        <p>A feature-rich and application-level protocol built over HTTP and WebSocket protocol for real-time web application development designed by carefully considering known issues and best practices of real-time web for All. Provides reference implementation and test suite.</p>
-        <ul class="pricing-table doc-list inline-list">
-            <li class="bullet-item">
-                <ul class="inline-list">
-                    <li><code>3.0.0-alpha1</code> <span class="secondary label">snapshot</span></li>
-                    <li><a href="{{ site.baseurl }}/protocol/3.0.0-Alpha1/reference/">Reference</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <nav class="top-bar project-bar" data-topbar>
-            <ul class="title-area">
-                <li class="name"><h1><a id="project-java-server" href="#project-java-server">Vibe Java Server</a></h1></li>
-                <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
-            </ul>
-            <section class="top-bar-section">
-                <ul class="left"></ul>
-                <ul class="right">
-                    <li><a href="https://github.com/Atmosphere/vibe">Source</a></li>
-                    <li><a href="https://github.com/Atmosphere/vibe/issues">Issues</a></li>
-                    <li><a href="https://buildhive.cloudbees.com/job/Atmosphere/job/vibe">CI</a></li>
-                    <li><a href="https://github.com/Atmosphere/vibe/releases">Changelog</a></li>
-                </ul>
-            </section>
-        </nav>
-        <p>A versatile and flexible Java server designed for modern Java based enterprise web applications running on every platforms and frameworks on Java like Servlet and Vert.x, which is a successor of Atmosphere 2.</p>
-        <ul class="pricing-table doc-list inline-list">
-            <li class="bullet-item">
-                <ul class="inline-list">
-                    <li><code>3.0.0-alpha1</code> <span class="secondary label">snapshot</span></li>
-                    <li><a href="{{ site.baseurl }}/java-server/3.0.0-Alpha1/reference/">Reference</a></li>
-                    <li><a href="{{ site.baseurl }}/java-server/3.0.0-Alpha1/apidocs/">API</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <nav class="top-bar project-bar" data-topbar>
-            <ul class="title-area">
-                <li class="name"><h1><a id="project-javascript-client" href="#project-javascript-client">Vibe JavaScript Client</a></h1></li>
-                <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
-            </ul>
-            <section class="top-bar-section">
-                <ul class="left"></ul>
-                <ul class="right">
-                    <li><a href="https://github.com/Atmosphere/vibe-javascript-client">Source</a></li>
-                    <li><a href="https://github.com/Atmosphere/vibe-javascript-client/issues">Issues</a></li>
-                    <li><a href="https://travis-ci.org/Atmosphere/vibe-javascript-client">CI</a></li>
-                    <li><a href="https://github.com/Atmosphere/vibe-javascript-client/releases">Changelog</a></li>
-                </ul>
-            </section>
-        </nav>
-        <p>A concise and lightweight JavaScript client providing full duplex connection on every browser-based and Node-based applications and allowing connection sharing between windows and tabs within browser session, which is a successor of Portal 1.</p>
-        <ul class="pricing-table doc-list inline-list">
-            <li class="bullet-item">
-                <ul class="inline-list">
-                    <li><code>3.0.0-alpha1</code> <span class="secondary label">snapshot</span></li>
-                    <li><a href="{{ site.baseurl }}/javascript-client/3.0.0-Alpha1/reference/">Reference</a></li>
-                    <li><a href="{{ site.baseurl }}/javascript-client/3.0.0-Alpha1/api/">API</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <hr />
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <h2>Support</h2>
-        <p>TODO</p>
     </div>
 </div>

@@ -145,8 +145,8 @@ With the help of debug, you can deal with the opened socket in pseudo interactiv
 
 You can use:
 
-* [Reference implementation]({{ site.baseurl }}/protocol/3.0.0-Alpha1/reference/#toc_5)
-* [Vibe JavaScript Client](http://localhost:4000/javascript-client/3.0.0-Alpha1/reference/#toc_4)
+* [Reference implementation]({{ site.baseurl }}/projects/vibe-protocol/3.0.0-Alpha1/reference/#toc_5)
+* [Vibe JavaScript Client](http://localhost:4000/projects/vibe-javascript-client/3.0.0-Alpha1/reference/#toc_4)
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>

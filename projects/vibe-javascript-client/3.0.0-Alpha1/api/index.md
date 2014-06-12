@@ -9,7 +9,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
 <h1>API <small>Vibe JavaScript Client</small></h1>
-<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.js"></script>
+<script src="{{ site.baseurl }}/projects/vibe-javascript-client/{{ page.version }}/vibe.js"></script>
 
 ---
 

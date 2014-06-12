@@ -9,7 +9,7 @@ You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
 <h1>Reference <small>Vibe JavaScript Client</small></h1>
-<script src="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.js"></script>
+<script src="{{ site.baseurl }}/projects/vibe-javascript-client/{{ page.version }}/vibe.js"></script>
 
 ---
 
@@ -102,8 +102,8 @@ Once `socket` have been logged, you can access the opened socket by `socket` in 
 
 You can use:
 
-* [Reference implementation]({{ site.baseurl }}/protocol/{{ page.version }}/reference/#toc_5)
-* [Vibe Java Server](http://localhost:4000/java-server/{{ page.version }}/reference/#toc_4)
+* [Reference implementation]({{ site.baseurl }}/projects/vibe-protocol/{{ page.version }}/reference/#toc_5)
+* [Vibe Java Server](http://localhost:4000/projects/vibe-java-server/{{ page.version }}/reference/#toc_4)
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
@@ -115,8 +115,8 @@ You can use:
 Download vibe.js the way you want.
 
 <ul class="inline-list">
-<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.min.js">The compressed for production</a></li>
-<li><a href="{{ site.baseurl }}/javascript-client/{{ page.version }}/vibe.js">The uncompressed for development</a></li>
+<li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/{{ page.version }}/vibe.min.js">The compressed for production</a></li>
+<li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/{{ page.version }}/vibe.js">The uncompressed for development</a></li>
 <li><code>bower install vibe-client</code></li>
 </ul>
 
