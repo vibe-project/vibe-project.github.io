@@ -1,5 +1,5 @@
 ---
-layout: reference
+layout: project-vibe-javascript-client
 title: Vibe JavaScript Client API
 version: 3.0.0-Alpha1
 ---

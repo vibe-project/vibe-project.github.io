@@ -1,5 +1,5 @@
 ---
-layout: reference
+layout: project-vibe-java-server
 title: Vibe Java Server Reference
 version: 3.0.0.Alpha1
 ---
@@ -8,7 +8,7 @@ version: 3.0.0.Alpha1
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
-<h1>Reference <small>Vibe Java Server</small></h1>
+<h1>Reference</h1>
 
 ---
 
