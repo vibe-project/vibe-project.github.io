@@ -50,9 +50,8 @@ The Vibe JavaScript Client is a concise and lightweight client-side JavaScript l
 
 ### Features
 
-* Provides Vibe connectivity to replace AJAX
+* Runs on Node.js and browser
 * Connection sharing between tabs and windows *
-* Runs in Node.js and all browsers including Internet Explorer 6
 * Event-based API akin to W3C WebSocket API
 * No dependencies
 * Lightweight (16.52KB minified, 5.89KB minified and gzipped)
