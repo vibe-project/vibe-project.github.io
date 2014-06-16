@@ -1,12 +1,12 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 @import "normalize";
+
+$base-font-size: 90%;
+$body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$row-width: 80em;
 @import "foundation";
 
-html {font-size: 90%;}
-h1,h2,h3 {font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;}
 pre code {font-size: 90%; font-weight: normal; color: inherit;}
-
-div.row {max-width: 80em;}
 div.top-bar-wrapper {background: #333;}
 div.highlight {margin-bottom: 1.25rem; line-height: 1.2rem;}
 li.has-form input {height: 28px;}
