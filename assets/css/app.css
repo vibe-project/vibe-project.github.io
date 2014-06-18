@@ -5193,8 +5193,9 @@ div.highlight {
   margin-bottom: 1.25rem;
   line-height: normal; }
 
-div.text {
-  padding-top: 2rem; }
+div.top-bar-wrapper {
+  margin-top: 1rem;
+  margin-bottom: 3rem; }
 
 div.copyright {
   color: #777; }
@@ -5205,10 +5206,6 @@ article h1 {
   font-size: 2rem; }
 article .information {
   color: #888; }
-
-div.top-bar-wrapper {
-  margin-top: 1rem;
-  margin-bottom: 1rem; }
 
 header.index {
   padding-top: 6rem;
