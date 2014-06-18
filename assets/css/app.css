@@ -359,7 +359,7 @@ html, body {
 
 body {
   background: #fff;
-  color: #222;
+  color: #444;
   padding: 0;
   margin: 0;
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
@@ -3832,27 +3832,27 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
-  color: #222;
+  color: #444;
   text-rendering: optimizeLegibility;
   margin-top: 0.2rem;
   margin-bottom: 0.5rem;
   line-height: 1.4; }
   h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
     font-size: 60%;
-    color: #6f6f6f;
+    color: #858585;
     line-height: 0; }
 
 h1 {
-  font-size: 2.125rem; }
+  font-size: 1.875rem; }
 
 h2 {
-  font-size: 1.6875rem; }
+  font-size: 1.5rem; }
 
 h3 {
-  font-size: 1.375rem; }
+  font-size: 1.25rem; }
 
 h4 {
-  font-size: 1.125rem; }
+  font-size: 1.0625rem; }
 
 h5 {
   font-size: 1.125rem; }
@@ -3862,7 +3862,7 @@ h6 {
 
 .subheader {
   line-height: 1.4;
-  color: #6f6f6f;
+  color: #858585;
   font-weight: normal;
   margin-top: 0.2rem;
   margin-bottom: 0.5rem; }
@@ -3945,7 +3945,7 @@ dl dd {
 abbr, acronym {
   text-transform: uppercase;
   font-size: 90%;
-  color: #222;
+  color: #444;
   border-bottom: 1px dotted #ddd;
   cursor: help; }
 
@@ -3960,15 +3960,15 @@ blockquote {
   blockquote cite {
     display: block;
     font-size: 0.8125rem;
-    color: #555555; }
+    color: #6f6f6f; }
     blockquote cite:before {
       content: "\2014 \0020"; }
     blockquote cite a, blockquote cite a:visited {
-      color: #555555; }
+      color: #6f6f6f; }
 
 blockquote, blockquote p {
   line-height: 1.6;
-  color: #6f6f6f; }
+  color: #858585; }
 
 /* Microformats */
 .vcard {
@@ -3996,13 +3996,13 @@ blockquote, blockquote p {
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.4; }
   h1 {
-    font-size: 2.75rem; }
+    font-size: 2.5rem; }
   h2 {
-    font-size: 2.3125rem; }
+    font-size: 2.125rem; }
   h3 {
-    font-size: 1.6875rem; }
+    font-size: 1.5625rem; }
   h4 {
-    font-size: 1.4375rem; } }
+    font-size: 1.375rem; } }
 
 /*
        * Print styles.
@@ -4235,16 +4235,16 @@ meta.foundation-mq-topbar {
   position: fixed;
   top: 0;
   z-index: 99; }
-  .fixed.expanded:not(.top-bar), .fixed.always-expanded:not(.top-bar) {
+  .fixed.expanded:not(.top-bar) {
     overflow-y: auto;
     height: auto;
     width: 100%;
     max-height: 100%; }
-    .fixed.expanded:not(.top-bar) .title-area, .fixed.expanded:not(.top-bar) .fixed.always-expanded:not(.top-bar) {
+    .fixed.expanded:not(.top-bar) .title-area {
       position: fixed;
       width: 100%;
       z-index: 99; }
-    .fixed.expanded:not(.top-bar) .top-bar-section, .fixed.expanded:not(.top-bar) .fixed.always-expanded:not(.top-bar) {
+    .fixed.expanded:not(.top-bar) .top-bar-section {
       z-index: 98;
       margin-top: 45px; }
 
@@ -4325,14 +4325,14 @@ meta.foundation-mq-topbar {
             width: 16px; }
           .top-bar .toggle-topbar.menu-icon a::after span:hover:after {
             box-shadow: 0 0px 0 1px #000, 0 7px 0 1px #000, 0 14px 0 1px #000; }
-  .top-bar.expanded, .top-bar.always-expanded {
+  .top-bar.expanded {
     height: auto;
     background: transparent; }
-    .top-bar.expanded .title-area, .top-bar.expanded .top-bar.always-expanded {
+    .top-bar.expanded .title-area {
       background: #fff; }
-    .top-bar.expanded .toggle-topbar a, .top-bar.expanded .toggle-topbar .top-bar.always-expanded {
+    .top-bar.expanded .toggle-topbar a {
       color: #888; }
-      .top-bar.expanded .toggle-topbar a::after, .top-bar.expanded .toggle-topbar .top-bar.always-expanded {
+      .top-bar.expanded .toggle-topbar a::after {
         box-shadow: 0 10px 0 1px #888, 0 16px 0 1px #888, 0 22px 0 1px #888; }
 
 .top-bar-section {
@@ -4534,7 +4534,7 @@ meta.foundation-mq-topbar {
       font-size: 0.875rem;
       position: relative;
       top: 7px; }
-    .top-bar.expanded, .top-bar.always-expanded {
+    .top-bar.expanded {
       background: #fff; }
   .contain-to-grid .top-bar {
     max-width: 80em;
