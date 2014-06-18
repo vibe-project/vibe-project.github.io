@@ -7,22 +7,61 @@
 pre code {font-weight: normal; color: inherit;}
 div.highlight {margin-bottom: 1.25rem; line-height: normal;}
 div.text {padding-top: 2rem;}
-div.copyright {color: #777;}
-div.copyright p, div.copyright ul {font-size: 0.9rem;}
-article h1 {font-size: 2rem;}
-article .information {color: #888;}
-
+div.copyright {
+  color: #777;
+  p, ul {
+    font-size: 0.9rem;
+  }
+}
+article {
+  h1 {
+    font-size: 2rem;
+  }
+  .information {
+    color: #888;
+  }
+}
 div.top-bar-wrapper {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+header.index {
+  padding-top: 6rem; 
+  padding-bottom: 6rem; 
+  margin-bottom: 2rem;
+  h1 {
+    font-size: 2rem; 
+    color: #fff; 
+    margin-bottom: 1rem;
+  }
+}
+header.project {
+  background: #333; 
+  padding-top: 5rem; 
+  margin-bottom: 2rem; 
+  min-height: 17.5rem;
+  h1 {
+    font-size: 2rem; 
+    color: #fff; 
+    margin-bottom: 1rem;
+  }
+  ul.inline-list {
+    li {
+      code {display: inline-block; color: #ddd;}
+      span.label {display: inline-block;}
+    }
+  }
+  ul.doc-list {
+    li.name {
+      color: #ccc;
+    }
+    > li{
+      margin-right: 1rem;
+    }
+    ul.inline-list li {
+      margin-left: 1rem;
+    }
+  }
+}
 
-header.index {background: #333; padding-top: 7rem; margin-bottom: 2rem; min-height: 17.5rem;}
-header.index h1 {font-size: 2rem; color: #fff; margin-bottom: 1rem;}
-header.project {background: #333; padding-top: 5rem; margin-bottom: 2rem; min-height: 17.5rem;}
-header.project h1 {font-size: 2rem; color: #fff; margin-bottom: 1rem;}
-header.project ul.inline-list li code {display: inline-block; color: #ddd;}
-header.project ul.inline-list li span.label {display: inline-block;}
-header.project ul.doc-list li.name {color: #ccc;}
-header.project ul.doc-list > li{margin-right: 1rem;}
-header.project ul.doc-list ul.inline-list li {margin-left: 1rem;}
+
