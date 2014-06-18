@@ -4220,7 +4220,7 @@ blockquote, blockquote p {
 
 meta.foundation-mq-topbar {
   font-family: "/only screen and (min-width:40.063em)/";
-  width: 40.063em; }
+  width: 9999px; }
 
 /* Wrapped around .top-bar to contain to grid width */
 .contain-to-grid {
@@ -5181,23 +5181,17 @@ th.hide-for-touch {
   th.show-for-print {
     display: table-cell !important; } }
 
+.bar {
+  height: 3px;
+  background: linear-gradient(45deg, #f20f38 0, #f2884b 100%); }
+
 pre code {
-  font-size: 90%;
   font-weight: normal;
   color: inherit; }
 
-div.top-bar-wrapper {
-  background: #333; }
-
 div.highlight {
   margin-bottom: 1.25rem;
-  line-height: 1.2rem; }
-
-li.has-form input {
-  height: 28px; }
-
-ul.pagination {
-  height: inherit; }
+  line-height: normal; }
 
 div.text {
   padding-top: 2rem; }

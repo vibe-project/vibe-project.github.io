@@ -1,29 +1,27 @@
-<div class="top-bar-wrapper">
+<div class="bar"></div>
+<div class="top-bar-wrapper contain-to-grid">
 	<div class="row">
-		<div class="large-12 columns">
-			<nav class="top-bar" data-topbar>
-				<ul class="title-area">
-					<li class="name">
-						<h1><a href="{{ site.baseurl }}/">Vibe</a></h1>
-					</li>
-                    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
-				</ul>
-                <section class="top-bar-section">
-                    <ul class="left">
-                        <li><a href="{{ site.baseurl }}/projects/">Projects</a></li>
-                        <li><a href="{{ site.baseurl }}/blog/">Blog</a></li>
-                        <li><a href="{{ site.baseurl }}/support/">Support</a></li>
-                    </ul>
-                    <ul class="right">
-                        <li class="has-form">
-                            <form action="http://www.google.com/search">
-                                <input type="hidden" name="sitesearch" value="{{ site.url }}" />
-                                <input type="search" name="q" placeholder="Search via Google" autocomplete="off" />
-                            </form>
-                        </li>
-                    </ul>
-                </section>
-			</nav>
-		</div>
+		<nav class="top-bar" data-topbar>
+			<ul class="title-area">
+				<li class="name">
+					<h1><a href="{{ site.baseurl }}/">Vibe</a></h1>
+				</li>
+			</ul>
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li><a href="{{ site.baseurl }}/projects/">Projects</a></li>
+                    <li><a href="{{ site.baseurl }}/blog/">Blog</a></li>
+                    <li><a href="{{ site.baseurl }}/support/">Support</a></li>
+                </ul>
+                <ul class="right">
+                    <li class="has-form">
+                        <form action="http://www.google.com/search">
+                            <input type="hidden" name="sitesearch" value="{{ site.url }}" />
+                            <input type="search" name="q" placeholder="Search via Google" autocomplete="off" />
+                        </form>
+                    </li>
+                </ul>
+            </section>
+		</nav>
 	</div>
 </div>
