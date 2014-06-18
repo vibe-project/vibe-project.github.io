@@ -5208,6 +5208,10 @@ article h1 {
 article .information {
   color: #888; }
 
+div.top-bar-wrapper {
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+
 header.index {
   background: #333;
   padding-top: 7rem;
