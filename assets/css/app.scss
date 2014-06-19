@@ -3,9 +3,16 @@
 @import "foundation";
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 
-.bar {height: 3px; background: linear-gradient(45deg, #f20f38 0, #f2884b 100%);}
-pre code {font-weight: normal; color: inherit;}
-div.highlight {margin-bottom: 1.25rem; line-height: normal;}
+.bar {
+  height: 3px; 
+  background: linear-gradient(45deg, #f20f38 0, #f2884b 100%);
+}
+pre code {
+  font-weight: normal; color: inherit;
+}
+div.highlight {
+  margin-bottom: 1.25rem; line-height: normal;
+}
 div.top-bar-wrapper {
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -22,16 +29,6 @@ article {
   }
   .information {
     color: #888;
-  }
-}
-header.index {
-  padding-top: 6rem; 
-  padding-bottom: 6rem; 
-  margin-bottom: 2rem;
-  h1 {
-    font-size: 2rem; 
-    color: #fff; 
-    margin-bottom: 1rem;
   }
 }
 header.project {
@@ -62,5 +59,3 @@ header.project {
     }
   }
 }
-
-
