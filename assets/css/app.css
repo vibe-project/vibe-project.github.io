@@ -4508,7 +4508,7 @@ meta.foundation-mq-topbar {
       padding: 8px 15px 2px;
       margin-bottom: 0;
       text-transform: uppercase;
-      color: #777;
+      color: #888;
       font-weight: bold;
       font-size: 0.625rem; }
 
@@ -4622,14 +4622,14 @@ meta.foundation-mq-topbar {
         background: #fff; }
       .top-bar-section .dropdown li label {
         white-space: nowrap;
-        background: #333; }
+        background: #fff; }
       .top-bar-section .dropdown li .dropdown {
         left: 100%;
         top: 0; }
     .top-bar-section > ul > .divider, .top-bar-section > ul > [role="separator"] {
       border-bottom: none;
       border-top: none;
-      border-right: solid 1px white;
+      border-right: solid 1px #808080;
       clear: none;
       height: 45px;
       width: 0; }
@@ -5197,6 +5197,9 @@ div.top-bar-wrapper {
   margin-top: 1rem;
   margin-bottom: 2rem; }
 
+div.row > div.columns > div.top-bar-wrapper {
+  margin-top: -1rem; }
+
 div.copyright {
   color: #777; }
   div.copyright p, div.copyright ul {
@@ -5206,24 +5209,3 @@ article h1 {
   font-size: 2rem; }
 article .information {
   color: #888; }
-
-header.project {
-  background: #333;
-  padding-top: 5rem;
-  margin-bottom: 2rem;
-  min-height: 17.5rem; }
-  header.project h1 {
-    font-size: 2rem;
-    color: #fff;
-    margin-bottom: 1rem; }
-  header.project ul.inline-list li code {
-    display: inline-block;
-    color: #ddd; }
-  header.project ul.inline-list li span.label {
-    display: inline-block; }
-  header.project ul.doc-list li.name {
-    color: #ccc; }
-  header.project ul.doc-list > li {
-    margin-right: 1rem; }
-  header.project ul.doc-list ul.inline-list li {
-    margin-left: 1rem; }

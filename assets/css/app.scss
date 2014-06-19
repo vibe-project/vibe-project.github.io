@@ -17,6 +17,9 @@ div.top-bar-wrapper {
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
+div.row > div.columns > div.top-bar-wrapper {
+  margin-top: -1rem;
+}
 div.copyright {
   color: #777;
   p, ul {
@@ -29,33 +32,5 @@ article {
   }
   .information {
     color: #888;
-  }
-}
-header.project {
-  background: #333; 
-  padding-top: 5rem; 
-  margin-bottom: 2rem; 
-  min-height: 17.5rem;
-  h1 {
-    font-size: 2rem; 
-    color: #fff; 
-    margin-bottom: 1rem;
-  }
-  ul.inline-list {
-    li {
-      code {display: inline-block; color: #ddd;}
-      span.label {display: inline-block;}
-    }
-  }
-  ul.doc-list {
-    li.name {
-      color: #ccc;
-    }
-    > li{
-      margin-right: 1rem;
-    }
-    ul.inline-list li {
-      margin-left: 1rem;
-    }
   }
 }

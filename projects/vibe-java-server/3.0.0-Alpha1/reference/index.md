@@ -1,18 +1,50 @@
 ---
-layout: project-vibe-java-server
+layout: project
 title: Vibe Java Server Reference
 version: 3.0.0.Alpha1
 ---
 
+<!-- TODO use variable and extract -->
+<div class="top-bar-wrapper">
+    <div class="row">
+        <nav class="top-bar" data-topbar>
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="{{ site.baseurl }}/projects/vibe-java-server/">Vibe Java Server</a></h1>
+                </li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li class="has-dropdown">
+                        <a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/"><code>3.0.0-Alpha1</code></a>
+                        <ul class="dropdown">
+                            <li><label>Snapshot</label></li>
+                            <li><a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/"><code>3.0.0-Alpha1</code></a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li><a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/reference/">Reference</a></li>
+                    <li><a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/apidocs/">API</a></li>
+                    <li class="divider"></li>
+                <li><a href="https://github.com/Atmosphere/vibe">Source</a></li>
+                <li><a href="https://github.com/Atmosphere/vibe/issues">Issues</a></li>
+                <li><a href="https://buildhive.cloudbees.com/job/Atmosphere/job/vibe">CI</a></li>
+                    <li><a href="http://www.tldrlegal.com/l/APACHE2">License</a></li>
+                </ul>
+            </section>
+        </nav>
+    </div>
+</div>
+<style>
+:not(.top-bar-wrapper) + .top-bar-wrapper {opacity: 0.5;}
+</style>
 <div data-alert class="alert-box alert">
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
 <h1>Reference</h1>
-
----
-
-**{{ page.version }}**
 
 ---
 

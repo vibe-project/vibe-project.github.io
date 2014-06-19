@@ -1,21 +1,54 @@
 ---
-layout: project-vibe-javascript-client
+layout: project
 title: Vibe JavaScript Client API
 version: 3.0.0-Alpha1
 ---
 
+<!-- TODO use variable and extract -->
+<div class="top-bar-wrapper">
+    <div class="row">
+        <nav class="top-bar" data-topbar>
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="{{ site.baseurl }}/projects/vibe-javascript-client/">Vibe JavaScript Client</a></h1>
+                </li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li class="has-dropdown">
+                        <a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/"><code>3.0.0-Alpha1</code></a>
+                        <ul class="dropdown">
+                            <li><label>Snapshot</label></li>
+                            <li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/"><code>3.0.0-Alpha1</code></a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/reference/">Reference</a></li>
+                    <li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/api/">API</a></li>
+                    <li class="divider"></li>
+                    <li><a href="https://github.com/Atmosphere/vibe-javascript-client">Source</a></li>
+                    <li><a href="https://github.com/Atmosphere/vibe-javascript-client/issues">Issues</a></li>
+                    <li><a href="https://travis-ci.org/Atmosphere/vibe-javascript-client">CI</a></li>
+                    <li><a href="http://www.tldrlegal.com/l/APACHE2">License</a></li>
+                </ul>
+            </section>
+        </nav>
+    </div>
+</div>
+<style>
+:not(.top-bar-wrapper) + .top-bar-wrapper {opacity: 0.5;}
+</style>
 <div data-alert class="alert-box alert">
 You are watching snapshot documentation.<a href="#" class="close">&times;</a>
 </div>
 
-<h1>API <small>Vibe JavaScript Client</small></h1>
+<h1>API</h1>
+
+---
+
 <script src="{{ site.baseurl }}/projects/vibe-javascript-client/{{ page.version }}/vibe.js"></script>
-
----
-
-**{{ page.version }}**
-
----
 
 **Table of Contents**
 
