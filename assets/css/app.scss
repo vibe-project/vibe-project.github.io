@@ -7,11 +7,17 @@
   height: 3px; 
   background: linear-gradient(45deg, #f20f38 0, #f2884b 100%);
 }
-pre code {
-  font-weight: normal; color: inherit;
-}
 div.highlight {
-  margin-bottom: 1.25rem; line-height: normal;
+  margin-bottom: 1.25rem; 
+  line-height: normal;
+  pre {
+    border-left: 0.3rem solid #eee;
+    padding-left: 1rem;
+    code {
+      font-weight: normal; 
+      color: inherit;
+    }
+  }
 }
 div.top-bar-wrapper {
   margin-top: 1rem;
