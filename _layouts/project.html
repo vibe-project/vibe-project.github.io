@@ -4,6 +4,9 @@ layout: default
 
 <div class="row">
     <div class="large-12 columns">
-    {{ content }}
+    {% assign array = {{page.path | split:"/"}} %}
+    {% capture topbarURL %}{{array[0]}}/{{array[1]}}/{{array[2]}}/topbar.html{% endcapture %}
+    {% include {{topbarURL}} %}
+    {{ content}}
     </div>
 </div>

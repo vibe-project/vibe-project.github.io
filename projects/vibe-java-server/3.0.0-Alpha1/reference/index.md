@@ -1,48 +1,7 @@
 ---
 layout: project
 title: Vibe Java Server Reference
-version: 3.0.0.Alpha1
 ---
-
-<!-- TODO use variable and extract -->
-<div class="top-bar-wrapper">
-    <div class="row">
-        <nav class="top-bar" data-topbar>
-            <ul class="title-area">
-                <li class="name">
-                    <h1><a href="{{ site.baseurl }}/projects/vibe-java-server/">Vibe Java Server</a></h1>
-                </li>
-                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-            </ul>
-            <section class="top-bar-section">
-                <ul class="left">
-                    <li class="has-dropdown">
-                        <a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/"><code>3.0.0-Alpha1</code></a>
-                        <ul class="dropdown">
-                            <li><label>Snapshot</label></li>
-                            <li><a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/"><code>3.0.0-Alpha1</code></a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="right">
-                    <li><a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/reference/">Reference</a></li>
-                    <li><a href="{{ site.baseurl }}/projects/vibe-java-server/3.0.0-Alpha1/apidocs/">API</a></li>
-                    <li class="divider"></li>
-                <li><a href="https://github.com/Atmosphere/vibe">Source</a></li>
-                <li><a href="https://github.com/Atmosphere/vibe/issues">Issues</a></li>
-                <li><a href="https://buildhive.cloudbees.com/job/Atmosphere/job/vibe">CI</a></li>
-                    <li><a href="http://www.tldrlegal.com/l/APACHE2">License</a></li>
-                </ul>
-            </section>
-        </nav>
-    </div>
-</div>
-<style>
-:not(.top-bar-wrapper) + .top-bar-wrapper {opacity: 0.5;}
-</style>
-<div data-alert class="alert-box alert">
-You are watching snapshot documentation.<a href="#" class="close">&times;</a>
-</div>
 
 <h1>Reference</h1>
 
@@ -114,8 +73,8 @@ Add the following dependencies to dependency management system or include them o
 
 ```groovy
 dependencies {
-  compile 'org.atmosphere:vibe-vertx2:{{ page.version }}'
-  compile 'org.atmosphere:vibe-runtime:{{ page.version }}'
+  compile 'org.atmosphere:vibe-vertx2:3.0.0-Alpha1'
+  compile 'org.atmosphere:vibe-runtime:3.0.0-Alpha1'
   compile('io.vertx:vertx-core:2.0.2-final') {
     exclude group: 'com.fasterxml.jackson.core'
   }
@@ -203,12 +162,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-atmosphere2</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-runtime</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
 ```
@@ -249,12 +208,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-vertx2</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-runtime</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
 ```
@@ -297,12 +256,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-servlet3</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-runtime</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
 ```
@@ -345,12 +304,12 @@ Add the following dependency to your build or include it on your classpath manua
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-jwa1</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-runtime</artifactId>
-        <version>{{ page.version }}</version>
+        <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
 ```
@@ -393,8 +352,8 @@ Add the following dependency to your `build.sbt` or include it on your classpath
 
 ```scala
 libraryDependencies ++= Seq(
-  "org.atmosphere" % "vibe-runtime" % "{{ page.version }}",
-  "org.atmosphere" % "vibe-play2" % "{{ page.version }}"
+  "org.atmosphere" % "vibe-runtime" % "3.0.0-Alpha1",
+  "org.atmosphere" % "vibe-play2" % "3.0.0-Alpha1"
 )
 ```
 
