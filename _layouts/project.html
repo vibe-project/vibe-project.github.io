@@ -7,6 +7,8 @@ layout: default
     {% assign array = {{page.path | split:"/"}} %}
     {% capture topbarURL %}{{array[0]}}/{{array[1]}}/{{array[2]}}/topbar.html{% endcapture %}
     {% include {{topbarURL}} %}
-    {{ content}}
+        <div id="content">
+        {{ content}}
+        </div>
     </div>
 </div>

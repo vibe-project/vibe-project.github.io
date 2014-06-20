@@ -9,16 +9,17 @@ title: Vibe Protocol Reference
 
 **Table of Contents**
 
-1. [Introduction](#toc_0)
-  1. [Features](#toc_1)
-  1. [Versioning](#toc_2)
-  1. [License](#toc_3)
-1. [Reference Implementation](#toc_4)
-  1. [Installation](#toc_5)
-  1. [Interactive Mode](#toc_6)
-1. [Test Suite](#toc_7)
-  1. [Testee](#toc_8)
-  1. [Running Test](#toc_9)
+* [Introduction](#introduction)
+    * [Features](#features)
+    * [Versioning](#versioning)
+    * [License](#license)
+* [Reference Implementation](#reference-implementation)
+    * [Installation](#installation)
+    * [Interactive Mode](#interactive-mode)
+* [Test Suite](#test-suite)
+    * [Testee](#testee)
+    * [Running Test](#running-test)
+        * [Choosing Transport](#choosing-transport)
 
 ---
 

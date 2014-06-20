@@ -9,32 +9,32 @@ title: Vibe Java Server Reference
 
 **Table of Contents**
 
-1. [Introduction](#toc_0)
-    1. [Features](#toc_1)
-    1. [Versions](#toc_2)
-    1. [License](#toc_3)
-1. [Quick Start](#toc_4)
-1. [Installation](#toc_5)
-    1. [Atmosphere 2](#toc_6)
-    1. [Vert.x 2](#toc_9)
-    1. [Servlet 3](#toc_12)
-    1. [Java WebSocket API 1](#toc_15)
-    1. [Play 2](#toc_18)
-1. [Server](#toc_22)
-    1. [Handling Socket](#toc_23)
-    1. [Selecting Sockets](#toc_24)
-    1. [Writing Sentence](#toc_28)
-1. [Socket](#toc_29)
-    1. [Life Cycle](#toc_30)
-    1. [Properties](#toc_31)
-    1. [Tagging](#toc_32)
-    1. [Sending and Receiving Events](#toc_33)
-    1. [Sending and Receiving Replyable Event](#toc_34)
-1. [Integration](#toc_35)
-    1. [I/O Platform](#toc_36)
-    1. [Dependency Injection Framework](#toc_37)
-    1. [Message Oriented Middleware](#toc_38)
-1. [Examples](#toc_39)
+* [Introduction](#introduction)
+    * [Features](#features)
+    * [Versions](#versions)
+    * [License](#license)
+* [Quick Start](#quick-start)
+* [Installation](#installation)
+    * [Atmosphere 2](#atmosphere-2)
+    * [Vert.x 2](#vert.x-2)
+    * [Servlet 3](#servlet-3)
+    * [Java WebSocket API 1](#java-websocket-api-1)
+    * [Play 2](#play-2)
+* [Server](#toc_22)
+    * [Handling Socket](#handling-socket)
+    * [Selecting Sockets](#selecting-sockets)
+    * [Writing Sentence](#writing-sentence)
+* [Socket](#socket)
+    * [Life Cycle](#life-cycle)
+    * [Properties](#properties)
+    * [Tagging](#tagging)
+    * [Sending and Receiving Event](#sending-and-receiving-event)
+    * [Sending and Receiving Replyable Event](#sending-and-receiving-replyable-event)
+* [Integration](#integration)
+    * [I/O Platform](#i/o-platform)
+    * [Dependency Injection Framework](#dependency-injection-framework)
+    * [Message Oriented Middleware](#message-oriented-middleware)
+* [Examples](#examples)
     
 ---
 
@@ -655,7 +655,7 @@ public class EntityListener {
 </div>
 </div>
 
-### Sending and Receiving Events
+### Sending and Receiving Event
 `on(String event, Action<T> action)` attaches an event handler. The `close` event is the only reserved event, which fires when a socket has been clsoed. In receiving events, the allowed Java types, `T`, for data are corresponding to JSON types:
 
 | Number | String | Boolean | Array | Object | null |
