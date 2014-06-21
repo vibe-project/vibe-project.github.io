@@ -9,10 +9,6 @@ title: Vibe Protocol Reference
 
 **Table of Contents**
 
-* [Introduction](#introduction)
-    * [Features](#features)
-    * [Versioning](#versioning)
-    * [License](#license)
 * [Reference Implementation](#reference-implementation)
     * [Installation](#installation)
     * [Interactive Mode](#interactive-mode)
@@ -20,40 +16,6 @@ title: Vibe Protocol Reference
     * [Testee](#testee)
     * [Running Test](#running-test)
         * [Choosing Transport](#choosing-transport)
-
----
-
-## Introduction
-The Vibe Protocol is a feature-rich and application-level protocol built over HTTP and WebSocket protocol for real-time web application development. It is designed by carefully considering known issues and best practices of real-time web to provide and take advantage of a reliable full duplex connection for modern web application development, and focuses on providing elegant patterns to write low-latency, event-driven and real-time web applications.
-
-### Features
-* Reliable real-time event channel.
-* Extensions for application-level pattern.
-* Based on web standard, that is HTTP, WebSocket, Server-Sent Events and JSON.
-* With reference implementation and test suite.
-
-### Versioning
-Like other projects, the project follows [Semantic Versioning](http://semver.org/). In addition, for maintaining both specification and the others, the following rules apply:
-
-Given a version number MAJOR.MINOR.PATCH, increment the 
-
-1. MINOR version when there are functional changes in reference implementation, that is changes in protocol specification.
-1. PATCH version when there are all the other changes.
-
-For example, given a version number 3.0.0, the version number will be
-
-1. 3.1.0 if reference implementation implements a new feature.
-1. 3.1.1 if there are bugs in new implementation.
-1. 3.1.2 if missed tests are added to test suite.
-1. 3.1.3 if readability of annotated source improves.
-1. 3.1.4 even if test suite is fully rewritten.
-1. 4.0.0 if the feature requires incompatible changes.
-
-Therefore, when talking about protocol specification, you can ignore PATCH version, e.g. Vibe Lua Server 0.1 for Vibe Protocol 3.2.
-
-### License
-
-Licensed under the Apache License 2.0.
 
 ---
 
