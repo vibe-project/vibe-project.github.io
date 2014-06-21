@@ -11,10 +11,6 @@ title: Vibe JavaScript Client Reference
 
 **Table of Contents**
 
-* [Introduction](#introduction)
-    * [Features](#features)
-    * [Versions](#versions)
-    * [License](#license)
 * [Quick Start](#quick-start)
 * [Installation](#installation)
     * [As browser client](#as-browser-client)
@@ -39,36 +35,6 @@ title: Vibe JavaScript Client Reference
     * [Sending an event emits a clicking sound](#sending-an-event-emits-a-clicking-sound)
     * [A blank page pops up when using connection sharing](#a-blank-page-pops-up-when-using-connection-sharing)    
 * [Examples](#examples)
-
----
-
-## Introduction
-
-The Vibe JavaScript Client is a concise and lightweight client-side JavaScript library. It not only provides Vibe connectivity on every browser-based and Node-based applications but also focuses on making the best use of realtime connectivity in place of Ajax to help write low-latency and event-driven web applications, not just for chat application.
-
-### Features
-
-* Runs on Node.js and browser
-* Connection sharing between tabs and windows *
-* Event-based API akin to W3C WebSocket API
-* No dependencies
-* Lightweight (16.52KB minified, 5.89KB minified and gzipped)
-
-\* experimental yet.
-
-### Versions
-
-The mapping between the specifications and the respective Vibe JavaScript Client versions is:
-
-| Version | ECMAScript | Vibe Protocol |
-|---|---|---|
-| 3 | 3 | 3.0 |
-
-That being said, compatiblity of vibe.js depends on [compatibility of transport](#toc_19) which varies depending on runtime environment such as Node.js and Browser.
-
-### License
-
-Licensed under the Apache License 2.0.
 
 ---
 
