@@ -9,10 +9,6 @@ title: Vibe Java Server Reference
 
 **Table of Contents**
 
-* [Introduction](#introduction)
-    * [Features](#features)
-    * [Versions](#versions)
-    * [License](#license)
 * [Quick Start](#quick-start)
 * [Installation](#installation)
     * [Atmosphere 2](#atmosphere-2)
@@ -36,29 +32,6 @@ title: Vibe Java Server Reference
     * [Message Oriented Middleware](#message-oriented-middleware)
 * [Examples](#examples)
     
----
-
-## Introduction
-The Vibe Java Server is a versatile and flexible Java server. It provides an application model and pattern for modern Java based enterprise web applications by implementing Vibe protocol, which is based on I/O abstraction layer designed to run application on every platforms and frameworks on Java Virtual Machine like Servlet and Netty.
-
-### Features
-* Based on I/O abstraction layer to run anywhere.
-* Only Server and Socket.
-* Select socket and do something
-* Shared nothing architecture for easy scaling.
-
-### Versions
-The mapping between the specifications and the respective Vibe Java Server versions is:
-
-| Version | Java | Vibe Protocol |
-|---|---|---|
-| 3 | 7 | 3.0 |
-
-TODO explain platform module and its support once module structure is determine.
-
-### License
-Licensed under the Apache License 2.0.
-
 ---
 
 ## Quick Start
