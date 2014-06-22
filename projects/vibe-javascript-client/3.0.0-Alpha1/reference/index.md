@@ -7,8 +7,6 @@ title: Vibe JavaScript Client Reference
 
 ---
 
-<script src="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js"></script>
-
 **Table of Contents**
 
 * [Quick Start](#quick-start)

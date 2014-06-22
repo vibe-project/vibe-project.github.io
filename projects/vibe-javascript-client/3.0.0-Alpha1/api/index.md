@@ -7,8 +7,6 @@ title: Vibe JavaScript Client API
 
 ---
 
-<script src="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js"></script>
-
 **Table of Contents**
 
 * [module vibe](#module-vibe)
