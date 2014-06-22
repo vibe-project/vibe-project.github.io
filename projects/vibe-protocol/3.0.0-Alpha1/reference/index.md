@@ -20,7 +20,7 @@ title: Vibe Protocol Reference
 ---
 
 ## Reference Implementation
-To help understand the protocol, reference implementation is provided taking the place of specification documents. It is written in easy-to-read JavaScript with a lot of detailed notes you should be aware of. Also you can use it to verify your implementation casually and as the counterpart in your examples.
+To help understand the protocol, reference implementation is provided. It is written in easy-to-read JavaScript with a lot of detailed notes you should be aware of. Also you can use it to verify your implementation casually and as the counterpart in your examples.
 
 <ul class="inline-list">
     <li><a href="../docs/server.html">Server</a></li>
