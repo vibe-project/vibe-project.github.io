@@ -9,7 +9,6 @@ title: Vibe Java Server Reference
 
 **Table of Contents**
 
-* [Quick Start](#quick-start)
 * [Installation](#installation)
     * [Atmosphere 2](#atmosphere-2)
     * [Vert.x 2](#vert.x-2)
@@ -32,89 +31,6 @@ title: Vibe Java Server Reference
     * [Message Oriented Middleware](#message-oriented-middleware)
 * [Examples](#examples)
     
----
-
-## Quick Start
-Here is how to create echo server running on Vert.x.
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Server**
-
-Add the following dependencies to dependency management system or include them on classpath manually:
-
-```groovy
-dependencies {
-  compile 'org.atmosphere:vibe-vertx2:3.0.0-Alpha1'
-  compile 'org.atmosphere:vibe-runtime:3.0.0-Alpha1'
-  compile('io.vertx:vertx-core:2.0.2-final') {
-    exclude group: 'com.fasterxml.jackson.core'
-  }
-  compile 'io.vertx:vertx-platform:2.0.2-final'
-}
-```
-
-Once you've set up your build, you'll be able to write `Application.java`:
-
-```java
-// TODO vibe imports
-
-import java.io.IOException;
-
-import org.vertx.java.core.*;
-import org.vertx.java.core.http.*;
-
-public class Application {
-  public static void main(String[] args) throws IOException {
-    final Server server = new DefaultServer();
-    server.socketAction(new Action<Socket>() {
-      @Override
-      public void on(final Socket socket) {
-        socket.on("echo", new Action<Object>() {
-          @Override
-          public void on(Object data) {
-            socket.send("echo", data);
-          }
-        });
-      }
-    });
-
-    Vertx vertx = VertxFactory.newVertx();
-    vertx.createHttpServer().requestHandler(new Handler<HttpServerRequest>() {
-      @Override
-      public void handle(HttpServerRequest req) {
-        server.httpAction().on(new VertxServerHttpExchange(req));
-      }
-    })
-    .websocketHandler(new Handler<ServerWebSocket>() {
-      @Override
-      public void handle(ServerWebSocket ws) {
-        server.websocketAction().on(new VertxServerWebSocket(ws));
-      }
-    })
-    .listen(8000);
-
-    System.in.read(); // Block the main thread
-  }
-}
-```
-
-With the help of debug, you can deal with the opened socket in pseudo interactive mode.
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Client**
-
-You can use:
-
-* [Reference implementation]({{ site.baseurl }}/projects/vibe-protocol/3.0.0-Alpha1/reference/#toc_5)
-* [Vibe JavaScript Client](http://localhost:4000/projects/vibe-javascript-client/3.0.0-Alpha1/reference/#toc_4)
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
-
 ---
 
 ## Installation
