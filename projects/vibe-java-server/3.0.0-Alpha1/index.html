@@ -3,7 +3,7 @@ layout: project
 title: Vibe Java Server
 ---
 
-<p>A simple <sup><strong>A</strong></sup>, scalable <sup><strong>B</strong></sup> Java server designed to run any framework or platform on Java Virtual Machine <sup><strong>C</strong></sup>.</p>
+<p>Vibe Java Server is a simple <sup><strong>A</strong></sup>, scalable <sup><strong>B</strong></sup> Java server designed to run any framework or platform on Java Virtual Machine <sup><strong>C</strong></sup>.</p>
 <dl>
     <dt>A</dt>
     <dd>All interface you need to know is Server and Socket. Indeed.</dd>
@@ -18,7 +18,7 @@ title: Vibe Java Server
 
 <h3>Basic</h3>
 {% capture panel %}
-Let's write a simple server for echo and chat running on the top of Servlet container. Add the following dependencies to your build or include them on classpath manually.
+Let's take a brief look at basic API through writing a simple server running on the top of Servlet container. Add the following dependencies to your build or include them on classpath manually.
 
 ```xml
 <dependencies>
@@ -43,14 +43,20 @@ Once you've set up your build, you'll be able to write `Bootstrap.java`.
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
 
-@WebListener // A
+@WebListener
 public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        Server server = new DefaultServer(); // B
-        server.socketAction(new Action<Socket>() { // C
+        Server server = new DefaultServer(); // A
+        server.socketAction(new Action<Socket>() { // B
             @Override
             public void on(final Socket socket) {
+                socket.on("close", new VoidAction() { // C
+                    @Override
+                    public void on() {
+                        System.out.println(socket.id() + " has been closed");
+                    }
+                });
                 socket.on("echo", new Action<Object>() { // D
                     @Override
                     public void on(Object data) {
@@ -77,23 +83,23 @@ public class Bootstrap implements ServletContextListener {
 {% endcapture %}{{ panel | markdownify }}
 
 <dl>
-    <dt>A <code>@WebListener</code></dt>
-    <dd>It declares <code>Bootstrap</code> as a listener. Accordingly, once the servlet container starts, <code>contextInitialized</code> is executed.</dd>
-    <dt>B <code>Server server = new DefaultServer()</code></dt>
+    <dt>A <code>Server server = new DefaultServer()</code></dt>
     <dd>It creates a server instance by new keyword so you can delegate its creation to other framework like Spring.</dd>
-    <dt>C <code>server.socketAction(socket -> {})</code></dt>
-    <dd>It adds an action to be executed when a socket representing client has been opened. There is no restriction to add an action. Therefore you can add multiple actions before and after installation.</dd>
+    <dt>B <code>server.socketAction(socket -> {})</code></dt>
+    <dd>It adds an action to be executed when a socket representing client has been opened.</dd>
+    <dt>C <code>socket.on("close", () -> {})</code></dt>
+    <dd>In server side, socket always is in opened or closed state and on closed state <code>close</code> event fires. However never mind socket's state. Every operation server providing applies to opened sockets.</dd>
     <dt>D <code>socket.on("echo", data -> socket.send("echo", data))</code></dt>
     <dd>When the socket receives <code>echo</code> event, sends it back.</dd>
     <dt>E <code>socket.on("chat", data -> server.all().send("chat", data))</code></dt>
-    <dd>When the socket receives <code>chat</code> event, sends it to all sockets that have connected to this server. To select a single or a group of specific sockets, use <code>server.byId</code> or <code>server.byTag</code>.</dd>
+    <dd>When the socket receives <code>chat</code> event, sends it to all sockets that have connected to this server.</dd>
     <dt>F <code>new AtmosphereBridge(servletContext, "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction())</code></dt>
     <dd>As a platform of Vibe Java Server Platform, Atmosphere will deliver HTTP and WebSocket connections whose a request path belongs to <code>/vibe</code> from the Servlet container to the server.</dd>
 </dl>
 
 <h3>Advanced</h3>
 {% capture panel %}
-Following the basic example, in this time, let's scale application with the help of [Hazelcast](http://hazelcast.com/). Add the following dependencies to your build or include them on classpath manually.
+Following the basic example, in this time, let's scale application with the help of [Hazelcast](http://hazelcast.com/) and see advanced API usage including the extension part from the specification. Add the following dependencies to your build or include them on classpath manually.
 
 ```xml
 <dependencies>
@@ -148,6 +154,12 @@ public class Bootstrap implements ServletContextListener {
         server.socketAction(new Action<Socket>() {
             @Override
             public void on(final Socket socket) {
+                socket.on("close", new VoidAction() {
+                    @Override
+                    public void on() {
+                        System.out.println(socket.id() + " has been closed");
+                    }
+                });
                 socket.on("echo", new Action<Object>() {
                     @Override
                     public void on(Object data) {
@@ -160,6 +172,40 @@ public class Bootstrap implements ServletContextListener {
                         server.all().send("chat", data);
                     }
                 });
+                socket.send("get-mouse-position", null, new Action<Map<String, Integer>>() { // E
+                    @Override
+                    public void on(Map<String, Integer> position) {
+                        System.out.println("(" + position.get("x") + ", " + position.get("y") + ")");
+                    }
+                }, new Action<String>() {
+                    @Override
+                    public void on(String reason) {
+                        System.out.println("couldn't get it due to " + reason);
+                    }
+                });
+                socket.on("/account/find", new Action<Reply<String>>() { // F
+                    @Override
+                    public void on(Reply reply) {
+                        String id = reply.data();
+                        // Imaginary class
+                        Account.find(id).then(new Action<Account>() {
+                            @Override
+                            public void on(Account account) {
+                                reply.resolve(account);
+                            }
+                        }, new Action<Throwable>() {
+                            @Override
+                            public void on(Throwable t) {
+                                reply.reject(t.getMessage());
+                            }
+                        });
+                    }
+                });
+                // Imaginary class
+                Uri uri = Uris.parse(socket.uri());
+                String username = uri.query("username");
+                server.byTag(username).send("notify", "you've just signed in using other device"); // G
+                socket.tag(username); // H
             }
         });
         
@@ -182,4 +228,12 @@ public class Bootstrap implements ServletContextListener {
     <dd>It publishes a message to the topic to send messages to every server in the cluster. Among many operations on server, ones required for all servers in the cluster to do something together are published as message.</dd>
     <dt>D <code>socket.on("chat", data -> server.all().send("chat", data))</code></dt>
     <dd>When the socket receives <code>chat</code> event, sends it to all sockets that have connected to each server forming the cluster. The same way applies to <code>server.byId</code> and <code>server.byTag</code>.</dd>
+    <dt>E <code>Sending replyable event</code> extension</dt>
+    <dd>Attach resolved callback and rejected callback in sending an event.</dd>
+    <dt>F <code>Receiving replyable event</code> extension</dt>
+    <dd>As a controller to resolve and reject and a wrapper for event data, <code>reply</code> is supplied. Of course you can deal with it asynchronously.</dd>
+    <dt>G <code>server.byTag(username)</code></dt>
+    <dd>To select a single or a group of specific sockets, use <code>server.byId</code> or <code>server.byTag</code>. Also you can handle specific sockets directly by passing an action.</dd>
+    <dt>H <code>socket.tag(username)</code></dt>
+    <dd>Tagging gives socket a special meaning. It is a useful way to handle sockets as entity in the real world.</dd>
 </dl>
