@@ -9,7 +9,6 @@ title: Vibe JavaScript Client Reference
 
 **Table of Contents**
 
-* [Quick Start](#quick-start)
 * [Installation](#installation)
     * [As browser client](#as-browser-client)
     * [As Node.js client](#as-node.js-client)
@@ -33,41 +32,6 @@ title: Vibe JavaScript Client Reference
     * [Sending an event emits a clicking sound](#sending-an-event-emits-a-clicking-sound)
     * [A blank page pops up when using connection sharing](#a-blank-page-pops-up-when-using-connection-sharing)    
 * [Examples](#examples)
-
----
-
-## Quick Start
-You already have all you need to run vibe.js. Just open a console and type `vibe`.
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Client**
-
-```javascript
-var socket;
-
-vibe.open("http://localhost:8000/", {reconnect: false})
-.on("open", function() {
-    socket = this;
-    console.log("socket");
-});
-```
-
-Once `socket` have been logged, you can access the opened socket by `socket` in the console.
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Server**
-
-You can use:
-
-* [Reference implementation]({{ site.baseurl }}/projects/vibe-protocol/3.0.0-Alpha1/reference/#toc_5)
-* [Vibe Java Server](http://localhost:4000/projects/vibe-java-server/3.0.0-Alpha1/reference/#toc_4)
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
 ---
 
