@@ -16,7 +16,7 @@ title: Vibe Java Server Reference
     * [Servlet 3](#servlet-3)
     * [Java WebSocket API 1](#java-websocket-api-1)
     * [Play 2](#play-2)
-* [Server](#toc_22)
+* [Server](#server)
     * [Handling Socket](#handling-socket)
     * [Selecting Sockets](#selecting-sockets)
     * [Writing Sentence](#writing-sentence)
