@@ -30,8 +30,7 @@ title: Vibe JavaScript Client Reference
     * [The browser limits the number of simultaneous connections](#the-browser-limits-the-number-of-simultaneous-connections)
     * [Pressing ESC key aborts the connection](#pressing-esc-key-aborts-the-connection)
     * [Sending an event emits a clicking sound](#sending-an-event-emits-a-clicking-sound)
-    * [A blank page pops up when using connection sharing](#a-blank-page-pops-up-when-using-connection-sharing)    
-* [Examples](#examples)
+    * [A blank page pops up when using connection sharing](#a-blank-page-pops-up-when-using-connection-sharing)
 
 ---
 
@@ -572,9 +571,3 @@ If a given url is cross-origin and the browser doesn't support CORS such as Inte
 Applies to: Internet Explorer whose version is higher than `8.0.7601.17514` and lower than `9.0`
 
 When `sharing` option is `true`, if there is trace of a shared connection, new sockets try to utilize it. In doing this, some Internet Explorer versions don't allow to access other windows so that a blank page pops up instead of getting a reference to targeted window. No workaround. Sorry...
-
----
-
-## Examples
-### Simple
-The simple example is a basic echo and chat client. By default, it connects to `http://localhost:8080/vibe`. [Here](https://github.com/Atmosphere/vibe-examples/tree/master/javascript-client/simple).

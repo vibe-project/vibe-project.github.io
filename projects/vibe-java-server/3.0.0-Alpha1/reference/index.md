@@ -24,7 +24,6 @@ title: Vibe Java Server Reference
 * [Integration](#integration)
     * [Dependency Injection Framework](#dependency-injection-framework)
     * [Message Oriented Middleware](#message-oriented-middleware)
-* [Examples](#examples)
     
 ---
 
@@ -629,25 +628,3 @@ server.publishAction(new Action<Map<String, Object>>() {
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
-
----
-
-## Examples
-### Simple
-The simple example is a basic echo and chat server to demonstrate that Vibe Java Server can work with some projects. By default, it runs at `8080` port under `/vibe` URI.
-
-It can run on the following platform:
-
-<ul class="inline-list">
-    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/atmosphere2">Atmosphere 2</a></li>
-    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/jwa1">Java WebSocket API 1</a></li>
-    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/servlet3">Servlet 3</a></li>
-    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/vertx2">Vert.x 2</a></li>
-    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/platform/play2">Play 2</a></li>
-</ul>
-
-It can be clustered through the following projects:
-
-<ul class="inline-list">
-    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/java-server/clustering/hazelcast3">Hazelcast 3</a></li>
-</ul>
