@@ -1,9 +1,1 @@
-org.atmosphere.vibe
-org.atmosphere.vibe.atmosphere
-org.atmosphere.vibe.jwa
-org.atmosphere.vibe.play
 org.atmosphere.vibe.runtime
-org.atmosphere.vibe.runtime.testee
-org.atmosphere.vibe.servlet
-org.atmosphere.vibe.test
-org.atmosphere.vibe.vertx
