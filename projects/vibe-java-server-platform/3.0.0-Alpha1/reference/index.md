@@ -19,9 +19,9 @@ title: Vibe Java Server Reference
         * [Play 2](#play-2)
     * [Writing Bridges](#writing-bridges)
 * [Application](#application)
-    * [ServerHttpExchange](#serverHttpExchange)
-    * [ServerWebSocket](#serverWebSocket)
-
+    * [ServerHttpExchange](#serverhttpexchange)
+    * [ServerWebSocket](#serverwebsocket)
+        
 ---
 
 ## Modules
@@ -33,6 +33,8 @@ TODO
 Bridge is a module used to install your application on your desired platform.
 
 ### Installation
+Generally speaking, installing an application is to feed one or both of `ServerHttpExchange` and `ServerWebSocket` into the application using the bridge for the specific platform.
+
 With the following bridges, you can install your application with minimal effort. If the corresponding bridge is not listed, you need to write your own one. [Writing a bridge](#writing-bridges) is easier than you think.
 
 #### Atmosphere 2
@@ -319,6 +321,184 @@ TODO
 ---
 
 ## Application
-TODO
+Application is a collection of actions that consumes `ServerHttpExchange` and `ServerWebSocket` produced by bridge. Therefore an application being able to run via Vibe Java Server Platform should expose actions to allow bridge to deliver `ServerHttpExchange` and `ServerWebSocket`.
 
- 
+```java
+public class App {
+    private Action<ServerHttpExchange> httpAction = new Action<ServerHttpExchange>() {
+        @Override
+        public void on(ServerHttpExchange http) {
+            // Your logic here
+        }
+    };
+    private Action<ServerWebSocket> websocketAction = new Action<ServerWebSocket>() {
+        @Override
+        public void on(ServerWebSocket ws) {
+            // Your logic here
+        }
+    };
+    
+    public Action<ServerHttpExchange> httpAction() {
+        return httpAction;
+    }
+    public Action<ServerWebSocket> websocketAction() {
+        return websocketAction;
+    }
+}
+```
+
+### ServerHttpExchange
+It represents a server-side HTTP request-response exchange and is assumed only text data are read and written.
+
+#### Request properties
+These are read only.
+
+<div class="row">
+    <div class="large-4 columns">
+        <h5>URI</h5>
+        <p>A request URI used to connect. To work with URI parts, use <code>java.net.URI</code> or something like that.</p>
+{% capture panel %}
+```java
+URI.create(http.uri()).getQuery();
+```
+{% endcapture %}{{ panel | markdownify }}
+	</div>
+	<div class="large-4 columns">
+	    <h5>Method</h5>
+	    <p>A name of the request method.</p>
+{% capture panel %}
+```java
+switch (http.method()) {
+    case "GET":
+    case "POST":
+        // GET or POST
+        break;
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+    </div>
+	<div class="large-4 columns">
+	    <h5>Headers</h5>
+	    <p>Request headers.</p>
+{% capture panel %}
+```java
+for (String name : http.requestHeaderNames()) {
+    String value = http.requestHeader(name);
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+    </div>
+</div>
+
+#### Reading body
+`bodyAction` attaches a body event handler to be called with `Data` wrapping the request body. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
+
+```java
+http.bodyAction(new Action<Data>() {
+    @Override
+    public void on(Data data) {
+        String body = data.as(String.class);
+        // Your logic here
+    }
+});
+```
+
+#### Response properties
+These are write only.
+
+<div class="row">
+    <div class="large-6 columns">
+        <h5>Status</h5>
+        <p>A HTTP Status code for response.</p>
+{% capture panel %}
+```java
+http.setStatus(HttpStatus.NOT_IMPLEMENTED);
+```
+{% endcapture %}{{ panel | markdownify }}
+	</div>
+	<div class="large-6 columns">
+	    <h5>Headers</h5>
+	    <p>Response headers.</p>
+{% capture panel %}
+```java
+http.setResponseHeader("content-type", "text/javascript; charset=utf-8");
+```
+{% endcapture %}{{ panel | markdownify }}
+    </div>
+</div>
+
+#### Writing chunk
+`write` sends a chunk to the response body.
+
+```java
+http.write("chunk");
+```
+
+#### Ending response
+`close` ends the response. Each exchange must be finished with this method when done.
+
+```java
+http.close();
+```
+
+On response close, close event handlers added via `closeAction` are executed.
+
+```java
+http.closeAction(new VoidAction() {
+	@Override
+	public void on() {
+        // Your logic here
+	}
+});
+```
+
+### ServerWebSocket
+It represents a server-side WebSocket session and is assumed only text messages are exchanged now.
+
+#### Properties
+These are read only.
+
+##### URI
+A request URI used to connect. To work with URI parts, use `java.net.URI` or something like that.
+
+```java
+URI.create(ws.uri()).getQuery();
+```
+
+#### Receiving message
+Message event handlers attached via `messageAction` are called with `Data` wrapping the WebSocket message. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
+
+```java
+ws.messageAction(new Action<Data>() {
+	@Override
+	public void on(Data data) {
+		String message = data.as(String.class);
+        // Your logic here
+	}
+});
+```
+
+#### Sending message
+`send` sends a text message through the connection.
+
+```java
+ws.send("message");
+```
+
+#### Closing connection
+`close` ends the connection.
+
+```java
+ws.close();
+```
+
+On connection close, close event handlers added via `closeAction` are executed.
+
+```java
+ws.closeAction(new VoidAction() {
+	@Override
+	public void on() {
+        // Your logic here
+	}
+});
+```
