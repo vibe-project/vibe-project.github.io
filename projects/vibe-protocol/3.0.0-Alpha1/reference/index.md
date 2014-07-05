@@ -15,12 +15,12 @@ title: Vibe Protocol Reference
 * [Test Suite](#test-suite)
     * [Testee](#testee)
     * [Running Test](#running-test)
-        * [Choosing Transport](#choosing-transport)
+        * [Choosing Tests](#choosing-tests)
 
 ---
 
 ## Reference Implementation
-To help understand the protocol, reference implementation is provided. It is written in easy-to-read JavaScript with a lot of detailed notes you should be aware of. Also you can use it to verify your implementation casually and as the counterpart in your examples.
+To help understand and implement the protocol, reference implementation is provided. It is written in easy-to-read JavaScript with a lot of detailed notes you should be aware of. Also you can use it to verify your implementation casually and as the counterpart in your examples.
 
 <ul class="inline-list">
     <li><a href="../docs/server.html">Server</a></li>
@@ -48,10 +48,10 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 **Client**
 
 ```javascript
-var vibe = require("vibe-protocol"),
-    socket;
+var vibe = require("vibe-protocol");
+var socket;
 
-vibe.open("http://localhost:8000/vibe", {transport: "ws"})
+vibe.open("http://localhost:8000/", {transport: "ws"})
 .on("open", function() {
     socket = this;
     console.log("socket");
@@ -72,10 +72,10 @@ socket.on("greeting", function(data) {
 **Server**
 
 ```javascript
-var vibe = require("vibe-protocol"),
-    server = vibe.server(),
-    httpServer = require("http").createServer(),
-    sockets = [];
+var vibe = require("vibe-protocol");
+var server = vibe.server();
+var httpServer = require("http").createServer();
+var sockets = [];
 
 httpServer.on("request", server.handleRequest);
 httpServer.on("upgrade", server.handleUpgrade);
@@ -98,17 +98,26 @@ sockets[0].send("greeting", "Hello World");
 ---
 
 ## Test Suite
-Test suite is provided to help write and verify implementation. Tests are written in JavaScript and runs by [Mocha](http://visionmedia.github.io/mocha/), JavaScript test framework, in Node.js using reference implementation.
+Test suite is provided to help write and verify implementation. Tests are written in JavaScript with the helpf of reference implementation and runs by [Mocha](http://visionmedia.github.io/mocha/), JavaScript test framework, in Node.js.
+
+Tests consist of two parts: protocol (required) and extension (optional) and a series of tests are executed per transport. By default both client and server test suites will run all unit tests including from protocol part and extension part for all the available transports: `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp`. Of course, you don't need to implement all transports and all extensions. Tests can run selectively.
 
 ### Testee
-Testee is a web server which brokers between test and implementation to be tested over HTTP, which is you need to write. Also these testee can play the part of test runner proxy by running test on a certain URI and that way may be more convenient to integrate 3rd party tool.
+Testee is a web server which brokers between test and implementation to be tested over HTTP, which is you need to write. Through writing testee, you will use most API of your implementation. Showing your testee is good for explaining how to use your implementation though it may not be pretty.
 
 * **Server testee** should:
     * listen on 8000
-    * delegate a request to the implementation if the request's path is `/vibe`, and a newly created socket should:
-        * send `echo` event with data on `echo` event
-        * execute resolved callback on `replyable` event if data is `true`
-        * execute rejected callback on `replyable` event if data is `false`<p>
+    * delegate a request to the implementation if the request's path is `/vibe`
+    * if **socket** has been opened, it should:
+        * to test protocol (required)
+        	* on `echo` event, send `echo` event with data
+    	* to test extension (optional)
+	        * `Receiving Replyable Event`
+	            * on `rre.resolve` event, execute a resolved callback passing data of the event
+	            * on `rre.reject` event, execute a rejected callback passing data of the event
+	        * `Sending Replyable Event`
+	            * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
+	            * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
     
     Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/server.js) for testing server reference implementation.  
   
@@ -119,11 +128,17 @@ Testee is a web server which brokers between test and implementation to be teste
         * transport to transport param in query string
         * heartbeat to heartbeat param in query string or `false` if not exists
         * _heartbeat to _heartbeat param in query string or `false` if not exists
-        * if socket has been opened, it should:
-            * close itself on `abort` event
-            * send `echo` event with data on `echo` event
-            * execute resolved callback on `replyable` event if data is `true`
-            * execute rejected callback on `replyable` event if data is `false`<p>
+    * if **socket** has been opened, it should:
+        * to test protocol (required)
+	        * on `abort` event, close itself
+	        * on `echo` event, send `echo` event with data
+    	* to test extension (optional)
+	        * `Receiving Replyable Event`
+	            * on `rre.resolve` event, execute a resolved callback passing data of the event
+	            * on `rre.reject` event, execute a rejected callback passing data of the event
+	        * `Sending Replyable Event`
+	            * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
+	            * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
     
     Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
   
@@ -135,15 +150,15 @@ npm install vibe-protocol
 npm install mocha -g
 ```
 
-Run your client/server testee. Once it's ready, open Node console and run mocha to test.
+Run your client/server testee. Once it's ready, open a console and run mocha.
 
-* client implementation
+* To test client implementation
 
     ```bash
     mocha ./node_modules/vibe-protocol/test/client.js
     ```
     
-* server implementation
+* To test server implementation
 
     ```bash
     mocha ./node_modules/vibe-protocol/test/server.js
@@ -151,11 +166,13 @@ Run your client/server testee. Once it's ready, open Node console and run mocha 
     
 And see the result on the console.
 
-#### Choosing Transport
-By default both test suites verify all the available transport: `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp`. However, in development environment, `ws`, `sse` and `longpollajax` are actually enough to use. To chose transports to be tested, you can use `grep` option from mocha.
+#### Choosing Tests
+To run tests selectively to include or exclude transports or extensions, you can use `grep` option from mocha. It is a JavaScript regular expression evaluating full test name.
+
+The full test name of `should open a new socket` unit test in protocol part for `ws` transport in client test suite is `client transport ws protocol open should open a new socket` and that of `should be able to resolve` unit test in `receiving replyable event` extension for `sse` transport in server test suite is `server transport sse  extension receiving replyable event should be able to resolve`.
 
 ```bash
 mocha ./node_modules/vibe-protocol/test/server.js --grep "ws|sse|longpollajax"
 ```
 
-Note that `grep` is evaluated as a regular expression in JavaScript and you should use `"` to escape `|` in Windows CMD.
+Note you should use `"` to escape `|` in Windows CMD and you can run mocha multiple times with different grep option if handling regular expression is annoying.
