@@ -20,7 +20,7 @@ title: Vibe Protocol Reference
 ---
 
 ## Reference Implementation
-To help understand and implement the protocol, reference implementation is provided. It is written in easy-to-read JavaScript with a lot of detailed notes you should be aware of. Also you can use it to verify your implementation casually and as the counterpart in your examples.
+To help understand and implement the protocol, reference implementation is provided. It is written in easy-to-read JavaScript with a lot of detailed notes you should be aware of. Also you can use it to verify your implementation casually and as the counterpart in your examples. See annotated source codes:
 
 <ul class="inline-list">
     <li><a href="../docs/server.html">Server</a></li>
@@ -110,14 +110,14 @@ Testee is a web server which brokers between test and implementation to be teste
     * delegate a request to the implementation if the request's path is `/vibe`
     * if **socket** has been opened, it should:
         * to test protocol (required)
-        	* on `echo` event, send `echo` event with data
-    	* to test extension (optional)
-	        * `Receiving Replyable Event`
-	            * on `rre.resolve` event, execute a resolved callback passing data of the event
-	            * on `rre.reject` event, execute a rejected callback passing data of the event
-	        * `Sending Replyable Event`
-	            * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
-	            * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
+            * on `echo` event, send `echo` event with data
+        * to test extension (optional)
+            * `Receiving Replyable Event`
+                * on `rre.resolve` event, execute a resolved callback passing data of the event
+                * on `rre.reject` event, execute a rejected callback passing data of the event
+            * `Sending Replyable Event`
+                * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
+                * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
     
     Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/server.js) for testing server reference implementation.  
   
@@ -130,15 +130,15 @@ Testee is a web server which brokers between test and implementation to be teste
         * _heartbeat to _heartbeat param in query string or `false` if not exists
     * if **socket** has been opened, it should:
         * to test protocol (required)
-	        * on `abort` event, close itself
-	        * on `echo` event, send `echo` event with data
-    	* to test extension (optional)
-	        * `Receiving Replyable Event`
-	            * on `rre.resolve` event, execute a resolved callback passing data of the event
-	            * on `rre.reject` event, execute a rejected callback passing data of the event
-	        * `Sending Replyable Event`
-	            * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
-	            * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
+            * on `abort` event, close itself
+            * on `echo` event, send `echo` event with data
+        * to test extension (optional)
+            * `Receiving Replyable Event`
+                * on `rre.resolve` event, execute a resolved callback passing data of the event
+                * on `rre.reject` event, execute a rejected callback passing data of the event
+            * `Sending Replyable Event`
+                * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
+                * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
     
     Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
   
