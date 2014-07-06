@@ -169,10 +169,22 @@ And see the result on the console.
 #### Choosing Tests
 To run tests selectively to include or exclude transports or extensions, you can use `grep` option from mocha. It is a JavaScript regular expression evaluating full test name.
 
-The full test name of `should open a new socket` unit test in protocol part for `ws` transport in client test suite is `client transport ws protocol open should open a new socket` and that of `should be able to resolve` unit test in `receiving replyable event` extension for `sse` transport in server test suite is `server transport sse  extension receiving replyable event should be able to resolve`.
+The full test name of `should open a new socket` unit test in protocol part for `ws` transport in client test suite is 
+
+```
+client transport ws protocol open should open a new socket
+```
+
+and that of `should be able to resolve` unit test in `receiving replyable event` extension for `sse` transport in server test suite is 
+
+```
+server transport sse  extension receiving replyable event should be able to resolve
+```
+
+If you want to run unit tests only for `ws`, `sse` and `longpollajax` transport:
 
 ```bash
-mocha ./node_modules/vibe-protocol/test/server.js --grep "ws|sse|longpollajax"
+mocha ./node_modules/vibe-protocol/test/client.js --grep "ws|sse|longpollajax"
 ```
 
 Note you should use `"` to escape `|` in Windows CMD and you can run mocha multiple times with different grep option if handling regular expression is annoying.
