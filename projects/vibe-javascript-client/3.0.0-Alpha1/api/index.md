@@ -186,7 +186,7 @@ The default set will be replaced with actual transport id in runtime: `["ws", "s
 #### `xdrURL? (uri: string): string`
 **Default**: `null`
 
-A function used to modify a url to add session information to enable `streamxdr` and `longpollxdr` transports. For security reasons, the `XDomainRequest` excludes cookie when sending a request, so the session cannot be tracked by cookie. That's why `streamxdr` and `longpollxdr` are disabled by default. However, if the server supports [session tracking by url]((http://stackoverflow.com/questions/6453779/maintaining-session-by-rewriting-url)), it is possible to track session by setting `xdrURL`.
+A function used to modify a url to add session information to enable `streamxdr` and `longpollxdr` transports. For security reasons, the `XDomainRequest` excludes cookie when sending a request, so the session cannot be tracked by cookie. That's why `streamxdr` and `longpollxdr` are disabled by default. However, if the server supports [session tracking by url](http://stackoverflow.com/questions/6453779/maintaining-session-by-rewriting-url), it is possible to track session by setting `xdrURL`.
 
 _Session tracking by modifying url_
 
