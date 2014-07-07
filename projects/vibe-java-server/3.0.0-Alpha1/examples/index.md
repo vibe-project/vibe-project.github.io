@@ -23,4 +23,5 @@ It can be clustered through the following projects:
 
 <ul class="inline-list">
     <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/archetype/vibe-java-server/clustering/hazelcast3">Hazelcast 3</a></li>
+    <li><a href="https://github.com/Atmosphere/vibe-examples/tree/master/archetype/vibe-java-server/clustering/vertx2">Vert.x 2</a></li>
 </ul>
