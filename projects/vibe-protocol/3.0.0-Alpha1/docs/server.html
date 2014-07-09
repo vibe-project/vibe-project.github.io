@@ -48,7 +48,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <pre><code>Server <span class="hljs-number">3.0</span><span class="hljs-number">.0</span>-Alpha1-SNAPSHOT
+              <pre><code>Server <span class="hljs-number">3.0</span><span class="hljs-number">.0</span>-Alpha1
 http:<span class="hljs-comment">//atmosphere.github.io/vibe/projects/vibe-protocol/</span>
 
 Copyright <span class="hljs-number">2014</span> The Vibe Project
@@ -99,17 +99,17 @@ to the server.</p>
 <span class="hljs-keyword">var</span> httpServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>).createServer();
 <span class="hljs-keyword">var</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>);
 
-server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(socket)</span> {</span>
+server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(socket)</span> </span>{
   socket.send(<span class="hljs-string">"greetings"</span>, <span class="hljs-string">"Hi"</span>);
 });
 
 httpServer.listen(<span class="hljs-number">8080</span>)
-.on(<span class="hljs-string">"request"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
+.on(<span class="hljs-string">"request"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> </span>{
   <span class="hljs-keyword">if</span> (url.parse(req.url).pathname === <span class="hljs-string">"/vibe"</span>) {
     server.handleRequest(req, res);
   }
 })
-.on(<span class="hljs-string">"upgrade"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, sock, head)</span> {</span>
+.on(<span class="hljs-string">"upgrade"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, sock, head)</span> </span>{
   <span class="hljs-keyword">if</span> (url.parse(req.url).pathname === <span class="hljs-string">"/vibe"</span>) {
     server.handleUpgrade(req, sock, head);
   }
@@ -117,7 +117,7 @@ httpServer.listen(<span class="hljs-number">8080</span>)
 </code></pre>
             </div>
             
-            <div class="content"><div class='highlight'><pre>module.exports = server;</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = server;</pre></div></div>
             
         </li>
         
@@ -142,7 +142,7 @@ httpServer.listen(<span class="hljs-number">8080</span>)
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">server</span><span class="hljs-params">()</span> {</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">server</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">var</span> sockets = {}, 
         server = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
             
@@ -161,7 +161,7 @@ If you are going to use only WebSocket, skip this part.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    server.handleRequest = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    server.handleRequest = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -453,10 +453,10 @@ headers even in same-origin connection.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> body = <span class="hljs-string">""</span>;
-            req.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(chunk)</span> {</span>
+            req.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(chunk)</span> </span>{
                 body += chunk;
             });
-            req.on(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
+            req.on(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -530,13 +530,13 @@ Not Allowed</code>.</p>
             res.end();
         }
         
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nocache</span><span class="hljs-params">(req, res)</span> {</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nocache</span><span class="hljs-params">(req, res)</span> </span>{
             res.setHeader(<span class="hljs-string">"cache-control"</span>, <span class="hljs-string">"no-cache, no-store, must-revalidate"</span>);
             res.setHeader(<span class="hljs-string">"pragma"</span>, <span class="hljs-string">"no-cache"</span>);
             res.setHeader(<span class="hljs-string">"expires"</span>, <span class="hljs-string">"0"</span>);
         }
         
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cors</span><span class="hljs-params">(req, res)</span> {</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cors</span><span class="hljs-params">(req, res)</span> </span>{
             res.setHeader(<span class="hljs-string">"access-control-allow-origin"</span>, req.headers.origin || <span class="hljs-string">"*"</span>);
             res.setHeader(<span class="hljs-string">"access-control-allow-credentials"</span>, <span class="hljs-string">"true"</span>);
         }
@@ -558,8 +558,8 @@ protocol and open a new socket establishing the WebSocket transport.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> webSocketServer = <span class="hljs-keyword">new</span> WebSocket.Server({noServer: <span class="hljs-literal">true</span>});
-    server.handleUpgrade = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, sock, head)</span> {</span>
-        webSocketServer.handleUpgrade(req, sock, head, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ws)</span> {</span>
+    server.handleUpgrade = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, sock, head)</span> </span>{
+        webSocketServer.handleUpgrade(req, sock, head, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ws)</span> </span>{
             server.emit(<span class="hljs-string">"socket"</span>, socket(url.parse(req.url, <span class="hljs-literal">true</span>).query, transports.ws(ws)));
         });
     };</pre></div></div>
@@ -577,7 +577,7 @@ protocol and open a new socket establishing the WebSocket transport.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(socket)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    server.on(<span class="hljs-string">"socket"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(socket)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -594,7 +594,7 @@ when it’s been closed to make the repository have only opened sockets. </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>        sockets[socket.id] = socket;
-        socket.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        socket.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
             <span class="hljs-keyword">delete</span> sockets[socket.id];
         });
     });
@@ -643,7 +643,7 @@ or WebSocket and provides a simple view of frame-based connection.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>transports.ws = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ws)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>transports.ws = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ws)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -659,16 +659,16 @@ or WebSocket and provides a simple view of frame-based connection.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> transport = <span class="hljs-keyword">new</span> events.EventEmitter();
-    ws.onclose = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    ws.onclose = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
         transport.emit(<span class="hljs-string">"close"</span>);
     };
-    ws.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> {</span>
+    ws.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> </span>{
         transport.emit(<span class="hljs-string">"message"</span>, event.data);
     };
-    transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span>
+    transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{
         ws.send(data);
     };
-    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
         ws.close();
     };
     <span class="hljs-keyword">return</span> transport;
@@ -688,7 +688,7 @@ or WebSocket and provides a simple view of frame-based connection.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>transports.stream = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
+            <div class="content"><div class='highlight'><pre>transports.stream = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> </span>{
     <span class="hljs-keyword">var</span> text2KB = <span class="hljs-built_in">Array</span>(<span class="hljs-number">2048</span>).join(<span class="hljs-string">" "</span>),
         transport = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
             
@@ -743,7 +743,7 @@ end with <code>\r</code>, <code>\n</code> or <code>\r\n</code>. It applies to <c
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onclose</span><span class="hljs-params">()</span> {</span>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onclose</span><span class="hljs-params">()</span> </span>{
         transport.emit(<span class="hljs-string">"close"</span>);
     }
     res.on(<span class="hljs-string">"close"</span>, onclose);
@@ -762,7 +762,7 @@ end with <code>\r</code>, <code>\n</code> or <code>\r\n</code>. It applies to <c
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -828,7 +828,7 @@ It’s the web server’s business.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -862,7 +862,7 @@ It’s the web server’s business.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>transports.longpoll = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>transports.longpoll = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -986,7 +986,7 @@ so expose this method to supply with subsequent exchanges.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.refresh = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    transport.refresh = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -1017,7 +1017,7 @@ and <code>text/plain</code> for the others.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onclose</span><span class="hljs-params">()</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onclose</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -1068,7 +1068,7 @@ during dispatching event, this connection will remain in limbo.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            } <span class="hljs-keyword">else</span> {
-                closeTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                closeTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
                     transport.emit(<span class="hljs-string">"close"</span>);
                 }, <span class="hljs-number">2000</span>);
             }
@@ -1164,8 +1164,8 @@ is a comma-separated values of id of client-received events.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (req.params.lastEventIds) {
-                req.params.lastEventIds.split(<span class="hljs-string">","</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(lastEventId)</span> {</span>
-                    queue.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span>
+                req.params.lastEventIds.split(<span class="hljs-string">","</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(lastEventId)</span> </span>{
+                    queue.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{
                         <span class="hljs-keyword">if</span> (lastEventId === <span class="hljs-regexp">/"id":"([^\"]+)"/</span>.exec(data)[<span class="hljs-number">1</span>]) {
                             queue.splice(queue.indexOf(data), <span class="hljs-number">1</span>);
                         }
@@ -1222,7 +1222,7 @@ elements in queue are already JSON string.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data, fromQueue)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data, fromQueue)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -1337,7 +1337,7 @@ processing. The <code>ended</code> will be true after this.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -1411,7 +1411,7 @@ resolved and rejected callbacks to be called by the client.</li>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socket</span><span class="hljs-params">(params, transport)</span> {</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socket</span><span class="hljs-params">(params, transport)</span> </span>{
     <span class="hljs-keyword">var</span> socket = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
             
         </li>
@@ -1455,7 +1455,7 @@ resolved and rejected callbacks to be called by the client.</li>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
         socket.emit(<span class="hljs-string">"close"</span>);
     });</pre></div></div>
             
@@ -1473,7 +1473,7 @@ from the client.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"message"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(text)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"message"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(text)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -1540,7 +1540,7 @@ from the client.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            resolve: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> {</span>
+            <div class="content"><div class='highlight'><pre>            resolve: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> </span>{
                 <span class="hljs-keyword">if</span> (!latch) {
                     latch = <span class="hljs-literal">true</span>;
                     socket.send(<span class="hljs-string">"reply"</span>, {id: event.id, data: value, exception: <span class="hljs-literal">false</span>});
@@ -1560,7 +1560,7 @@ from the client.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            reject: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reason)</span> {</span>
+            <div class="content"><div class='highlight'><pre>            reject: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reason)</span> </span>{
                 <span class="hljs-keyword">if</span> (!latch) {
                     latch = <span class="hljs-literal">true</span>;
                     socket.send(<span class="hljs-string">"reply"</span>, {id: event.id, data: reason, exception: <span class="hljs-literal">true</span>});
@@ -1628,7 +1628,7 @@ from the client.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    socket.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(type, data, resolved, rejected)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    socket.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(type, data, resolved, rejected)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -1722,7 +1722,7 @@ It will be formatted properly according to which the transport is used.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    socket.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <div class="content"><div class='highlight'><pre>    socket.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
         transport.close();
     };</pre></div></div>
             
@@ -1741,7 +1741,7 @@ callbacks with data and deletes it.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    socket.on(<span class="hljs-string">"reply"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reply)</span> {</span>
+            <div class="content"><div class='highlight'><pre>    socket.on(<span class="hljs-string">"reply"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reply)</span> </span>{
         <span class="hljs-keyword">if</span> (reply.id <span class="hljs-keyword">in</span> callbacks) {
             <span class="hljs-keyword">var</span> cbs = callbacks[reply.id],
                 fn = reply.exception ? cbs.rejected : cbs.resolved;
@@ -1784,8 +1784,8 @@ and <code>+&quot;5000&quot;</code> gives <code>5000</code> equal to <code>true</
             </div>
             
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> heartbeatTimer;
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setHeartbeatTimer</span><span class="hljs-params">()</span> {</span>
-            heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setHeartbeatTimer</span><span class="hljs-params">()</span> </span>{
+            heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
                 socket.close();
             }, +params.heartbeat);
         }
@@ -1806,7 +1806,7 @@ again and sends the heartbeat event as a response.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        socket.on(<span class="hljs-string">"heartbeat"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <div class="content"><div class='highlight'><pre>        socket.on(<span class="hljs-string">"heartbeat"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
             clearTimeout(heartbeatTimer);
             setHeartbeatTimer();
             socket.send(<span class="hljs-string">"heartbeat"</span>);
@@ -1825,7 +1825,7 @@ again and sends the heartbeat event as a response.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        .on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <div class="content"><div class='highlight'><pre>        .on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
             clearTimeout(heartbeatTimer);
         });
     }
