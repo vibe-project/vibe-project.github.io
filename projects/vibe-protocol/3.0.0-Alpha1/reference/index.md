@@ -166,6 +166,10 @@ Run your client/server testee. Once it's ready, open a console and run mocha.
     
 And see the result on the console.
 
+**Note**
+
+* Because Node.js is small and can be installed locally, you can automate the protocol test programmatically by downloading Node.js, installing modules, running tests through spawning a process and checking that process' exit code.
+
 #### Choosing Tests
 To run tests selectively to include or exclude transports or extensions, you can use `grep` option from mocha. It is a JavaScript regular expression evaluating full test name.
 
