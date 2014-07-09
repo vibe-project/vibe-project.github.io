@@ -9,7 +9,6 @@ title: Vibe Java Server Reference
 
 **Table of Contents**
 
-* [Modules](#modules)
 * [Installation](#installation)
 * [Server](#server)
     * [Handling Socket](#handling-socket)
@@ -27,12 +26,19 @@ title: Vibe Java Server Reference
     
 ---
 
-## Modules
-TODO
-
----
-
 ## Installation
+Vibe Java Server is distributed through Maven Central. Add the following dependency to your build or include it on your classpath manually.
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.atmosphere</groupId>
+        <artifactId>vibe-server</artifactId>
+        <version>3.0.0-Alpha1</version>
+    </dependency>
+</dependencies>
+```
+
 [Vibe Java Server Platform]({{ site.baseurl }}/projects/vibe-java-server-platform/) is created to run a vibe application on any framework or server transparently without or with a little bit of effort. See [reference guide]({{ site.baseurl }}/projects/vibe-java-server-platform/3.0.0-Alpha1/reference/) for what platforms are supported, how to install vibe on them and what you can do when your favorite platform is not supported.
 
 ---

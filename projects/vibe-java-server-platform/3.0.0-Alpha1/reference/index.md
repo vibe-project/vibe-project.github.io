@@ -9,7 +9,6 @@ title: Vibe Java Server Reference
 
 **Table of Contents**
 
-* [Modules](#modules)
 * [Bridge](#bridge)
     * [Installation](#installation)
         * [Atmosphere 2](#atmosphere-2)
@@ -24,18 +23,11 @@ title: Vibe Java Server Reference
         
 ---
 
-## Modules
-TODO
-
----
-
 ## Bridge
 Bridge is a module used to install your application on your desired platform.
 
 ### Installation
 Generally speaking, installing an application is to feed one or both of `ServerHttpExchange` and `ServerWebSocket` into the application using the bridge for the specific platform.
-
-With the following bridges, you can install your application with minimal effort. If the corresponding bridge is not listed, you need to write your own one. [Writing a bridge](#writing-bridges) is easier than you think.
 
 #### Atmosphere 2
 The [Atmosphere 2](https://github.com/atmosphere/atmosphere/) makes the application run on most servlet containers that support the Servlet Specification 2.3. That being said, Servlet 3.0 containers is required here. With Atmosphere, you can write a traditional Java web application, a war project in Maven.
@@ -51,12 +43,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-atmosphere2</artifactId>
-        <version>3.0.0-Alpha1</version>
-    </dependency>
-    <dependency>
-        <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-runtime</artifactId>
+        <artifactId>vibe-server-platform-atmosphere2</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -97,12 +84,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-vertx2</artifactId>
-        <version>3.0.0-Alpha1</version>
-    </dependency>
-    <dependency>
-        <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-runtime</artifactId>
+        <artifactId>vibe-server-platform-vertx2</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -145,12 +127,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-servlet3</artifactId>
-        <version>3.0.0-Alpha1</version>
-    </dependency>
-    <dependency>
-        <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-runtime</artifactId>
+        <artifactId>vibe-server-platform-servlet3</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -193,12 +170,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-jwa1</artifactId>
-        <version>3.0.0-Alpha1</version>
-    </dependency>
-    <dependency>
-        <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-runtime</artifactId>
+        <artifactId>vibe-server-platform-jwa1</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -242,8 +214,7 @@ Add the following dependency to your `build.sbt` or include it on your classpath
 
 ```scala
 libraryDependencies ++= Seq(
-  "org.atmosphere" % "vibe-runtime" % "3.0.0-Alpha1",
-  "org.atmosphere" % "vibe-play2" % "3.0.0-Alpha1"
+  "org.atmosphere" % "vibe-server-platform-play2" % "3.0.0-Alpha1"
 )
 ```
 
