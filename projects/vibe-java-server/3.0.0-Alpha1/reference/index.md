@@ -488,85 +488,84 @@ Here is how to integrate Vibe Java Server with awesome technologies.
 With the help of Dependency Injection (DI) framework like Spring and Guice, you can inject Server wherever you need like the following cases:
 
 <div class="row">
-<div class="large-3 medium-6 columns">
+<div class="large-6 columns">
 {% capture panel %}
 Making Server as component.
 
 ```java
 @Configuration
 public class Config {
-  @Bean
-  public Server server() {
-    return new DefaultServer();
-  }
+    @Bean
+    public Server server() {
+        return new DefaultServer();
+    }
 }
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
-<div class="large-3 medium-6 columns">
+<div class="large-6 columns">
 {% capture panel %}
 Integrating with I/O platform.
 
 ```java
 @Component
 public class Feeder {
-  @Autowired
-  private Server server;
+    @Autowired
+    private Server server;
 
-  @OnHttpExchange
-  public void http(HttpExchange h) {
-    server.httpAction()
-    .on(new MyServerHttpExchange(h));
-  }
+    @OnHttpExchange("/vibe")
+    public void http(HttpExchange http) {
+        server.httpAction().on(new MyServerHttpExchange(http));
+    }
 
-  @OnWebSocket
-  public void ws(WebSocket ws) {
-    server.websocketAction()
-    .on(new MyServerWebSocket(ws));
-  }
+    @OnWebSocket("/vibe")
+    public void ws(WebSocket ws) {
+        server.websocketAction().on(new MyServerWebSocket(ws));
+    }
 }
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
-<div class="large-3 medium-6 columns">
+</div>
+
+<div class="row">
+<div class="large-6 columns">
 {% capture panel %}
 Handling socket.
 
 ```java
-@Component
-public class Controller {
-  @Autowired
-  private Server server;
-  
-  @PostConstruct
-  public void handle() {
-    server.socketAction(
-      new Action<Socket>() {
-      @Override
-      public void on(Socket socket) {
-        socket.tag("tag");
-      }
-    });
-  }
+@Controller
+public class Handler {
+    @Autowired
+    private Server server;
+    
+    @PostConstruct
+    public void handle() {
+        server.socketAction(new Action<Socket>() {
+            @Override
+            public void on(Socket socket) {
+                socket.tag("tag");
+            }
+        });
+    }
 }
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
-<div class="large-3 medium-6 columns">
+<div class="large-6 columns">
 {% capture panel %}
 Sending event.
 
 ```java
 @Component
-public class Ticker {
-  @Autowired
-  private Server server;
+public class AccountEntityListener {
+    @Autowired
+    private Server server;
 
-  @Scheduled(fixedRate = 1000)
-  public void tick() {
-    server.byTag("tag")
-    .send("t", currentTimeMillis());
-  }
+    @PostUpdate
+    public void update(Account account) {
+        server.byTag("account#" + account.id()).send("update", account);
+    }
 }
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -594,10 +593,10 @@ Hermaphrodite case. It will work exactly like `DefaultServer`.
 final ClusteredServer server = new ClusteredServer();
 
 server.publishAction(new Action<Map<String, Object>>() {
-	@Override
-	public void on(Map<String, Object> message) {
-		server.messageAction().on(message);
-	}
+    @Override
+    public void on(Map<String, Object> message) {
+        server.messageAction().on(message);
+    }
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -613,16 +612,16 @@ final ClusteredServer server = new ClusteredServer();
 final ITopic<Map<String, Object>> topic = hazelcast.getTopic("vibe:app");
 
 topic.addMessageListener(new MessageListener<Map<String, Object>>() {
-	@Override
-	public void onMessage(Message<Map<String, Object>> message) {
-		server.messageAction().on(message.getMessageObject());
-	}
+    @Override
+    public void onMessage(Message<Map<String, Object>> message) {
+        server.messageAction().on(message.getMessageObject());
+    }
 });
 server.publishAction(new Action<Map<String, Object>>() {
-	@Override
-	public void on(Map<String, Object> message) {
-		topic.publish(message);
-	}
+    @Override
+    public void on(Map<String, Object> message) {
+        topic.publish(message);
+    }
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
