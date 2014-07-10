@@ -11,6 +11,9 @@ title: Vibe Protocol Reference
 
 * [Reference Implementation](#reference-implementation)
     * [Installation](#installation)
+    * [API](#api)
+        * [export function open(uri: string, options?: SocketOptions): Socket](#export-function-open-uri:-string--options-:-socketoptions-:-socket)
+        * [export function server(): Server](#export-function-server--:-server)
     * [Interactive Mode](#interactive-mode)
 * [Test Suite](#test-suite)
     * [Testee](#testee)
@@ -38,6 +41,83 @@ First you need to install [Node.js](http://nodejs.org). Then type the following 
 ```bash
 npm install vibe-protocol
 ```
+
+### API
+To load the module, type the following to Node console or JavaScript file.
+
+```javascript
+var vibe = require("vibe-client");
+```
+
+#### `export function open(uri: string, options?: SocketOptions): Socket`
+Creates a vibe client as a form of socket, connects to the given URI and returns it. It is an asynchronous operation so the returned socket must be connecting. Once the open event has been fired, I/O operations will be available.
+
+```javascript
+var vibe = require("vibe-client");
+var socket = vibe.open("http://localhost:8080/", {transport: "ws"});
+```
+
+##### `interface SocketOptions`
+An interface for creating a socket.
+
+###### `heartbeat`
+A heartbeat interval value in milliseconds. A opened socket continuously sends a heartbeat event to the server each time the value has elapsed. Actually, the socket sends the event 5 seconds before the heartbeat timer expires to wait the server's echo. If the event echoes back within 5 seconds, the socket reset the timer. Otherwise, the close event is fired. For that reason, the value must be larger than `5000` and the recommended value is `20000`.
+ 
+###### `_heartbeat`
+It is the 5 seconds from the explanation for `heartbeat` and is in milliseconds unit. This is only for speeding up heartbeat tests.
+
+###### `transport`
+A transport id. It's required. Transport is a private interface used to establish a connection, send data, receive data and close the connection. These are available: `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp`. However none of them runs on browser so `streamxdr`, `streamiframe`, `longpollxdr` and `longpolljsonp` are not meaningful and just simulate their expected behaviors.  
+
+#### `export function server(): Server`
+Creates a vibe server that is installed by passing request and upgrade events dispatched by Node's HTTP/HTTPS server to the server. It inherits [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter).
+
+```javascript
+var vibe = require("vibe-protocol");
+var server = vibe.server();
+
+server.on("socket", function(socket) {
+    // socket
+});
+
+require("http").createServer().on("request", server.handleRequest).on("upgrade", server.handleUpgrade).listen(8080);
+```
+
+##### `interface Server`
+An interface to represent a server.
+
+###### `handleRequest (req: http.IncomingMessage, res: http.ServerResponse)`
+It consumes HTTP exchange to establish HTTP based transports. Untainted req and res are expected to be passed from Node's HTTP/HTTPS server's request event.
+
+###### `handleUpgrade (req: http.IncomingMessage, socket:net.Socket, head: buffer.Buffer)`
+It consumes HTTP exchange to establish WebSocket transport. Untainted req, socket and head are expected to be passed from Node's HTTP/HTTPS server's upgrade event.
+
+###### `on(event: string, handler: Function): Socket`
+Adds a given event handler for a given event.
+
+* `socket (socket: Socket): void`: fired when a socket representing client is opened. It's opened so I/O operations are possible.
+
+#### `interface Socket`
+An interface representing the remote endpoint that is server if it's created by `vibe.open` or client if it's created by `vibe.server`. It inherits [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter).
+
+```javascript
+socket.on("echo", function(data) {
+    socket.send("echo", data);
+});
+```
+
+##### `close(): Socket`
+Closes the socket.
+
+##### `on(event: string, handler: Function): Socket`
+Adds a given event handler for a given event.
+
+* `open (): void`: fired when a socket is opened. Only for client.
+* `close (): void`: fired when a socket is closed.
+* `[event: string]: (data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void`: fired when the counterpart sends an event. If the counterpart attaches resolved or rejected callbacks, reply object will be provided.
+
+##### `send(event: string, data?: any, resolved?: (data?: any) => void, rejected?: (data?: any) => void): Socket`
+Sends an event with given event name and data attaching resolved and rejected callbacks.
 
 ### Interactive Mode
 JavaScript is a dynamic language so you can deal with both client and server in an interactive mode. Open two Node console, copy the following scripts and paste into the each console.
