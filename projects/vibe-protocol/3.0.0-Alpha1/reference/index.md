@@ -9,6 +9,7 @@ title: Vibe Protocol Reference
 
 **Table of Contents**
 
+* [Specification](#specification)
 * [Reference Implementation](#reference-implementation)
     * [Installation](#installation)
     * [API](#api)
@@ -22,6 +23,13 @@ title: Vibe Protocol Reference
     * [Testee](#testee)
     * [Running Test](#running-test)
         * [Choosing Tests](#choosing-tests)
+
+---
+
+## Specification
+The protocol consists of very protocol to provide reliable full duplex connection over HTTP and a set of optional extensions to provide elegant patterns.
+
+Both parts are still under active development and it's not easy to maintain both reference implementation and specification document. Accordingly for now the reference implementation takes the place of the specification document.
 
 ---
 
