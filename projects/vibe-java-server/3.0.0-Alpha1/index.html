@@ -14,7 +14,7 @@ title: Vibe Java Server
 </dl>
 <hr />
 <h2>Getting Started</h2>
-<p>Vibe Java Server is distributed through Maven Central. A single artifact, <code>org.atmosphere:vibe:3.0.0-Alpha1</code>, is enough for general purpose and thanks to Vibe Java Server Platform, your application can run on any framework or platform it supports.</p>
+<p>Vibe Java Server is distributed through Maven Central. A single artifact, <code>org.atmosphere:vibe-server:3.0.0-Alpha1</code>, is enough for general purpose and thanks to Vibe Java Server Platform, your application can run on any framework or platform it supports.</p>
 
 <h3>Basic</h3>
 {% capture panel %}
@@ -24,12 +24,12 @@ Let's take a brief look at basic API through writing a simple server running on 
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe</artifactId>
+        <artifactId>vibe-server</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-platform-atmosphere2</artifactId>
+        <artifactId>vibe-server-platform-atmosphere2</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -38,7 +38,8 @@ Let's take a brief look at basic API through writing a simple server running on 
 Once you've set up your build, you'll be able to write `Bootstrap.java`.
 
 ```java
-// TODO vibe imports
+import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.atmosphere.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
@@ -119,7 +120,8 @@ Following the basic example, in this time, let's scale application with the help
 Once you've set up your build, you'll be able to write `Bootstrap.java`.
 
 ```java
-// TODO vibe imports
+import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.atmosphere.*;
 
 import java.util.Map;
 

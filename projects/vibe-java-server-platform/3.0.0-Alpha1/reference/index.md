@@ -53,7 +53,8 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-// TODO vibe imports
+import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.atmosphere.*;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -94,7 +95,8 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the verticle starts.
 
 ```java
-// TODO vibe imports
+import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.vertx.*;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServer;
@@ -138,7 +140,8 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-// TODO vibe imports
+import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.servlet.*;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -181,7 +184,8 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the container starts by scanning `ServerApplicationConfig` instance. In case of embedded container, however, it may not scan it and you may have to follow their alternatives.
 
 ```java
-// TODO vibe imports
+import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.jwa.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -222,7 +226,8 @@ libraryDependencies ++= Seq(
 Write entry point for HTTP exchange and WebSocket extending `Controller`.
 
 ```java
-// TODO vibe imports
+import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.play.*;
 
 import play.libs.F.Promise;
 import play.mvc.BodyParser;
