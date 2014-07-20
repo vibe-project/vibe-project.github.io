@@ -9,6 +9,7 @@ $h2-font-size: rem-calc(34);
 $h3-font-size: rem-calc(25);
 $h4-font-size: rem-calc(22);
 $h5-font-size: rem-calc(18);
+$code-color: scale-color($body-font-color, $lightness: -27%);
 $topbar-bg-color: #fff;
 $topbar-dropdown-bg: #fff;
 $topbar-dropdown-link-color: #000;

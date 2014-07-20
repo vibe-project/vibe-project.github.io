@@ -3884,7 +3884,7 @@ small {
 code {
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
   font-weight: bold;
-  color: #bd240d; }
+  color: #323232; }
 
 /* Lists */
 ul, ol, dl {
@@ -5186,7 +5186,7 @@ th.hide-for-touch {
 
 .bar {
   height: 3px;
-  background: linear-gradient(45deg, #f20f38 0, #f2884b 100%); }
+  background: linear-gradient(45deg, #666 0, #333 100%); }
 
 div.highlight {
   margin-bottom: 1.25rem;
