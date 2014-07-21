@@ -18,6 +18,8 @@ title: Vibe Protocol Reference
         * [interface SocketOptions](#interface-socketoptions)
         * [interface Server](#interface-server)
         * [interface Socket](#interface-socket)
+    * [Examples](#examples)
+        * [Echo and Chat](#echo-and-chat)
     * [Interactive Mode](#interactive-mode)
 * [Test Suite](#test-suite)
     * [Testee](#testee)
@@ -129,6 +131,72 @@ Adds a given event handler for a given event.
 
 ##### `send(event: string, data?: any, resolved?: (data?: any) => void, rejected?: (data?: any) => void): Socket`
 Sends an event with given event name and data attaching resolved and rejected callbacks.
+
+### Examples
+To run example, write `server.js` and `client.js` by copy and paste to the folder where you have installed `vibe-protocol` module. Then, open two consoles, type `node server` and `node client` respectively.
+
+#### Echo and Chat
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+`server.js`
+
+```javascript
+var vibe = require("vibe-protocol");
+var server = vibe.server();
+var sockets = [];
+
+server.on("socket", function(socket) {
+    // To provide a repository of opened socket 
+    sockets.push(socket);
+    socket.on("close", function() {
+        sockets.splice(sockets.indexOf(this), 1);
+        console.log("on close event");
+    });
+    // Actions for echo and chat events
+    socket.on("echo", function(data) {
+        console.log("on echo event: " + data);
+        socket.send("echo", data);
+    })
+    .on("chat", function(data) {
+        console.log("on chat event: " + data);
+        sockets.forEach(function(socket) {
+            socket.send("chat", data);
+        });
+    });
+});
+
+require("http").createServer()
+.on("request", server.handleRequest)
+.on("upgrade", server.handleUpgrade).listen(8000);
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+`client.js`
+
+```javascript
+var vibe = require("vibe-protocol");
+var socket = vibe.open("http://localhost:8000/", {transport:"ws"});
+
+socket.on("open", function() {
+    socket.send("echo", "An echo message");
+    socket.send("chat", "A chat message");
+})
+.on("close", function() {
+    console.log("on close event");
+})
+.on("chat", function(data) {
+    console.log("on chat event: " + data);
+})
+.on("echo", function(data) {
+    console.log("on echo event: " + data);
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
 
 ### Interactive Mode
 JavaScript is a dynamic language so you can deal with both client and server in an interactive mode. Open two Node console, copy the following scripts and paste into the each console.
