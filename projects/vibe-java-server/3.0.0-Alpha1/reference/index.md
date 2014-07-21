@@ -589,6 +589,7 @@ All of the Message Oriented Middleware (MOM) supporting publish and subscribe mo
 **Note**
 
 * Most MOM in Java requires message to be serialized. In other words, `Action` instance used in `all`, `byId` and `byTag` (not `socketAction`) should implement `Serializable`. Whereas `Action` is generally used as anonymous class, but `Serializable` [can't be used in that manner](http://docs.oracle.com/javase/7/docs/platform/serialization/spec/serial-arch.html#4539). Therefore always use `Sentence` instead of `Action` especially in this case.
+* If your MOM doesn't allow to publish and subscribe `Serializable` directly, you need to use an array of bytes through doing [serialization and deserialization](http://stackoverflow.com/questions/2836646/java-serializable-object-to-byte-array).
 
 <div class="row">
 <div class="large-6 columns">
@@ -631,47 +632,5 @@ server.publishAction(new Action<Map<String, Object>>() {
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-Vert.x case, which doesn't allow to publish Serializable directly.
-
-```java
-final EventBus eventBus = vertx.eventBus();
-final ClusteredServer server = new ClusteredServer();
-eventBus.registerHandler("vibe", new Handler<Message<byte[]>>() {
-    @SuppressWarnings("unchecked")
-    @Override
-    public void handle(Message<byte[]> message) {
-        ByteArrayInputStream bais = new ByteArrayInputStream(message.body());
-        Map<String, Object> body = null;
-        try (ObjectInputStream in = new ObjectInputStream(bais)) {
-            body = (Map<String, Object>) in.readObject();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        server.messageAction().on(body);
-    }
-});
-server.publishAction(new Action<Map<String,Object>>() {
-    @Override
-    public void on(Map<String, Object> message) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
-        try (ObjectOutputStream out = new ObjectOutputStream(baos)) {
-            out.writeObject(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        eventBus.publish("vibe", baos.toByteArray());
-    }
-});
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
 </div>
 </div>
