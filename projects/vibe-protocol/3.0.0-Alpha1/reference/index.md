@@ -155,11 +155,11 @@ server.on("socket", function(socket) {
     });
     // Actions for echo and chat events
     socket.on("echo", function(data) {
-        console.log("on echo event: " + data);
+        console.log("on echo event:", data);
         socket.send("echo", data);
     })
     .on("chat", function(data) {
-        console.log("on chat event: " + data);
+        console.log("on chat event:", data);
         sockets.forEach(function(socket) {
             socket.send("chat", data);
         });
@@ -188,10 +188,10 @@ socket.on("open", function() {
     console.log("on close event");
 })
 .on("chat", function(data) {
-    console.log("on chat event: " + data);
+    console.log("on chat event:", data);
 })
 .on("echo", function(data) {
-    console.log("on echo event: " + data);
+    console.log("on echo event:", data);
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -219,7 +219,7 @@ Once `socket` have been logged, you can access the opened socket by `socket` in 
 
 ```javascript
 socket.on("greeting", function(data) {
-    console.log("greetings from the server: " + data);
+    console.log("greetings from the server:", data);
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -239,11 +239,11 @@ httpServer.on("upgrade", server.handleUpgrade);
 httpServer.listen(8000);
 
 server.on("socket", function(socket) {
-    console.log("sockets[" + (sockets.push(socket) - 1) + "]");
+    console.log("sockets[", (sockets.push(socket) - 1), "]");
 });
 ```
 
-Once `sockets[0]` have been logged, you can access the opened socket by `sockets[0]` in the console.
+Once `sockets[ 0 ]` have been logged, you can access the opened socket by `sockets[0]` in the console.
 
 ```javascript
 sockets[0].send("greeting", "Hello World");
