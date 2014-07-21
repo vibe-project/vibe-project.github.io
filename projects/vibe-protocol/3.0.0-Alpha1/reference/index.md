@@ -150,7 +150,7 @@ server.on("socket", function(socket) {
     // To provide a repository of opened socket 
     sockets.push(socket);
     socket.on("close", function() {
-        sockets.splice(sockets.indexOf(this), 1);
+        sockets.splice(sockets.indexOf(socket), 1);
         console.log("on close event");
     });
     // Actions for echo and chat events
@@ -208,11 +208,9 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 
 ```javascript
 var vibe = require("vibe-protocol");
-var socket;
+var socket = vibe.open("http://localhost:8000/", {transport: "ws"});
 
-vibe.open("http://localhost:8000/", {transport: "ws"})
-.on("open", function() {
-    socket = this;
+socket.on("open", function() {
     console.log("socket");
 });
 ```
