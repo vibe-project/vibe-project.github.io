@@ -7,7 +7,7 @@ Vibe JavaScript Client is a lightweight <sup><strong>A</strong></sup> JavaScript
 
 <dl>
     <dt>A</dt>
-    <dd>16.52KB minified, 5.89KB minified and gzipped.</dd>
+    <dd>16.66KB minified, 5.99KB minified and gzipped.</dd>
     <dt>B</dt>
     <dd>The policy for browser support is the same with the one of jQuery 1.x that embraces Internet Explorer 6. Also it has no dependency in browser.</dd>
     <dt>C</dt>

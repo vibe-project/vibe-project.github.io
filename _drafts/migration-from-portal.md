@@ -12,7 +12,7 @@ The first alpha of Vibe is heavily based on [Portal](flowersinthesand.github.io/
 Therefore if you've used Portal and Portal for Java, you can easily migrate your application and enjoy enhancements but if you've used your own implementation, you need to work to meet the protocol. See the protocol section.
 
 ## Portal
-`portal.js` is renamed to `vibe.js` and moved in Vibe JavaScript Client project. Any deprecated or unuseful things are removed. As a result, its size has been decreased from 6.88KB to 5.89KB minified and gzipped.
+`portal.js` is renamed to `vibe.js` and moved in Vibe JavaScript Client project. Any deprecated or unuseful things are removed. As a result, its size has been decreased from 6.88KB to 5.99KB minified and gzipped.
 
 ### `portal`
 * `portal` is renamed to `vibe`.
