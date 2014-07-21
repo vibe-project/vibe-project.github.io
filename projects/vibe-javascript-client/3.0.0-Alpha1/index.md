@@ -3,7 +3,8 @@ layout: project
 title: Vibe JavaScript Client
 ---
 
-<p>Vibe JavaScript Client is a lightweight <sup><strong>A</strong></sup> JavaScript client for browser-based <sup><strong>B</strong></sup> and Node-based <sup><strong>C</strong></sup> application.</p>
+Vibe JavaScript Client is a lightweight <sup><strong>A</strong></sup> JavaScript client for browser-based <sup><strong>B</strong></sup> and Node-based <sup><strong>C</strong></sup> application.
+
 <dl>
     <dt>A</dt>
     <dd>16.52KB minified, 5.89KB minified and gzipped.</dd>
@@ -12,12 +13,13 @@ title: Vibe JavaScript Client
     <dt>C</dt>
     <dd>Though browser is the first runtime, it runs seamlessly on Node.js.</dd>
 </dl>
-<hr />
-<h2>Getting Started</h2>
-<p>According to runtime engine, Vibe JavaScript Client is distributed at two places: browser version through this web site in <a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js">compressed</a> and <a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js">uncompressed</a> forms and node version through npm. This page already loaded the uncompressed version. Open a console and type <code>vibe</code>.</p>
 
-<h3>Basic</h3>
-{% capture panel %}
+---
+
+## Getting Started
+According to runtime engine, Vibe JavaScript Client is distributed at two places: browser version through this web site in <a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js">compressed</a> and <a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js">uncompressed</a> forms and node version through npm. This page already loaded the uncompressed version. Open a console and type <code>vibe</code>.
+
+### Basic
 Let's see how the protocol part of the protocol specification is implemented using a simple one-off echo example.
 
 ```javascript
@@ -38,7 +40,6 @@ socket.on("open", function() { // C
     console.log("closed due to " + reason);
 });
 ```
-{% endcapture %}{{ panel | markdownify }}
 
 <dl>
     <dt>A <code>vibe.open("http://localhost:8000/vibe")</code></dt>
@@ -52,8 +53,8 @@ socket.on("open", function() { // C
     <dt>E <code>socket.on("close", reason => {})</code></dt>
     <dd>For various reasons, connection is disconnected and the reason explaining what happens is provided as first argument.</dd>
 </dl>
-<h3>Advanced</h3>
-{% capture panel %}
+
+### Advanced
 In this time, let's take a look how the extensions part of the protocol specification and other features are implemented extending the previous example.
 
 ```javascript
@@ -99,7 +100,6 @@ socket.on("connecting", function() { // D
     console.log("reconnection delay: " + delay + " and attempts: " + attempts);
 });
 ```
-{% endcapture %}{{ panel | markdownify }}
 
 <dl>
     <dt>A <code>reconnect: lastDelay => 2 * lastDelay || 500</code></dt>

@@ -3,7 +3,8 @@ layout: project
 title: Vibe Java Server Platform
 ---
 
-<p>Vibe Java Server Platform is a simple <sup><strong>A</strong></sup> abstraction layer <sup><strong>B</strong></sup> for full-stack web application frameworks <sup><strong>C</strong></sup> and raw web servers <sup><strong>D</strong></sup> running on Java Virtual Machine.
+Vibe Java Server Platform is a simple <sup><strong>A</strong></sup> abstraction layer <sup><strong>B</strong></sup> for full-stack web application frameworks <sup><strong>C</strong></sup> and raw web servers <sup><strong>D</strong></sup> running on Java Virtual Machine.
+
 <dl>
     <dt>A</dt>
     <dd>All interface you need to know is ServerHttpExchange and ServerWebSocket. Indeed.</dd>

@@ -3,7 +3,8 @@ layout: project
 title: Vibe Java Server
 ---
 
-<p>Vibe Java Server is a simple <sup><strong>A</strong></sup>, scalable <sup><strong>B</strong></sup> Java server designed to run any framework or platform on Java Virtual Machine <sup><strong>C</strong></sup>.</p>
+Vibe Java Server is a simple <sup><strong>A</strong></sup>, scalable <sup><strong>B</strong></sup> Java server designed to run any framework or platform on Java Virtual Machine <sup><strong>C</strong></sup>.
+
 <dl>
     <dt>A</dt>
     <dd>All interface you need to know is Server and Socket. Indeed.</dd>
@@ -12,12 +13,13 @@ title: Vibe Java Server
     <dt>C</dt>
     <dd>Because it is built on Vibe Java Server Platform which is I/O abstraction layer, you can run your application on any platform that it supports seamlessly e.g. Play, Vert.x, Atmosphere and Servlet.</dd>
 </dl>
-<hr />
-<h2>Getting Started</h2>
-<p>Vibe Java Server is distributed through Maven Central. A single artifact, <code>org.atmosphere:vibe-server:3.0.0-Alpha1</code>, is enough for general purpose and thanks to Vibe Java Server Platform, your application can run on any framework or platform it supports.</p>
 
-<h3>Basic</h3>
-{% capture panel %}
+---
+
+## Getting Started
+Vibe Java Server is distributed through Maven Central. A single artifact, <code>org.atmosphere:vibe-server:3.0.0-Alpha1</code>, is enough for general purpose and thanks to Vibe Java Server Platform, your application can run on any framework or platform it supports.
+
+### Basic
 Let's take a brief look at basic API through writing a simple server running on the top of Servlet container. Add the following dependencies to your build or include them on classpath manually.
 
 ```xml
@@ -81,7 +83,6 @@ public class Bootstrap implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {}
 }
 ```
-{% endcapture %}{{ panel | markdownify }}
 
 <dl>
     <dt>A <code>Server server = new DefaultServer()</code></dt>
@@ -98,8 +99,7 @@ public class Bootstrap implements ServletContextListener {
     <dd>As a platform of Vibe Java Server Platform, Atmosphere will deliver HTTP and WebSocket connections whose a request path belongs to <code>/vibe</code> from the Servlet container to the server.</dd>
 </dl>
 
-<h3>Advanced</h3>
-{% capture panel %}
+### Advanced
 Following the basic example, in this time, let's scale application with the help of [Hazelcast](http://hazelcast.com/) and see advanced API usage including the extension part from the specification. Add the following dependencies to your build or include them on classpath manually.
 
 ```xml
@@ -219,7 +219,6 @@ public class Bootstrap implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {}
 }
 ```
-{% endcapture %}{{ panel | markdownify }}
 
 <dl>
     <dt>A <code>ClusteredServer server = new ClusteredServer()</code></dt>
