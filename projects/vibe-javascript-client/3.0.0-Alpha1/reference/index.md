@@ -466,7 +466,7 @@ According to the technology, available transport implementations can be sorted i
 
 * HTTP Streaming
 
-    The client performs a HTTP persistent connection and watches changes in response text and the server prints chunk as data over the connection. Generally, streaming transports are faster than WebSocket.
+    The client performs a HTTP persistent connection and watches changes in response text and the server prints chunk as data over the connection.
      
     * `sse`: works if browser supports `EventSource`. If the browser is Safari 5 or 6, only same origin connection works. By reason of the spec's ambiguity, there is no way to determine whether a connection closed normally or not so that the close event's reason will be always `done` even though the connection closed due to an error.
     * `streamxhr`: in case of same origin connection, works without qualification. In case of cross origin, works if `XMLHttpRequest` supports CORS. However for both cases, if the browser is Internet Explorer, the version should be equal to or higher than 10 and if the browser is Opera, the version should be equal to or higher than 13.
@@ -481,7 +481,7 @@ According to the technology, available transport implementations can be sorted i
      
     * `longpollajax`: in case of same origin connection, works without qualification. In case of cross origin, works if `XMLHttpRequest` supports CORS.
     * `longpollxdr`: works if browser supports `XDomainRequest` and `xdrURL` option is set.
-    * `longpolljsonp`: works alwayas.<p>
+    * `longpolljsonp`: works always.<p>
 
     For convenience, a special transport, `longpoll`, is provided, which represents the above implementation with order.
 
