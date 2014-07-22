@@ -380,7 +380,7 @@ http.bodyAction(new Action<Data>() {
 ```
 
 #### Response properties
-These are write only.
+These are write only. In accordance with HTTP spec, it's not possible to set value after the write of first chunk.
 
 <div class="row">
     <div class="large-6 columns">
