@@ -81,7 +81,7 @@ public class Bootstrap implements ServletContextListener {
 }
 ```
 
-### Further reading
+### Further Reading
 
 * Do you want to play something right now? Start with [archetype example](https://github.com/Atmosphere/vibe-examples/tree/master/archetype/vibe-java-server) on your favorite platform.
 * To take a brief look at API, check out the [testee](https://github.com/Atmosphere/vibe/blob/b6350d1fb680279bf0e3def6ecae3202e06c69ac/vibe/src/test/java/org/atmosphere/vibe/runtime/ProtocolTest.java#L19-L64).
