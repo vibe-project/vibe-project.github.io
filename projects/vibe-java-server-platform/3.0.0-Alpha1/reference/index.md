@@ -64,9 +64,8 @@ import javax.servlet.annotation.WebListener;
 public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
+        // Your application
         Server server = new DefaultServer();
-        // server.socketAction(socket -> {/* Your logic here */});
-
         new AtmosphereBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
     }
 
@@ -106,12 +105,10 @@ import org.vertx.java.platform.Verticle;
 public class Bootstrap extends Verticle {
     @Override
     public void start() {
+        // Your application
         Server server = new DefaultServer();
-        // server.socketAction(socket -> {/* Your logic here */});
-
         HttpServer httpServer = vertx.createHttpServer();
         // Attach request and websocket handler first before installation
-
         new VertxBridge(httpServer, "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
         httpServer.listen(8080);
     }
@@ -151,9 +148,8 @@ import javax.servlet.annotation.WebListener;
 public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
+        // Your application
         Server server = new DefaultServer();
-        // server.socketAction(socket -> {/* Your logic here */});
-        
         new ServletBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction());
     }
     
@@ -197,9 +193,8 @@ import javax.websocket.server.ServerEndpointConfig;
 public class Bootstrap implements ServerApplicationConfig {
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> _) {
+        // Your application
         Server server = new DefaultServer();
-        // server.socketAction(socket -> {/* Your logic here */});
-
         return Collections.singleton(new JwaBridge("/vibe").websocketAction(server.websocketAction()).config());
     }
 
@@ -237,10 +232,8 @@ import play.mvc.Result;
 import play.mvc.WebSocket;
 
 public class Bootstrap extends Controller {
+    // Your application
     static Server server = new DefaultServer();
-    static {
-        // server.socketAction(socket -> {/* Your logic here */});
-    }
 
     @BodyParser.Of(BodyParser.TolerantText.class)
     public static Promise<Result> http() {
@@ -338,10 +331,10 @@ These are read only.
 URI.create(http.uri()).getQuery();
 ```
 {% endcapture %}{{ panel | markdownify }}
-	</div>
-	<div class="large-4 columns">
-	    <h5>Method</h5>
-	    <p>A name of the request method.</p>
+    </div>
+    <div class="large-4 columns">
+        <h5>Method</h5>
+        <p>A name of the request method.</p>
 {% capture panel %}
 ```java
 switch (http.method()) {
@@ -353,9 +346,9 @@ switch (http.method()) {
 ```
 {% endcapture %}{{ panel | markdownify }}
     </div>
-	<div class="large-4 columns">
-	    <h5>Headers</h5>
-	    <p>Request headers.</p>
+    <div class="large-4 columns">
+        <h5>Headers</h5>
+        <p>Request headers.</p>
 {% capture panel %}
 ```java
 for (String name : http.requestHeaderNames()) {
@@ -391,10 +384,10 @@ These are write only. In accordance with HTTP spec, it's not possible to set val
 http.setStatus(HttpStatus.NOT_IMPLEMENTED);
 ```
 {% endcapture %}{{ panel | markdownify }}
-	</div>
-	<div class="large-6 columns">
-	    <h5>Headers</h5>
-	    <p>Response headers.</p>
+    </div>
+    <div class="large-6 columns">
+        <h5>Headers</h5>
+        <p>Response headers.</p>
 {% capture panel %}
 ```java
 http.setResponseHeader("content-type", "text/javascript; charset=utf-8");
@@ -421,10 +414,10 @@ On response close, close event handlers added via `closeAction` are executed.
 
 ```java
 http.closeAction(new VoidAction() {
-	@Override
-	public void on() {
+    @Override
+    public void on() {
         // Your logic here
-	}
+    }
 });
 ```
 
@@ -446,11 +439,11 @@ Message event handlers attached via `messageAction` are called with `Data` wrapp
 
 ```java
 ws.messageAction(new Action<Data>() {
-	@Override
-	public void on(Data data) {
-		String message = data.as(String.class);
+    @Override
+    public void on(Data data) {
+        String message = data.as(String.class);
         // Your logic here
-	}
+    }
 });
 ```
 
@@ -472,9 +465,9 @@ On connection close, close event handlers added via `closeAction` are executed.
 
 ```java
 ws.closeAction(new VoidAction() {
-	@Override
-	public void on() {
+    @Override
+    public void on() {
         // Your logic here
-	}
+    }
 });
 ```
