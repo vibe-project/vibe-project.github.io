@@ -6,7 +6,26 @@ title: Vibe
     <div class="large-12 columns">
         <h1>Vibe</h1>
         <h4 class="subheader">A real-time web application framework</h4>
-        <p><strong>Vibe</strong> is a new web framework to write low-latency, event-driven, real-time web application and service based on its own protocol built over HTTP and WebSocket, not just a disposable framework to write chat application. <strong>Vibe</strong> focuses on providing reliable full duplex connection and making the best use of it for modern web application development so that teams can focus on application-level business logic and event handling without unnecessary ties to low-level details like transport mechanisms and message loss.</p>
+        <p><strong>Vibe</strong> is a new web framework to write low-latency, event-driven, real-time web application and service based on its own protocol built over HTTP and WebSocket <sup><strong>A</strong></sup>, not just a disposable framework to write chat application. <strong>Vibe</strong> focuses on providing reliable full duplex connection and making the best use of it for modern web application development so that teams can focus on application-level business logic and event handling without unnecessary ties to low-level details like transport mechanisms and message loss. <sup><strong>B</strong>, <strong>C</strong></sup></p>
         <p>It has started as Atmosphere 3, a collaboration of Atmosphere by Jeanfrancois Arcand and Portal by Donghwan Kim by taking advantage of both projects, but as its synergy effect, <strong>Vibe</strong> is birthed.</p>
+        <dl>
+            <dt>A</dt>
+            <dd><p><a href="{{ site.baseurl }}/projects/vibe-protocol/">Vibe Protocol</a> is designed with polyglot in mind to make it easy to use Vibe with any language.</p></dd>
+            <dt>B</dt>
+            <dd>
+                <p>The following implementations are officially maintained by Vibe team. Note that each project has many more useful features besides its name suggests.</p>
+	            <ul class="inline-list">
+		            <li><a href="{{ site.baseurl }}/projects/vibe-java-server/">Vibe Java Server</a></li>
+		            <li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/">Vibe JavaScript Client</a></li>
+		        </ul>
+            </dd>
+            <dt>C</dt>
+            <dd>
+                <p>Also we created some reusable projects to separate implementation part and other parts. If they fit your needs, feel free to use them for your own purpose.</p>
+                <ul class="inline-list">
+                    <li><a href="{{ site.baseurl }}/projects/vibe-java-server-platform/">Vibe Java Server Platform</a></li>
+                </ul>
+            </dd>
+        </dl>
     </div>
 </div>
