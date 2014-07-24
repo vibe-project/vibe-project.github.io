@@ -1,5 +1,5 @@
 (function() {
-	$(document).foundation();
+    $(document).foundation();
     $("#content :header:not(h1)").each(function() {
         var $this = $(this);
         var id = $this.text().toLowerCase().replace(/[^0-9a-z_.-\:]/g, "-");
