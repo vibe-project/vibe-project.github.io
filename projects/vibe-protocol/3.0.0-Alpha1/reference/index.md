@@ -105,13 +105,13 @@ A transport id. It's required. Transport is a private interface used to establis
 #### `interface Server`
 An interface to represent a server. It inherits [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter).
 
-##### `handleRequest (req: http.IncomingMessage, res: http.ServerResponse)`
+##### `handleRequest (req: http.IncomingMessage, res: http.ServerResponse): void`
 It consumes HTTP exchange to establish HTTP based transports. Untainted req and res are expected to be passed from Node's HTTP/HTTPS server's request event.
 
-##### `handleUpgrade (req: http.IncomingMessage, socket:net.Socket, head: buffer.Buffer)`
+##### `handleUpgrade (req: http.IncomingMessage, socket:net.Socket, head: buffer.Buffer): void`
 It consumes HTTP exchange to establish WebSocket transport. Untainted req, socket and head are expected to be passed from Node's HTTP/HTTPS server's upgrade event.
 
-##### `on(event: string, handler: Function): Socket`
+##### `on(event: string, handler: Function): Server`
 Adds a given event handler for a given event.
 
 * `socket (socket: Socket): void`: fired when a socket representing client is opened. It's opened so I/O operations are possible.

@@ -11,7 +11,7 @@ Vibe Protocol is a protocol based on web standards <sup><strong>A</strong></sup>
     <dt>B</dt>
     <dd>This part defines transports for interacting with HTTP connections and socket for exchanging events between two endpoints on the top of transport.</dd>
     <dt>C</dt>
-    <dd>This part defines optional extensions which represent patterns making modern web application development fast and enjoyable.</dd>
+    <dd>This part defines extensions which represent patterns making modern web application development fast and enjoyable.</dd>
     <dt>D</dt>
     <dd>You don't need to take trouble to demonstrate your implementation works correctly. Just show test arguments and result.</dd>
 </dl>
