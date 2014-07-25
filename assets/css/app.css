@@ -5210,7 +5210,8 @@ div.copyright {
   div.copyright p, div.copyright ul {
     font-size: 0.9rem; }
 
-article h1 {
-  font-size: 2rem; }
 article .information {
   color: #888; }
+  article .information .post-author {
+    height: 24px;
+    display: inline-block; }

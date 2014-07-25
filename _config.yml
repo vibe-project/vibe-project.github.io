@@ -3,7 +3,7 @@ name: Vibe
 description: Vibe, the modern web framework for writing real-time web applications.
 url: http://atmosphere.github.io/vibe/
 relative_permalinks: false
-permalink: /blog/:year/:month/:day/:title/
+permalink: /blog/:title/
 paginate: 5
 paginate_path: "/blog/page:num/"
 markdown: redcarpet

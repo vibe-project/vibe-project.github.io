@@ -1,5 +1,5 @@
 <article>
-    <h1 class="title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+    <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
     <div class="information">
         <p>
             <a href="https://github.com/{{ post.author }}" class="post-author">
@@ -8,5 +8,5 @@
             wrote this on <time>{{ post.date | date_to_string }}</time> in {{ post.categories | array_to_sentence_string }}
         </p>
     </div>
-    <div class="content">{{ post.content }}</div>
+    <div class="content">{{ post.content | truncatewords: 50 }}</div>
 </article>

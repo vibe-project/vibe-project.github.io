@@ -33,10 +33,11 @@ div.copyright {
   }
 }
 article {
-  h1 {
-    font-size: 2rem;
-  }
   .information {
     color: #888;
+    .post-author {
+      height: 24px;
+      display: inline-block;
+    }
   }
 }
