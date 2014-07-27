@@ -59,14 +59,14 @@ npm install vibe-protocol
 To load the module, type the following to Node console or JavaScript file.
 
 ```javascript
-var vibe = require("vibe-client");
+var vibe = require("vibe-protocol");
 ```
 
 #### `export function open(uri: string, options?: SocketOptions): Socket`
 Creates a vibe client as a form of socket, connects to the given URI and returns it. It is an asynchronous operation so the returned socket must be connecting. Once the open event has been fired, I/O operations will be available.
 
 ```javascript
-var vibe = require("vibe-client");
+var vibe = require("vibe-protocol");
 var socket = vibe.open("http://localhost:8080/", {transport: "ws"});
 
 socket.on("open", function() {
