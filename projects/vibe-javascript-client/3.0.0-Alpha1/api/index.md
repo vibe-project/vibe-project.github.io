@@ -90,7 +90,7 @@ _All possible options along with their default values._
 
 ```javascript
 vibe.open(uri, {
-    heartbeat: false,
+    heartbeat: 20000,
     reconnect: function(lastDelay) {
         return 2 * lastDelay || 500;
     },
@@ -108,7 +108,7 @@ vibe.open(uri, {
 
 ```javascript
 vibe.open(uri, {
-    heartbeat: false,
+    heartbeat: 20000,
     reconnect: function(lastDelay) {
         return 2 * lastDelay || 500;
     },
@@ -123,14 +123,14 @@ vibe.open(uri, {
 _My configuration for testing._
 
 ```javascript
-vibe.open(uri, {reconnect: false, timeout: 1000, xdrURL: function(url) {return url;}});
+vibe.open(uri, {heartbeat: false, reconnect: false, timeout: 1000, xdrURL: function(url) {return url;}});
 ```
 
 #### `heartbeat?: any`
-**Default**: `false`
+**Default**: `20000`
 
 ##### `heartbeat?: number`
-A heartbeat interval value in milliseconds. A opened socket continuously sends a heartbeat event to the server each time the value has elapsed. Actually, the socket sends the event 5 seconds before the heartbeat timer expires to wait the server's echo. If the event echoes back within 5 seconds, the socket reset the timer. Otherwise, the `close` event is fired. For that reason, the value must be larger than `5000` and the recommended value is `20000`.
+A heartbeat interval value in milliseconds. A opened socket continuously sends a heartbeat event to the server each time the value has elapsed. Actually, the socket sends the event 5 seconds before the heartbeat timer expires to wait the server's echo. If the event echoes back within 5 seconds, the socket reset the timer. Otherwise, the `close` event is fired. For that reason, the value must be larger than `5000`.
 
 ##### `heartbeat?: boolean`
 The value `false` means no heartbeat.

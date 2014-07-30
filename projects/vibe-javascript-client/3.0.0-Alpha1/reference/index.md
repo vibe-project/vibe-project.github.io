@@ -336,7 +336,7 @@ server.on("socket", function(socket) {
 </div>
 
 ### Heartbeat
-Considering a multitude of browsers, transports, servers, networks and their combination, heartbeat is essential to maintain stable connection. To enable, set `heartbeat:number` option to number in ms greater than 5000. 20000 ms is recommended.
+Considering a multitude of browsers, transports, servers, networks and their combination, heartbeat is essential to maintain stable connection. For that reason, a socket starts heartbeat communication every 20 seconds on the open event by default. To change the time interval,  set `heartbeat:number` option to number in ms greater than 5000.
 
 Eavesdropping heartbeat of client and server.
 
@@ -346,7 +346,7 @@ Eavesdropping heartbeat of client and server.
 **Client**
 
 ```javascript
-vibe.open("http://localhost:8000", {reconnect: false, heartbeat: 20000})
+vibe.open("http://localhost:8000", {reconnect: false})
 .on("heartbeat", function() {
     console.log("heartbeat at " + Date.now());
 });

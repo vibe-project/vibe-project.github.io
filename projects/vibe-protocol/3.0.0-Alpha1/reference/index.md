@@ -94,7 +94,7 @@ require("http").createServer().on("request", server.handleRequest).on("upgrade",
 An interface to establish a socket.
 
 ##### `heartbeat`
-A heartbeat interval value in milliseconds. A opened socket continuously sends a heartbeat event to the server each time the value has elapsed. Actually, the socket sends the event 5 seconds before the heartbeat timer expires to wait the server's echo. If the event echoes back within 5 seconds, the socket reset the timer. Otherwise, the close event is fired. For that reason, the value must be larger than `5000` and the recommended value is `20000`.
+A heartbeat interval value in milliseconds. A opened socket continuously sends a heartbeat event to the server each time the value has elapsed. Actually, the socket sends the event 5 seconds before the heartbeat timer expires to wait the server's echo. If the event echoes back within 5 seconds, the socket reset the timer. Otherwise, the close event is fired. For that reason, the value must be larger than `5000` and the default value is `20000`. Set `false` to disable.
  
 ##### `_heartbeat`
 It is the 5 seconds from the explanation for `heartbeat` and is in milliseconds unit. This is only for speeding up heartbeat tests.
