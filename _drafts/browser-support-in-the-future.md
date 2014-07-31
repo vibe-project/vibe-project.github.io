@@ -2,7 +2,6 @@
 layout: post
 title: "Browser support in the future"
 author: flowersinthesand
-categories: [article]
 ---
 
 jQuery team has [mentioned](http://blog.jquery.com/2014/04/02/browser-support-in-jquery-1-12-and-beyond/) about future changes in browser support with Microsoft ending Windows XP support a month ago. Accordingly Vibe JavaScript Client will reduce browser coverage. As they already said, **don't panic!** It will happen 2014 end or early 2015.

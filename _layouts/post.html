@@ -9,7 +9,7 @@ layout: blog
             <a href="https://github.com/{{ page.author }}" class="post-author">
                 <img src="https://github.com/{{ page.author }}.png" alt="{{ page.author }}" width="24" height="24"> {{ page.author }}
             </a>
-            wrote this on <time>{{ page.date | date_to_string }}</time> in {{ page.categories | array_to_sentence_string }}
+            wrote this on <time>{{ page.date | date_to_string }}</time>
         </p>
     </div>
     <div class="content">{{ content }}</div>

@@ -2,7 +2,6 @@
 layout: post
 title: "Migration from Portal"
 author: flowersinthesand
-categories: [article]
 ---
 
 This guide is for migrating a Portal application to Vibe.
