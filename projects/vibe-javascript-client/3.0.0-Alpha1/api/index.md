@@ -34,7 +34,9 @@ title: Vibe JavaScript Client API
 ---
 
 ## `module vibe`
-A module acting as a factory for vibe client. This page already loaded the module. Open a console and type `vibe`.
+A vibe client module acting as a factory to create and manage socket. Every time the module is loaded through either Node's require, AMD's require or script tag, it's newly created. But you don't need to be aware of that.
+
+This page already loaded the module. Open a console and type `vibe`.
 
 _Loading module._
 
