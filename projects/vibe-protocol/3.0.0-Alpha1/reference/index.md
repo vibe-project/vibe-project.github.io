@@ -46,7 +46,6 @@ To help understand and implement the protocol, reference implementation is provi
 **Note**
 
 * They are not for production use.
-* Focus on what should be done not minding interface.
 
 ### Installation
 First you need to install [Node.js](http://nodejs.org). Then type the following to install the reference implementation:
