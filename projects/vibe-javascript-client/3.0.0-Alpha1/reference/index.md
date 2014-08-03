@@ -54,7 +54,7 @@ Then load or link it by using either script tag or [Asynchronous Module Definiti
 ```html
 <script src="/vibe/vibe.min.js"></script>
 <script>
-vibe.open("/vibe");
+var socket = vibe.open("/vibe");
 </script>
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -65,7 +65,7 @@ vibe.open("/vibe");
 
 ```javascript
 require(["vibe"], function(vibe) {
-    vibe.open("/vibe");
+    var socket = vibe.open("/vibe");
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -85,7 +85,7 @@ Then load it as a Node.js module.
 
 ```javascript
 var vibe = require("vibe-client");
-vibe.open("http://localhost:8000/vibe");
+var socket = vibe.open("http://localhost:8000/vibe");
 ```
 
 ---
