@@ -475,7 +475,7 @@ According to the technology, available transport implementations can be sorted i
     
     For convenience, a special transport, `stream`, is provided, which represents the above implementation with order.
 
-* HTTP Long polling: `longpollajax`, `longpollxdr`, `longpolljsonp`.
+* HTTP Long polling
 
     The client performs a HTTP persistent connection and the server ends the connection with data. Then, the client receives it and performs a request again. 
      
