@@ -124,7 +124,7 @@ Adds a given event handler for a given event.
 * `socket (socket: Socket): void`: fired when a socket representing client is opened. It's opened so I/O operations are possible.
 
 #### `interface Socket`
-An interface representing the remote endpoint that is server if it's created by `vibe.open` or client if it's created by `vibe.server`. It inherits [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter).
+An interface representing the server if it's created by `vibe.client` or client if it's created by `vibe.server`. It inherits [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter).
 
 ##### `close(): Socket`
 Closes the socket.
@@ -132,7 +132,7 @@ Closes the socket.
 ##### `on(event: string, handler: Function): Socket`
 Adds a given event handler for a given event.
 
-* `open (): void`: fired when a socket is opened. Only valid for socket obtained from `vibe.open`. 
+* `open (): void`: fired when a socket is opened. Only valid for socket obtained from the client, `vibe.client`. 
 * `close (): void`: fired when a socket is closed for any reason.
 * `[event: string]: (data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void`: fired when the counterpart sends an event. If the counterpart attaches resolved or rejected callbacks, reply object will be provided.
 
@@ -185,7 +185,8 @@ require("http").createServer()
 
 ```javascript
 var vibe = require("vibe-protocol");
-var socket = vibe.open("http://localhost:8000/", {transport:"ws"});
+var client = vibe.client();
+var socket = client.open("http://localhost:8000/", {transport:"ws"});
 
 socket.on("open", function() {
     socket.send("echo", "An echo message");
@@ -215,7 +216,8 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 
 ```javascript
 var vibe = require("vibe-protocol");
-var socket = vibe.open("http://localhost:8000/", {transport: "ws"});
+var client = vibe.client();
+var socket = client.open("http://localhost:8000/", {transport:"ws"});
 
 socket.on("open", function() {
     console.log("socket");
