@@ -54,7 +54,7 @@ Installation will be done once the servlet container starts.
 
 ```java
 import org.atmosphere.vibe.server.*;
-import org.atmosphere.vibe.server.platform.atmosphere.*;
+import org.atmosphere.vibe.server.platform.atmosphere2.*;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -95,7 +95,7 @@ Installation will be done once the verticle starts.
 
 ```java
 import org.atmosphere.vibe.server.*;
-import org.atmosphere.vibe.server.platform.vertx.*;
+import org.atmosphere.vibe.server.platform.vertx2.*;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServer;
@@ -138,7 +138,7 @@ Installation will be done once the servlet container starts.
 
 ```java
 import org.atmosphere.vibe.server.*;
-import org.atmosphere.vibe.server.platform.servlet.*;
+import org.atmosphere.vibe.server.platform.servlet3.*;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -181,7 +181,7 @@ Installation will be done once the container starts by scanning `ServerApplicati
 
 ```java
 import org.atmosphere.vibe.server.*;
-import org.atmosphere.vibe.server.platform.jwa.*;
+import org.atmosphere.vibe.server.platform.jwa1.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -222,7 +222,7 @@ Write entry point for HTTP exchange and WebSocket extending `Controller`.
 
 ```java
 import org.atmosphere.vibe.server.*;
-import org.atmosphere.vibe.server.platform.play.*;
+import org.atmosphere.vibe.server.platform.play2.*;
 
 import play.libs.F.Promise;
 import play.mvc.BodyParser;
