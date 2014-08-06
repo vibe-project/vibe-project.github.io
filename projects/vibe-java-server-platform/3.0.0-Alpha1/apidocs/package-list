@@ -1,7 +1,7 @@
-org.atmosphere.vibe
-org.atmosphere.vibe.atmosphere
-org.atmosphere.vibe.jwa
-org.atmosphere.vibe.play
-org.atmosphere.vibe.servlet
-org.atmosphere.vibe.test
-org.atmosphere.vibe.vertx
+org.atmosphere.vibe.server.platform
+org.atmosphere.vibe.server.platform.atmosphere2
+org.atmosphere.vibe.server.platform.jwa1
+org.atmosphere.vibe.server.platform.play2
+org.atmosphere.vibe.server.platform.servlet3
+org.atmosphere.vibe.server.platform.test
+org.atmosphere.vibe.server.platform.vertx2
