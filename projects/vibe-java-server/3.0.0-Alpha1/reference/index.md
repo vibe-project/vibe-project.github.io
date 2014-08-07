@@ -264,7 +264,7 @@ public class EntityListener {
     
     @PostUpdate
     public void notifyAccount(Account account) {
-        server.byTag(account.username()).send("account:update", account);
+        server.byTag(account.username()).send("/account/update", account);
     }
 }
 ```
@@ -280,6 +280,10 @@ public class EntityListener {
 |`Integer` or `Double` | `String` | `Boolean` | `List<T>` | `Map<String, T>` | `null` or `Void` |
 
 `send(String event)` and `send(String event, Object data)` sends an event with or without data, respectively. Unlike when receiving event, when sending event you can use any type of data.
+
+**Note**
+
+* To manage a lot of events easily, use [URI](http://tools.ietf.org/html/rfc3986) as event name format like `/account/update`.
 
 The client sends events and the server echoes back to the client.
 
@@ -386,7 +390,7 @@ The client sends replyable events and the server executes callbacks with event d
 server.socketAction(new Action<Socket>() {
     @Override
     public void on(final Socket socket) {
-        socket.on("account:find", new Action<Reply<String>>() {
+        socket.on("/account/find", new Action<Reply<String>>() {
             @Override
             public void on(Reply<String> reply) {
                 String id = reply.data();
@@ -411,12 +415,12 @@ server.socketAction(new Action<Socket>() {
 var client = require("vibe-protocol/lib/client");
 client.open("http://localhost:8000/vibe", {transport: "ws"})
 .on("open", function(data) {
-    this.send("account:find", "flowersinthesand", function(data) {
+    this.send("/account/find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
     }, function(data) {
         console.log("rejected with " + data);
     })
-    .send("account:find", "flowersits", function(data) {
+    .send("/account/find", "flowersits", function(data) {
         console.log("resolved with " + data);
     }, function(data) {
         console.log("rejected with " + data);
@@ -438,7 +442,7 @@ The server sends replyable events and the client executes callbacks with event d
 server.socketAction(new Action<Socket>() {
     @Override
     public void on(final Socket socket) {
-        socket.send("account:find", "flowersinthesand", new Action<Map<String, Object>>() {
+        socket.send("/account/find", "flowersinthesand", new Action<Map<String, Object>>() {
             @Override
             public void on(Map<String, Object> data) {
                 System.out.println("resolved with " + data);
@@ -449,7 +453,7 @@ server.socketAction(new Action<Socket>() {
                 System.out.println("rejected with " + data);
             }
         })
-        .send("account:find", "flowersits", new Action<Map<String, Object>>() {
+        .send("/account/find", "flowersits", new Action<Map<String, Object>>() {
             @Override
             public void on(Map<String, Object> data) {
                 System.out.println("resolved with " + data);
@@ -472,7 +476,7 @@ server.socketAction(new Action<Socket>() {
 ```javascript
 var client = require("vibe-protocol/lib/client");
 client.open("http://localhost:8000/vibe", {transport: "ws"})
-.on("account:find", function(id, reply) {
+.on("/account/find", function(id, reply) {
     console.log(id);
     if (id === "flowersinthesand") {
         reply.resolve({name: "Donghwan Kim"});

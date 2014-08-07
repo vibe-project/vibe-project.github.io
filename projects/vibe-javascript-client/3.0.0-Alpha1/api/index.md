@@ -313,14 +313,14 @@ vibe.open(uri).on("waiting", function(delay, attempts) {
 ```
 
 ##### `[event: string]: (data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void`
-All the other event are message event and fired every time the server sends an event. `data` is data of the server sent event and `reply` is a controller to reply the server and not null only if server attaches resolved or rejected callback.
+All the other event are message event and fired every time the server sends an event. `data` is data of the server sent event and `reply` is a controller to reply the server and not null only if server attaches resolved or rejected callback. Because this type of event will be used heavily, to manage such many events systematically, using some format like [URI](http://tools.ietf.org/html/rfc3986) to event naming is helpful.
 
 _Receiving data_
 
 ```javascript
 // If this socket is in connecting and opened, it will be executed every time an event has been received.
 // If this socket is in closed or waiting, it will be ignored.
-vibe.open(uri).on("chat", function(message) {
+vibe.open(uri).on("/chat/message", function(message) {
     console.dir(message);
 });
 ```
@@ -328,24 +328,15 @@ vibe.open(uri).on("chat", function(message) {
 _Replying to event_
 
 ```javascript
-vibe.open(uri).on("blinddate.request", function(account, reply) {
-    if (account.sex === "female") {
-        background.check.look(account.name, function(look) {
-            if (look.straightHair && (look.noGlasses || look.contactLenses) && look.cleanSkin) {
-                background.check.personality(account.name, function(personality) {
-                    if (personality.kind || personality.sunny) {
-                        reply.resolve("(*^3^)/");
-                    } else {
-                        reply.resolve();
-                    }
-                });
-            } else {
-                reply.reject();
-            }
-        });
-    } else {
-        reply.reject("(╯°□°）╯");
-    }
+vibe.open(uri).on("/talk/request", function(account, reply) {
+    $.templates("#template").link("#dialog section", account);
+    $("#dialog").show().one("close", function() {
+        if (this.returnValue) {
+            reply.resolve();
+        } else {
+            reply.reject();
+        }
+    });
 });
 ```
 
@@ -371,7 +362,7 @@ _Sending simple event._
 
 ```javascript
 vibe.open(uri).on("open", function() {
-    this.send("start");
+    this.send("/start");
 });
 ```
 
@@ -379,7 +370,7 @@ _Getting data from the server._
 
 ```javascript
 vibe.open(uri).on("open", function() {
-    this.send("account.find", "flowersinthesand", function(account) {
+    this.send("/account/find", "flowersinthesand", function(account) {
         console.dir(account);
     }, function(reason) {
         console.log("Got an error:" + reason);

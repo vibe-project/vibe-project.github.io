@@ -164,6 +164,7 @@ You can send event using `send(event: string, data?: any)` and receive event usi
 **Note**
 
 * Socket must be in `opened` state.
+* To manage a lot of events easily, use [URI](http://tools.ietf.org/html/rfc3986) as event name format like `/account/update`.
 
 The client sends events and the server echoes back to the client.
 
@@ -259,12 +260,12 @@ The client sends replyable events and the server executes callbacks with event d
 ```javascript
 vibe.open("http://localhost:8000/vibe", {reconnect: false})
 .on("open", function(data) {
-    this.send("account:find", "flowersinthesand", function(data) {
+    this.send("/account/find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
     }, function(data) {
         console.log("rejected with " + data);
     })
-    .send("account:find", "flowersits", function(data) {
+    .send("/account/find", "flowersits", function(data) {
         console.log("resolved with " + data);
     }, function(data) {
         console.log("rejected with " + data);
@@ -279,7 +280,7 @@ vibe.open("http://localhost:8000/vibe", {reconnect: false})
 
 ```javascript
 server.on("socket", function(socket) {
-    socket.on("account:find", function(id, reply) {
+    socket.on("/account/find", function(id, reply) {
       console.log(id);
       if (id === "flowersinthesand") {
           reply.resolve({name: "Donghwan Kim"});
@@ -302,7 +303,7 @@ The server sends replyable events and the client executes callbacks with event d
 
 ```javascript
 vibe.open("http://localhost:8000/vibe", {reconnect: false})
-.on("account:find", function(id, reply) {
+.on("/account/find", function(id, reply) {
     console.log(id);
     if (id === "flowersinthesand") {
         reply.resolve({name: "Donghwan Kim"});
@@ -319,12 +320,12 @@ vibe.open("http://localhost:8000/vibe", {reconnect: false})
 
 ```javascript
 server.on("socket", function(socket) {
-    socket.send("account:find", "flowersinthesand", function(data) {
+    socket.send("/account/find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
     }, function(data) {
         console.log("rejected with " + data);
     })
-    .send("account:find", "flowersits", function(data) {
+    .send("/account/find", "flowersits", function(data) {
         console.log("resolved with " + data);
     }, function(data) {
         console.log("rejected with " + data);
