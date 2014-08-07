@@ -166,7 +166,7 @@ You can send event using `send(event: string, data?: any)` and receive event usi
 * Socket must be in `opened` state.
 * To manage a lot of events easily, use [URI](http://tools.ietf.org/html/rfc3986) as event name format like `/account/update`.
 
-The client sends events and the server echoes back to the client.
+_The client sends events and the server echoes back to the client._
 
 <div class="row">
 <div class="large-6 columns">
@@ -203,7 +203,7 @@ server.on("socket", function(socket) {
 </div>
 </div>
 
-The server sends events and the client echoes back to the server.
+_The server sends events and the client echoes back to the server._
 
 <div class="row">
 <div class="large-6 columns">
@@ -250,7 +250,7 @@ It looks nothing new to traditional Ajax or Remote Procedure Call (RPC), but com
 * Do not mingle repliable event and non-repliable event under the same event. It's error-prone.
 * Beforehand determine whether to use rejected callback or not to avoid writing unnecessary rejected callbacks.
 
-The client sends replyable events and the server executes callbacks with event data.
+_The client sends replyable events and the server executes callbacks with event data._
 
 <div class="row">
 <div class="large-6 columns">
@@ -294,7 +294,7 @@ server.on("socket", function(socket) {
 </div>
 </div>
 
-The server sends replyable events and the client executes callbacks with event data.
+_The server sends replyable events and the client executes callbacks with event data._
 
 <div class="row">
 <div class="large-6 columns">
@@ -339,7 +339,7 @@ server.on("socket", function(socket) {
 ### Heartbeat
 Considering a multitude of browsers, transports, servers, networks and their combination, heartbeat is essential to maintain stable connection. For that reason, a socket starts heartbeat communication every 20 seconds on the open event by default. To change the time interval,  set `heartbeat:number` option to number in ms greater than 5000.
 
-Eavesdropping heartbeat of client and server.
+_Eavesdropping heartbeat of client and server._
 
 <div class="row">
 <div class="large-6 columns">
@@ -380,7 +380,7 @@ To enalbe, set `sharing:boolean` option to `true`. As long as the cookie is enab
 * In the current implementation, the server can't see socket using shared connection apart from one which possesses a real physical connection. Sockets using shared connection are a kind of mirror of socket having shared the connection but there is no restriction in functionalities. In next major version in protocol, it will be proposed as enhancement or replacement to allow for the server to recognize a socket using shared connection as a indipendent socket.
 * With the current implementation, use of repliable events is not recommended.
 
-Sending and reciving event via shared connection.
+_Sending and reciving event via shared connection._
 
 <div class="row">
 <div class="large-4 columns">

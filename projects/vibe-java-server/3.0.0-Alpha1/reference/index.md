@@ -285,7 +285,7 @@ public class EntityListener {
 
 * To manage a lot of events easily, use [URI](http://tools.ietf.org/html/rfc3986) as event name format like `/account/update`.
 
-The client sends events and the server echoes back to the client.
+_The client sends events and the server echoes back to the client._
 
 <div class="row">
 <div class="large-6 columns">
@@ -329,7 +329,7 @@ client.open("http://localhost:8000/vibe", {transport: "ws"})
 </div>
 </div>
 
-The server sends events and the client echoes back to the server.
+_The server sends events and the client echoes back to the server._
 
 <div class="row">
 <div class="large-6 columns">
@@ -379,7 +379,7 @@ Through replayable event, you can receive data in sending event by using overloa
 * Do not mingle repliable event and non-repliable event under the same event. Java is a static typed language so it's bad practice.
 * Beforehand determine whether to use rejected callback or not to avoid writing unnecessary rejected callbacks.
 
-The client sends replyable events and the server executes callbacks with event data.
+_The client sends replyable events and the server executes callbacks with event data._
 
 <div class="row">
 <div class="large-6 columns">
@@ -431,7 +431,7 @@ client.open("http://localhost:8000/vibe", {transport: "ws"})
 </div>
 </div>
 
-The server sends replyable events and the client executes callbacks with event data.
+_The server sends replyable events and the client executes callbacks with event data._
 
 <div class="row">
 <div class="large-7 columns">
@@ -500,7 +500,7 @@ With the help of Dependency Injection (DI) framework like Spring and Guice, you 
 <div class="row">
 <div class="large-6 columns">
 {% capture panel %}
-Making Server as component.
+_Making Server as component._
 
 ```java
 @Configuration
@@ -515,7 +515,7 @@ public class Config {
 </div>
 <div class="large-6 columns">
 {% capture panel %}
-Integrating with I/O platform.
+_Integrating with I/O platform._
 
 ```java
 @Component
@@ -541,7 +541,7 @@ public class Feeder {
 <div class="row">
 <div class="large-6 columns">
 {% capture panel %}
-Handling socket.
+_Handling socket._
 
 ```java
 @Controller
@@ -564,7 +564,7 @@ public class Handler {
 </div>
 <div class="large-6 columns">
 {% capture panel %}
-Sending event.
+_Sending event._
 
 ```java
 @Component
@@ -598,7 +598,7 @@ All of the Message Oriented Middleware (MOM) supporting publish and subscribe mo
 <div class="row">
 <div class="large-6 columns">
 {% capture panel %}
-Hermaphrodite case. It will work exactly like `DefaultServer`.
+_Hermaphrodite case. It will work exactly like `DefaultServer`._
 
 ```java
 final ClusteredServer server = new ClusteredServer();
@@ -614,11 +614,10 @@ server.publishAction(new Action<Map<String, Object>>() {
 </div>
 <div class="large-6 columns">
 {% capture panel %}
-Hazelcast case. You can regard `topic` as node in the above explanation.
+_Hazelcast case. You can regard `topic` as node in the above explanation._
 
 ```java
-HazelcastInstance hazelcast = 
-HazelcastInstanceFactory.newHazelcastInstance(new Config());
+HazelcastInstance hazelcast = HazelcastInstanceFactory.newHazelcastInstance(new Config());
 final ClusteredServer server = new ClusteredServer();
 final ITopic<Map<String, Object>> topic = hazelcast.getTopic("vibe:app");
 
