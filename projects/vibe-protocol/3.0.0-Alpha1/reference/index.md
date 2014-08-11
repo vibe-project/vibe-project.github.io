@@ -24,6 +24,8 @@ title: Vibe Protocol Reference
     * [Interactive Mode](#interactive-mode)
 * [Test Suite](#test-suite)
     * [Testee](#testee)
+        * [Server Testee](#server-testee)
+        * [Client Testee](#client-testee)
     * [Running Test](#running-test)
         * [Choosing Tests](#choosing-tests)
 
