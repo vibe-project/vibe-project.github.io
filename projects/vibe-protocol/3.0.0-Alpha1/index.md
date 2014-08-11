@@ -24,9 +24,9 @@ Get started with Vibe on your team's preferable platform. Also see with your own
 ### Client
 Here are the Vibe compliant clients.
 
-* [Vibe JavaScript Client](http://atmosphere.github.io/vibe/projects/vibe-javascript-client/3.0.0-Alpha1/) for browser ([testee](https://github.com/Atmosphere/vibe-javascript-client/blob/2842ab4561592217ec6c722a3b42ae803d1da156/Gruntfile.js#L182-L286) and [test result](https://saucelabs.com/u/vibe) (filter with build 2842ab4561)) and Node ([testee](https://github.com/Atmosphere/vibe-javascript-client/blob/2842ab4561592217ec6c722a3b42ae803d1da156/Gruntfile.js#L85-L143) and [test result](https://travis-ci.org/Atmosphere/vibe-javascript-client/builds/29181140)).
+* [Vibe JavaScript Client](http://atmosphere.github.io/vibe/projects/vibe-javascript-client/3.0.0-Alpha1/) for browser ([testee](https://github.com/Atmosphere/vibe-javascript-client/blob/f5dd75ba3b3ebf1938d2652eed2ff52871c81492/Gruntfile.js#L163-L317) and [test result](https://saucelabs.com/u/vibe) (filter with build `f5dd75b`)) and Node ([testee](https://github.com/Atmosphere/vibe-javascript-client/blob/f5dd75ba3b3ebf1938d2652eed2ff52871c81492/Gruntfile.js#L82-L162) and [test result](https://travis-ci.org/Atmosphere/vibe-javascript-client/builds/32149076)).
 
 ### Server
 Here are the Vibe compliant servers.
 
-* [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/3.0.0-Alpha1/) for Java ([testee](https://github.com/Atmosphere/vibe/blob/b6350d1fb680279bf0e3def6ecae3202e06c69ac/vibe/src/test/java/org/atmosphere/vibe/runtime/ProtocolTest.java#L19-L64) and [test result](https://gist.github.com/flowersinthesand/57badbc1df594c00a0d4)).
+* [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/3.0.0-Alpha1/) for Java ([testee](https://github.com/Atmosphere/vibe/blob/b6350d1fb680279bf0e3def6ecae3202e06c69ac/vibe/src/test/java/org/atmosphere/vibe/runtime/ProtocolTest.java#L19-L64) and [test result](https://gist.github.com/flowersinthesand/3faee0b75ae2d3e11b92)).
