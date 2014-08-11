@@ -269,44 +269,74 @@ Test suite is provided to help write and verify implementation. Tests are writte
 Tests consist of two parts: protocol (required) and extension (optional) and a series of tests are executed per transport. By default both client and server test suites will run all unit tests including from protocol part and extension part for all the available transports: `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp`. Of course, you don't need to implement all transports and all extensions. Tests can run selectively.
 
 ### Testee
-Testee is a web server which brokers between test and implementation to be tested over HTTP, which is you need to write. Through writing testee, you will use most API of your implementation. Showing your testee is good for explaining how to use your implementation though it may not be pretty.
+Testee is a web server which brokers between test and implementation to be tested over HTTP, which is you need to write. Because through writing testee, you will use most API of your implementation, showing your testee is good for explaining how to use your implementation though it may not be pretty.
 
-* **Server testee** should:
-    * listen on 8000
-    * delegate a request to the implementation if the request's path is `/vibe`
-    * if **socket** has been opened, it should:
-        * to test protocol (required)
-            * on `echo` event, send `echo` event with data
-        * to test extension (optional)
-            * `Receiving Replyable Event`
-                * on `rre.resolve` event, execute a resolved callback passing data of the event
-                * on `rre.reject` event, execute a rejected callback passing data of the event
-            * `Sending Replyable Event`
-                * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
-                * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
-    
-    Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/server.js) for testing server reference implementation.  
-  
-* **Client testee** should: 
-    * listen on 9000
-    * make the implementation connect to the server if the request's path is `/open`, setting:
-        * URI to uri param in query string
-        * transport to transport param in query string
-        * heartbeat to heartbeat param in query string or `false` if not exists
-        * _heartbeat to _heartbeat param in query string or `false` if not exists
-    * if **socket** has been opened, it should:
-        * to test protocol (required)
-            * on `abort` event, close itself
-            * on `echo` event, send `echo` event with data
-        * to test extension (optional)
-            * `Receiving Replyable Event`
-                * on `rre.resolve` event, execute a resolved callback passing data of the event
-                * on `rre.reject` event, execute a rejected callback passing data of the event
-            * `Sending Replyable Event`
-                * on `sre.resolve` event, send an `sre.resolve` event with data of the event as data and a function as resolved callback that sends `sre.done` event with value returned from reply as data. 
-                * on `sre.reject` event, send an `sre.reject` event with data of the event as data and a function as rejected callback that sends `sre.done` event with value returned from reply as data.<p>
-    
-    Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
+#### Server Testee
+A testee to test server implementation should listen on port `8000`.
+
+##### Handling HTTP Request
+According to the request path:
+
+###### `/alive`
+This is to tell the test runner whether or not this server has the specified opened socket. Write `true` or `false` to the response according to whether a socket specified by the request param `id` is opened and end the response.
+
+###### `/vibe`
+This is to verify the implementation. Delegate an exchange of request and response to the implementation without touching it.
+
+##### Handling Socket
+According to the socket event:
+
+###### `echo`
+Send `echo` event attaching the given data.
+
+###### `rre.resolve` for `receiving replyable event` extension
+Execute a resolved callback passing the given data.
+
+###### `rre.reject` for `receiving replyable event` extension
+Execute a rejected callback passing the given data.
+
+###### `sre.resolve` for `sending replyable event` extension
+Send an `sre.resolve` event attaching the given data and a resolved callback sending `sre.done` event attaching the value returned from reply.
+
+###### `sre.reject` for `sending replyable event` extension
+Send an `sre.reject` event attaching the given data and a resolved callback sending `sre.done` event attaching the value returned from reply.
+
+Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/server.js) for testing server reference implementation.
+
+#### Client Testee
+A testee to test client implementation should listen on port `9000`.
+
+##### Handling HTTP Request
+According to the request path:
+
+###### `/alive`
+This is to tell the test runner whether or not the specified socket among ones the client implementation established is still opened. Write `true` or `false` to the response according to whether a socket specified by the request param `id` is opened and end the response.
+
+###### `/open`
+This is to verify the implementation. Make the implementation connect to the server setting URI to the request param `uri`, transport to the request param `transport`, heartbeat to the request param `heartbeat` or `false` if not exists and _heartbeat to the request param `_heartbeat` or `false` if not exists.
+
+##### Handling Socket
+According to the socket event:
+
+###### `abort`
+Close the socket.
+
+###### `echo`
+Send `echo` event attaching the given data.
+
+###### `rre.resolve` for `receiving replyable event` extension
+Execute a resolved callback passing the given data.
+
+###### `rre.reject` for `receiving replyable event` extension
+Execute a rejected callback passing the given data.
+
+###### `sre.resolve` for `sending replyable event` extension
+Send an `sre.resolve` event attaching the given data and a resolved callback sending `sre.done` event attaching the value returned from reply.
+
+###### `sre.reject` for `sending replyable event` extension
+Send an `sre.reject` event attaching the given data and a resolved callback sending `sre.done` event attaching the value returned from reply.
+
+Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
   
 ### Running Test
 First you need to install [Node.js](http://nodejs.org). Then type the following to install this module locally and Mocha globally: 
