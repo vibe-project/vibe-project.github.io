@@ -4,79 +4,83 @@ title: "Migration from Portal"
 author: flowersinthesand
 ---
 
-This guide is for migrating a Portal application to Vibe.
+The first alpha version of Vibe is at the API level not much different from a set of [Portal](http://flowersinthesand.github.io/portal/) 1.1+, [Portal for Java](http://flowersinthesand.github.io/portal-java/) 0.8+ and [wes](http://flowersinthesand.github.io/wes/). If you've used them, migration is not a big deal. But if you've created and used your own portal server and client, you need to modify your implementation a little bit. Take a look at reference implementation from [Vibe Protocol](http://atmosphere.github.io/vibe/projects/vibe-protocol/).
 
-The first alpha of Vibe is heavily based on [Portal](flowersinthesand.github.io/portal/), [Portal for Java](flowersinthesand.github.io/portal-java/) and [wes](flowersinthesand.github.io/wes/). However, there is a very important difference in philosophy between Vibe and Portal. That is while Portal focuses on easy to implement server-side so doesn't accept contract which could make protocol complex no matter how useful it might be, Vibe focuses on easy to write application itself so accept those contracts abandoned in Portal. 
-
-Therefore if you've used Portal and Portal for Java, you can easily migrate your application and enjoy enhancements but if you've used your own implementation, you need to work to meet the protocol. See the protocol section.
+---
 
 ## Portal
-`portal.js` is renamed to `vibe.js` and moved in Vibe JavaScript Client project. Any deprecated or unuseful things are removed. As a result, its size has been decreased from 6.88KB to 5.99KB minified and gzipped.
+[Portal](http://flowersinthesand.github.io/portal/) is heavily refactored and separated into [Vibe JavaScript Client](http://atmosphere.github.io/vibe/projects/vibe-javascript-client/) providing vibe.js that is successor of portal.js and [Vibe Protocol](http://atmosphere.github.io/vibe/projects/vibe-protocol/) providing reference implementation and test suite helping implement the protocol.
 
-### `portal`
-* `portal` is renamed to `vibe`.
+### Installation
+All about renaming.
 
-### `portal` method
-* `find` is removed.
-    * Make a socket variable.
-    * It has brought confusion in Node.js and in browser.
+* JavasScript files are renamed to `vibe.js` and `vibe.min.js`.
+* Node.js module on npm is renamed to `vibe-client`.
+* Bower package is renamed to `vibe-client`.
 
-### `socket` option
+### API
+All deprecated or unuseful options and methods are removed or modified.
+
+* `portal` module is renamed to `vibe`.
+* `portal.find` is removed.
+    * It has brought confusion when loaded by module loaders.
+
+#### Socket options
 * `lastEventId` is removed.
-    * It was only valid when the server assures the message-sending order which is far from ideal in a performance view.
+    * It is only valid when the server assures the message-sending order which is far from ideal in a performance.
 * `prepare` is removed.
     * It has brought inconsistency when connection sharing is enabled.
 * `idGenerator` is removed.
     * A form of socket id is fixed to UUID.
 * `urlBuilder` and `params` are removed.
-    * No reason to support.
-* `inbound` and `outbound` option are removed.
-    * Modifying final event object is not allowed. Use developer tools provided by browser for debugging.
+    * Attach them as query string in advance.
+* `inbound` and `outbound` are removed.
+    * Modifying final event object is not allowed.
 * `notifyAbort` is removed.
     * It's always enabled to maintain reliable HTTP connection.
 * `credentials` is removed.
     * It's always enabled for convenience of use of cross-origin connection.
-* `xdrURL` is modified.
-    * It does nothing by default now that is to say no more support for `JSESSIONID` or `PHPSESSID`. Do it yourself.
+* `xdrURL` has no default implementation.
+    * No more support for `JSESSIONID` or `PHPSESSID`. Do it yourself.
 * `streamParser` is removed.
     * The stream format is fixed to the event stream format from Server-Sent Events.
 
-### `socket` method
-* `option` is removed.
+#### Socket
+* `option(key:string)` is removed.
     * No reason to retrieve option.
-* `data` is removed.
-    * It is not used internally now.
-* `on(handlers)` is removed.
-    * Use `on(event, handler)` signature.
-* `one` is renamed to `once`.
-    * For better readability
-* `send` is not allowed when socket is not opened.
-    * Considering life cycle, it's unnecessary.
-* `send(event, data, done:string, fail:string)` is deprecated.
-    * A string done and fail were needed to work seamlessly with connection sharing. But it will be rewritten and that signature will be removed accordingly.
-* Shortcut methods to add event handler, i.e `connecting`, `open`, `message`, `close` and `waiting` are removed.
-    * Trivial.
+* `data(key: string, value?: any)` is removed.
+    * Create a map on open event and destory it on close event.
+* `on(handlers: {[event: string]: Function;})` is removed.
+    * Use `on(event: string, handler: Function)` signature.
+* `one(event: string, handler: Function)` is renamed to `once`.
+    * For better readability.
+* `send(event, data, done: string, fail: string)` is removed.
+    * It was created to make callbacks work with connection sharing. Now connection sharing will be rewritten so that the other signature allowing to pass function will be available.
+* Shortcuts to add event handler whose type is `(handler: Function)`, i.e `connecting`, `open`, `message`, `close` and `waiting`, are removed.
+    * For potential usage.
+* It is not allowed to send event when socket is not opened.
+    * Do that on open event.
+* In dispatching message event, the second argument, `reply`, is changed from a function into an object to control reply.
+    * Its type is `{resolve: (data?: any) => void; reject: (data?: any) => void}`, hence the previous `reply(val)` equals to `reply.resolve(val)`.
+* Sending and receiving binary event is not supported.
+    * Use a plain WebSocket.
 
-### `socket` event
-* In dispatching message event, the second argument, `reply`, is not a function but an object.
-    * A reply has two methods as like in server now: `resolve` and `reject`. For the same behavior, call `reply.resolve`
-* Binary type data is not supported
-    * Use a plain WebSocket. Actually it hasn't been tested at all. 
+---
 
 ## Portal for Java
-TODO
+[Portal for Java](http://flowersinthesand.github.io/portal-java/) and [wes](http://flowersinthesand.github.io/wes/) are renamed to [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/) and [Vibe Java Server Platform](http://atmosphere.github.io/vibe/projects/vibe-java-server-platform/) respectively with many bug fixes and enhancements.
 
-## wes
-TODO
+### Installation
+All about renaming.
 
-## Protocol
-You might implement the portal protocol partially as needed and want to do that again this time. Fortunately it may work in this time because in the first alpha there is only one necessary change. Nevertheless, various features will be added following community's feedback so watch reference implementation from Vibe Protocol project.
+* Group id is changed to `org.atmosphere`.
+* `portal` artifact is renamed to `vibe-server`.
+* `portal-testsuite` artifact is replaced and removed by the protocol test suite in [Vibe Protocol](http://atmosphere.github.io/vibe/projects/vibe-protocol/).
+* Each wes bridge artifact, `wes-${platform}`, is renamed to `vibe-server-platform-${platform}`.
 
-* In `POST` request, a socket id should be passed as query string under the name of `id` and `socket` property in an event object in `POST` request body should be removed. *
-* If a user aborts the socket based on long polling transport during idle time that is between poll, the next HTTP exchange should be aborted. Use a flag meaning being aborted, mark it on close and when the new exchange is supplied, if the flag is set, end the exchange.
-* A server should use an auto-increment id when setting event id instead of UUID to avoid `414 Request-URI Too Long` in long polling transport.
-* A server don't need to handle `Access-Control-Request-Headers` header.
-* A client should be able to handle resolved and rejected callback in receiving event.
-* A server should be able to accept resolved and rejected callback in sending event.
+### API
+All about renaming.
 
-\* Necessary.
+* `io.github.flowersinthesand.portal` package is renamed to `org.atmosphere.vibe.server`.
+* `io.github.flowersinthesand.wes` package is renamed to `org.atmosphere.vibe.server.platform`.
+* Each wes bridge's package is changed to contain platform's version at the end i.e. from `io.github.flowersinthesand.wes.servlet` to `org.atmosphere.vibe.server.platform.servlet3`.
