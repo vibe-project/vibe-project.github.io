@@ -53,7 +53,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.*;
 import org.atmosphere.vibe.server.platform.atmosphere2.*;
 
 import javax.servlet.ServletContextEvent;
@@ -94,7 +94,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the verticle starts.
 
 ```java
-import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.*;
 import org.atmosphere.vibe.server.platform.vertx2.*;
 
 import org.vertx.java.core.Handler;
@@ -137,7 +137,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.*;
 import org.atmosphere.vibe.server.platform.servlet3.*;
 
 import javax.servlet.ServletContextEvent;
@@ -180,7 +180,7 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the container starts by scanning `ServerApplicationConfig` instance. In case of embedded container, however, it may not scan it and you may have to follow their alternatives.
 
 ```java
-import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.*;
 import org.atmosphere.vibe.server.platform.jwa1.*;
 
 import java.util.Collections;
@@ -221,7 +221,7 @@ libraryDependencies ++= Seq(
 Write entry point for HTTP exchange and WebSocket extending `Controller`.
 
 ```java
-import org.atmosphere.vibe.server.*;
+import org.atmosphere.vibe.server.platform.*;
 import org.atmosphere.vibe.server.platform.play2.*;
 
 import play.libs.F.Promise;
