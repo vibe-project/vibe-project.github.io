@@ -29,4 +29,4 @@ Here are the Vibe compliant clients.
 ### Server
 Here are the Vibe compliant servers.
 
-* [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/3.0.0-Alpha1/) for Java ([testee](https://github.com/Atmosphere/vibe/blob/b6350d1fb680279bf0e3def6ecae3202e06c69ac/vibe/src/test/java/org/atmosphere/vibe/runtime/ProtocolTest.java#L19-L64) and [test result](https://gist.github.com/flowersinthesand/3faee0b75ae2d3e11b92)).
+* [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/3.0.0-Alpha1/) for Java ([testee](https://github.com/Atmosphere/vibe-java-server/blob/82d93bb8dfed185de26528538ead45a991ef418c/server/src/test/java/org/atmosphere/vibe/server/ProtocolTest.java) and [test result](https://gist.github.com/flowersinthesand/3faee0b75ae2d3e11b92)).
