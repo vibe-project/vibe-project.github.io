@@ -13,7 +13,7 @@ However if you are hesitating migration, see the following advantages of Vibe ov
 * Based on own protocol.
     * Portal has under the implicit protocol provided only two implementations: JavaScript client and Java server, but Vibe will provide various implementations including the previous ones based on its own explicit protocol built over HTTP and WebSocket so that it would be certainly easy to use Vibe in other language.
 * Easy to write and verify implementation.
-    * Portal's protocol is clearly separated to the very protocol part that have to be implemented and the extension part that can be implemented and on top of that Vibe provides reference implementation and test suite to help write and verify your implementation.
+    * Portal's protocol is clearly separated to the very protocol part that have to be implemented and the extension part that can be optionally implemented and on top of that Vibe provides reference implementation and test suite to help write and verify your implementation.
 * Merged with Atmosphere.
     *  Vibe is also a result from a collaboration of Atmosphere and Portal. Useful features and detailed experiences of Atmosphere like performance tuning, binary handling, workaround for I/O platform's quirks and so on will be available in Vibe.
 * Leaded by Donghwan Kim and Jeanfrancois Arcand.
