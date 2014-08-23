@@ -85,7 +85,7 @@ All deprecated or unuseful options and methods are removed or modified.
 ---
 
 ## Portal for Java
-[Portal for Java](http://flowersinthesand.github.io/portal-java/) and [wes](http://flowersinthesand.github.io/wes/) are renamed to [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/) and [Vibe Java Server Platform](http://atmosphere.github.io/vibe/projects/vibe-java-server-platform/) respectively with many bug fixes and enhancements.
+[Portal for Java](http://flowersinthesand.github.io/portal-java/) and [wes](http://flowersinthesand.github.io/wes/) are renamed to [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/) and [Vibe Java Server Platform](http://atmosphere.github.io/vibe/projects/vibe-java-server-platform/) respectively with many bug fixes and enhancements. If you are using Portal for Java less than 0.8, see [migration guide to 0.8](http://flowersinthesand.github.io/portal/news/2014/01/12/portal-for-java-0-8-0-released/) first of all.
 
 ### Installation
 All about renaming.
