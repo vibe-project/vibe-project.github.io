@@ -167,7 +167,7 @@ vibe.open(uri, {
 
 A flag indicating that connection sharing across tabs and windows is enabled or not. If this is turned on, as long as the cookie is enabled, the socket will try to automatically share a real connection if there is no corresponding one, and find and use a shared connection if it exists within the cookie's scope. 
 
-Note that this option is only for browser and if the web page or computer becomes horribly busy, a newly created socket might establish a physical connection. Also the connection sharing will be rewritten soon so I don't recommend to use it for now.
+Note that this option is only for browser and if the web page or computer becomes horribly busy, a newly created socket might establish a physical connection though it doesn't break anything. Also the connection sharing will be rewritten so I don't recommend to use it for now.
 
 #### `timeout?: any`
 **Default**: `false`

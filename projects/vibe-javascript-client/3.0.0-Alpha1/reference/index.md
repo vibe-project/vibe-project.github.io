@@ -372,13 +372,13 @@ server.on("socket", function(socket) {
 ### Connection Sharing
 It's common case that user opens multiple tabs of same website and each tab have its persistent connection like vibe. In the case of a web portal consisting of many portlets, if portlet has a persistent connection, it may not be able to send any request, receive and display anything in violation of the simultaneous connection limit. By sharing a connection, it can be avoided.
 
-To enalbe, set `sharing:boolean` option to `true`. As long as the cookie is enabled, socket will automatically find and use a shared connection if it exists within the cookie's scope and share its connection if there is no corresponding one. Note that if the web page or computer becomes horribly busy, a newly created socket might establish a physical connection.
+To enalbe, set `sharing:boolean` option to `true`. As long as the cookie is enabled, socket will automatically find and use a shared connection if it exists within the cookie's scope and share its connection if there is no corresponding one. Note that if the web page or computer becomes horribly busy, a newly created socket might establish a physical connection but still it doesn't break anything.
 
 **Note**
 
 * Applies to only browser.
-* In the current implementation, the server can't see socket using shared connection apart from one which possesses a real physical connection. Sockets using shared connection are a kind of mirror of socket having shared the connection but there is no restriction in functionalities. In next major version in protocol, it will be proposed as enhancement or replacement to allow for the server to recognize a socket using shared connection as a indipendent socket.
-* With the current implementation, use of repliable events is not recommended.
+* In the current implementation, the server can't see socket using shared connection apart from one which possesses a real physical connection. Sockets using shared connection are a kind of mirror of socket having shared the connection but there is no restriction in functionalities. In the future, it will be enhanced or replaced with new implementation to allow for the server to recognize a socket using shared connection as a indipendent socket.
+* Repliable events can't be used together with the current implementation but with new implementation, it will be available.
 
 _Sending and reciving event via shared connection._
 
