@@ -509,7 +509,7 @@
                         switch (command.type) {
                         case "send":
                             data = util.parseJSON(command.data);
-                            self.send(data.type, data.data, data.onResolved, data.onRejected);
+                            self.send(data.type, data.data);
                             break;
                         case "close":
                             self.close();
@@ -713,14 +713,7 @@
             // Outbound event
             var event = {id: guid++, type: type, data: data, reply: !!(onResolved || onRejected)};
             if (event.reply) {
-                // Shared socket needs to know the callback event name
-                // because it fires the callback event directly instead of using reply event
-                if (isSessionTransport) {
-                    event.onResolved = onResolved;
-                    event.onRejected = onRejected;
-                } else {
-                    callbacks[event.id] = [onResolved, onRejected];
-                }
+                callbacks[event.id] = [onResolved, onRejected];
             }
             // Delegates to the transport
             transport.send(util.stringifyJSON(event));
@@ -752,23 +745,10 @@
             .fire("_message", args);
         };
         self.on("reply", function(reply) {
-            var fn,
-                id = reply.id,
-                data = reply.data,
-                callback = callbacks[id];
-            
-            if (callback) {
-                // callback is [onResolved, onRejected] and +false and + true is 0 and 1, respectively
-                fn = callback[+reply.exception];
-                if (fn) {
-                    if (util.isFunction(fn)) {
-                        fn.call(self, data);
-                    } else {
-                        self.fire(fn, data).fire("_message", [fn, data]);
-                    }
-                }
-                delete callbacks[id];
-            }
+            // callbacks[reply.id] is [onResolved, onRejected]
+            // FYI +false and +true is 0 and 1, respectively
+            callbacks[reply.id][+reply.exception].call(self, reply.data);
+            delete callbacks[reply.id];
         });
         
         return self.open();
