@@ -6,6 +6,12 @@
         if (document.getElementById(id)) {
             id = id + "-" + (+(/-(\d+)$/.exec(id) || ["", "0"])[1] + 1);
         }
-        $this.attr("id", id);
+        // TODO Use CSS
+        var $link = $("<a />").addClass("header-link").attr("href", "#" + id).text(String.fromCharCode("182"));
+        $this.attr("id", id).append($link.hide()).hover(function() {
+            $link.show();
+        }, function() {
+            $link.hide();
+        });
     });
 })();
