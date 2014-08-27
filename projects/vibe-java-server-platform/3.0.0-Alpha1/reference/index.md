@@ -1,6 +1,6 @@
 ---
 layout: project
-title: Vibe Java Server Reference
+title: Vibe Java Server Platform Reference
 ---
 
 <h1>Reference</h1>
@@ -27,7 +27,7 @@ title: Vibe Java Server Reference
 Bridge is a module used to install your application on your desired platform.
 
 ### Installation
-Generally speaking, installing an application is to feed one or both of `ServerHttpExchange` and `ServerWebSocket` into the application using the bridge for the specific platform.
+Vibe Java Server Platform requires Java 7. Generally speaking, installing an application is to feed one or both of `ServerHttpExchange` and `ServerWebSocket` into the application using the bridge for the specific platform.
 
 #### Atmosphere 2
 The [Atmosphere 2](https://github.com/atmosphere/atmosphere/) makes the application run on most servlet containers that support the Servlet Specification 2.3. That being said, Servlet 3.0 containers is required here. With Atmosphere, you can write a traditional Java web application, a war project in Maven.

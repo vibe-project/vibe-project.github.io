@@ -27,7 +27,7 @@ title: Vibe Java Server Reference
 ---
 
 ## Installation
-Vibe Java Server is distributed through Maven Central. Add the following dependency to your build or include it on your classpath manually.
+Vibe Java Server requires Java 7 and is distributed through Maven Central. Add the following dependency to your build or include it on your classpath manually.
 
 ```xml
 <dependencies>
