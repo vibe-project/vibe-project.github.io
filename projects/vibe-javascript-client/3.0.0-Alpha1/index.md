@@ -48,7 +48,7 @@ socket.on("connecting", function() {
 
 ### Further Reading
 
-* Do you want to play something right now? Start with [archetype example](https://github.com/Atmosphere/vibe-examples/tree/master/archetype/vibe-javascript-client).
-* To take a brief look at API, check out the [testee](https://github.com/Atmosphere/vibe-javascript-client/blob/2842ab4561592217ec6c722a3b42ae803d1da156/Gruntfile.js#L92-L120).
+* Do you want to play something right now? Start with [archetype example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-javascript-client).
+* To take a brief look at API, check out the [testee](https://github.com/vibe-project/vibe-javascript-client/blob/2842ab4561592217ec6c722a3b42ae803d1da156/Gruntfile.js#L92-L120).
 * To get details of API, see [API document]({{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/api/).
 * To have a thorough knowledge of the implementation, read out the [reference]({{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/reference/).

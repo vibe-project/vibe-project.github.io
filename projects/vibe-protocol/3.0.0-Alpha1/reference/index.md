@@ -303,7 +303,7 @@ Send an `sre.resolve` event attaching the given data and a resolved callback sen
 ###### `sre.reject` for `sending replyable event` extension
 Send an `sre.reject` event attaching the given data and a resolved callback sending `sre.done` event attaching the value returned from reply.
 
-Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/server.js) for testing server reference implementation.
+Here is an [example](https://github.com/vibe-project/vibe-protocol/blob/master/test/testee/server.js) for testing server reference implementation.
 
 #### Client Testee
 A testee to test client implementation should listen on port `9000`.
@@ -338,7 +338,7 @@ Send an `sre.resolve` event attaching the given data and a resolved callback sen
 ###### `sre.reject` for `sending replyable event` extension
 Send an `sre.reject` event attaching the given data and a resolved callback sending `sre.done` event attaching the value returned from reply.
 
-Here is an [example](https://github.com/Atmosphere/vibe-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
+Here is an [example](https://github.com/vibe-project/vibe-protocol/blob/master/test/testee/client.js) for testing client reference implementation.
   
 ### Running Test
 First you need to install [Node.js](http://nodejs.org). Then type the following to install this module locally and Mocha globally: 
