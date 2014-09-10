@@ -1,6 +1,5 @@
----
----
-
+// This file is expected to be processed by external tool like node-sass not jekyll
+// jekyll's assets support doesn't seem to process scss properly 
 @import "normalize";
 @import "settings";
 @import "foundation";
