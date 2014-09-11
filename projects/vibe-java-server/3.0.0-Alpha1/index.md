@@ -11,13 +11,13 @@ Vibe Java Server is a simple <sup><strong>A</strong></sup>, scalable <sup><stron
     <dt>B</dt>
     <dd>Shared nothing architecture is adopted to help scale application horizontally with ease.</dd>
     <dt>C</dt>
-    <dd>Because it is built on Vibe Java Server Platform which is I/O abstraction layer, you can run your application on any platform that it supports seamlessly e.g. Play, Vert.x, Atmosphere and Servlet.</dd>
+    <dd>Because it is built on Vibe Java Platform which is I/O abstraction layer, you can run your application on any platform that it supports seamlessly e.g. Play, Vert.x, Atmosphere and Servlet.</dd>
 </dl>
 
 ---
 
 ## Quick Start
-Vibe Java Server is distributed through Maven Central. A single artifact, <code>org.atmosphere:vibe-server:3.0.0-Alpha1</code>, is enough for general purpose and thanks to [Vibe Java Server Platform]({{ site.baseurl }}/projects/vibe-java-server-platform/), your application can run on any framework or platform it supports.
+Vibe Java Server is distributed through Maven Central. A single artifact, <code>org.atmosphere:vibe-server:3.0.0-Alpha1</code>, is enough for general purpose and thanks to [Vibe Java Platform]({{ site.baseurl }}/projects/vibe-java-platform/), your application can run on any framework or platform it supports.
 
 ```xml
 <dependencies>

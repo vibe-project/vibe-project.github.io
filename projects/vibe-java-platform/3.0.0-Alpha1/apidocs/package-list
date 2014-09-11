@@ -1,0 +1,8 @@
+org.atmosphere.vibe.platform
+org.atmosphere.vibe.platform.server
+org.atmosphere.vibe.platform.server.atmosphere2
+org.atmosphere.vibe.platform.server.jwa1
+org.atmosphere.vibe.platform.server.play2
+org.atmosphere.vibe.platform.server.servlet3
+org.atmosphere.vibe.platform.server.vertx2
+org.atmosphere.vibe.platform.test.server

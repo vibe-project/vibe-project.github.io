@@ -10,4 +10,4 @@ Some project documents are generated from project source using external tools an
 
 * /projects/vibe-protocol/${version}/docs from `docco lib/*.js`
 * /projects/vibe-java-server/${version}/apidocs from `mvn javadoc:aggregate`
-* /projects/vibe-java-server-platform/${version}/apidocs from `mvn javadoc:aggregate`
+* /projects/vibe-java-platform/${version}/apidocs from `mvn javadoc:aggregate`

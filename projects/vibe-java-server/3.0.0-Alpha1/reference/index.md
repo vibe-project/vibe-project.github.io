@@ -39,7 +39,7 @@ Vibe Java Server requires Java 7 and is distributed through Maven Central. Add t
 </dependencies>
 ```
 
-[Vibe Java Server Platform]({{ site.baseurl }}/projects/vibe-java-server-platform/) is created to run a vibe application on any framework or server transparently without or with a little bit of effort. See [reference guide]({{ site.baseurl }}/projects/vibe-java-server-platform/3.0.0-Alpha1/reference/) for what platforms are supported, how to install vibe on them and what you can do when your favorite platform is not supported.
+[Vibe Java Platform]({{ site.baseurl }}/projects/vibe-java-platform/) is created to run a vibe application on any framework or server transparently without or with a little bit of effort. See [reference guide]({{ site.baseurl }}/projects/vibe-java-platform/3.0.0-Alpha1/reference/) for what platforms are supported, how to install vibe on them and what you can do when your favorite platform is not supported.
 
 ---
 
