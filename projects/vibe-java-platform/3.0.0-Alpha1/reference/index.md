@@ -343,8 +343,8 @@ switch (http.method()) {
         <p>Request headers.</p>
 {% capture panel %}
 ```java
-for (String name : http.requestHeaderNames()) {
-    String value = http.requestHeader(name);
+for (String name : http.headerNames()) {
+    String value = http.header(name);
 }
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -352,7 +352,7 @@ for (String name : http.requestHeaderNames()) {
 </div>
 
 #### Reading body
-`bodyAction` attaches a body event handler to be called with `Data` wrapping the request body. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
+`bodyAction` attaches a body event handler to be called with `Data` wrapping the request body. This action is the end of the request. Note that if body is quite big it will drain memory in an instant.
 
 ```java
 http.bodyAction(new Action<Data>() {
@@ -365,7 +365,7 @@ http.bodyAction(new Action<Data>() {
 ```
 
 #### Response properties
-These are write only. In accordance with HTTP spec, it's not possible to set value after the write of first chunk.
+These are write only. In accordance with HTTP spec, it's not possible to set the following properties after the write of first chunk.
 
 <div class="row">
     <div class="large-6 columns">
@@ -382,7 +382,7 @@ http.setStatus(HttpStatus.NOT_IMPLEMENTED);
         <p>Response headers.</p>
 {% capture panel %}
 ```java
-http.setResponseHeader("content-type", "text/javascript; charset=utf-8");
+http.setHeader("content-type", "text/javascript; charset=utf-8");
 ```
 {% endcapture %}{{ panel | markdownify }}
     </div>
@@ -402,7 +402,7 @@ http.write("chunk");
 http.close();
 ```
 
-On response close, close event handlers added via `closeAction` are executed.
+When the response has been closed either by the client or the server, close event handlers added via `closeAction` are executed. It's the end of the respnose.
 
 ```java
 http.closeAction(new VoidAction() {
@@ -427,7 +427,7 @@ URI.create(ws.uri()).getQuery();
 ```
 
 #### Receiving message
-Message event handlers attached via `messageAction` are called with `Data` wrapping the WebSocket message. Note that because only String type is supported as Data now, if body is quite big it will drain memory in an instant.
+Message event handlers attached via `messageAction` are called with `Data` wrapping the WebSocket message.
 
 ```java
 ws.messageAction(new Action<Data>() {
@@ -453,7 +453,7 @@ ws.send("message");
 ws.close();
 ```
 
-On connection close, close event handlers added via `closeAction` are executed.
+When the connection has been closed either by the client or the server, close event handlers added via `closeAction` are executed. It's the end of the WebSocket connection.
 
 ```java
 ws.closeAction(new VoidAction() {
