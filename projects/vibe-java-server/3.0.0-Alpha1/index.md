@@ -7,7 +7,7 @@ Vibe Java Server is a simple <sup><strong>A</strong></sup>, scalable <sup><stron
 
 <dl>
     <dt>A</dt>
-    <dd>All interface you need to know is Server and Socket. Indeed.</dd>
+    <dd>All interface you need to know is Server and ServerSocket. Indeed.</dd>
     <dt>B</dt>
     <dd>Shared nothing architecture is adopted to help scale application horizontally with ease.</dd>
     <dt>C</dt>
@@ -49,9 +49,9 @@ public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         Server server = new DefaultServer();
-        server.socketAction(new Action<Socket>() {
+        server.socketAction(new Action<ServerSocket>() {
             @Override
-            public void on(final Socket socket) {
+            public void on(final ServerSocket socket) {
                 socket.on("close", new VoidAction() {
                     @Override
                     public void on() {

@@ -47,7 +47,7 @@ Vibe Java Server requires Java 7 and is distributed through Maven Central. Add t
 Server is a vibe application in a nutshell producing and managing socket consuming HTTP exchange and WebSocket.
 
 ### Handling Socket
-When a socket is opened, actions added via `socketAction(Action<Socket> action)` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
+When a socket is opened, actions added via `socketAction(Action<ServerSocket> action)` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
 
 <div class="row">
 <div class="large-6 columns">
@@ -55,9 +55,9 @@ When a socket is opened, actions added via `socketAction(Action<Socket> action)`
 **Java 7**
 
 ```java
-server.socketAction(new Action<Socket>() {
+server.socketAction(new Action<ServerSocket>() {
     @Override
-    public void on(Socket socket) {
+    public void on(ServerSocket socket) {
         // Your logic here
     }
 });
@@ -81,7 +81,7 @@ server.socketAction(socket -> {
 It's a common use case to select some sockets and do something with them like dealing with persistence entities or HTML elements. When a socket has been closed, it is evicted from the server immediately, so socket being passed to action is always in the open state where I/O operations are available.
 
 #### All
-`all(Action<Socket> action)` executes the given action finding all of the socket in this server.
+`all(Action<ServerSocket> action)` executes the given action finding all of the socket in this server.
 
 <div class="row">
 <div class="large-6 columns">
@@ -89,9 +89,9 @@ It's a common use case to select some sockets and do something with them like de
 **Java 7**
 
 ```java
-server.all(new Action<Socket>() {
+server.all(new Action<ServerSocket>() {
     @Override
-    public void on(Socket socket) {
+    public void on(ServerSocket socket) {
         // Your logic here
     }
 });
@@ -112,7 +112,7 @@ server.all(socket -> {
 </div>
 
 #### By Id
-Every socket has a unique id. `byId(String id, Action<Socket> action)` finds socket by id and executes the given action only once or not if no socket is found.
+Every socket has a unique id. `byId(String id, Action<ServerSocket> action)` finds socket by id and executes the given action only once or not if no socket is found.
 
 <div class="row">
 <div class="large-6 columns">
@@ -120,9 +120,9 @@ Every socket has a unique id. `byId(String id, Action<Socket> action)` finds soc
 **Java 7**
 
 ```java
-server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<Socket>() {
+server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<ServerSocket>() {
     @Override
-    public void on(Socket socket) {
+    public void on(ServerSocket socket) {
         // Your logic here
     }
 });
@@ -143,7 +143,7 @@ server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", socket -> {
 </div>
 
 #### By Tag
-A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag(String[] names, Action<Socket> action)` finds socket accepting one or more tag names and executes the given action.
+A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag(String[] names, Action<ServerSocket> action)` finds socket accepting one or more tag names and executes the given action.
 
 <div class="row">
 <div class="large-6 columns">
@@ -151,9 +151,9 @@ A socket may have several tags and a tag may have several sockets like many-to-m
 **Java 7**
 
 ```java
-server.byTag("room#201", new Action<Socket>() {
+server.byTag("room#201", new Action<ServerSocket>() {
     @Override
-    public void on(Socket socket) {
+    public void on(ServerSocket socket) {
         // Your logic here
     }
 });
@@ -234,7 +234,7 @@ tags.add("account#flowersinthesand");
 </div>
 
 ### Tagging
-As `Socket` is a just connectivity, id is not suibtable for handling a specific entity in the real world. For example, when an user signs in using multiple devices, if someone sends a message, it should be delivered to all devices where the user signed in. To do that, using id is annoying and error-prone.
+As a socket is a just connectivity, id is not suibtable for handling a specific entity in the real world. For example, when an user signs in using multiple devices, if someone sends a message, it should be delivered to all devices where the user signed in. To do that, using id is annoying and error-prone.
 
 That's why tag is introduced. A tag is used to point to a group of sockets like class attribute in HTML. Tag set is managed only by server and unknown to client. `tag(String... names)`/`untag(String... names)` attcahes/detaches given names of tags to/from a socket.
 
@@ -244,9 +244,9 @@ That's why tag is introduced. A tag is used to point to a group of sockets like 
 **Tagging**
 
 ```java
-server.socketAction(new Action<Socket>() {
+server.socketAction(new Action<ServerSocket>() {
     @Override
-    public void on(final Socket socket) {
+    public void on(final ServerSocket socket) {
         socket.tag(Uris.parse(socket.uri()).param("username"));
     }
 });
@@ -293,9 +293,9 @@ _The client sends events and the server echoes back to the client._
 **Server**
 
 ```java
-server.socketAction(new Action<Socket>() {
+server.socketAction(new Action<ServerSocket>() {
     @Override
-    public void on(final Socket socket) {
+    public void on(final ServerSocket socket) {
         socket.on("echo", new Action<Object>() {
             @Override
             public void on(Object data) {
@@ -337,9 +337,9 @@ _The server sends events and the client echoes back to the server._
 **Server**
 
 ```java
-server.socketAction(new Action<Socket>() {
+server.socketAction(new Action<ServerSocket>() {
     @Override
-    public void on(final Socket socket) {
+    public void on(final ServerSocket socket) {
         socket.on("echo", new Action<Object>() {
             @Override
             public void on(Object data) {
@@ -387,9 +387,9 @@ _The client sends replyable events and the server executes callbacks with event 
 **Server**
 
 ```java
-server.socketAction(new Action<Socket>() {
+server.socketAction(new Action<ServerSocket>() {
     @Override
-    public void on(final Socket socket) {
+    public void on(final ServerSocket socket) {
         socket.on("/account/find", new Action<Reply<String>>() {
             @Override
             public void on(Reply<String> reply) {
@@ -439,9 +439,9 @@ _The server sends replyable events and the client executes callbacks with event 
 **Server**
 
 ```java
-server.socketAction(new Action<Socket>() {
+server.socketAction(new Action<ServerSocket>() {
     @Override
-    public void on(final Socket socket) {
+    public void on(final ServerSocket socket) {
         socket.send("/account/find", "flowersinthesand", new Action<Map<String, Object>>() {
             @Override
             public void on(Map<String, Object> data) {
@@ -551,9 +551,9 @@ public class Handler {
     
     @PostConstruct
     public void handle() {
-        server.socketAction(new Action<Socket>() {
+        server.socketAction(new Action<ServerSocket>() {
             @Override
-            public void on(Socket socket) {
+            public void on(ServerSocket socket) {
                 socket.tag("tag");
             }
         });
