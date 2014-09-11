@@ -34,7 +34,7 @@ The [Atmosphere 2](https://github.com/Atmosphere/atmosphere/) makes the applicat
 
 **Note**
 
-* Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, we uses it as a platform but in the future it might be deprecated or replaced with new modules dealing with their vendor-specific code, e.g. vibe-server-platform-jetty9.
+* Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, we uses it as a platform but in the future it might be deprecated or replaced with new modules dealing with their vendor-specific code, e.g. vibe-platform-server-jetty9.
 
 ##### Dependency
 Add the following dependency to your build or include it on your classpath manually.
@@ -43,7 +43,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-server-platform-atmosphere2</artifactId>
+        <artifactId>vibe-platform-server-atmosphere2</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -53,11 +53,10 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-import org.atmosphere.vibe.server.platform.*;
-import org.atmosphere.vibe.server.platform.atmosphere2.*;
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platform.server.atmosphere2.AtmosphereBridge;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
@@ -65,7 +64,7 @@ public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         // Your application
-        Server server = new DefaultServer();
+        org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
         new AtmosphereBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
     }
 
@@ -84,7 +83,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-server-platform-vertx2</artifactId>
+        <artifactId>vibe-platform-server-vertx2</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -94,19 +93,18 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the verticle starts.
 
 ```java
-import org.atmosphere.vibe.server.platform.*;
-import org.atmosphere.vibe.server.platform.vertx2.*;
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platform.server.vertx2.VertxBridge;
 
 import org.vertx.java.core.Handler;
-import org.vertx.java.core.http.HttpServer;
-import org.vertx.java.core.http.HttpServerRequest;
+import org.vertx.java.core.http.*;
 import org.vertx.java.platform.Verticle;
 
 public class Bootstrap extends Verticle {
     @Override
     public void start() {
         // Your application
-        Server server = new DefaultServer();
+        org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
         HttpServer httpServer = vertx.createHttpServer();
         // Attach request and websocket handler first before installation
         new VertxBridge(httpServer, "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
@@ -126,7 +124,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-server-platform-servlet3</artifactId>
+        <artifactId>vibe-platform-server-servlet3</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -137,11 +135,10 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the servlet container starts.
 
 ```java
-import org.atmosphere.vibe.server.platform.*;
-import org.atmosphere.vibe.server.platform.servlet3.*;
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platfom.server.servlet3.ServletBridge;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
@@ -149,7 +146,7 @@ public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         // Your application
-        Server server = new DefaultServer();
+        org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
         new ServletBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction());
     }
     
@@ -169,7 +166,7 @@ Add the following dependency to your build or include it on your classpath manua
 <dependencies>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-server-platform-jwa1</artifactId>
+        <artifactId>vibe-platform-server-jwa1</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -180,21 +177,19 @@ Add the following dependency to your build or include it on your classpath manua
 Installation will be done once the container starts by scanning `ServerApplicationConfig` instance. In case of embedded container, however, it may not scan it and you may have to follow their alternatives.
 
 ```java
-import org.atmosphere.vibe.server.platform.*;
-import org.atmosphere.vibe.server.platform.jwa1.*;
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platfom.server.jwa1.JwaBridge;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 
 import javax.websocket.Endpoint;
-import javax.websocket.server.ServerApplicationConfig;
-import javax.websocket.server.ServerEndpointConfig;
+import javax.websocket.server.*;
 
 public class Bootstrap implements ServerApplicationConfig {
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> _) {
         // Your application
-        Server server = new DefaultServer();
+        org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
         return Collections.singleton(new JwaBridge("/vibe").websocketAction(server.websocketAction()).config());
     }
 
@@ -213,7 +208,7 @@ Add the following dependency to your `build.sbt` or include it on your classpath
 
 ```scala
 libraryDependencies ++= Seq(
-  "org.atmosphere" % "vibe-server-platform-play2" % "3.0.0-Alpha1"
+  "org.atmosphere" % "vibe-platform-server-play2" % "3.0.0-Alpha1"
 )
 ```
 
@@ -221,19 +216,16 @@ libraryDependencies ++= Seq(
 Write entry point for HTTP exchange and WebSocket extending `Controller`.
 
 ```java
-import org.atmosphere.vibe.server.platform.*;
-import org.atmosphere.vibe.server.platform.play2.*;
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platfom.server.play2.*;
 
 import play.libs.F.Promise;
-import play.mvc.BodyParser;
-import play.mvc.Controller;
+import play.mvc.*;
 import play.mvc.Http.Request;
-import play.mvc.Result;
-import play.mvc.WebSocket;
 
 public class Bootstrap extends Controller {
     // Your application
-    static Server server = new DefaultServer();
+    static org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
 
     @BodyParser.Of(BodyParser.TolerantText.class)
     public static Promise<Result> http() {

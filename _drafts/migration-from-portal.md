@@ -93,11 +93,11 @@ All about renaming.
 * Group id is changed to `org.atmosphere`.
 * `portal` artifact is renamed to `vibe-server`.
 * `portal-testsuite` artifact is replaced and removed by the protocol test suite in [Vibe Protocol](http://atmosphere.github.io/vibe/projects/vibe-protocol/).
-* Each wes bridge artifact, `wes-${platform}`, is renamed to `vibe-server-platform-${platform}`.
+* Each wes bridge artifact, `wes-${platform}`, is renamed to `vibe-platform-server-${platform}`.
 
 ### API
 All about renaming.
 
 * `io.github.flowersinthesand.portal` package is renamed to `org.atmosphere.vibe.server`.
-* `io.github.flowersinthesand.wes` package is renamed to `org.atmosphere.vibe.server.platform`.
-* Each wes bridge's package is changed to contain platform's version at the end i.e. from `io.github.flowersinthesand.wes.servlet` to `org.atmosphere.vibe.server.platform.servlet3`.
+* `io.github.flowersinthesand.wes` package is renamed to `org.atmosphere.vibe.platform.server`.
+* Each wes bridge's package is changed to contain platform's version at the end i.e. from `io.github.flowersinthesand.wes.servlet` to `org.atmosphere.vibe.platform.server.servlet3`.

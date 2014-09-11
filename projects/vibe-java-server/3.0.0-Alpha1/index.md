@@ -28,7 +28,7 @@ Vibe Java Server is distributed through Maven Central. A single artifact, <code>
     </dependency>
     <dependency>
         <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-server-platform-atmosphere2</artifactId>
+        <artifactId>vibe-platform-server-atmosphere2</artifactId>
         <version>3.0.0-Alpha1</version>
     </dependency>
 </dependencies>
@@ -37,8 +37,9 @@ Vibe Java Server is distributed through Maven Central. A single artifact, <code>
 Once you've set up the build, you will be able to write the following [echo and chat]({{ site.baseurl }}/projects/vibe-protocol/3.0.0-Alpha1/reference/#echo-and-chat) server that can run on Servlet containers Atmosphere 2 supports i.e. Tomcat, Jetty and so on.
 
 ```java
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platform.server.atmosphere2.AtmosphereBridge;
 import org.atmosphere.vibe.server.*;
-import org.atmosphere.vibe.server.platform.atmosphere.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
