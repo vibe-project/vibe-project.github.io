@@ -2,7 +2,7 @@ The website is built with [Jekyll](http://jekyllrb.com/) and hosted on [GitHub P
 
 Once you've installed Jekyll, check out gh-pages branch, run the following command in the console.
 
-     bundle exec jekyll serve --baseurl ''
+     bundle exec jekyll serve
 
 Then, open [http://localhost:4000](http://localhost:4000) in your browser.
 
@@ -11,3 +11,5 @@ Some project documents are generated from project source using external tools an
 * /projects/vibe-protocol/${version}/docs from `docco lib/*.js`
 * /projects/vibe-java-server/${version}/apidocs from `mvn javadoc:aggregate`
 * /projects/vibe-java-platform/${version}/apidocs from `mvn javadoc:aggregate`
+* /projects/vibe-javascript-client/${version}/vibe.js by copy and paste
+* /projects/vibe-javascript-client/${version}/vibe.min.js by copy and paste
