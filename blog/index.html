@@ -15,9 +15,9 @@ title: Blog
 {% for page in (1..paginator.total_pages) %}
     <li class="{% if page == paginator.page %}current{% endif %}">
     {% if page == 1 %}
-        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: 'page:num/', '' }}">{{ page }}</a>
+        <a href="{{ site.paginate_path | replace: 'page:num/', '' }}">{{ page }}</a>
     {% else %}
-        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: ':num', page }}">{{ page }}</a>
+        <a href="{{ site.paginate_path | replace: ':num', page }}">{{ page }}</a>
     {% endif %}
     </li>
 {% endfor %}
