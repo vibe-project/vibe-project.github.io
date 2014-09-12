@@ -39,8 +39,8 @@ title: Vibe JavaScript Client Reference
 Download vibe.js the way you want.
 
 <ul class="inline-list">
-<li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js">The compressed for production</a></li>
-<li><a href="{{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js">The uncompressed for development</a></li>
+<li><a href="/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js">The compressed for production</a></li>
+<li><a href="/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js">The uncompressed for development</a></li>
 <li><code>bower install vibe-client</code></li>
 </ul>
 

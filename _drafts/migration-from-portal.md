@@ -4,7 +4,7 @@ title: "Migration from Portal"
 author: flowersinthesand
 ---
 
-The first alpha version of Vibe is at the API level not much different from a set of [Portal](http://flowersinthesand.github.io/portal/) 1.1+, [Portal for Java](http://flowersinthesand.github.io/portal-java/) 0.8+ and [wes](http://flowersinthesand.github.io/wes/). If you've used them, migration is not a big deal. But if you've created and used your own portal server and client, you need to modify your implementation a little bit. Take a look at reference implementation from [Vibe Protocol](http://atmosphere.github.io/vibe/projects/vibe-protocol/).
+The first alpha version of Vibe is at the API level not much different from a set of [Portal](http://flowersinthesand.github.io/portal/) 1.1+, [Portal for Java](http://flowersinthesand.github.io/portal-java/) 0.8+ and [wes](http://flowersinthesand.github.io/wes/). If you've used them, migration is not a big deal. But if you've created and used your own portal server and client, you need to modify your implementation a little bit. Take a look at reference implementation from [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/).
 
 However if you are hesitating migration, see the following advantages of Vibe over Portal that will help you make decision.
 
@@ -26,7 +26,7 @@ However if you are hesitating migration, see the following advantages of Vibe ov
 ---
 
 ## Portal
-[Portal](http://flowersinthesand.github.io/portal/) is heavily refactored and separated into [Vibe JavaScript Client](http://atmosphere.github.io/vibe/projects/vibe-javascript-client/) providing vibe.js that is successor of portal.js and [Vibe Protocol](http://atmosphere.github.io/vibe/projects/vibe-protocol/) providing reference implementation and test suite helping implement the protocol.
+[Portal](http://flowersinthesand.github.io/portal/) is heavily refactored and separated into [Vibe JavaScript Client](http://vibe-project.github.io/projects/vibe-javascript-client/) providing vibe.js that is successor of portal.js and [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/) providing reference implementation and test suite helping implement the protocol.
 
 ### Installation
 All about renaming.
@@ -85,14 +85,14 @@ All deprecated or unuseful options and methods are removed or modified.
 ---
 
 ## Portal for Java
-[Portal for Java](http://flowersinthesand.github.io/portal-java/) and [wes](http://flowersinthesand.github.io/wes/) are renamed to [Vibe Java Server](http://atmosphere.github.io/vibe/projects/vibe-java-server/) and [Vibe Java Platform](http://atmosphere.github.io/vibe/projects/vibe-java-platform/) respectively with many bug fixes and enhancements. If you are using Portal for Java less than 0.8, see [migration guide to 0.8](http://flowersinthesand.github.io/portal/news/2014/01/12/portal-for-java-0-8-0-released/) first of all.
+[Portal for Java](http://flowersinthesand.github.io/portal-java/) and [wes](http://flowersinthesand.github.io/wes/) are renamed to [Vibe Java Server](http://vibe-project.github.io/projects/vibe-java-server/) and [Vibe Java Platform](http://vibe-project.github.io/projects/vibe-java-platform/) respectively with many bug fixes and enhancements. If you are using Portal for Java less than 0.8, see [migration guide to 0.8](http://flowersinthesand.github.io/portal/news/2014/01/12/portal-for-java-0-8-0-released/) first of all.
 
 ### Installation
 All about renaming.
 
 * Group id is changed to `org.atmosphere`.
 * `portal` artifact is renamed to `vibe-server`.
-* `portal-testsuite` artifact is replaced and removed by the protocol test suite in [Vibe Protocol](http://atmosphere.github.io/vibe/projects/vibe-protocol/).
+* `portal-testsuite` artifact is replaced and removed by the protocol test suite in [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/).
 * Each wes bridge artifact, `wes-${platform}`, is renamed to `vibe-platform-server-${platform}`.
 
 ### API

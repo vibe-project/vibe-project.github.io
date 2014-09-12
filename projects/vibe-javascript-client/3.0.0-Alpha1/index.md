@@ -17,9 +17,9 @@ Vibe JavaScript Client is a lightweight <sup><strong>A</strong></sup> JavaScript
 ---
 
 ## Quick Start
-Vibe JavaScript Client is distributed at two places according to runtime engine: browser version through this web site in [compressed]({{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js) and [uncompressed]({{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js) forms and node version through npm.
+Vibe JavaScript Client is distributed at two places according to runtime engine: browser version through this web site in [compressed](/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js) and [uncompressed](/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js) forms and node version through npm.
 
-Once you've loaded the module, you will be able to write the following [echo and chat]({{ site.baseurl }}/projects/vibe-protocol/3.0.0-Alpha1/reference/#echo-and-chat) client. This page already loaded the uncompressed version, hence you can run and debug it directly here by using a JavaScript console and doing copy and paste.
+Once you've loaded the module, you will be able to write the following [echo and chat](/projects/vibe-protocol/3.0.0-Alpha1/reference/#echo-and-chat) client. This page already loaded the uncompressed version, hence you can run and debug it directly here by using a JavaScript console and doing copy and paste.
 
 ```javascript
 var socket = vibe.open("http://localhost:8000/");
@@ -50,5 +50,5 @@ socket.on("connecting", function() {
 
 * Do you want to play something right now? Start with [archetype example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-javascript-client).
 * To take a brief look at API, check out the [testee](https://github.com/vibe-project/vibe-javascript-client/blob/2842ab4561592217ec6c722a3b42ae803d1da156/Gruntfile.js#L92-L120).
-* To get details of API, see [API document]({{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/api/).
-* To have a thorough knowledge of the implementation, read out the [reference]({{ site.baseurl }}/projects/vibe-javascript-client/3.0.0-Alpha1/reference/).
+* To get details of API, see [API document](/projects/vibe-javascript-client/3.0.0-Alpha1/api/).
+* To have a thorough knowledge of the implementation, read out the [reference](/projects/vibe-javascript-client/3.0.0-Alpha1/reference/).
