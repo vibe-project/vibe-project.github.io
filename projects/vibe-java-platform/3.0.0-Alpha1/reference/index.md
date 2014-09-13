@@ -30,11 +30,13 @@ Bridge is a module used to install your application on your desired platform.
 Vibe Java Platform requires Java 7. Generally speaking, installing an application is to feed one or both of `ServerHttpExchange` and `ServerWebSocket` into the application using the bridge for the specific platform.
 
 #### Atmosphere 2
-The [Atmosphere 2](https://github.com/Atmosphere/atmosphere/) makes the application run on most servlet containers that support the Servlet Specification 2.3. That being said, Servlet 3.0 containers is required here. With Atmosphere, you can write a traditional Java web application, a war project in Maven.
+The [Atmosphere 2](https://github.com/Atmosphere/atmosphere/) makes the application run on most Servlet containers that support the Servlet Specification 2.3.
 
 **Note**
 
-* Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, we uses it as a platform but in the future it might be deprecated or replaced with new modules dealing with their vendor-specific code, e.g. vibe-platform-server-jetty9.
+* Requires Servlet 3.0 container.
+* Requires Atmosphere 2.2 and later.
+* Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, we uses it as a platform but in the future it might be replaced with new modules dealing with their vendor-specific code directly, e.g. vibe-platform-server-jetty9.
 
 ##### Dependency
 Add the following dependency to your build or include it on your classpath manually.
