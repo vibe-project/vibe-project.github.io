@@ -281,6 +281,8 @@ object Global extends GlobalSettings {
 ### Writing Bridges
 TODO
 
+By the way, the current API has not yet had enough to be regarded as stable as it's in Alpha phase so it may be changed not maintaining backward compatibility in any time later. If you don't care that, see the existing implementations.
+
 ---
 
 ## Application
