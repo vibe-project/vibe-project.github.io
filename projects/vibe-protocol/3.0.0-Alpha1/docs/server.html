@@ -1321,8 +1321,8 @@ event.</p>
 <li><code>type: string</code>: an event type.</li>
 <li><code>data: any</code>: an event data.</li>
 </ul>
-<p>If the server implements <code>receiving replyable event</code> extension, the
-following properties should be considered as well.</p>
+<p>If the server implements <code>reply</code> extension, the following
+properties should be considered as well.</p>
 <ul>
 <li><code>reply: boolean</code>: true if this event requires the reply.</li>
 </ul>
@@ -1340,7 +1340,7 @@ following properties should be considered as well.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-69">&#182;</a>
               </div>
-              <p>If the client sends a plain event not replyable event, dispatch it.</p>
+              <p>If the client sends a plain event, dispatch it.</p>
 
             </div>
             
@@ -1356,10 +1356,10 @@ following properties should be considered as well.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-70">&#182;</a>
               </div>
-              <p>This is how to implement <code>receiving replyable event</code> extension. 
-An event handler for the corresponding event will receive reply 
-controller as 2nd argument. It calls the client’s resolved or 
-rejected callback by sending <code>reply</code> event.</p>
+              <p>This is how to implement <code>reply</code> extension. An event handler 
+for the corresponding event will receive reply controller 
+as 2nd argument. It calls the client’s resolved or rejected 
+callback by sending <code>reply</code> event.</p>
 
             </div>
             
@@ -1424,7 +1424,7 @@ would be better to use small sized id.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-73">&#182;</a>
               </div>
-              <p>A map for reply callbacks for <code>sending replyable event</code> extension.</p>
+              <p>A map for reply callbacks for <code>reply</code> extension.</p>
 
             </div>
             
@@ -1447,8 +1447,8 @@ would be better to use small sized id.</p>
 <li><code>type: string</code>: an event type.</li>
 <li><code>data: any</code>: an event data.</li>
 </ul>
-<p>If the server implements <code>sending replyable event</code> extension, the
-following properties should be available as well.</p>
+<p>If the server implements <code>reply</code> extension, the following
+properties should be available as well.</p>
 <ul>
 <li><code>reply: boolean</code>: true if this event requires the reply.</li>
 </ul>
@@ -1471,8 +1471,8 @@ following properties should be available as well.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-75">&#182;</a>
               </div>
-              <p>For <code>sending replyable event</code> extension, stores resolved and rejected
-callbacks if they are given.</p>
+              <p>For <code>reply</code> extension, stores resolved and rejected callbacks if
+they are given.</p>
 
             </div>
             
@@ -1505,8 +1505,8 @@ callbacks if they are given.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-77">&#182;</a>
               </div>
-              <p>For <code>sending replyable event</code> extension, on the reply
-event, executes the stored reply callbacks with data.</p>
+              <p>For <code>reply</code> extension, on the reply event, executes the stored reply
+callbacks with data.</p>
 
             </div>
             
