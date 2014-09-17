@@ -1,10 +1,12 @@
 <div class="bar">
 	<div class="row">
 	    <div class="large-12 columns">
+        {% assign post = site.posts.first %}
+        {% if post %}
 		    <div data-alert class="alert-box">
-            {% assign post = site.posts.first %}
-            {{ post.author }} wrote <a href="{{ post.url }}">{{ post.title }}</a> on {{ post.date | date: "%B %-d, %Y" }}.
+                {{ post.author }} wrote <a href="{{ post.url }}">{{ post.title }}</a> on {{ post.date | date: "%B %-d, %Y" }}.
 			</div>
+        {% endif %}
 	    </div>
 	</div>
 </div>
