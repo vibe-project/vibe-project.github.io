@@ -7,8 +7,13 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 
 .bar {
-  height: 3px; 
-  background: linear-gradient(45deg, #666 0, #333 100%);
+  min-height: 5px;
+  background: linear-gradient(45deg, #444 0, #333 100%);
+  .alert-box {
+    background: inherit;
+    border: none;
+    margin: 0;
+  }
 }
 div.highlight {
   margin-bottom: 1.25rem; 

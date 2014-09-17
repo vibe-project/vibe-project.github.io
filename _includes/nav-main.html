@@ -1,4 +1,13 @@
-<div class="bar"></div>
+<div class="bar">
+	<div class="row">
+	    <div class="large-12 columns">
+		    <div data-alert class="alert-box">
+            {% assign post = site.posts.first %}
+            {{ post.author }} wrote <a href="{{ post.url }}">{{ post.title }}</a> on {{ post.date | date: "%B %-d, %Y" }}.
+			</div>
+	    </div>
+	</div>
+</div>
 <div class="top-bar-wrapper">
     <div class="row">
         <nav class="top-bar" data-topbar>
