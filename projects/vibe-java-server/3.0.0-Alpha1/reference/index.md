@@ -19,7 +19,7 @@ title: Vibe Java Server Reference
     * [Properties](#properties)
     * [Tagging](#tagging)
     * [Sending and Receiving Event](#sending-and-receiving-event)
-    * [Sending and Receiving Replyable Event](#sending-and-receiving-replyable-event)
+    * [Sending and Receiving Event with Reply](#sending-and-receiving-event-with-reply)
 * [Integration](#integration)
     * [Dependency Injection Framework](#dependency-injection-framework)
     * [Message Oriented Middleware](#message-oriented-middleware)
@@ -293,15 +293,14 @@ client.open("http://localhost:8080/vibe", {transport: "ws"})
 </div>
 </div>
 
-### Sending and Receiving Replyable Event
+### Sending and Receiving Event with Reply
 Through replayable event, you can receive data in sending event by using overloaded signatures of `send(String event, Object data, Action<T> resolved)` and `send(String event, Object data, Action<T> resolved, Action<U> rejected)` where allowed data types are the same with in reciving event and send data in receiving event by using `Reply` as data type in an asynchrnous manner like Remote Procedure Call (RPC) or controller from MVC model.
 
 **Note**
 
-* Do not mingle repliable event and non-repliable event under the same event. Java is a static typed language so it's bad practice.
 * Beforehand determine whether to use rejected callback or not to avoid writing unnecessary rejected callbacks.
 
-_The client sends replyable events and the server executes callbacks with event data._
+_The client sends events with reply and the server executes callbacks with event data._
 
 <div class="row">
 <div class="large-6 columns">
@@ -352,7 +351,7 @@ client.open("http://localhost:8080/vibe", {transport: "ws"})
 </div>
 </div>
 
-_The server sends replyable events and the client executes callbacks with event data._
+_The server sends events with reply and the client executes callbacks with event data._
 
 <div class="row">
 <div class="large-6 columns">

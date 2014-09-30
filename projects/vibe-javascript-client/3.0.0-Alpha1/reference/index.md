@@ -16,7 +16,7 @@ title: Vibe JavaScript Client Reference
     * [Event](#event)
     * [Life Cycle](#life-cycle)
     * [Sending and Receiving Event](#sending-and-receiving-event)
-    * [Sending and Receiving Replyable Event](#sending-and-receiving-replyable-event) 
+    * [Sending and Receiving Event with Reply](#sending-and-receiving-event-with-reply) 
     * [Heartbeat](#heartbeat)
     * [Connection Sharing](#connection-sharing) 
     * [Reconnection](#reconnection)
@@ -239,18 +239,17 @@ server.on("socket", function(socket) {
 </div>
 </div>
 
-### Sending and Receiving Replyable Event
+### Sending and Receiving Event with Reply
 You can receive data in sending event using `send(event: string, data?: any, onResolved?: (data?: any) => void, onRejected?: (data?: any) => void)` and send data in receiving event using `on(event: string, handler:(data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void)`.
 
-It looks nothing new to traditional Ajax or Remote Procedure Call (RPC), but comparing to them, WebSocket can reduce unnecessary traffic like HTTP headers and the result can be shared by multiple tabs and windows. To write a economical webapp, you can utilize replyable events in place of Ajax.
+It looks nothing new to traditional Ajax or Remote Procedure Call (RPC), but comparing to them, WebSocket can reduce unnecessary traffic like HTTP headers and the result can be shared by multiple tabs and windows. To write a low-latency webapp, you can utilize reply in place of Ajax.
 
 **Note**
 
 * Socket must be in `opened` state.
-* Do not mingle repliable event and non-repliable event under the same event. It's error-prone.
 * Beforehand determine whether to use rejected callback or not to avoid writing unnecessary rejected callbacks.
 
-_The client sends replyable events and the server executes callbacks with event data._
+_The client sends events with reply and the server executes callbacks with event data._
 
 <div class="row">
 <div class="large-6 columns">
@@ -294,7 +293,7 @@ server.on("socket", function(socket) {
 </div>
 </div>
 
-_The server sends replyable events and the client executes callbacks with event data._
+_The server sends events with reply and the client executes callbacks with event data._
 
 <div class="row">
 <div class="large-6 columns">
@@ -378,7 +377,7 @@ To enalbe, set `sharing:boolean` option to `true`. As long as the cookie is enab
 
 * Applies to only browser.
 * In the current implementation, the server can't see socket using shared connection apart from one which possesses a real physical connection. Sockets using shared connection are a kind of mirror of socket having shared the connection but there is no restriction in functionalities. In the future, it will be enhanced or replaced with new implementation to allow for the server to recognize a socket using shared connection as a indipendent socket.
-* Repliable events can't be used together with the current implementation but with new implementation, it will be available.
+* Reply can't be used together with the current implementation but with new implementation, it will be available.
 
 _Sending and reciving event via shared connection._
 
