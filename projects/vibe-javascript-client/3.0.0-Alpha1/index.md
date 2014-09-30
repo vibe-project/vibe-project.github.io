@@ -22,7 +22,7 @@ Vibe JavaScript Client is distributed at two places according to runtime engine:
 Once you've loaded the module, you will be able to write the following [echo and chat](/projects/vibe-protocol/3.0.0-Alpha1/reference/#echo-and-chat) client. This page already loaded the uncompressed version, hence you can run and debug it directly here by using a JavaScript console and doing copy and paste.
 
 ```javascript
-var socket = vibe.open("http://localhost:8000/");
+var socket = vibe.open("http://localhost:8080/vibe");
 
 socket.on("connecting", function() {
     console.log("on connecting event");

@@ -27,7 +27,7 @@ title: Vibe Java Platform Reference
 Bridge is a module used to install your application on your desired platform.
 
 ### Installation
-Vibe Java Platform requires Java 7. Generally speaking, installing an application is to feed one or both of `ServerHttpExchange` and `ServerWebSocket` into the application using the bridge for the specific platform.
+Vibe Java Platform requires Java 7 and is distributed through Maven Central. Generally speaking, installing an application is to feed one or both of `ServerHttpExchange` and `ServerWebSocket` into the application using the bridge for the specific platform.
 
 #### Atmosphere 2
 The [Atmosphere 2](https://github.com/Atmosphere/atmosphere/) makes the application run on most Servlet containers that support the Servlet Specification 2.3.
@@ -279,8 +279,6 @@ object Global extends GlobalSettings {
 ```
 
 ### Writing Bridges
-TODO
-
 By the way, the current API has not yet had enough to be regarded as stable as it's in Alpha phase so it may be changed not maintaining backward compatibility in any time later. If you don't care that, see the existing implementations.
 
 ---

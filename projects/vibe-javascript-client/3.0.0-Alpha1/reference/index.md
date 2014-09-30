@@ -41,7 +41,7 @@ Download vibe.js the way you want.
 <ul class="inline-list">
 <li><a href="/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js">The compressed for production</a></li>
 <li><a href="/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js">The uncompressed for development</a></li>
-<li><code>bower install vibe-client</code></li>
+<li><code>bower install vibe</code></li>
 </ul>
 
 Then load or link it by using either script tag or [Asynchronous Module Definition](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) loader.
@@ -85,7 +85,7 @@ Then load it as a Node.js module.
 
 ```javascript
 var vibe = require("vibe-client");
-var socket = vibe.open("http://localhost:8000/vibe");
+var socket = vibe.open("http://localhost:8080/vibe");
 ```
 
 ---
@@ -174,7 +174,7 @@ _The client sends events and the server echoes back to the client._
 **Client**
 
 ```javascript
-vibe.open("http://localhost:8000/vibe", {reconnect: false})
+vibe.open("http://localhost:8080/vibe", {reconnect: false})
 .on("open", function() {
     this.send("echo", Math.PI)
     .send("echo", "pi")
@@ -212,7 +212,7 @@ _The server sends events and the client echoes back to the server._
 
 ```javascript
 
-vibe.open("http://localhost:8000/vibe", {reconnect: false})
+vibe.open("http://localhost:8080/vibe", {reconnect: false})
 .on("echo", function(data) {
     console.log(data);
     this.send("echo", data);
@@ -258,7 +258,7 @@ _The client sends replyable events and the server executes callbacks with event 
 **Client**
 
 ```javascript
-vibe.open("http://localhost:8000/vibe", {reconnect: false})
+vibe.open("http://localhost:8080/vibe", {reconnect: false})
 .on("open", function(data) {
     this.send("/account/find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
@@ -302,7 +302,7 @@ _The server sends replyable events and the client executes callbacks with event 
 **Client**
 
 ```javascript
-vibe.open("http://localhost:8000/vibe", {reconnect: false})
+vibe.open("http://localhost:8080/vibe", {reconnect: false})
 .on("/account/find", function(id, reply) {
     console.log(id);
     if (id === "flowersinthesand") {
@@ -347,7 +347,7 @@ _Eavesdropping heartbeat of client and server._
 **Client**
 
 ```javascript
-vibe.open("http://localhost:8000", {reconnect: false})
+vibe.open("http://localhost:8080/vibe", {reconnect: false})
 .on("heartbeat", function() {
     console.log("heartbeat at " + Date.now());
 });
@@ -388,7 +388,7 @@ _Sending and reciving event via shared connection._
 **Client A**
 
 ```javascript
-vibe.open("http://localhost:8000", {
+vibe.open("http://localhost:8080/vibe", {
     reconnect: false, 
     sharing: true
 })
@@ -406,7 +406,7 @@ vibe.open("http://localhost:8000", {
 **Client B**
 
 ```javascript
-vibe.open("http://localhost:8000", {
+vibe.open("http://localhost:8080/vibe", {
     reconnect: false, 
     sharing: true
 })

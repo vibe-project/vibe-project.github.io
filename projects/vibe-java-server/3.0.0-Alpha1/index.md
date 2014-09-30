@@ -74,7 +74,7 @@ public class Bootstrap implements ServletContextListener {
         });
 
         ServletContext servletContext = event.getServletContext();
-        new AtmosphereBridge(servletContext, "/").httpAction(server.httpAction()).websocketAction(server.websocketAction());
+        new AtmosphereBridge(servletContext, "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
     }
 
     @Override

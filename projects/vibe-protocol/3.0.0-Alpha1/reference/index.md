@@ -70,7 +70,7 @@ Creates a vibe client that is a factory to create a socket.
 ```javascript
 var vibe = require("vibe-protocol");
 var client = vibe.client();
-var socket = client.open("http://localhost:8080/", {transport: "ws"});
+var socket = client.open("http://localhost:8080", {transport: "ws"});
 
 socket.on("open", function() {
     socket.send("echo", "Hello World");
@@ -145,6 +145,10 @@ Sends an event with given event name and data attaching resolved and rejected ca
 To run example, write `server.js` and `client.js` by copy and paste to the folder where you have installed `vibe-protocol` module. Then, open two consoles, type `node server` and `node client` respectively.
 
 #### Echo and Chat
+* URI is `http://localhost:8080/vibe`. 
+* `echo` event is sent back to the client that sent the event.
+* `chat` event is broadcasted to every client that connected to the server.
+
 <div class="row">
 <div class="large-6 columns">
 {% capture panel %}
@@ -159,6 +163,7 @@ server.on("socket", function(socket) {
     // To provide a repository of opened socket 
     sockets.push(socket);
     socket.on("close", function() {
+        // Equal to sockets.remove(socket);
         sockets.splice(sockets.indexOf(socket), 1);
         console.log("on close event");
     });
@@ -175,9 +180,10 @@ server.on("socket", function(socket) {
     });
 });
 
+// Every request 
 require("http").createServer()
 .on("request", server.handleRequest)
-.on("upgrade", server.handleUpgrade).listen(8000);
+.on("upgrade", server.handleUpgrade).listen(8080);
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
@@ -188,7 +194,9 @@ require("http").createServer()
 ```javascript
 var vibe = require("vibe-protocol");
 var client = vibe.client();
-var socket = client.open("http://localhost:8000/", {transport:"ws"});
+var socket = client.open("http://localhost:8080/vibe", {
+    transport: "ws"
+});
 
 socket.on("open", function() {
     socket.send("echo", "An echo message");
@@ -219,7 +227,7 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 ```javascript
 var vibe = require("vibe-protocol");
 var client = vibe.client();
-var socket = client.open("http://localhost:8000/", {transport:"ws"});
+var socket = client.open("http://localhost:8080", {transport:"ws"});
 
 socket.on("open", function() {
     console.log("socket");
@@ -247,7 +255,7 @@ var sockets = [];
 
 httpServer.on("request", server.handleRequest);
 httpServer.on("upgrade", server.handleUpgrade);
-httpServer.listen(8000);
+httpServer.listen(8080);
 
 server.on("socket", function(socket) {
     console.log("sockets[", (sockets.push(socket) - 1), "]");

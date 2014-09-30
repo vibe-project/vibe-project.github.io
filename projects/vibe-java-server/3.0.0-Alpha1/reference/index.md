@@ -49,11 +49,6 @@ Server is a vibe application in a nutshell producing and managing socket consumi
 ### Handling Socket
 When a socket is opened, actions added via `socketAction(Action<ServerSocket> action)` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
 
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Java 7**
-
 ```java
 server.socketAction(new Action<ServerSocket>() {
     @Override
@@ -62,31 +57,12 @@ server.socketAction(new Action<ServerSocket>() {
     }
 });
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Java 8**
-
-```java
-server.socketAction(socket -> {
-    // Your logic here
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
 ### Selecting Sockets
 It's a common use case to select some sockets and do something with them like dealing with persistence entities or HTML elements. When a socket has been closed, it is evicted from the server immediately, so socket being passed to action is always in the open state where I/O operations are available.
 
 #### All
 `all(Action<ServerSocket> action)` executes the given action finding all of the socket in this server.
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Java 7**
 
 ```java
 server.all(new Action<ServerSocket>() {
@@ -96,28 +72,9 @@ server.all(new Action<ServerSocket>() {
     }
 });
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Java 8**
-
-```java
-server.all(socket -> {
-    // Your logic here
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
 #### By Id
 Every socket has a unique id. `byId(String id, Action<ServerSocket> action)` finds socket by id and executes the given action only once or not if no socket is found.
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Java 7**
 
 ```java
 server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<ServerSocket>() {
@@ -127,28 +84,9 @@ server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", new Action<ServerSocket>() {
     }
 });
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Java 8**
-
-```java
-server.byId("59f3e826-3684-4e0e-813d-8394ac7fb7c0", socket -> {
-    // Your logic here
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
 #### By Tag
 A socket may have several tags and a tag may have several sockets like many-to-many relationship. `byTag(String[] names, Action<ServerSocket> action)` finds socket accepting one or more tag names and executes the given action.
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Java 7**
 
 ```java
 server.byTag("room#201", new Action<ServerSocket>() {
@@ -158,20 +96,6 @@ server.byTag("room#201", new Action<ServerSocket>() {
     }
 });
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Java 8**
-
-```java
-server.byTag("room#201", socket -> {
-    // Your logic here
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
 ### Writing Sentence
 `Sentence` is a fluent interface to deal with a group of sockets. Finder methods return a sentence when being called without action. Use of sentence is preferred to that of action if the goal is same. Because, it enables to write one-liner action and uses an action implementing `Serializable` in execution, which is picky to use in anonymous class and typically needed in clustering.
@@ -313,8 +237,7 @@ server.socketAction(new Action<ServerSocket>() {
 **Client**
 
 ```javascript
-var client = require("vibe-protocol/lib/client");
-client.open("http://localhost:8000/vibe", {transport: "ws"})
+client.open("http://localhost:8080/vibe", {transport: "ws"})
 .on("open", function() {
     this.send("echo", Math.PI)
     .send("echo", "pi")
@@ -360,8 +283,7 @@ server.socketAction(new Action<ServerSocket>() {
 **Client**
 
 ```javascript
-var client = require("vibe-protocol/lib/client");
-client.open("http://localhost:8000/vibe", {transport: "ws"})
+client.open("http://localhost:8080/vibe", {transport: "ws"})
 .on("echo", function(data) {
     console.log(data);
     this.send("echo", data);
@@ -412,8 +334,7 @@ server.socketAction(new Action<ServerSocket>() {
 **Client**
 
 ```javascript
-var client = require("vibe-protocol/lib/client");
-client.open("http://localhost:8000/vibe", {transport: "ws"})
+client.open("http://localhost:8080/vibe", {transport: "ws"})
 .on("open", function(data) {
     this.send("/account/find", "flowersinthesand", function(data) {
         console.log("resolved with " + data);
@@ -434,7 +355,7 @@ client.open("http://localhost:8000/vibe", {transport: "ws"})
 _The server sends replyable events and the client executes callbacks with event data._
 
 <div class="row">
-<div class="large-7 columns">
+<div class="large-6 columns">
 {% capture panel %}
 **Server**
 
@@ -469,13 +390,12 @@ server.socketAction(new Action<ServerSocket>() {
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
-<div class="large-5 columns">
+<div class="large-6 columns">
 {% capture panel %}
 **Client**
 
 ```javascript
-var client = require("vibe-protocol/lib/client");
-client.open("http://localhost:8000/vibe", {transport: "ws"})
+client.open("http://localhost:8080/vibe", {transport: "ws"})
 .on("/account/find", function(id, reply) {
     console.log(id);
     if (id === "flowersinthesand") {
