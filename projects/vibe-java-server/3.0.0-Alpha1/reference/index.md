@@ -20,6 +20,7 @@ title: Vibe Java Server Reference
     * [Tagging](#tagging)
     * [Sending and Receiving Event](#sending-and-receiving-event)
     * [Sending and Receiving Event with Reply](#sending-and-receiving-event-with-reply)
+    * [Accessing Platform-Specific Object](#accessing-platform-specific-object)
 * [Integration](#integration)
     * [Dependency Injection Framework](#dependency-injection-framework)
     * [Message Oriented Middleware](#message-oriented-middleware)
@@ -407,6 +408,26 @@ client.open("http://localhost:8080/vibe", {transport: "ws"})
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
+
+### Accessing Platform-Specific Object
+In any case, platform-specific objects like HTTP request and WebSocket underlie a socket and sometimes you need to access those objects, for example to get/set some attributes from a session where a socket is associated. Then you can access them using `unwrap(Class<?> clazz)`.
+
+_Accessing HttpSession on Atmosphere._
+
+```java
+HttpSession session = socket.unwrap(AtmosphereResource.class).getRequest().getSession();
+```
+
+_Accessing HttpSession on Servlet._
+
+```java
+HttpSession session = socket.unwrap(HttpServletRequest.class).getSession();
+```
+
+**Note**
+
+* The purpose of `unwrap(Class<?> clazz)` is to get such a platform-specific object like session only and not to manipulate them.
+* Authentication is a high-level concept involving many other issues like choosing an authentication method, implementing that method and making it work in a clustered environment, and your platform or framework may have done for you in their own way. Overall approaches and examples will be added following [Authentication feature](https://github.com/vibe-project/vibe-protocol/issues/25).
 
 ---
 
