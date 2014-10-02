@@ -155,6 +155,8 @@ To run example, write `server.js` and `client.js` by copy and paste to the folde
 `server.js`
 
 ```javascript
+var http = require("http");
+var url = require("url");
 var vibe = require("vibe-protocol");
 var server = vibe.server();
 var sockets = [];
@@ -180,10 +182,17 @@ server.on("socket", function(socket) {
     });
 });
 
-// Every request 
-require("http").createServer()
-.on("request", server.handleRequest)
-.on("upgrade", server.handleUpgrade).listen(8080);
+http.createServer().on("request", function(req, res) {
+    if (url.parse(req.url).pathname === "/vibe") {
+        server.handleRequest(req, res);
+    }
+})
+.on("upgrade", function(req, sock, head) {
+    if (url.parse(req.url).pathname === "/vibe") {
+        server.handleUpgrade(req, sock, head);
+    }
+})
+.listen(8000);
 ```
 {% endcapture %}{{ panel | markdownify }}
 </div>
