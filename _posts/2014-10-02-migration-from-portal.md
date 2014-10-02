@@ -4,36 +4,36 @@ title: "Migration from Portal"
 author: flowersinthesand
 ---
 
-The first alpha version of Vibe is at the API level not much different from a set of [Portal](http://flowersinthesand.github.io/portal/) 1.1+, [Portal for Java](http://flowersinthesand.github.io/portal-java/) 0.8+ and [wes](http://flowersinthesand.github.io/wes/). If you've used them, migration is not a big deal. But if you've created and used your own portal server and client, you need to modify your implementation a little bit. Take a look at reference implementation from [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/).
+The first alpha of Vibe is at the API level not much different from a set of [Portal](http://flowersinthesand.github.io/portal/) 1.1+, [Portal for Java](http://flowersinthesand.github.io/portal-java/) 0.8+ and [wes](http://flowersinthesand.github.io/wes/) 0.1+. If you've used them, migration is not a big deal. But if you've created and used your own portal server and client, you need to modify your implementation a little bit. Take a look at reference implementation from [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/).
 
 However if you are hesitating migration, see the following advantages of Vibe over Portal that will help you make decision.
 
 * For writing real-time web application itself.
     * While Portal has focused on ease to implement server first as it has started as a jQuery plugin for HTTP streaming and rejected any idea which could make protocol complex no matter how useful it would be, Vibe focuses on ease to write real-time web application itself more than anything else so is willing to accept any ideas if it's worth.
 * Based on own protocol.
-    * Portal has under the implicit protocol provided only two implementations: JavaScript client and Java server, but Vibe will provide various implementations including the previous ones based on its own explicit protocol built over HTTP and WebSocket so that it would be certainly easy to use Vibe in other language.
+    * Portal has under the implicit protocol provided only two implementations: JavaScript client and Java server, but Vibe will provide various implementations including the previous ones based on its own explicit protocol so that it would be certainly easy to use Vibe in other language.
 * Easy to write and verify implementation.
-    * Portal's protocol is clearly separated to the very protocol part that have to be implemented and the extension part that can be optionally implemented and on top of that Vibe provides reference implementation and test suite to help write and verify your implementation.
+    * Portal's protocol is clearly separated to the very protocol part that have to be implemented and the extension part that can be optionally implemented, and on top of that, Vibe provides reference implementation and test suite to help write and verify your implementation.
 * Merged with Atmosphere.
-    *  Vibe is also a result from a collaboration of Atmosphere and Portal. Useful features and detailed experiences of Atmosphere like performance tuning, binary handling, workaround for I/O platform's quirks and so on will be available in Vibe.
+    *  Vibe is also a result from a collaboration of Atmosphere and Portal. Useful features and detailed experiences of Atmosphere like performance tuning, binary handling, workaround for I/O platform's quirks will be available in Vibe.
 * Leaded by Donghwan Kim and Jeanfrancois Arcand.
-    * Jeanfrancois Arcand, an author of Grizzly, Asynchronous HTTP Client and Atmosphere, also leads Vibe as a owner. His rich experience in Java enterprise application and open source project will doubtless help drive Vibe to the way we all desire.
+    * Jeanfrancois Arcand, an author of Grizzly, Asynchronous HTTP Client and Atmosphere, also leads Vibe. His rich experience in Java enterprise application and open source project will doubtless help Vibe out.
 * On the superior community.
     * As Atmosphere 3, Vibe will inherit the good parts from Atmosphere. One of them is the superior community. Atmosphere has been developed and maintained by warm participation of the community. Now Vibe will be.
 * Commercial support.
-    * Now you can safely mitigate the risk to use a work from my one man show. Asnyc-IO, the company behind the Atmosphere, provides commercial support for Vibe like subscription and custom development as well.
+    * Now you can safely mitigate the risk to use a work from my one man show. [Asnyc-IO](async-io.org), the company behind the Atmosphere, provides commercial support for Vibe as well.
 
 ---
 
 ## Portal
-[Portal](http://flowersinthesand.github.io/portal/) is heavily refactored and separated into [Vibe JavaScript Client](http://vibe-project.github.io/projects/vibe-javascript-client/) providing vibe.js that is successor of portal.js and [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/) providing reference implementation and test suite helping implement the protocol.
+[Portal](http://flowersinthesand.github.io/portal/) is heavily refactored and separated into [Vibe JavaScript Client](http://vibe-project.github.io/projects/vibe-javascript-client/3.0.0-Alpha1) providing vibe.js that is successor of portal.js and [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/3.0.0-Alpha1) providing reference implementation and test suite helping implement the protocol.
 
 ### Installation
 All about renaming.
 
 * JavasScript files are renamed to `vibe.js` and `vibe.min.js`.
 * Node.js module on npm is renamed to `vibe-client`.
-* Bower package is renamed to `vibe-client`.
+* Bower package is renamed to `vibe`.
 
 ### API
 All deprecated or unuseful options and methods are removed or modified.
@@ -85,14 +85,14 @@ All deprecated or unuseful options and methods are removed or modified.
 ---
 
 ## Portal for Java
-[Portal for Java](http://flowersinthesand.github.io/portal-java/) and [wes](http://flowersinthesand.github.io/wes/) are renamed to [Vibe Java Server](http://vibe-project.github.io/projects/vibe-java-server/) and [Vibe Java Platform](http://vibe-project.github.io/projects/vibe-java-platform/) respectively with many bug fixes and enhancements. If you are using Portal for Java less than 0.8, see [migration guide to 0.8](http://flowersinthesand.github.io/portal/news/2014/01/12/portal-for-java-0-8-0-released/) first of all.
+[Portal for Java](http://flowersinthesand.github.io/portal-java/) and [wes](http://flowersinthesand.github.io/wes/) are renamed to [Vibe Java Server](http://vibe-project.github.io/projects/vibe-java-server/3.0.0-Alpha1) and [Vibe Java Platform](http://vibe-project.github.io/projects/vibe-java-platform/3.0.0-Alpha1) respectively with many bug fixes and enhancements. If you are using Portal for Java less than 0.8, see [migration guide to 0.8](http://flowersinthesand.github.io/portal/news/2014/01/12/portal-for-java-0-8-0-released/) first of all.
 
 ### Installation
 All about renaming.
 
 * Group id is changed to `org.atmosphere`.
 * `portal` artifact is renamed to `vibe-server`.
-* `portal-testsuite` artifact is replaced and removed by the protocol test suite in [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/).
+* `portal-testsuite` artifact is replaced and removed by the protocol test suite in [Vibe Protocol](http://vibe-project.github.io/projects/vibe-protocol/3.0.0-Alpha1).
 * Each wes bridge artifact, `wes-${platform}`, is renamed to `vibe-platform-server-${platform}`.
 
 ### API
