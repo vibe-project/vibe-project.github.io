@@ -21,7 +21,7 @@ Vibe JavaScript Client <sup><strong>A</strong></sup> is a lightweight <sup><stro
 ## Quick Start
 Vibe JavaScript Client is distributed at two places according to runtime engine: browser version through this web site in [compressed](/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.min.js) and [uncompressed](/projects/vibe-javascript-client/3.0.0-Alpha1/vibe.js) forms and node version through npm.
 
-Once you've loaded the module, you will be able to write the following [echo and chat](/projects/vibe-protocol/3.0.0-Alpha1/reference/#echo-and-chat) client. This page already loaded the uncompressed version, hence you can run and debug it directly here by using a JavaScript console and doing copy and paste.
+Once you've loaded the module, you will be able to write the following [echo and chat](/projects/vibe-protocol/3.0.0-Alpha1/api/#module--vibe-protocol-) client. This page already loaded the uncompressed version, hence you can run and debug it directly here by using a JavaScript console and doing copy and paste.
 
 ```javascript
 var socket = vibe.open("http://localhost:8080/vibe");

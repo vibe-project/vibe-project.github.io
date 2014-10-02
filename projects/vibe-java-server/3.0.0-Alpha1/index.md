@@ -36,7 +36,7 @@ Vibe Java Server is distributed through Maven Central. A single artifact, <code>
 </dependencies>
 ```
 
-Once you've set up the build, you will be able to write the following [echo and chat](/projects/vibe-protocol/3.0.0-Alpha1/reference/#echo-and-chat) server that can run on Servlet containers Atmosphere 2 supports i.e. Tomcat, Jetty and so on.
+Once you've set up the build, you will be able to write the following [echo and chat](/projects/vibe-protocol/3.0.0-Alpha1/api/#module--vibe-protocol-) server that can run on Servlet containers Atmosphere 2 supports i.e. Tomcat, Jetty and so on.
 
 ```java
 import org.atmosphere.vibe.platform.Action;
