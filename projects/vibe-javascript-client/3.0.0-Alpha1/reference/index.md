@@ -16,7 +16,7 @@ title: Vibe JavaScript Client Reference
     * [Event](#event)
     * [Life Cycle](#life-cycle)
     * [Sending and Receiving Event](#sending-and-receiving-event)
-    * [Sending and Receiving Event with Reply](#sending-and-receiving-event-with-reply) 
+    * [Getting and Setting Result of Event Processing](#getting-and-setting-result-of-event-processing)
     * [Heartbeat](#heartbeat)
     * [Connection Sharing](#connection-sharing) 
     * [Reconnection](#reconnection)
@@ -239,17 +239,17 @@ server.on("socket", function(socket) {
 </div>
 </div>
 
-### Sending and Receiving Event with Reply
-You can receive data in sending event using `send(event: string, data?: any, onResolved?: (data?: any) => void, onRejected?: (data?: any) => void)` and send data in receiving event using `on(event: string, handler:(data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void)`.
+### Getting and Setting Result of Event Processing
+You can get the result of event processing from the server in sending event using `send(event: string, data?: any, onResolved?: (data?: any) => void, onRejected?: (data?: any) => void)`, and set the result of event processing to the server in receiving event using `on(event: string, handler:(data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void)`. Either resolved or rejected callback is executed once when the counterpart executes it.
 
-It looks nothing new to traditional Ajax or Remote Procedure Call (RPC), but comparing to them, WebSocket can reduce unnecessary traffic like HTTP headers and the result can be shared by multiple tabs and windows. To write a low-latency webapp, you can utilize reply in place of Ajax.
+You can apply this functionality to sending events in order, Acknowledgements, Remote Procedure Call and so on. It looks nothing new to traditional Ajax, but comparing to Ajax, WebSocket can reduce unnecessary traffic like HTTP headers and the result can be shared by multiple tabs and windows. To write a low-latency webapp, you can utilize reply in place of Ajax.
 
 **Note**
 
 * Socket must be in `opened` state.
 * Beforehand determine whether to use rejected callback or not to avoid writing unnecessary rejected callbacks.
 
-_The client sends events with reply and the server executes callbacks with event data._
+_The client sends events attaching callbacks and the server executes one of them with the result of event processing._
 
 <div class="row">
 <div class="large-6 columns">
@@ -293,7 +293,7 @@ server.on("socket", function(socket) {
 </div>
 </div>
 
-_The server sends events with reply and the client executes callbacks with event data._
+_The server sends events attaching callbacks and the client executes one of them with the result of event processing._
 
 <div class="row">
 <div class="large-6 columns">

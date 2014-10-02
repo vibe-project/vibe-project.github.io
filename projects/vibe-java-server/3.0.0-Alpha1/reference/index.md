@@ -19,7 +19,7 @@ title: Vibe Java Server Reference
     * [Properties](#properties)
     * [Tagging](#tagging)
     * [Sending and Receiving Event](#sending-and-receiving-event)
-    * [Sending and Receiving Event with Reply](#sending-and-receiving-event-with-reply)
+    * [Getting and Setting Result of Event Processing](#getting-and-setting-result-of-event-processing)
     * [Accessing Platform-Specific Object](#accessing-platform-specific-object)
 * [Integration](#integration)
     * [Dependency Injection Framework](#dependency-injection-framework)
@@ -294,14 +294,14 @@ client.open("http://localhost:8080/vibe", {transport: "ws"})
 </div>
 </div>
 
-### Sending and Receiving Event with Reply
-Through replayable event, you can receive data in sending event by using overloaded signatures of `send(String event, Object data, Action<T> resolved)` and `send(String event, Object data, Action<T> resolved, Action<U> rejected)` where allowed data types are the same with in reciving event and send data in receiving event by using `Reply` as data type in an asynchrnous manner like Remote Procedure Call (RPC) or controller from MVC model.
+### Getting and Setting Result of Event Processing
+You can get the result of event processing from the client in sending event using `send(String event, Object data, Action<T> resolved)` and `send(String event, Object data, Action<T> resolved, Action<U> rejected)` where the allowed Java types, `T`, are the same with in receiving event, and set the result of event processing to the client in receiving event by using `Reply` as data type in an asynchronous manner. Either resolved or rejected callback is executed once when the counterpart executes it. You can apply this functionality to sending events in order, Acknowledgements, Remote Procedure Call and so on.
 
 **Note**
 
 * Beforehand determine whether to use rejected callback or not to avoid writing unnecessary rejected callbacks.
 
-_The client sends events with reply and the server executes callbacks with event data._
+_The client sends events attaching callbacks and the server executes one of them with the result of event processing._
 
 <div class="row">
 <div class="large-6 columns">
@@ -352,7 +352,7 @@ client.open("http://localhost:8080/vibe", {transport: "ws"})
 </div>
 </div>
 
-_The server sends events with reply and the client executes callbacks with event data._
+_The server sends events attaching callbacks and the client executes one of them with the result of event processing._
 
 <div class="row">
 <div class="large-6 columns">
@@ -410,7 +410,7 @@ client.open("http://localhost:8080/vibe", {transport: "ws"})
 </div>
 
 ### Accessing Platform-Specific Object
-In any case, platform-specific objects like HTTP request and WebSocket underlie a socket and sometimes you need to access those objects, for example to get/set some attributes from a session where a socket is associated. Then you can access them using `unwrap(Class<?> clazz)`.
+In any case, platform-specific objects like HTTP request and WebSocket underlie a socket and sometimes you need to access those objects, for example to get some attributes from a session where a socket is associated. Then you can access them using `unwrap(Class<?> clazz)`.
 
 _Accessing HttpSession on Atmosphere._
 
