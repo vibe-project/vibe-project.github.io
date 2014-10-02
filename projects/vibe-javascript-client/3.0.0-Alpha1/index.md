@@ -3,14 +3,16 @@ layout: project
 title: Vibe JavaScript Client
 ---
 
-Vibe JavaScript Client is a lightweight <sup><strong>A</strong></sup> JavaScript client for browser-based <sup><strong>B</strong></sup> and Node-based <sup><strong>C</strong></sup> application.
+Vibe JavaScript Client <sup><strong>A</strong></sup> is a lightweight <sup><strong>B</strong></sup> JavaScript client for browser-based <sup><strong>C</strong></sup> and Node-based <sup><strong>D</strong></sup> application.
 
 <dl>
     <dt>A</dt>
-    <dd>16.53KB minified, 5.92KB minified and gzipped.</dd>
+    <dd><a href="/projects/vibe-protocol/3.0.0-Alpha1">Vibe 3.0.0-Alpha1</a> client.</dd>
     <dt>B</dt>
-    <dd>The policy for browser support is the same with the one of jQuery 1.x that embraces Internet Explorer 6. Also it has no dependency in browser.</dd>
+    <dd>16.53KB minified, 5.92KB minified and gzipped.</dd>
     <dt>C</dt>
+    <dd>The policy for browser support is the same with the one of jQuery 1.x that embraces Internet Explorer 6. Also it has no dependency in browser.</dd>
+    <dt>D</dt>
     <dd>Though browser is the first runtime, it runs seamlessly on Node.js.</dd>
 </dl>
 
@@ -48,7 +50,7 @@ socket.on("connecting", function() {
 
 ### Further Reading
 
-* Do you want to play something right now? Start with [archetype example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-javascript-client).
-* To take a brief look at API, check out the [testee](https://github.com/vibe-project/vibe-javascript-client/blob/2842ab4561592217ec6c722a3b42ae803d1da156/Gruntfile.js#L92-L120).
+* To play something right now, start with [archetype example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-javascript-client).
+* To take a brief look at API, check out the [testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha1/Gruntfile.js#L90-L132).
 * To get details of API, see [API document](/projects/vibe-javascript-client/3.0.0-Alpha1/api/).
 * To have a thorough knowledge of the implementation, read out the [reference](/projects/vibe-javascript-client/3.0.0-Alpha1/reference/).

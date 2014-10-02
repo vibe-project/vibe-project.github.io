@@ -3,16 +3,18 @@ layout: project
 title: Vibe Java Server
 ---
 
-Vibe Java Server is a simple <sup><strong>A</strong></sup>, scalable <sup><strong>B</strong></sup> Java server designed to run any framework or platform on Java Virtual Machine <sup><strong>C</strong></sup>.
+Vibe Java Server <sup><strong>A</strong></sup> is a simple <sup><strong>B</strong></sup>, scalable <sup><strong>C</strong></sup> Java server designed to run any framework or platform on Java Virtual Machine <sup><strong>D</strong></sup>.
 
 <dl>
     <dt>A</dt>
-    <dd>All interface you need to know is Server and ServerSocket. Indeed.</dd>
+    <dd><a href="/projects/vibe-protocol/3.0.0-Alpha1">Vibe 3.0.0-Alpha1</a> server.</dd>
     <dt>B</dt>
-    <dd>Shared nothing architecture is adopted to help scale application horizontally with ease.</dd>
+    <dd>All interface you need to know is Server and ServerSocket. Indeed.</dd>
     <dt>C</dt>
+    <dd>Shared nothing architecture is adopted to help scale application horizontally with ease.</dd>
+    <dt>D</dt>
     <dd>Because it is built on Vibe Java Platform which is I/O abstraction layer, you can run your application on any platform that it supports seamlessly e.g. Play, Vert.x, Atmosphere and Servlet.</dd>
-</dl>
+</dl> 
 
 ---
 
@@ -84,7 +86,7 @@ public class Bootstrap implements ServletContextListener {
 
 ### Further Reading
 
-* Do you want to play something right now? Start with [archetype example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server) on your favorite platform.
-* To take a brief look at API, check out the [testee](https://github.com/vibe-project/vibe-java-server/blob/82d93bb8dfed185de26528538ead45a991ef418c/server/src/test/java/org/atmosphere/vibe/server/ProtocolTest.java).
+* To play something right now, start with [archetype example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server) on your favorite platform.
+* To take a brief look at API, check out the [testee](https://github.com/vibe-project/vibe-java-server/blob/v3.0.0-Alpha1/server/src/test/java/org/atmosphere/vibe/server/ProtocolTest.java#L31-L86).
 * To get details of API, see [API document](/projects/vibe-java-server/3.0.0-Alpha1/apidocs/).
 * To have a thorough knowledge of the implementation, read out the [reference](/projects/vibe-java-server/3.0.0-Alpha1/reference/).
