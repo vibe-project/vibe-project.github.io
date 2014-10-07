@@ -55,7 +55,7 @@ vibe.open("http://localhost:8080/vibe", {transports: ["sse"]})
 </div>
 </div>
 
-* 1: In case of Java Server, mapping `Server` to a specific URI, `http://localhost:8080/vibe`, is done in integrating with a platform. For working code, see [quick start guide](http://vibe-project.github.io/projects/vibe-java-server/3.0.0-Alpha1/#quick-start).
+* 1: In case of Java Server, mapping `Server` to a specific URI, `http://localhost:8080/vibe`, is done in integrating with a platform. For details, see [quick start guide](http://vibe-project.github.io/projects/vibe-java-server/3.0.0-Alpha1/#quick-start) and [working examples](https://github.com/vibe-project/vibe-examples).
 
 First, in 3.0.0-Alpha1, handshaking is not yet implemented so the protocol negotiation is assumed already done by setting options by user. In other means, the client and the server have agreed to use `sse` transport and `JSON` event format in advance.
 
