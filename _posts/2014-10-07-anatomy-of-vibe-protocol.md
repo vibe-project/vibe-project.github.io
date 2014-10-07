@@ -20,7 +20,7 @@ Let's see how the above blocks affect HTTP request and response in an example of
 <div class="row">
 <div class="large-6 columns">
 {% capture panel %}
-**Java Server**
+**Java Server** <sup>1</sup>
 
 ```java
 Server server = new DefaultServer();
@@ -54,6 +54,8 @@ vibe.open("http://localhost:8080/vibe", {transports: ["sse"]})
 {% endcapture %}{{ panel | markdownify }}
 </div>
 </div>
+
+* 1: In case of Java Server, mapping `Server` to a specific URI, `http://localhost:8080/vibe`, is done in integrating with a platform. For working code, see [quick start guide](http://vibe-project.github.io/projects/vibe-java-server/3.0.0-Alpha1/#quick-start).
 
 First, in 3.0.0-Alpha1, handshaking is not yet implemented so the protocol negotiation is assumed already done by setting options by user. In other means, the client and the server have agreed to use `sse` transport and `JSON` event format in advance.
 
