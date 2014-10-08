@@ -23,9 +23,9 @@ title: Vibe Protocol Reference
 ---
 
 ## Specification
-The protocol consists of very protocol to provide reliable full duplex connection over HTTP and a set of optional extensions to provide elegant patterns.
+The protocol is still under active development and it's not easy to maintain both reference implementation and specification document. Accordingly for now the reference implementation takes the place of the specification document.
 
-Both parts are still under active development and it's not easy to maintain both reference implementation and specification document. Accordingly for now the reference implementation takes the place of the specification document.
+Nevertheless, if you need big picture of the protocol, see [Anatomy of Protocol](http://vibe-project.github.io/blog/anatomy-of-vibe-protocol/). Note that it covers future features on the roadmap and may be different with this version. 
 
 ---
 
