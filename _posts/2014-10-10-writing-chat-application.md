@@ -31,25 +31,21 @@ Let's set up a basic build script, `pom.xml`, using Maven.
     <artifactId>simple-chat</artifactId>
     <version>0.1.0</version>
     <dependencies>
-        <!-- Vibe Java Server -->
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>vibe-server</artifactId>
             <version>3.0.0-Alpha1</version>
         </dependency>
-        <!-- Vibe Java Platform for Atmosphere -->
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>vibe-platform-server-atmosphere2</artifactId>
             <version>3.0.0-Alpha1</version>
         </dependency>
-        <!-- Atmosphere -->
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-runtime</artifactId>
             <version>2.2.2</version>
         </dependency>
-        <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -59,7 +55,6 @@ Let's set up a basic build script, `pom.xml`, using Maven.
     </dependencies>
     <build>
         <plugins>
-            <!-- Jetty plugin -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -226,19 +221,19 @@ In this time, we set `transports` to `["sse"]` to see how echo does work at the 
 When you types the code to the console, you will see an `echo` event with `Hello there?` data is sent back.
 
 ### Tracking event
-You may wonder how event object not plain text is sent and received via the connection based on HTTP connection not WebSocket. For the full answer of that question, see [Anatomy of Vibe Protocol](/blog/anatomy-of-vibe-protocol/). In short,
+You may wonder how event object not plain text is sent and received via the connection based on HTTP not WebSocket. For the full answer of that question, see [Anatomy of Vibe Protocol](/blog/anatomy-of-vibe-protocol/). In short,
 
 * client user sends an event where type is `echo` and data is `Hello there?`.
 * client creates an event object, `{id:"0",type:"echo",data:"Hello there?",reply:false}`.
 * client's event format serializes it to text, `{"id":"0","type":"echo","data":"Hello there?","reply":false}`.
 * client's sse transport formats it to `data={"id":"0","type":"echo","data":"Hello there?","reply":false}`.
 * server's sse transport parses it to `{"id":"0","type":"echo","data":"Hello there?","reply":false}`.
-* server's event format deserializes it to a Map, `{id=0, type=echo, data=Hello there?, reply=false}`.
+* server's event format deserializes it to a map, `{id=0, type=echo, data=Hello there?, reply=false}`.
 * server creates an event object, `{id=0, type=echo, data=Hello there?, reply=false}`.
 * server user receives an event where type is `echo` and data is `Hello there?`.
 * server user sends an event where type is `echo` and data is `Hello there?`.
 * server creates an event object, `{id=1, type=echo, data=Hello there?, reply=false}`.
-* server's event format serializes it text, `{"id":"1","type":"echo","data":"Hello there?","reply":false}`.
+* server's event format serializes it to text, `{"id":"1","type":"echo","data":"Hello there?","reply":false}`.
 * server's sse transport formats it to `data: {"id":"1","type":"echo","data":"Hello there?","reply":false}\n\n`.
 * client's sse transport parses it to `{"id":"1","type":"echo","data":"Hello there?","reply":false}`.
 * client's event format deserializes it to an object literal, `{id:"1",type:"echo",data:"Hello there?",reply:false}`.
@@ -251,7 +246,7 @@ The above event format is JSON which is the default one. By replacing it with on
 Let's implement `chat` event which should be broadcasted to every client that connected to the server.
 
 ### Server
-One of the patterns you need to be aware of to use Java Server is "select sockets and do something". Focus on which socket you will need and how you will handle a given socket. In this situation to broadcast `chat` event to every client, sockets we need is all opened socket and what we need to do for a socket is to send `chat` event. It can be done like the following:
+One of the patterns you need to be aware of to use Java Server is "select sockets and do something". Focus on which socket you need and how you handle a given socket. In this situation to broadcast `chat` event to every client, sockets we need are all opened socket and what we need to do for a socket is to send `chat` event. It can be done like the following:
 
 ```java
 socket.on("chat", new Action<String>() {
@@ -268,9 +263,9 @@ socket.on("chat", new Action<String>() {
 });
 ```
 
-There are 3 methods to select sockets: `all(Action<ServerSocket> action)` for all of the socket in the server, `byId(String id, Action<ServerSocket> action)` for a socket associated with the given id and `byTag(String[] names, Action<ServerSocket> action)` for a group of socket tagged with the given tag. In any cases, the given socket is in opened where I/O operations are possible so you don't need to mind that unlike in client.
+There are 3 methods to select sockets: `all(Action<ServerSocket> action)` for all of the socket in the server, `byId(String id, Action<ServerSocket> action)` for a socket associated with the given id and `byTag(String[] names, Action<ServerSocket> action)` for a group of socket tagged with the given tag. In any cases, the given socket is opened where I/O operations are possible so you don't need to mind the state unlike in client.
 
-As we can separate use case into the target of operation and operation dealing with a single target, we can reuse operation. For example, spending 6 lines to send a simple event decreases readability unless Java 8's Lambda Expressions is available. In this case, you can use `Sentence`, which is a fluent interface to deal with a group of sockets. Let's refactor the above `chat` action to use `Sentence`:
+As we can separate use case into the target of operation and operation dealing with a single target, we can reuse operation. For example, spending 6 lines to only send an event decreases readability unless Java 8's Lambda Expressions is available. In this case, you can use `Sentence`, which is a fluent interface to deal with a group of sockets. Let's refactor the above `chat` action to use `Sentence`:
 
 ```java
 socket.on("chat", new Action<String>() {
@@ -312,7 +307,7 @@ We just finished writing a simple chat application but to introduce Vibe to a re
 ### Dependency Injection
 If you are familiar with Dependency Injection framework like Spring and Guice, you may realize how definite it is to use Vibe with Dependency Injection. Registers a `Server` as a singleton component and inject it wherever you need to handle socket.
 
-The following codes are for Spring but the same pattern can be applied to other Dependency Injection frameworks.
+The following codes are for Spring but the same pattern can be applied to other frameworks.
 
 `src/main/java/simple/Bootstrap.java`
 
@@ -373,7 +368,7 @@ public class SpringConfig {
 }
 ```
 
-As Spring injects ServletContext needed to install Vibe on Atmosphere, installation is done in configuration class. Of course, you can do that elsewhere by injecting `Server`.
+As Spring injects ServletContext needed to install Vibe on Atmosphere, installation has been done in configuration class. Of course, you can do that elsewhere by injecting `Server`.
 
 `src/main/java/simple/Clock.java`
 
@@ -401,7 +396,7 @@ This bean sends an `chat` event with the current server time in milliseconds to 
 ### Clustering
 What you need to cluster application is Message Oriented Middleware supporting publish and subscribe model. "select sockets and do something" is still valid here so that you don't need to know if this application is going to be clustered or not.
 
-What you need to do that is to use `ClusteredServer` and to add an action to `publishAction(Action<Map<String,Object>> action)` that publishes a given message to all nodes including the one issued in cluster and to pass a given message to `messageAction()` if one of nodes publishes a message while subscribing. Here the "message" to be published to all `Server` in the cluster contains the method call information of `all`, `byId` and `byTag` in some `Server`. Therefore, you should use an action implementing Serializable or `Sentence`.
+What you need to do that is to use `ClusteredServer` and to add an action to `publishAction(Action<Map<String,Object>> action)` that publishes a given message to all nodes including the one issued in the cluster and to pass a given message to `messageAction()` if one of nodes publishes a message while subscribing. Here the "message" to be published to all `Server` in the cluster contains the method call information of `all`, `byId` and `byTag` occurred in a sepcific `Server`. And also it is supposed to be serialized and deserialized so you should use an action implementing `Serializable` or `Sentence`.
 
 The full code with Hazelcast is like the following:
 
@@ -481,4 +476,4 @@ public class Bootstrap implements ServletContextListener {
 ```
 
 ## Getting this example
-You can find this example as well as example per each platform on GitHub [here](https://github.com/vibe-project/vibe-examples#archetype).
+You can find [this example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2) as well as example per each platform on [GitHub](https://github.com/vibe-project/vibe-examples#archetype).
