@@ -50,6 +50,7 @@ socket.on("connecting", function() {
 
 ### Further Reading
 
+* To get started with Java Server, read the tutorial, [writing chat application](/blog/writing-chat-application/).
 * To play something right now, start with [archetype example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-javascript-client).
 * To take a brief look at API, check out the [testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha2/Gruntfile.js#L90-L132).
 * To get details of API, see [API document](/projects/vibe-javascript-client/3.0.0-Alpha2/api/).
