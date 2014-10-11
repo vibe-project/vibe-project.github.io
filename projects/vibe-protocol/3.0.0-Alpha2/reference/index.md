@@ -121,8 +121,8 @@ According to the request path:
 
 * `/alive`
     * Write `true` or `false` to the response according to whether a socket specified by the request param `id` is opened and end the response.
-* `/open`
-    * Make the implementation connect to the server setting URI to the request param `uri`, transport to the request param `transport`, heartbeat to the request param `heartbeat` or `false` if not exists and _heartbeat to the request param `_heartbeat` or `false` if not exists.
+* `/vibe`
+    * Delegate an exchange of request and response to the implementation without touching it.
 
 ##### Handling Socket
 According to the socket event:
