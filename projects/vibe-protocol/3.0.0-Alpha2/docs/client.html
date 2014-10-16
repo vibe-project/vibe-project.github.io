@@ -63,46 +63,9 @@
  * Copyright 2014 The Vibe Project 
  * Licensed under the Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
- */</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <hr>
-<p><strong>Table of Contents</strong></p>
-<ul>
-<li><a href="#client">Client</a></li>
-<li><a href="#uri">URI</a></li>
-<li><a href="#socket">Socket</a><ul>
-<li><a href="#receiving-an-event">Receiving an event</a></li>
-<li><a href="#sending-an-event">Sending an event</a></li>
-<li><a href="#closing-the-socket">Closing the socket</a></li>
-<li><a href="#supporting-heartbeat">Supporting heartbeat</a></li>
-</ul>
-</li>
-<li><a href="#transport">Transport</a><ul>
-<li><a href="#websocket">WebSocket</a></li>
-<li><a href="#http-base">HTTP base</a></li>
-<li><a href="#server-sent-events">Server-Sent Events</a></li>
-<li><a href="#xmlhttprequest-streaming-xdomainrequest-hidden-iframe-">XMLHttpRequest Streaming (XDomainRequest, Hidden iframe)</a></li>
-<li><a href="#ajax-long-polling-xdomainrequest-">AJAX Long polling (XDomainRequest)</a></li>
-<li><a href="#jsonp-long-polling">JSONP Long polling</a></li>
-</ul>
-</li>
-</ul>
-<hr>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> events      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"events"</span>);
-<span class="hljs-keyword">var</span> url         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>); 
-<span class="hljs-keyword">var</span> uuid        = <span class="hljs-built_in">require</span>(<span class="hljs-string">"node-uuid"</span>);
+ */</span>
+<span class="hljs-keyword">var</span> events      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"events"</span>);
+<span class="hljs-keyword">var</span> url         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>);
 <span class="hljs-keyword">var</span> crypto      = <span class="hljs-built_in">require</span>(<span class="hljs-string">"crypto"</span>);
 <span class="hljs-keyword">var</span> WebSocket   = <span class="hljs-built_in">require</span>(<span class="hljs-string">"ws"</span>);
 <span class="hljs-keyword">var</span> http        = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>);
@@ -113,11 +76,11 @@ http.globalAgent.maxSockets = <span class="hljs-literal">Infinity</span>;</pre><
         </li>
         
         
-        <li id="section-3">
+        <li id="section-2">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <p>This module is exposed to the parent module’s <code>client</code> as a constructor of
 client.</p>
@@ -129,14 +92,13 @@ client.</p>
         </li>
         
         
-        <li id="section-4">
+        <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <h2 id="client">Client</h2>
-<p>A client instance to be returned by this function is a factory to create
+              <p>A client instance to be returned by this function is a factory to create
 socket to connect to the server. It is expected to use HTTP and WebSocket
 client implementation that are standardized in <a href="http://tools.ietf.org/html/rfc2616">RFC
 2616</a> and <a href="http://tools.ietf.org/html/rfc6455">RFC
@@ -145,22 +107,8 @@ client implementation that are standardized in <a href="http://tools.ietf.org/ht
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">client</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">var</span> client = {};</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
-              </div>
-              <h3 id="opening-socket">Opening socket</h3>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    client.open = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(uri, options)</span> </span>{
+    <span class="hljs-keyword">var</span> client = {};
+    client.open = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(uri, options)</span> </span>{
         <span class="hljs-keyword">return</span> socket(uri, options);
     };
     <span class="hljs-keyword">return</span> client;
@@ -169,17 +117,16 @@ client implementation that are standardized in <a href="http://tools.ietf.org/ht
         </li>
         
         
-        <li id="section-6">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <h2 id="uri">URI</h2>
-<p>An URI specified in <a href="http://tools.ietf.org/html/rfc3986">RFC 3986</a> is the
-complete path to the vibe server endpoint. The protocol uses the query string
-to pass information to interact with the server so be aware of reserved
-parameters or use RESTful path.</p>
+              <p>An URI specified in <a href="http://tools.ietf.org/html/rfc3986">RFC 3986</a> is the
+complete path to the vibe server endpoint. The protocol uses only the query
+string to pass information to interact with the server so be aware of
+reserved parameters.</p>
 <p>The followings parameters are always included to the query string:</p>
 <ul>
 <li><code>id</code>: a socket id in the form of UUID.</li>
@@ -202,11 +149,6 @@ additional params are attached to query string.</p>
 <li><code>longpollajax</code>: AJAX Long Polling. </li>
 <li><code>longpollxdr</code>: XDomainRequest Long Polling. </li>
 <li><code>longpolljsonp</code>: JSONP Long Polling. </li>
-</ul>
-</li>
-<li><code>heartbeat</code>: a heartbeat interval value in milliseconds. It have to be larger than <code>5000</code>.<ul>
-<li><code>20000</code>: a recommended value.</li>
-<li><code>false</code>: no heartbeat.</li>
 </ul>
 </li>
 <li><code>callback</code>: a callback name used in <code>longpolljsonp</code> transport.</li>
@@ -233,15 +175,12 @@ events in the preceding response.</li>
         <span class="hljs-keyword">switch</span> (params.when) {
         <span class="hljs-keyword">case</span> <span class="hljs-string">"open"</span>:
             urlObj.query.transport = params.transport;
-            urlObj.query.heartbeat = params.heartbeat;
             <span class="hljs-keyword">if</span> (params.callback) {
                 urlObj.query.callback = params.callback;
             }
             <span class="hljs-keyword">break</span>;
         <span class="hljs-keyword">case</span> <span class="hljs-string">"poll"</span>:
             urlObj.query.lastEventIds = params.lastEventIds;
-            <span class="hljs-keyword">break</span>;
-        <span class="hljs-keyword">case</span> <span class="hljs-string">"abort"</span>:
             <span class="hljs-keyword">break</span>;
         }
     }
@@ -253,14 +192,13 @@ events in the preceding response.</li>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <h2 id="socket">Socket</h2>
-<p>A socket is an interface to exchange event between the two endpoints and
+              <p>A socket is an interface to exchange event between the two endpoints and
 expected to be public for developers to create vibe application. The event
 is serialized to and deseriazlied from JSON specified in
 <a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf">ECMA-404</a>.</p>
@@ -268,7 +206,38 @@ is serialized to and deseriazlied from JSON specified in
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socket</span><span class="hljs-params">(uri, options)</span> </span>{
-    <span class="hljs-keyword">var</span> socket = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
+    <span class="hljs-keyword">var</span> socket = <span class="hljs-keyword">new</span> events.EventEmitter();
+    <span class="hljs-keyword">var</span> transport;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Most options to establish a connection come from handshaking.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    options = options || {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Perform a handshake request to negotiate the protocol</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    http.get(buildURI(uri, {when: <span class="hljs-string">"handshake"</span>}))</pre></div></div>
             
         </li>
         
@@ -279,12 +248,19 @@ is serialized to and deseriazlied from JSON specified in
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Sets default options.</p>
+              <p>If any error is encountered, fires the <code>close</code> event.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    options.heartbeat = options.heartbeat || <span class="hljs-number">20000</span>;
-    options._heartbeat = options._heartbeat || <span class="hljs-number">5000</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    .on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        socket.emit(<span class="hljs-string">"close"</span>);
+    })
+    .on(<span class="hljs-string">"response"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(res)</span> </span>{
+        <span class="hljs-keyword">var</span> body = <span class="hljs-string">""</span>;
+        res.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(chunk)</span> </span>{
+            body += chunk;
+        });
+        res.on(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -295,12 +271,12 @@ is serialized to and deseriazlied from JSON specified in
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>Generates an UUID as an identifier of this socket. It should be
-universally unique literally.</p>
+              <p>The result of handshaking is a form of JSON and contains
+information to establish a connection.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    socket.id = uuid.v4();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> result = <span class="hljs-built_in">JSON</span>.parse(body);</pre></div></div>
             
         </li>
         
@@ -311,13 +287,11 @@ universally unique literally.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>According to the transport option, create the transport and connect
-to the server.</p>
+              <p>A newly issued id for this socket.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> params = {id: socket.id, transport: options.transport, heartbeat: options.heartbeat};
-    <span class="hljs-keyword">var</span> transport = transports[options.transport](uri, params);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            socket.id = result.id;</pre></div></div>
             
         </li>
         
@@ -328,16 +302,13 @@ to the server.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <p>Delegates transport’s <code>open</code> and <code>close</code> events to socket.</p>
+              <p><code>transport</code> a user assigned explicitly is prioritized than the
+result of handshaking, but it’s usually for testing so not
+desired.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-        socket.emit(<span class="hljs-string">"open"</span>);
-    });
-    transport.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-        socket.emit(<span class="hljs-string">"close"</span>);
-    });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!options.transport) {</pre></div></div>
             
         </li>
         
@@ -348,12 +319,13 @@ to the server.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <h3 id="receiving-an-event">Receiving an event</h3>
-<p>When the underlying transport has received a message from the server.</p>
+              <p>Picks out the supported ones by this client.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"message"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(text)</span> </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> candidates = result.transports.filter(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(name)</span> </span>{
+                    <span class="hljs-keyword">return</span> name <span class="hljs-keyword">in</span> transports;
+                });</pre></div></div>
             
         </li>
         
@@ -364,23 +336,15 @@ to the server.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>Converts JSON to an event object.</p>
-<h4 id="an-event-sent-by-the-server">An event sent by the server</h4>
-<p>It should have the following properties:</p>
-<ul>
-<li><code>id: string</code>: an event identifier.</li>
-<li><code>type: string</code>: an event type.</li>
-<li><code>data: any</code>: an event data.</li>
-</ul>
-<p>If the client implements <code>reply</code> extension, the following properties
-should be considered as well.</p>
-<ul>
-<li><code>reply: boolean</code>: true if this event requires the reply.</li>
-</ul>
+              <p>If nothing is available, it’s not possible to connect to the
+server. Fire the <code>close</code> event.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> event = <span class="hljs-built_in">JSON</span>.parse(text);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (candidates.length === <span class="hljs-number">0</span>) {
+                    socket.emit(<span class="hljs-string">"close"</span>);
+                    <span class="hljs-keyword">return</span>;
+                }</pre></div></div>
             
         </li>
         
@@ -391,12 +355,13 @@ should be considered as well.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              <p>If the server sends a plain event, dispatch it.</p>
+              <p>Choose the first one among transport both client and server
+support.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (!event.reply) {
-            socket.emit(event.type, event.data);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                options.transport = candidates[<span class="hljs-number">0</span>];
+            }</pre></div></div>
             
         </li>
         
@@ -407,14 +372,14 @@ should be considered as well.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>This is how to implement <code>reply</code> extension. An event handler for 
-the corresponding event will receive reply controller as 2nd argument. 
-It calls the server’s resolved or rejected callback by sending <code>reply</code>
-event.</p>
+              <p><code>heartbeat</code> and <code>_heartbeat</code> should be set through only
+handshaking. However, <code>_heartbeat</code> is usually for testing so it
+may be not passed from the server. The default value is <code>5000</code>.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        } <span class="hljs-keyword">else</span> {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            options.heartbeat = result.heartbeat;
+            options._heartbeat = result._heartbeat || <span class="hljs-number">5000</span>;</pre></div></div>
             
         </li>
         
@@ -425,27 +390,12 @@ event.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>The latch prevents double reply.</p>
+              <p>According to the transport option, create the transport and
+connect to the server.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> latch;
-            socket.emit(event.type, event.data, {
-                resolve: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> </span>{
-                    <span class="hljs-keyword">if</span> (!latch) {
-                        latch = <span class="hljs-literal">true</span>;
-                        socket.send(<span class="hljs-string">"reply"</span>, {id: event.id, data: value, exception: <span class="hljs-literal">false</span>});
-                    }
-                },
-                reject: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reason)</span> </span>{
-                     <span class="hljs-keyword">if</span> (!latch) {
-                         latch = <span class="hljs-literal">true</span>;
-                         socket.send(<span class="hljs-string">"reply"</span>, {id: event.id, data: reason, exception: <span class="hljs-literal">true</span>});
-                     }
-                }
-            });
-        }
-    });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            transport = transports[options.transport](uri, {id: socket.id});</pre></div></div>
             
         </li>
         
@@ -456,12 +406,12 @@ event.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              <h3 id="sending-an-event">Sending an event</h3>
-<p>An id for event.</p>
+              <p>For testing, assigns a real uri used in establishing a connection
+to socket</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> eventId = <span class="hljs-number">0</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            socket.uri = transport.uri;</pre></div></div>
             
         </li>
         
@@ -471,6 +421,151 @@ event.</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Delegates transport’s <code>open</code> and <code>close</code> events to socket.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            transport.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                socket.emit(<span class="hljs-string">"open"</span>);
+            });
+            transport.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                socket.emit(<span class="hljs-string">"close"</span>);
+            });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>When the underlying transport has received a message from the
+server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            transport.on(<span class="hljs-string">"message"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(text)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Converts JSON to an event object.</p>
+<p>It should have the following properties:</p>
+<ul>
+<li><code>id: string</code>: an event identifier.</li>
+<li><code>type: string</code>: an event type.</li>
+<li><code>data: any</code>: an event data.</li>
+</ul>
+<p>If the client implements <code>reply</code> extension, the following
+properties should be considered as well.</p>
+<ul>
+<li><code>reply: boolean</code>: true if this event requires the reply.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> event = <span class="hljs-built_in">JSON</span>.parse(text);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>If the server sends a plain event, dispatch it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (!event.reply) {
+                    socket.emit(event.type, event.data);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>This is how to implement <code>reply</code> extension. An event handler
+for the corresponding event will receive reply controller as
+2nd argument. It calls the server’s resolved or rejected
+callback by sending <code>reply</code> event.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>The latch prevents double reply.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">var</span> latch;
+                    socket.emit(event.type, event.data, {
+                        resolve: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> </span>{
+                            <span class="hljs-keyword">if</span> (!latch) {
+                                latch = <span class="hljs-literal">true</span>;
+                                socket.send(<span class="hljs-string">"reply"</span>, {id: event.id, data: value, exception: <span class="hljs-literal">false</span>});
+                            }
+                        },
+                        reject: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reason)</span> </span>{
+                             <span class="hljs-keyword">if</span> (!latch) {
+                                 latch = <span class="hljs-literal">true</span>;
+                                 socket.send(<span class="hljs-string">"reply"</span>, {id: event.id, data: reason, exception: <span class="hljs-literal">true</span>});
+                             }
+                        }
+                    });
+                }
+            });
+        });
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>An id for event. It should be unique among events to be sent to the
+server and has nothing to do with one the server sent.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> eventId = <span class="hljs-number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>A map for reply callbacks for <code>reply</code> extension.</p>
 
@@ -482,14 +577,13 @@ event.</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
-              <h4 id="an-event-to-be-sent-to-the-server">An event to be sent to the server</h4>
-<p>It should have the following properties:</p>
+              <p>It should have the following properties:</p>
 <ul>
 <li><code>id: string</code>: an event identifier.</li>
 <li><code>type: string</code>: an event type.</li>
@@ -513,11 +607,11 @@ should be available as well.</p>
         </li>
         
         
-        <li id="section-20">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>For <code>reply</code> extension, stores resolved and rejected callbacks if they
 are given.</p>
@@ -531,11 +625,11 @@ are given.</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p>Convert the event to JSON and sends it through the transport.</p>
 
@@ -547,13 +641,13 @@ are given.</p>
         </li>
         
         
-        <li id="section-22">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
-              <p>For <code>reply</code> extension, on the reply event, executes the stored reply
+              <p>For <code>reply</code> extension, on the <code>reply</code> event, executes the stored reply
 callbacks with data.</p>
 
             </div>
@@ -567,134 +661,8 @@ callbacks with data.</p>
             }
             <span class="hljs-keyword">delete</span> callbacks[reply.id];
         }
-    });</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-23">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
-              </div>
-              <h3 id="closing-the-socket">Closing the socket</h3>
-<p>By closing the transport.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    socket.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-        transport.close();
-    };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-24">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
-              </div>
-              <h3 id="supporting-heartbeat">Supporting heartbeat</h3>
-<p>If <code>heartbeat</code> option is not <code>false</code> and is a number, starts
-the heartbeat handshakes on <code>open</code> event. </p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    socket.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-25">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
-              </div>
-              <p>The option <code>_heartbeat</code> is just to speed up heartbeat test and do not
-provide such option for production use. It means the time to wait
-for the server’s response. The default value is <code>5000</code>.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (options.heartbeat &gt; options._heartbeat) {
-            <span class="hljs-keyword">var</span> heartbeatTimer;
-            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setHeartbeatTimer</span><span class="hljs-params">()</span> </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-26">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
-              </div>
-              <p>Sets a timer to send an heartbeat event after
-<code>heartbeat - _heartbeat</code> miliseconds.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>                heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-                    socket.send(<span class="hljs-string">"heartbeat"</span>);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-27">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
-              </div>
-              <p>Sets a timer to close the socket if the server doesn’t
-respond in the <code>_heartbeat</code> interval.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>                    heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-                        socket.close();
-                    }, options._heartbeat);
-                }, options.heartbeat - options._heartbeat);
-            }</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-28">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
-              </div>
-              <p>If the server echoes back the sent heartbeat event, clears the
-timer and set it again.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            socket.on(<span class="hljs-string">"heartbeat"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-                clearTimeout(heartbeatTimer);
-                setHeartbeatTimer();
-            });</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-29">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
-              </div>
-              <p>The heartbeat handshake should be stopped on close event.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            socket.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-                clearTimeout(heartbeatTimer);
-            });</pre></div></div>
+    });
+    socket.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -705,16 +673,18 @@ timer and set it again.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
-              <p>Starts the heartbeat.</p>
+              <p>If a user closes a socket before finishing handshaking, the transport
+would be <code>null</code>. Then, fire the <code>close</code> event. If not, the transport
+will fire the <code>close</code> event and it will propagate to this socket.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            setHeartbeatTimer();
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (transport) {
+            transport.close();
+        } <span class="hljs-keyword">else</span> {
+            socket.emit(<span class="hljs-string">"close"</span>);
         }
-    });
-    
-    <span class="hljs-keyword">return</span> socket;
-}</pre></div></div>
+    };</pre></div></div>
             
         </li>
         
@@ -725,14 +695,13 @@ timer and set it again.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
-              <h2 id="transport">Transport</h2>
-<p>A transport is used to establish a persistent connection, send data, receive
-data and close the connection and is expected to be private for user not
-to access.</p>
+              <p>Starts the heartbeat handshakes on <code>open</code> event.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> transports = {};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    socket.on(<span class="hljs-string">"open"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> heartbeatTimer;
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setHeartbeatTimer</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -743,14 +712,13 @@ to access.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
-              <h3 id="websocket">WebSocket</h3>
-<p><code>ws</code>.</p>
-<p>WebSocket is a protocol designed for a full-duplex communications over a
-TCP connection. However, it’s not always available for various reason.</p>
+              <p>Sets a timer to send an <code>heartbeat</code> event after
+<code>heartbeat - _heartbeat</code> miliseconds.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>transports.ws = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(uri, params)</span> </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                socket.send(<span class="hljs-string">"heartbeat"</span>);</pre></div></div>
             
         </li>
         
@@ -761,18 +729,16 @@ TCP connection. However, it’s not always available for various reason.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
-              <p>Builds an URI to open changing the protocol from http to ws and connects
-to the server over WebSocket protocol.</p>
+              <p>Sets a timer to close the socket if the server doesn’t
+respond in the <code>_heartbeat</code> interval.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> WebSocket(buildURI(uri, {
-        id: params.id, 
-        when: <span class="hljs-string">"open"</span>, 
-        transport: <span class="hljs-string">"ws"</span>, 
-        heartbeat: params.heartbeat
-    }).replace(<span class="hljs-regexp">/^http/</span>, <span class="hljs-string">"ws"</span>));
-    <span class="hljs-keyword">var</span> transport = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                    socket.close();
+                }, options._heartbeat);
+            }, options.heartbeat - options._heartbeat);
+        }</pre></div></div>
             
         </li>
         
@@ -782,6 +748,164 @@ to the server over WebSocket protocol.</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>If the server echoes back the sent <code>heartbeat</code> event, clears the
+timer and set it again.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        socket.on(<span class="hljs-string">"heartbeat"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            clearTimeout(heartbeatTimer);
+            setHeartbeatTimer();
+        });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>The heartbeat handshake should be stopped on <code>close</code> event.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        socket.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            clearTimeout(heartbeatTimer);
+        });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>Starts the heartbeat.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        setHeartbeatTimer();
+    });
+    <span class="hljs-keyword">return</span> socket;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>A transport is used to establish a persistent connection, send data, receive
+data and close the connection and is expected to be private for user not to
+access.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> transports = {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>A base transport for every transport.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>transports.base = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(uri, params)</span> </span>{
+    <span class="hljs-keyword">var</span> transport = <span class="hljs-keyword">new</span> events.EventEmitter();
+    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>Aborts the real connection. It should be implemented by others.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        transport.abort();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>Server may not detect disconnection for some reason though the
+connection is based on WebSocket. To prevent idle connections,
+notifies the server of disconnection of this connection.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        http.get(buildURI(uri, {id: params.id, when: <span class="hljs-string">"abort"</span>}));
+    };
+    <span class="hljs-keyword">return</span> transport;
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>WebSocket is a protocol designed for a full-duplex communications over a TCP
+connection. However, it’s not always available for various reason.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>transports.ws = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(uri, params)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>Builds an URI to open changing the protocol from http to ws and connects
+to the server over WebSocket protocol.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> u = buildURI(uri, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"ws"</span>}).replace(<span class="hljs-regexp">/^http/</span>, <span class="hljs-string">"ws"</span>);
+    <span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> WebSocket(u);
+    <span class="hljs-keyword">var</span> transport = transports.base(uri, params);
+    transport.uri = u;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
               </div>
               <p>Simply delegates WebSocket’s events to transport and transport’s
 behaviors to WebSocket.</p>
@@ -800,7 +924,7 @@ behaviors to WebSocket.</p>
     transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{
         ws.send(data);
     };
-    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    transport.abort = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
         ws.close();
     };
     <span class="hljs-keyword">return</span> transport;
@@ -809,14 +933,13 @@ behaviors to WebSocket.</p>
         </li>
         
         
-        <li id="section-35">
+        <li id="section-44">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
-              <h3 id="http-base">HTTP base</h3>
-<p>A base transport for the following HTTP transports.</p>
+              <p>A base transport for the following HTTP transports.</p>
 <ul>
 <li><strong>HTTP Streaming</strong>: the client performs a HTTP persistent
 connection and watches changes in response text and the server prints chunk
@@ -829,19 +952,18 @@ and performs a request again and again.</li>
             </div>
             
             <div class="content"><div class='highlight'><pre>transports.httpbase = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(uri, params)</span> </span>{
-    <span class="hljs-keyword">var</span> transport = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
+    <span class="hljs-keyword">var</span> transport = transports.base(uri, params);</pre></div></div>
             
         </li>
         
         
-        <li id="section-36">
+        <li id="section-45">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
-              <h4 id="sending-data">Sending data</h4>
-<p>A persistent connection established by transport over HTTP protocol is
+              <p>A persistent connection established by transport over HTTP protocol is
 only for the server to send something to the client. For the client to
 send something to the server, issues a request through <code>POST</code> method.
 And its content type header should be <code>text/plain; charset=utf-8</code> and the
@@ -852,56 +974,8 @@ final data should be prefixed with <code>data=</code>.</p>
             <div class="content"><div class='highlight'><pre>    transport.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{
         <span class="hljs-keyword">var</span> reqOpts = url.parse(buildURI(uri, {id: params.id}));
         reqOpts.method = <span class="hljs-string">"POST"</span>;
-        reqOpts.headers = {
-            <span class="hljs-string">"content-type"</span>: <span class="hljs-string">"text/plain; charset=utf-8"</span>
-        };
+        reqOpts.headers = {<span class="hljs-string">"content-type"</span>: <span class="hljs-string">"text/plain; charset=utf-8"</span>};
         http.request(reqOpts).end(<span class="hljs-string">"data="</span> + data);
-    };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-37">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
-              </div>
-              <h4 id="closing-the-transport">Closing the transport</h4>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    transport.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-38">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
-              </div>
-              <p>Aborts the real connection. It should be implemented by others.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        transport.abort();</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-39">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-39">&#182;</a>
-              </div>
-              <p>Notifies the server of disconnection of this connection.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        http.get(url.parse(buildURI(uri, {id: params.id, when: <span class="hljs-string">"abort"</span>})));
     };
     <span class="hljs-keyword">return</span> transport;
 };</pre></div></div>
@@ -909,15 +983,13 @@ final data should be prefixed with <code>data=</code>.</p>
         </li>
         
         
-        <li id="section-40">
+        <li id="section-46">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-40">&#182;</a>
+                <a class="pilcrow" href="#section-46">&#182;</a>
               </div>
-              <h3 id="server-sent-events">Server-Sent Events</h3>
-<p><code>sse</code>. </p>
-<p>The <a href="http://www.w3.org/TR/eventsource/">Server-Sent Events</a>
+              <p>The <a href="http://www.w3.org/TR/eventsource/">Server-Sent Events</a>
 specified by W3C is yet another HTTP streaming technique.</p>
 
             </div>
@@ -927,33 +999,30 @@ specified by W3C is yet another HTTP streaming technique.</p>
         </li>
         
         
-        <li id="section-41">
+        <li id="section-47">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-41">&#182;</a>
+                <a class="pilcrow" href="#section-47">&#182;</a>
               </div>
               <p>Builds an URI to open and connects to the server over HTTP protocol.
 EventSource uses <code>GET</code> method.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> es = <span class="hljs-keyword">new</span> EventSource(buildURI(uri, {
-        id: params.id, 
-        when: <span class="hljs-string">"open"</span>, 
-        transport: <span class="hljs-string">"sse"</span>, 
-        heartbeat: params.heartbeat
-    }));
-    <span class="hljs-keyword">var</span> transport = transports.httpbase(uri, params);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> u = buildURI(uri, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"sse"</span>});
+    <span class="hljs-keyword">var</span> es = <span class="hljs-keyword">new</span> EventSource(u);
+    <span class="hljs-keyword">var</span> transport = transports.httpbase(uri, params);
+    transport.uri = u;</pre></div></div>
             
         </li>
         
         
-        <li id="section-42">
+        <li id="section-48">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-42">&#182;</a>
+                <a class="pilcrow" href="#section-48">&#182;</a>
               </div>
               <p>Simply delegates EventSource’s events to transport and transport’s
 behaviors to EventSource.</p>
@@ -969,31 +1038,17 @@ behaviors to EventSource.</p>
     es.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> </span>{
         es.close();
         transport.emit(<span class="hljs-string">"close"</span>);
-    };</pre></div></div>
+    };
+    transport.abort = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
         
-        <li id="section-43">
+        <li id="section-49">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-43">&#182;</a>
-              </div>
-              <h4 id="aborting-the-transport">Aborting the transport</h4>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    transport.abort = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-44">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-44">&#182;</a>
+                <a class="pilcrow" href="#section-49">&#182;</a>
               </div>
               <p>Closes the EventSource.</p>
 
@@ -1004,14 +1059,14 @@ behaviors to EventSource.</p>
         </li>
         
         
-        <li id="section-45">
+        <li id="section-50">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-45">&#182;</a>
+                <a class="pilcrow" href="#section-50">&#182;</a>
               </div>
               <p>EventSource doesn’t notify of disconnection. Therefore fires the
-closes event immediately.</p>
+<code>close</code> event immediately.</p>
 
             </div>
             
@@ -1023,15 +1078,13 @@ closes event immediately.</p>
         </li>
         
         
-        <li id="section-46">
+        <li id="section-51">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-46">&#182;</a>
+                <a class="pilcrow" href="#section-51">&#182;</a>
               </div>
-              <h3 id="xmlhttprequest-streaming-xdomainrequest-hidden-iframe-">XMLHttpRequest Streaming (XDomainRequest, Hidden iframe)</h3>
-<p><code>streamxhr</code>, <code>streamxdr</code> and <code>streamiframe</code>.</p>
-<p>Their difference is which host object initiates and progresses a connection
+              <p>Their difference is which host object initiates and progresses a connection
 in browser. Therefore, client not running on browser like Java
 client don’t have to implement them. (If there is no reliable <code>sse</code>
 implementation, you can implement <code>streamxhr</code> using a plain HTTP client)</p>
@@ -1046,33 +1099,30 @@ implementation, you can implement <code>streamxhr</code> using a plain HTTP clie
         </li>
         
         
-        <li id="section-47">
+        <li id="section-52">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-47">&#182;</a>
+                <a class="pilcrow" href="#section-52">&#182;</a>
               </div>
               <p>Performs a persistent HTTP connection via <code>GET</code> method.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        req = http.get(buildURI(uri, {
-            id: params.id, 
-            when: <span class="hljs-string">"open"</span>, 
-            transport: tpName, 
-            heartbeat: params.heartbeat
-        }))</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> u = buildURI(uri, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: tpName});
+        transport.uri = u;
+        req = http.get(u)</pre></div></div>
             
         </li>
         
         
-        <li id="section-48">
+        <li id="section-53">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-48">&#182;</a>
+                <a class="pilcrow" href="#section-53">&#182;</a>
               </div>
-              <p>If any error is encountered, fires the close event.</p>
+              <p>If any error is encountered, fires the <code>close</code> event.</p>
 
             </div>
             
@@ -1083,13 +1133,13 @@ implementation, you can implement <code>streamxhr</code> using a plain HTTP clie
         </li>
         
         
-        <li id="section-49">
+        <li id="section-54">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-49">&#182;</a>
+                <a class="pilcrow" href="#section-54">&#182;</a>
               </div>
-              <p>Technically the open event should be fired by the first chunk,
+              <p>Technically the <code>open</code> event should be fired by the first chunk,
 padding, but non-browser client doesn’t need to do that because
 it can detect when the response headers have been received.</p>
 
@@ -1101,11 +1151,11 @@ it can detect when the response headers have been received.</p>
         </li>
         
         
-        <li id="section-50">
+        <li id="section-55">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-50">&#182;</a>
+                <a class="pilcrow" href="#section-55">&#182;</a>
               </div>
               <p>Every chunk may be a single event, multiple events or a fragment
 of a single event. This buffer helps handle fragments.</p>
@@ -1117,11 +1167,11 @@ of a single event. This buffer helps handle fragments.</p>
         </li>
         
         
-        <li id="section-51">
+        <li id="section-56">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-51">&#182;</a>
+                <a class="pilcrow" href="#section-56">&#182;</a>
               </div>
               <p>Chunks are formatted according to the <a href="http://www.w3.org/TR/eventsource/#event-stream-interpretation">event stream
 format</a>.
@@ -1135,11 +1185,11 @@ However, you don’t need to know that. A single event starts with
         </li>
         
         
-        <li id="section-52">
+        <li id="section-57">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-52">&#182;</a>
+                <a class="pilcrow" href="#section-57">&#182;</a>
               </div>
               <p>Strips off the left padding of the chunk that appears in the
 first chunk.</p>
@@ -1151,14 +1201,14 @@ first chunk.</p>
         </li>
         
         
-        <li id="section-53">
+        <li id="section-58">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-53">&#182;</a>
+                <a class="pilcrow" href="#section-58">&#182;</a>
               </div>
-              <p>If the chunk consists of only whitespace characters, there is
-nothing to do.</p>
+              <p>If the chunk consists of only whitespace characters that is 
+the first chunk padding in the above, there is nothing to do.</p>
 
             </div>
             
@@ -1169,11 +1219,11 @@ nothing to do.</p>
         </li>
         
         
-        <li id="section-54">
+        <li id="section-59">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-54">&#182;</a>
+                <a class="pilcrow" href="#section-59">&#182;</a>
               </div>
               <p>Let’s think of a series of the following chunks:</p>
 <ul>
@@ -1184,8 +1234,9 @@ nothing to do.</p>
 <li><code>&quot;.}&quot;</code></li>
 <li><code>&quot;\n\ndata: {}\n\n&quot;</code></li>
 </ul>
-<p>It looks not easy to handle. So let’s concatenate buffer and chunk. 
-Here the buffer is a string after last <code>\n\n</code> of the concatenation.</p>
+<p>It looks not easy to handle. So let’s concatenate buffer 
+and chunk. Here the buffer is a string after last <code>\n\n</code> 
+of the concatenation.</p>
 <ul>
 <li><code>&quot;&quot;</code> + <code>&quot;data: {}\n\ndata: {}\n\n&quot;</code></li>
 <li><code>&quot;&quot;</code> + <code>&quot;data: {}\n\ndata: {&quot;</code></li>
@@ -1200,11 +1251,11 @@ Here the buffer is a string after last <code>\n\n</code> of the concatenation.</
         </li>
         
         
-        <li id="section-55">
+        <li id="section-60">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-55">&#182;</a>
+                <a class="pilcrow" href="#section-60">&#182;</a>
               </div>
               <p>Let’s split the concatenation by <code>\n\n</code>. </p>
 
@@ -1216,11 +1267,11 @@ Here the buffer is a string after last <code>\n\n</code> of the concatenation.</
         </li>
         
         
-        <li id="section-56">
+        <li id="section-61">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-56">&#182;</a>
+                <a class="pilcrow" href="#section-61">&#182;</a>
               </div>
               <p>Lines except the last consist of a complete data starting 
 with ‘data: ‘ Unwraps ‘data: ‘ and fires a message event.</p>
@@ -1234,13 +1285,14 @@ with ‘data: ‘ Unwraps ‘data: ‘ and fires a message event.</p>
         </li>
         
         
-        <li id="section-57">
+        <li id="section-62">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-57">&#182;</a>
+                <a class="pilcrow" href="#section-62">&#182;</a>
               </div>
-              <p>The last element is a fragment of a data. Assigns it to buffer.</p>
+              <p>The last element is a fragment of a data. Assigns it to
+buffer.</p>
 
             </div>
             
@@ -1249,33 +1301,19 @@ with ‘data: ‘ Unwraps ‘data: ‘ and fires a message event.</p>
             .on(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
                 transport.emit(<span class="hljs-string">"close"</span>);
             });
-        });</pre></div></div>
+        });
+        transport.abort = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
         
-        <li id="section-58">
+        <li id="section-63">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-58">&#182;</a>
+                <a class="pilcrow" href="#section-63">&#182;</a>
               </div>
-              <h4 id="aborting-the-transport">Aborting the transport</h4>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        transport.abort = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-59">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-59">&#182;</a>
-              </div>
-              <p>Aborts the current request. The rest of work, firing the close
+              <p>Aborts the current request. The rest of work, firing the <code>close</code>
 event, will be done by <code>end</code> event handler.</p>
 
             </div>
@@ -1289,15 +1327,13 @@ event, will be done by <code>end</code> event handler.</p>
         </li>
         
         
-        <li id="section-60">
+        <li id="section-64">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-60">&#182;</a>
+                <a class="pilcrow" href="#section-64">&#182;</a>
               </div>
-              <h3 id="ajax-long-polling-xdomainrequest-">AJAX Long polling (XDomainRequest)</h3>
-<p><code>longpollajax</code> and <code>longpollxdr</code>.</p>
-<p>Their difference is which host object initiates and progresses a connection
+              <p>Their difference is which host object initiates and progresses a connection
 in browser. Therefore, client not running on browser like Java client don’t
 have to implement <code>longpollxdr</code>.</p>
 
@@ -1308,14 +1344,14 @@ have to implement <code>longpollxdr</code>.</p>
         </li>
         
         
-        <li id="section-61">
+        <li id="section-65">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-61">&#182;</a>
+                <a class="pilcrow" href="#section-65">&#182;</a>
               </div>
-              <p>In long polling, a pseudo-connection consisting of disposable HTTP exchanges
-pretends to be a persistent connection.</p>
+              <p>In long polling, a pseudo-connection consisting of disposable HTTP 
+exchanges pretends to be a persistent connection.</p>
 
             </div>
             
@@ -1324,11 +1360,11 @@ pretends to be a persistent connection.</p>
         </li>
         
         
-        <li id="section-62">
+        <li id="section-66">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-62">&#182;</a>
+                <a class="pilcrow" href="#section-66">&#182;</a>
               </div>
               <p>The current holding request.</p>
 
@@ -1340,90 +1376,20 @@ pretends to be a persistent connection.</p>
         </li>
         
         
-        <li id="section-63">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-63">&#182;</a>
-              </div>
-              <h4 id="request-to-open">Request to open</h4>
-<p>The first request is to open and subsequent requests are to poll. All
-they use <code>GET</code> method.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        req = http.get(buildURI(uri, {
-            id: params.id, 
-            when: <span class="hljs-string">"open"</span>, 
-            transport: tpName, 
-            heartbeat: params.heartbeat
-        }))</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-64">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-64">&#182;</a>
-              </div>
-              <p>If any error is encountered during the request, that means the
-server is not available. So fires the close event.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        .on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-            transport.emit(<span class="hljs-string">"close"</span>);
-        })</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-65">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-65">&#182;</a>
-              </div>
-              <p>If the first request is completed normally since the server is available,
-start to poll and fire the open event. There must be no idle time 
-between the poll. Starting poll request is always prior to dispatching 
-events.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        .on(<span class="hljs-string">"response"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-66">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-66">&#182;</a>
-              </div>
-              <p>For the first time, starts with empty array.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            poll([]);</pre></div></div>
-            
-        </li>
-        
-        
         <li id="section-67">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-67">&#182;</a>
               </div>
-              <p>The poll request is started so fires the open event.</p>
+              <p>The first request is to open and subsequent requests are to poll. 
+All they use <code>GET</code> method.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            transport.emit(<span class="hljs-string">"open"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> u = buildURI(uri, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: tpName});
+        transport.uri = u;
+        req = http.get(u)</pre></div></div>
             
         </li>
         
@@ -1434,13 +1400,14 @@ events.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-68">&#182;</a>
               </div>
-              <h4 id="request-to-poll">Request to poll</h4>
-<p>From the second request, <code>when</code> is <code>poll</code> and <code>lastEventIds</code> is
-needed that is a CSV of event ids in the preceding request’s response.</p>
+              <p>If any error is encountered during the request, that means the
+server is not available. So fires the <code>close</code> event.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">poll</span><span class="hljs-params">(lastEventIds)</span> </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        .on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            transport.emit(<span class="hljs-string">"close"</span>);
+        })</pre></div></div>
             
         </li>
         
@@ -1451,18 +1418,14 @@ needed that is a CSV of event ids in the preceding request’s response.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-69">&#182;</a>
               </div>
-              <p>FYI, <code>[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;].join(&quot;,&quot;)</code> gives <code>&quot;x,y,z&quot;</code>.</p>
+              <p>If the first request is completed normally since the server is 
+available, start to poll and fire the open event. There must be 
+no idle time between the poll. Starting poll request is always
+prior to dispatching events.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                req = http.get(buildURI(uri, {
-                    id: params.id, 
-                    when: <span class="hljs-string">"poll"</span>, 
-                    lastEventIds: lastEventIds.join(<span class="hljs-string">","</span>)
-                }))
-                .on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-                    transport.emit(<span class="hljs-string">"close"</span>);
-                })</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        .on(<span class="hljs-string">"response"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
             
         </li>
         
@@ -1473,9 +1436,74 @@ needed that is a CSV of event ids in the preceding request’s response.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-70">&#182;</a>
               </div>
-              <p>If the server responds to the request, determine whether the
-intention of response is to send event or to close by reading 
-body.</p>
+              <p>For the first time, starts with empty array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            poll([]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-71">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-71">&#182;</a>
+              </div>
+              <p>The poll request is just started so fires the <code>open</code> event.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            transport.emit(<span class="hljs-string">"open"</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-72">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-72">&#182;</a>
+              </div>
+              <p>From the second request, <code>when</code> is <code>poll</code> and <code>lastEventIds</code>
+is needed that is comma-separated values of event ids in the 
+preceding request’s response.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">poll</span><span class="hljs-params">(lastEventIds)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-73">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-73">&#182;</a>
+              </div>
+              <p>FYI, <code>[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;].join(&quot;,&quot;)</code> gives <code>&quot;x,y,z&quot;</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                req = http.get(buildURI(uri, {id: params.id, when: <span class="hljs-string">"poll"</span>, lastEventIds: lastEventIds.join(<span class="hljs-string">","</span>)}))
+                .on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                    transport.emit(<span class="hljs-string">"close"</span>);
+                })</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-74">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-74">&#182;</a>
+              </div>
+              <p>If the server responds to this request, determine whether 
+the intention of response is to send event or to close by 
+reading body.</p>
 
             </div>
             
@@ -1490,14 +1518,14 @@ body.</p>
         </li>
         
         
-        <li id="section-71">
+        <li id="section-75">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-71">&#182;</a>
+                <a class="pilcrow" href="#section-75">&#182;</a>
               </div>
-              <p>To prepare the next request, identify events in the
-response and collect their ids.</p>
+              <p>To prepare the next request, identify events in 
+the response and collect their ids.</p>
 
             </div>
             
@@ -1507,14 +1535,15 @@ response and collect their ids.</p>
         </li>
         
         
-        <li id="section-72">
+        <li id="section-76">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-72">&#182;</a>
+                <a class="pilcrow" href="#section-76">&#182;</a>
               </div>
-              <p>If the parsed object is an array, it contains events
-that the client couldn’t receive before. FYI,
+              <p>If the parsed object is an array, it contains 
+events that the client couldn’t receive before, 
+which may happen within only long polling. FYI,
 <code>[{id:1},{id:2},{id:3}].map(function(e) {return
 e.id;})</code> gives <code>[1,2,3]</code>.</p>
 
@@ -1528,11 +1557,11 @@ e.id;})</code> gives <code>[1,2,3]</code>.</p>
         </li>
         
         
-        <li id="section-73">
+        <li id="section-77">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-73">&#182;</a>
+                <a class="pilcrow" href="#section-77">&#182;</a>
               </div>
               <p>Otherwise, it’s a single event.</p>
 
@@ -1545,14 +1574,14 @@ e.id;})</code> gives <code>[1,2,3]</code>.</p>
         </li>
         
         
-        <li id="section-74">
+        <li id="section-78">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-74">&#182;</a>
+                <a class="pilcrow" href="#section-78">&#182;</a>
               </div>
               <p>Sends a poll request again before to fire events.
-Again call order is important.</p>
+Again this order is important.</p>
 
             </div>
             
@@ -1561,13 +1590,14 @@ Again call order is important.</p>
         </li>
         
         
-        <li id="section-75">
+        <li id="section-79">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-75">&#182;</a>
+                <a class="pilcrow" href="#section-79">&#182;</a>
               </div>
-              <p>Fires those event one by one.</p>
+              <p>Fires those event one by one. A transport is 
+supposed to receive a single stringified event.</p>
 
             </div>
             
@@ -1582,14 +1612,14 @@ Again call order is important.</p>
         </li>
         
         
-        <li id="section-76">
+        <li id="section-80">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-76">&#182;</a>
+                <a class="pilcrow" href="#section-80">&#182;</a>
               </div>
-              <p>If the server closed the socket, body becomes absent.
-Accordingly fires the close event.</p>
+              <p>Absent body indicates the server closed the socket.
+Accordingly fires the <code>close</code> event.</p>
 
             </div>
             
@@ -1604,14 +1634,13 @@ Accordingly fires the close event.</p>
         </li>
         
         
-        <li id="section-77">
+        <li id="section-81">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-77">&#182;</a>
+                <a class="pilcrow" href="#section-81">&#182;</a>
               </div>
-              <h4 id="aborting-the-transport">Aborting the transport</h4>
-<p>Aborts the current request. The rest of work, firing the close
+              <p>Aborts the current request. The rest of work, firing the close
 event, will be done by <code>error</code> event handler.</p>
 
             </div>
@@ -1626,15 +1655,13 @@ event, will be done by <code>error</code> event handler.</p>
         </li>
         
         
-        <li id="section-78">
+        <li id="section-82">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-78">&#182;</a>
+                <a class="pilcrow" href="#section-82">&#182;</a>
               </div>
-              <h3 id="jsonp-long-polling">JSONP Long polling</h3>
-<p><code>longpolljsonp</code>.</p>
-<p>Except request’s callback param, response’s content-type header and how to
+              <p>Except request’s callback param, response’s content-type header and how to
 parse its body, <code>longpolljsonp</code> and <code>longpollajax</code> are all the same.</p>
 
             </div>
@@ -1646,24 +1673,20 @@ parse its body, <code>longpolljsonp</code> and <code>longpollajax</code> are all
         </li>
         
         
-        <li id="section-79">
+        <li id="section-83">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-79">&#182;</a>
+                <a class="pilcrow" href="#section-83">&#182;</a>
               </div>
               <p>Adds the callback param. In browser response body can’t be controlled so
 it should be unique in the document.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    req = http.get(buildURI(uri, {
-        id: params.id, 
-        when: <span class="hljs-string">"open"</span>, 
-        transport: <span class="hljs-string">"longpolljsonp"</span>, 
-        callback: <span class="hljs-string">"dayoff"</span>, 
-        heartbeat: params.heartbeat
-    }))
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> u = buildURI(uri, {id: params.id, when: <span class="hljs-string">"open"</span>, transport: <span class="hljs-string">"longpolljsonp"</span>, callback: <span class="hljs-string">"dayoff"</span>});
+    transport.uri = u;
+    req = http.get(u)
     .on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
         transport.emit(<span class="hljs-string">"close"</span>);
     })
@@ -1671,11 +1694,7 @@ it should be unique in the document.</p>
         poll([]);
         transport.emit(<span class="hljs-string">"open"</span>);
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">poll</span><span class="hljs-params">(lastEventIds)</span> </span>{
-            req = http.get(buildURI(uri, {
-                id: params.id, 
-                when: <span class="hljs-string">"poll"</span>, 
-                lastEventIds: lastEventIds.join(<span class="hljs-string">","</span>)
-            }))
+            req = http.get(buildURI(uri, {id: params.id, when: <span class="hljs-string">"poll"</span>, lastEventIds: lastEventIds.join(<span class="hljs-string">","</span>)}))
             .on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
                 transport.emit(<span class="hljs-string">"close"</span>);
             })
@@ -1690,17 +1709,17 @@ it should be unique in the document.</p>
         </li>
         
         
-        <li id="section-80">
+        <li id="section-84">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-80">&#182;</a>
+                <a class="pilcrow" href="#section-84">&#182;</a>
               </div>
               <p>The returned body is a JavaScript code executing 
-the callback with data. In browser it will be executed 
-immediately. Here we can manipulate the body so retrieve 
-the real data by stripping function call experession 
-and unescpaing it as JSON.</p>
+the callback with data. In browser, it will be 
+executed immediately. Here we can manipulate the 
+body so retrieve the real data by stripping 
+function call experession and unescpaing it as JSON.</p>
 
             </div>
             
