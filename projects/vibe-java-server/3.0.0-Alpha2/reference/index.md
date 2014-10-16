@@ -41,7 +41,17 @@ Vibe Java Server requires Java 7 and is distributed through Maven Central. Add t
 </dependencies>
 ```
 
-[Vibe Java Platform](/projects/vibe-java-platform/) is created to run a vibe application on any framework or server transparently without or with a little bit of effort. See [reference guide](/projects/vibe-java-platform/3.0.0-Alpha2/reference/) for what platforms are supported, how to install vibe on them and what you can do when your favorite platform is not supported.
+[Vibe Java Platform](/projects/vibe-java-platform/) is created to run a vibe application on any framework or server transparently without or with a little bit of effort. See [reference guide](/projects/vibe-java-platform/3.0.0-Alpha1/reference/) for what platforms are supported, how to install vibe on them and what you can do when your favorite platform is not supported.
+
+**Examples**
+
+<ul class="inline-list">
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2">Atmosphere 2</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/jwa1">Java WebSocket API 1</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/play2">Play 2</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3">Servlet 3</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/vertx2">Vert.x 2</a></li>
+</ul>
 
 ---
 
@@ -547,6 +557,13 @@ public class AccountEntityListener {
 All of the Message Oriented Middleware (MOM) supporting publish and subscribe model like JMS and Hazelcast can be used to cluster multiple vibe applications by using `ClusteredServer`.
 
 `ClusteredServer` intercepts a call to `all`, `byId` and `byTag`, converts the call into a message and pass the message to actions added via `publishAction(Action<Map<String,Object>> action)` which is supposed to publish message to all nodes including the one issued in cluster with the message. If one of node receives a message, it should pass the message to `messageAction()` in `ClusteredServer`.
+
+**Examples**
+
+<ul class="inline-list">
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/hazelcast3">Hazelcast 3</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/vertx2">Vert.x 2</a></li>
+</ul>
 
 **Note**
 

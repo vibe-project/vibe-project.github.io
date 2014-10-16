@@ -51,7 +51,7 @@ Add the following dependency to your build or include it on your classpath manua
 </dependencies>
 ```
 
-##### Bootstrap
+##### [Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2)
 Installation will be done once the servlet container starts.
 
 ```java
@@ -91,7 +91,7 @@ Add the following dependency to your build or include it on your classpath manua
 </dependencies>
 ```
 
-##### Bootstrap
+##### [Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/vertx2)
 Installation will be done once the verticle starts.
 
 ```java
@@ -132,7 +132,7 @@ Add the following dependency to your build or include it on your classpath manua
 </dependencies>
 ```
 
-##### Bootstrap
+##### [Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3)
 
 Installation will be done once the servlet container starts.
 
@@ -174,7 +174,7 @@ Add the following dependency to your build or include it on your classpath manua
 </dependencies>
 ```
 
-##### Bootstrap
+##### [Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/jwa1)
 
 Installation will be done once the container starts by scanning `ServerApplicationConfig` instance. In case of embedded container, however, it may not scan it and you may have to follow their alternatives.
 
@@ -214,7 +214,7 @@ libraryDependencies ++= Seq(
 )
 ```
 
-##### Bootstrap
+##### [Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/play2)
 Write entry point for HTTP exchange and WebSocket extending `Controller`.
 
 ```java
