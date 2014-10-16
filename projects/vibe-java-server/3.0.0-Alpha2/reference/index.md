@@ -11,6 +11,7 @@ title: Vibe Java Server Reference
 
 * [Installation](#installation)
 * [Server](#server)
+    * [Configuring Server](#configuring-server)
     * [Handling Socket](#handling-socket)
     * [Selecting Sockets](#selecting-sockets)
     * [Writing Sentence](#writing-sentence)
@@ -46,6 +47,23 @@ Vibe Java Server requires Java 7 and is distributed through Maven Central. Add t
 
 ## Server
 Server is a vibe application in a nutshell producing and managing socket consuming HTTP exchange and WebSocket.
+
+### Configuring Server
+The protocol options which are used for the client to establish a connection and for the server to manage connections can be centralized in server side and configured through `DefaultServer`. Every option has a desired default value so you don't need to touch it unless there's anything else. 
+
+#### Transports
+A set of transport to allow connections. The client will choice one among that set by calculating each transport's availability in index order and connect to the server. However, it doesn't mean the chosen transport will work in any situation. By default, it is set to `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp`.
+
+```java
+server.setTransports("sse", "longpollajax");
+```
+
+#### Heartbeat
+A heartbeat interval value in milliseconds. An opened socket in client continuously sends an heartbeat event to the server each time the value has elapsed. Actually, the socket sends the event 5 seconds before the heartbeat timer expires to wait the server's echo. If the event echoes back within 5 seconds, the socket reset the timer. Otherwise, both client and server fires the `close` event. For that reason, the value must be larger than `5000`. The default value is `20000`. 
+
+```java
+server.setHeartbeat(30 * 1000);
+```
 
 ### Handling Socket
 When a socket is opened, actions added via `socketAction(Action<ServerSocket> action)` are executed with it. It's allowed to add several actions before and after installation, so you don't need to centralize all your code to one class.
