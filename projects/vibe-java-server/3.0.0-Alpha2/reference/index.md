@@ -23,8 +23,8 @@ title: Vibe Java Server Reference
     * [Getting and Setting Result of Event Processing](#getting-and-setting-result-of-event-processing)
     * [Accessing Platform-Specific Object](#accessing-platform-specific-object)
 * [Integration](#integration)
-    * [Dependency Injection Framework](#dependency-injection-framework)
-    * [Message Oriented Middleware](#message-oriented-middleware)
+    * [Dependency Injection](#dependency-injection)
+    * [Clustering](#clustering)
     
 ---
 
@@ -462,8 +462,8 @@ HttpSession session = socket.unwrap(HttpServletRequest.class).getSession();
 ## Integration
 Here is how to integrate Vibe Java Server with awesome technologies.
 
-### Dependency Injection Framework
-With the help of Dependency Injection (DI) framework like Spring and Guice, you can inject Server wherever you need like the following cases:
+### Dependency Injection
+With the help of Dependency Injection framework like Spring and Guice, you can inject Server wherever you need like the following cases:
 
 <div class="row">
 <div class="large-6 columns">
@@ -552,7 +552,7 @@ public class AccountEntityListener {
 
 
 
-### Message Oriented Middleware
+### Clustering
 
 All of the Message Oriented Middleware (MOM) supporting publish and subscribe model like JMS and Hazelcast can be used to cluster multiple vibe applications by using `ClusteredServer`.
 
