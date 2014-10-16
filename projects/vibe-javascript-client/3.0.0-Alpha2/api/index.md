@@ -12,7 +12,6 @@ title: Vibe JavaScript Client API
 * [module vibe](#module-vibe)
     * [export function open(uri: string, options?: SocketOptions): Socket](#export-function-open-uri:-string--options-:-socketoptions-:-socket)
     * [interface SocketOptions](#interface-socketoptions)
-        * [heartbeat?: any](#heartbeat-:-any)
         * [reconnect? (lastDelay: number, attempts: number): any](#reconnect---lastdelay:-number--attempts:-number-:-any)
         * [sharing?: boolean](#sharing-:-boolean)
         * [timeout?: any](#timeout-:-any)
@@ -92,13 +91,12 @@ _All possible options along with their default values._
 
 ```javascript
 vibe.open(uri, {
-    heartbeat: 20000,
     reconnect: function(lastDelay) {
         return 2 * lastDelay || 500;
     },
     sharing: false,
     timeout: false,
-    transports: ["ws", "stream", "longpoll"],
+    transports: null,
     xdrURL: null
 });
 ```
@@ -110,12 +108,11 @@ vibe.open(uri, {
 
 ```javascript
 vibe.open(uri, {
-    heartbeat: 20000,
     reconnect: function(lastDelay) {
         return 2 * lastDelay || 500;
     },
     timeout: false,
-    transports: ["ws", "stream", "longpoll"]
+    transports: null
 });
 ```
 {% endcapture %}{{ panel | markdownify }}
@@ -125,17 +122,8 @@ vibe.open(uri, {
 _My configuration for testing._
 
 ```javascript
-vibe.open(uri, {heartbeat: false, reconnect: false, timeout: 1000, xdrURL: function(url) {return url;}});
+vibe.open(uri, {reconnect: false, timeout: 3000, xdrURL: function(url) {return url;}});
 ```
-
-#### `heartbeat?: any`
-**Default**: `20000`
-
-##### `heartbeat?: number`
-A heartbeat interval value in milliseconds. A opened socket continuously sends a heartbeat event to the server each time the value has elapsed. Actually, the socket sends the event 5 seconds before the heartbeat timer expires to wait the server's echo. If the event echoes back within 5 seconds, the socket reset the timer. Otherwise, the `close` event is fired. For that reason, the value must be larger than `5000`.
-
-##### `heartbeat?: boolean`
-The value `false` means no heartbeat.
 
 #### `reconnect? (lastDelay: number, attempts: number): any`
 **Default**: Generates a geometric series with initial delay `500` and ratio `2`
@@ -179,11 +167,11 @@ A timeout value in milliseconds. The timeout timer starts at the time the `conne
 The value `false` means no timeout.
 
 #### `transports?: string[]`
-**Default**: `["ws", "stream", "longpoll"]`
+**Default**: `null`
 
-An array of the transport ids, in order of index. The default set means given runtime environment, try WebSocket, if not possible try HTTP Streaming, if not possible use HTTP Long polling. Transport availability is calculated by feature detection in runtime environment. It doesn't guarantee that selected transport will work with the given network and server.
+An array of the transport ids, in order of index. The default value, `null`, means following the server's configuration. Therefore, you don't need to set it but if you set it, it is prioritized over that of server.
 
-The default set will be replaced with actual transport id in runtime: `["ws", "sse", "streamxhr", "streamxdr", "streamiframe", "longpollajax", "longpollxdr", "longpolljsonp"]` in browser and `["ws", "sse", "longpollajax"]` in Node.js.
+`ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp` are available including a special one, `stream` and `longpoll`. For example, `["ws", "stream", "longpoll"]` means given runtime environment, try WebSocket, if not possible try HTTP Streaming, if not possible use HTTP Long polling. Transport availability is calculated by feature detection in runtime environment and doesn't guarantee that selected transport will work with the given network and server.
 
 #### `xdrURL? (uri: string): string`
 **Default**: `null`

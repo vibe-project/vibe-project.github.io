@@ -114,7 +114,7 @@ Socket always is in a specific state that can be accessed by `state` method. Acc
 
 * **preparing**
 
-    As an initial state of life cycle, it's internally used during reinitializing socket state and selecting transport.
+    As an initial state of life cycle, it's internally used during reinitializing socket state and handshaking.
     
     State transition occurs to
     * connecting: if transport is selected.
@@ -336,7 +336,7 @@ server.on("socket", function(socket) {
 </div>
 
 ### Heartbeat
-Considering a multitude of browsers, transports, servers, networks and their combination, heartbeat is essential to maintain stable connection. For that reason, a socket starts heartbeat communication every 20 seconds on the open event by default. To change the time interval,  set `heartbeat:number` option to number in ms greater than 5000.
+Considering a multitude of browsers, transports, servers, networks and their combination, heartbeat is essential to maintain stable connection. For that reason, a socket starts heartbeat communication every 20 seconds on the open event by default. It can be configured only through the server.
 
 _Eavesdropping heartbeat of client and server._
 
@@ -443,7 +443,7 @@ Reconnection has been disabled in the above code snippets for convenience of tes
 ### Transport
 WebSocket is clearly a best transport but in the real world, many coporate proxies, firewalls, antivirus softwares and cloud application platforms block it for some reason. Of course, many users still use browsers not supporting WebSocket, which we can't compel to upgrade it.
 
-Such transport is configurable through `transports:string[]` option. The default value is `["ws", "stream", "longpoll"]`, which means try WebSocket, if not possible try HTTP Streaming if not possible try use HTTP Long polling. Specific details about transport are introduced in Transport section.
+Such transport is configurable through `transports:string[]` option. The default value is `null`, which means following the server's configuration. Therefore, you don't need to use that option unless you try to test something. Specific details about transport are introduced in Transport section.
 
 **Note**
 

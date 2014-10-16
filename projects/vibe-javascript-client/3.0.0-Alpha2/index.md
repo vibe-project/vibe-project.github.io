@@ -9,7 +9,7 @@ Vibe JavaScript Client <sup><strong>A</strong></sup> is a lightweight <sup><stro
     <dt>A</dt>
     <dd><a href="/projects/vibe-protocol/3.0.0-Alpha2">Vibe 3.0.0-Alpha2</a> client.</dd>
     <dt>B</dt>
-    <dd>16.53KB minified, 5.92KB minified and gzipped.</dd>
+    <dd>17.04KB minified, 6.03KB minified and gzipped.</dd>
     <dt>C</dt>
     <dd>The policy for browser support is the same with the one of jQuery 1.x that embraces Internet Explorer 6. Also it has no dependency in browser.</dd>
     <dt>D</dt>

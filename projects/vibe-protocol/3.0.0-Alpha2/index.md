@@ -24,7 +24,7 @@ Get started with Vibe on your team's preferable platform. Also see with your own
 ### Client
 Here are the Vibe compliant clients.
 
-* [Vibe JavaScript Client](http://vibe-project.github.io/projects/vibe-javascript-client/3.0.0-Alpha1/) for browser ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha1/test/resources/testee.html#L63-L122) and [test result](https://saucelabs.com/u/vibe) (filter with build `35`)) and Node ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha1/Gruntfile.js#L90-L132) and [test result](https://travis-ci.org/vibe-project/vibe-javascript-client/builds/36641417)).
+* [Vibe JavaScript Client](http://vibe-project.github.io/projects/vibe-javascript-client/3.0.0-Alpha2/) for browser ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha2/test/resources/testee.html#L62-L116) and [test result](https://saucelabs.com/u/vibe) (filter with build `46`)) and Node ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha2/Gruntfile.js#L90-L126) and [test result](https://travis-ci.org/vibe-project/vibe-javascript-client/builds/38164691)).
 
 ### Server
 Here are the Vibe compliant servers.
