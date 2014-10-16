@@ -24,7 +24,22 @@ title: Vibe Protocol Reference
 ## Specification
 The protocol is still under active development and it's not easy to maintain both reference implementation and specification document. Accordingly for now the reference implementation takes the place of the specification document.
 
-Nevertheless, if you need big picture of the protocol, see [Anatomy of Protocol](http://vibe-project.github.io/blog/anatomy-of-vibe-protocol/). Note that it covers future features on the roadmap and may be different with this version. 
+The current blocks build the protocol.
+
+* **Handshaking** - A process to negotiate the protocol.
+* **Transport** - A full-duplex message channel.
+    * `ws` - Based on [WebSocket](https://tools.ietf.org/html/rfc6455).
+    * `sse` - Based on [Server-Sent Events](http://www.w3.org/TR/eventsource/).
+    * `streamxhr` - Based on [Streaming](http://en.wikipedia.org/wiki/Comet_(programming)#Streaming) using [XMLHttpRequest](http://www.w3.org/TR/XMLHttpRequest/).
+    * `streamxdr` - Based on [Streaming](http://en.wikipedia.org/wiki/Comet_(programming)#Streaming) using [XDomainRequest](http://msdn.microsoft.com/en-us/library/ie/cc288060(v=vs.85).aspx).
+    * `streamiframe` - Based on [Streaming](http://en.wikipedia.org/wiki/Comet_(programming)#Streaming) using iframe and DOM manipulation.
+    * `longpollajax` - Based on [Long polling](http://en.wikipedia.org/wiki/Comet_(programming)#Ajax_with_long_polling) using Ajax.
+    * `longpollxdr` - Based on [Long polling](http://en.wikipedia.org/wiki/Comet_(programming)#Ajax_with_long_polling) using [XDomainRequest](http://msdn.microsoft.com/en-us/library/ie/cc288060(v=vs.85).aspx).
+    * `longpolljsonp` -  Based on [Long polling](http://en.wikipedia.org/wiki/Comet_(programming)#Ajax_with_long_polling) using [JSONP](http://en.wikipedia.org/wiki/JSONP).
+* **Extension** - An additional feature built on protocol.
+    * `reply` -  Allows for the sender to attach callbacks in sending event and for the receiver to call them with the result of the event processing in receiving event.
+
+Nevertheless, if you need big picture of the protocol, see [Anatomy of Protocol](http://vibe-project.github.io/blog/anatomy-of-vibe-protocol/). However note that it covers future features on the roadmap and may be different with this version.
 
 ---
 
@@ -58,7 +73,7 @@ JavaScript is a dynamic language so you can deal with both client and server in 
 ```javascript
 var vibe = require("vibe-protocol");
 var client = vibe.client();
-var socket = client.open("http://localhost:8080", {transport: "ws"});
+var socket = client.open("http://localhost:8080");
 
 socket.on("open", function() {
     console.log("socket");
@@ -188,9 +203,9 @@ First you need to install [Node.js](http://nodejs.org). Then create a `package.j
 And type `npm install` to install modules locally and `npm install mocha -g` to install Mocha globally for convenience. Then, run your testee and execute `mocha` passing the following arguments:
 
 * `--vibe.transports`
-    * A set of transport to be tested in a comma-separated value. `ws`, `sse`, `streamxhr`, `streamxdr`, `streamiframe`, `longpollajax`, `longpollxdr` and `longpolljsonp` are available.
+    * A set of transport to be tested in a comma-separated value.
 * `--vibe.extension`
-    * A set of extension to be tested in a comma-separated value. `reply` is available.
+    * A set of extension to be tested in a comma-separated value.
 
 _Testing a client which implements `ws`, `sse` and `longpollajax` transports._
 

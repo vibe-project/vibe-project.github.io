@@ -99,9 +99,7 @@ http.createServer().on("request", function(req, res) {
 ```javascript
 var vibe = require("vibe-protocol");
 var client = vibe.client();
-var socket = client.open("http://localhost:8080/vibe", {
-    transport: "ws"
-});
+var socket = client.open("http://localhost:8080/vibe");
 
 socket.on("open", function() {
     socket.send("echo", "An echo message");
