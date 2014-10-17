@@ -53,6 +53,23 @@ Vibe Java Server requires Java 7 and is distributed through Maven Central. Add t
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/vertx2">Vert.x 2</a></li>
 </ul>
 
+_Atmosphere example._
+
+```java
+@WebListener
+public class Bootstrap implements ServletContextListener {
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+        final Server server = new DefaultServer();
+        // socketAction
+        new AtmosphereBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {}
+}
+```
+
 ---
 
 ## Server
