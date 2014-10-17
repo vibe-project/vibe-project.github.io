@@ -463,100 +463,69 @@ HttpSession session = socket.unwrap(HttpServletRequest.class).getSession();
 Here is how to integrate Vibe Java Server with awesome technologies.
 
 ### Dependency Injection
-With the help of Dependency Injection framework like Spring and Guice, you can inject Server wherever you need like the following cases:
+With Dependency Injection, you can inject Server wherever you need. Registers a `Server` as a singleton component and inject it wherever you want to handle socket.
 
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-_Making Server as component._
+**Examples**
+
+<ul class="inline-list">
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/cdi1">CDI 1</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/dagger1">Dagger 1</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/guice3">Guice 3</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/picocontainer2">PicoContainer 2</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/spring4">Spring 4</a></li>
+</ul>
+
+_Spring example_
+
+```java
+@WebListener
+public class Bootstrap implements ServletContextListener {
+    @Override
+    @SuppressWarnings("resource")
+    public void contextInitialized(ServletContextEvent event) {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        // Installs the server on Atmosphere platform
+        Server server = applicationContext.getBean(Server.class);
+        new AtmosphereBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {}
+}
+```
 
 ```java
 @Configuration
-public class Config {
+@EnableScheduling
+@ComponentScan(basePackages = { "simple" })
+public class SpringConfig {
+    // Registers the server as a component
     @Bean
     public Server server() {
         return new DefaultServer();
     }
 }
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-_Integrating with I/O platform._
 
 ```java
 @Component
-public class Feeder {
+public class Clock {
+    // Injects the server
     @Autowired
     private Server server;
 
-    @OnHttpExchange("/vibe")
-    public void http(HttpExchange http) {
-        server.httpAction().on(new MyServerHttpExchange(http));
-    }
-
-    @OnWebSocket("/vibe")
-    public void ws(WebSocket ws) {
-        server.websocketAction().on(new MyServerWebSocket(ws));
+    @Scheduled(fixedRate = 3000)
+    public void tick() {
+        server.all().send("chat", "tick: " + System.currentTimeMillis());
     }
 }
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-_Handling socket._
-
-```java
-@Controller
-public class Handler {
-    @Autowired
-    private Server server;
-    
-    @PostConstruct
-    public void handle() {
-        server.socketAction(new Action<ServerSocket>() {
-            @Override
-            public void on(ServerSocket socket) {
-                socket.tag("tag");
-            }
-        });
-    }
-}
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-_Sending event._
-
-```java
-@Component
-public class AccountEntityListener {
-    @Autowired
-    private Server server;
-
-    @PostUpdate
-    public void update(Account account) {
-        server.byTag("account#" + account.id()).send("update", account);
-    }
-}
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
-
-
 
 ### Clustering
 
-All of the Message Oriented Middleware (MOM) supporting publish and subscribe model like JMS and Hazelcast can be used to cluster multiple vibe applications by using `ClusteredServer`.
+All of the Message Oriented Middleware (MOM) supporting publish and subscribe model can be used to cluster multiple vibe applications with `ClusteredServer`. `ClusteredServer` intercepts a method invocation to `all`, `byId` and `byTag`, converts the call into a message and execute actions added via `publishAction(Action<Map<String,Object>> action)` with that message.
 
-`ClusteredServer` intercepts a call to `all`, `byId` and `byTag`, converts the call into a message and pass the message to actions added via `publishAction(Action<Map<String,Object>> action)` which is supposed to publish message to all nodes including the one issued in cluster with the message. If one of node receives a message, it should pass the message to `messageAction()` in `ClusteredServer`.
+All you need is to add an action to `publishAction(Action<Map<String,Object>> action)` to publish message to all servers in the cluster including the one issued and to pass them to `messageAction().on(Map<String,Object> message)` when receiving such messages from other server.
 
 **Examples**
 
@@ -568,47 +537,43 @@ All of the Message Oriented Middleware (MOM) supporting publish and subscribe mo
 **Note**
 
 * Most MOM in Java requires message to be serialized. In other words, `Action` instance used in `all`, `byId` and `byTag` (not `socketAction`) should implement `Serializable`. Whereas `Action` is generally used as anonymous class, but `Serializable` [can't be used in that manner](http://docs.oracle.com/javase/7/docs/platform/serialization/spec/serial-arch.html#4539). Therefore always use `Sentence` instead of `Action` especially in this case.
-* If your MOM doesn't allow to publish and subscribe `Serializable` directly, you need to use an array of bytes through doing [serialization and deserialization](http://stackoverflow.com/questions/2836646/java-serializable-object-to-byte-array).
 
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-_Hermaphrodite case. It will work exactly like `DefaultServer`._
+_Hazelcast example._
 
 ```java
-final ClusteredServer server = new ClusteredServer();
-
-server.publishAction(new Action<Map<String, Object>>() {
+@WebListener
+public class Bootstrap implements ServletContextListener {
     @Override
-    public void on(Map<String, Object> message) {
-        server.messageAction().on(message);
+    public void contextInitialized(ServletContextEvent event) {
+        HazelcastInstance hazelcast = HazelcastInstanceFactory.newHazelcastInstance(new Config());
+        final ClusteredServer server = new ClusteredServer();
+        final ITopic<Map<String, Object>> topic = hazelcast.getTopic("vibe");
+
+        // Some one server in the cluster published a message
+        // Pass it to this local server
+        topic.addMessageListener(new MessageListener<Map<String, Object>>() {
+            @Override
+            public void onMessage(Message<Map<String, Object>> message) {
+                System.out.println("receiving a message: " + message.getMessageObject());
+                server.messageAction().on(message.getMessageObject());
+            }
+        });
+        // This local server got a method call from all, byId or byTag and created a message
+        // Publish it to every server in the cluster
+        server.publishAction(new Action<Map<String, Object>>() {
+            @Override
+            public void on(Map<String, Object> message) {
+                System.out.println("publishing a message: " + message);
+                topic.publish(message);
+            }
+        });
+
+        // socketAction
+
+        new AtmosphereBridge(event.getServletContext(), "/vibe").httpAction(server.httpAction()).websocketAction(server.websocketAction());
     }
-});
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {}
+}
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-_Hazelcast case. You can regard `topic` as node in the above explanation._
-
-```java
-HazelcastInstance hazelcast = HazelcastInstanceFactory.newHazelcastInstance(new Config());
-final ClusteredServer server = new ClusteredServer();
-final ITopic<Map<String, Object>> topic = hazelcast.getTopic("vibe:app");
-
-topic.addMessageListener(new MessageListener<Map<String, Object>>() {
-    @Override
-    public void onMessage(Message<Map<String, Object>> message) {
-        server.messageAction().on(message.getMessageObject());
-    }
-});
-server.publishAction(new Action<Map<String, Object>>() {
-    @Override
-    public void on(Map<String, Object> message) {
-        topic.publish(message);
-    }
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
