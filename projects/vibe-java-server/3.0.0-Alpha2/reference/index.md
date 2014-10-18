@@ -488,8 +488,10 @@ With Dependency Injection, you can inject Server wherever you need. Registers a 
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/cdi1">CDI 1</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/dagger1">Dagger 1</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/guice3">Guice 3</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/hk2">HK 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/picocontainer2">PicoContainer 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/spring4">Spring 4</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/tapestry5">Tapestry 5</a></li>
 </ul>
 
 _Spring example_
