@@ -550,6 +550,9 @@ All you need is to add an action to `publishAction(Action<Map<String,Object>> ac
 
 <ul class="inline-list">
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/hazelcast3">Hazelcast 3</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/jgroups3">jGroups 3</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/jms2">JMS 2</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/redis2">Redis 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/vertx2">Vert.x 2</a></li>
 </ul>
 
