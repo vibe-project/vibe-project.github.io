@@ -47,9 +47,9 @@ Vibe Java Server requires Java 7 and is distributed through Maven Central. Add t
 
 <ul class="inline-list">
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2">Atmosphere 2</a></li>
-<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/jwa1">Java WebSocket API 1</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/jwa1">Java WebSocket API 1 with Jetty9</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/play2">Play 2</a></li>
-<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3">Servlet 3</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3">Servlet 3 with Jetty9</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/vertx2">Vert.x 2</a></li>
 </ul>
 
@@ -485,7 +485,7 @@ With Dependency Injection, you can inject Server wherever you need. Registers a 
 **Examples**
 
 <ul class="inline-list">
-<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/cdi1">CDI 1</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/cdi1">CDI 1 with Weld 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/dagger1">Dagger 1</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/guice3">Guice 3</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/hk2">HK 2</a></li>
@@ -551,7 +551,7 @@ All you need is to add an action to `publishAction(Action<Map<String,Object>> ac
 <ul class="inline-list">
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/hazelcast3">Hazelcast 3</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/jgroups3">jGroups 3</a></li>
-<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/jms2">JMS 2</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/jms2">JMS 2 with HornetQ 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/redis2">Redis 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/vertx2">Vert.x 2</a></li>
 </ul>
