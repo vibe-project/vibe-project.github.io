@@ -549,6 +549,7 @@ All you need is to add an action to `publishAction(Action<Map<String,Object>> ac
 **Examples**
 
 <ul class="inline-list">
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/amqp1">AMQP 1 with RabbitMQ 3</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/hazelcast3">Hazelcast 3</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/jgroups3">jGroups 3</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/jms2">JMS 2 with HornetQ 2</a></li>
