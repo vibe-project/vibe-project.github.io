@@ -21,14 +21,12 @@ Vibe Protocol is a protocol based on web standards <sup><strong>A</strong></sup>
 ## Getting Started
 Get started with Vibe on your team's preferable platform. Also see with your own eyes how API looks like through testee and which transports and extensions are supported through test result.
 
-**TODO** update according to Alpha3.
-
 ### Client
 Here are the Vibe compliant clients.
 
-* [Vibe JavaScript Client](http://vibe-project.github.io/projects/vibe-javascript-client/3.0.0-Alpha2/) for browser ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha2/test/resources/testee.html#L62-L116) and [test result](https://saucelabs.com/u/vibe) (filter with build `46`)) and Node ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha2/Gruntfile.js#L90-L126) and [test result](https://travis-ci.org/vibe-project/vibe-javascript-client/builds/38164691)).
+* [Vibe JavaScript Client](http://vibe-project.github.io/projects/vibe-javascript-client/3.0.0-Alpha3/) for browser ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha3/test/resources/testee.html#L62-L118) and [test result](https://saucelabs.com/u/vibe) (filter with build `60`)) and Node ([testee](https://github.com/vibe-project/vibe-javascript-client/blob/v3.0.0-Alpha3/Gruntfile.js#L84-L120) and [test result](https://travis-ci.org/vibe-project/vibe-javascript-client/builds/39187708)).
 
 ### Server
 Here are the Vibe compliant servers.
 
-* [Vibe Java Server](http://vibe-project.github.io/projects/vibe-java-server/3.0.0-Alpha2/) for Java ([testee](https://github.com/vibe-project/vibe-java-server/blob/v3.0.0-Alpha2/server/src/test/java/org/atmosphere/vibe/server/ProtocolTest.java#L32-L87) and [test result](https://travis-ci.org/vibe-project/vibe-java-server/builds/38159841)).
+* [Vibe Java Server](http://vibe-project.github.io/projects/vibe-java-server/3.0.0-Alpha3/) for Java ([testee](https://github.com/vibe-project/vibe-java-server/blob/v3.0.0-Alpha3/server/src/test/java/org/atmosphere/vibe/server/ProtocolTest.java#L32-L87) and [test result](https://travis-ci.org/vibe-project/vibe-java-server/builds/39188307)).
