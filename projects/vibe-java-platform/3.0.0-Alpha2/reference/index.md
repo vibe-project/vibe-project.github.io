@@ -311,7 +311,7 @@ public class App {
 ```
 
 ### ServerHttpExchange
-It represents a server-side HTTP request-response exchange and is assumed only text data are read and written.
+It represents a server-side HTTP request-response exchange and is assumed only text data are read and written. It is given when request headers are written.
 
 #### Request properties
 These are read only.
@@ -353,7 +353,7 @@ for (String name : http.headerNames()) {
     </div>
 </div>
 
-#### Reading body
+#### Reading request
 `bodyAction` attaches a body event handler to be called with `Data` wrapping the request body. This action is the end of the request. Note that if body is quite big it will drain memory in an instant.
 
 ```java
@@ -390,7 +390,7 @@ http.setHeader("content-type", "text/javascript; charset=utf-8");
     </div>
 </div>
 
-#### Writing chunk
+#### Writing chunk to response
 `write` sends a chunk to the response body.
 
 ```java
@@ -398,13 +398,26 @@ http.write("chunk");
 ```
 
 #### Ending response
-`close` ends the response. Each exchange must be finished with this method when done.
+`end` completes the response. Each exchange must be finished with this method when done.
 
 ```java
-http.close();
+http.end();
 ```
 
-When the response has been closed either by the client or the server, close event handlers added via `closeAction` are executed. It's the end of the respnose.
+#### Error handling
+Any error happening in this exchange will be propagated to actions added via `errorAction` with `Throwable` in question. Now `Throwable` thrown by the underlying platform are provided directly.
+
+```java
+http.errorAction(new Action<Throwable>() {
+    @Override
+    public void on(Throwable error) {
+        // Your logic here
+    }
+});
+```
+
+#### End
+When request is fully read by `bodyAction` and response is completed by `end` normally or the underlying connection is aborted for some reason like error, actions added via `closeAction` are executed. It's the end of exchange.
 
 ```java
 http.closeAction(new VoidAction() {
@@ -416,7 +429,7 @@ http.closeAction(new VoidAction() {
 ```
 
 ### ServerWebSocket
-It represents a server-side WebSocket session and is assumed only text messages are exchanged now.
+It represents a server-side WebSocket session and is assumed only text messages are exchanged now. It is given when WebSocket is opened.
 
 #### Properties
 These are read only.
@@ -449,13 +462,26 @@ ws.send("message");
 ```
 
 #### Closing connection
-`close` ends the connection.
+`close` closes the connection.
 
 ```java
 ws.close();
 ```
 
-When the connection has been closed either by the client or the server, close event handlers added via `closeAction` are executed. It's the end of the WebSocket connection.
+#### Error handling
+Any error happening in this connection will be propagated to actions added via `errorAction` with `Throwable` in question. Now `Throwable` thrown by the underlying platform are provided directly.
+
+```java
+ws.errorAction(new Action<Throwable>() {
+    @Override
+    public void on(Throwable error) {
+        // Your logic here
+    }
+});
+```
+
+#### End
+When the connection has been closed either by the client or the server, close event handlers added via `closeAction` are executed. It's the end of WebSocket.
 
 ```java
 ws.closeAction(new VoidAction() {
