@@ -34,7 +34,7 @@ socket.on("connecting", function() {
     socket.send("echo", "An echo message").send("chat", "A chat message");
 })
 .on("error", function(error) {
-    console.log("on error event", reason);
+    console.log("on error event", error);
 })
 .on("close", function() {
     console.log("on close event");
