@@ -120,7 +120,7 @@ For details, [see the reference documentation](http://localhost:4000/projects/vi
 
 * **H** `new AtmosphereBridge(servletContext, "/chat").httpAction(server.httpAction()).websocketAction(server.websocketAction());`
 
-This part provides a bridge between `Server` and the underlying platform, Atmosphere. It installs and configures Atmosphere automatically so you don't need to manipulate `web.xml` (With Servlet 3, Atmosphere can be installed like this). Thankfully, Atmosphere provides a solid abstraction layer for Servlet containers and Vibe use it as a platform for Servlet containers.
+This part provides a bridge between `Server` and the underlying platform, Atmosphere. It installs and configures Atmosphere automatically so you don't need to manipulate `web.xml` (With Servlet 3, Atmosphere can be installed like this). Thankfully, Atmosphere provides a solid abstraction layer for Servlet containers and Java WebSocket API implementations Vibe use it as a platform.
 
 You can replace the platform with others like Vert.x without modifying the code. [See the working examples](https://github.com/vibe-project/vibe-examples#by-platform).
 
@@ -222,11 +222,11 @@ $(function () {
 
 * **F** `socket.on("waiting", (delay, attempts) => {})`
 
-`waiting` event is fired when the reconnection is scheduled with the reconnection delay in milliseconds and the total number of reconnection attempts like `request.onReconnect`. The socket will connect to the server after the reconnection delay and then new life cycle starts and `connecting` event will be fired.
+`waiting` event is fired when the reconnection is scheduled with the reconnection delay in milliseconds and the total number of reconnection attempts like `request.onReconnect`. The socket connects to the server after the reconnection delay and then new life cycle starts and `connecting` event is fired.
 
 * **G** `socket.on("message", data => {})`
 
-As mentioned in above, `message` event is just yet another custom event you can use and `data` is JSON object not string as the server sent an object so that you don't need to parse it to JSON.
+As mentioned in above, `message` event is just yet another custom event you can use and event data, `data`, is a JSON object not string as the server sent an object so that you don't need to parse it to JSON.
 
 Also you may notice that message event handler actually does two things: setting username and broadcasting a message. That was necessary in Atmosphere since `request.onMessage` is the only handler receiving message from server. But in Vibe, you can split message event into two other events for separation of concerns using custom event.
 
