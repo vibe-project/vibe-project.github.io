@@ -6323,3 +6323,6 @@ article .information {
   article .information .post-author {
     height: 24px;
     display: inline-block; }
+
+a code {
+  color: inherit; }
