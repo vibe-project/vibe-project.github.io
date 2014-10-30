@@ -128,7 +128,7 @@ Socket always is in a specific state that can be accessed by `state()` method. A
     
 * **closed**
 
-    The connection has been closed, has been regarded as closed or could not be opened. The `close` event is fired with the close reason. If the `reconnect` handler is set to or returns `false`, the socket's life cycle ends here.
+    The connection has been closed, has been regarded as closed or could not be opened. If the `reconnect` handler is set to or returns `false`, the socket's life cycle ends here.
     
     State transition occurs to
     * `waiting`: if the `reconnect` handler returns a positive number.<p>
