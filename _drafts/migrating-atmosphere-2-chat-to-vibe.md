@@ -54,7 +54,7 @@ public class Bootstrap implements ServletContextListener {
 
 * **B** `server.socketAction((ServerSocket socket) -> {});`
 
-As a controller to handle socket, Vibe accepts a function similar to `AtmosphereHandler`. Because `server.socketAction` allows to add several actions before and after installation, you can write a POJO controller by injecting `Server` like `@ManagedService`. For example, with the help of [Spring](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/spring4):
+As a controller to handle socket, `Server` accepts a function similar to `AtmosphereHandler`. Because `server.socketAction` allows to add several actions before and after installation, you can write a POJO controller by injecting `Server` like `@ManagedService`. For example, with the help of [Spring](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/spring4):
 
 ```java
 @Component
@@ -73,7 +73,7 @@ An action added via `socketAction` receives a opened `ServerSocket` like a metho
 
 * **C** `socket.closeAction($ -> {});`
 
-`ServerSocket` allows to add event handlers in the form of functional interface though `on` method, which is convenient to use Java 8's lambda expressions. `closeAction($ -> {})` which is equals to `on("close", $ -> {})` is called when a socket is closed for some reason like a method annotated with `@Disconnect`.
+`ServerSocket` allows to add event handlers in the form of functional interface through `on` method, which is convenient to use Java 8's lambda expressions. `closeAction($ -> {})` which is equals to `on("close", $ -> {})` is called when a socket is closed for some reason like a method annotated with `@Disconnect`.
 
 * **D** `socket.errorAction((Throwable throwable) -> {});`
 
