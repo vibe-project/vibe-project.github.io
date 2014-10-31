@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Migrating Atmosphere 2 Chat to Vibe"
+title: "Preparing for your Atmosphere app to Vibe: Simple!"
 author: flowersinthesand
 ---
 
@@ -50,11 +50,11 @@ public class Bootstrap implements ServletContextListener {
 
 * **A** `final Server server = new DefaultServer();`
 
-`Server` is a facade to the Vibe API. You can instantiate `Server` by yourself unlike the typical usage of Atmosphere, which means you have the full right to decide how you will use it. For example, to inject `Server` to anywhere you want, you can delegate it to Dependency Injection framework by yourself. [See the working examples](https://github.com/vibe-project/vibe-examples#by-dependency-injection).
+[`Server`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/Server.html) is a facade to the Vibe API. You can instantiate `Server` by yourself unlike the typical usage of Atmosphere, which means you have the full right to decide how you will use it. For example, to inject `Server` to anywhere you want, you can delegate it to Dependency Injection framework by yourself. [See the working examples](https://github.com/vibe-project/vibe-examples#by-dependency-injection).
 
 * **B** `server.socketAction((ServerSocket socket) -> {});`
 
-As a controller to handle socket, `Server` accepts a function similar to `AtmosphereHandler`. Because `server.socketAction` allows to add several actions before and after installation, you can write a POJO controller by injecting `Server` like `@ManagedService`. For example, with the help of [Spring](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/spring4):
+As a controller to handle socket, `Server` accepts a function similar to `AtmosphereHandler`. Because [`server.socketAction`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/Server.html#socketAction(org.atmosphere.vibe.platform.Action)) allows to add several actions before and after installation, you can write a POJO controller by injecting `Server` like `@ManagedService`. For example, with the help of [Spring](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/dependency-injection/spring4):
 
 ```java
 @Component
@@ -69,15 +69,15 @@ public class Chat {
 }
 ```
 
-An action added via `socketAction` receives a opened `ServerSocket` like a method annotated with `@Ready`.
+An action added via `socketAction` receives a opened [`ServerSocket`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/ServerSocket.html) like a method annotated with `@Ready`.
 
 * **C** `socket.closeAction($ -> {});`
 
-`ServerSocket` allows to add event handlers in the form of functional interface through `on` method, which is convenient to use Java 8's lambda expressions. `closeAction($ -> {})` which is equals to `on("close", $ -> {})` is called when a socket is closed for some reason like a method annotated with `@Disconnect`.
+`ServerSocket` allows to add event handlers in the form of functional interface through [`on`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/ServerSocket.html#on(java.lang.String, org.atmosphere.vibe.platform.Action)) method, which is convenient to use Java 8's lambda expressions. [`socket.closeAction`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/ServerSocket.html#closeAction(org.atmosphere.vibe.platform.Action)) is called when a socket is closed for some reason like a method annotated with `@Disconnect`.
 
 * **D** `socket.errorAction((Throwable throwable) -> {});`
 
-Because `close` event is called without argument, you may wonder how socket was closed. If it was due to some error, `errorAction(throwable -> {})` which is equals to `on("error", throwable -> {})` is executed with `Throwable` in question before `close` event.
+Because `close` event is called without argument, you may wonder how socket was closed. If it was due to some error, [`socket.errorAction`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/ServerSocket.html#errorAction(org.atmosphere.vibe.platform.Action)) is executed with `Throwable` in question before `close` event.
 
 * **E** `socket.on("heartbeat", $ -> {});`
 
@@ -87,23 +87,23 @@ The heartbeat plays an important role in maintaining a connection in Vibe as wel
 
 The unit of to be received and sent of Atmosphere is a plain string but that of Vibe is an event object. Therefore, the `message` event has no special meaning and is just yet another custom event like `heartbeat`. That event handler is called when a client sends a `message` event like a method annotated with `@Message`. Event data's type depends on the event format and here because the event format is JSON and the client is supposed to send an object to `message` event, `Map<String, Object>` is the corresponding type of `message` event and vice versa. You can use any event name except reserved ones like `close` and `error`.
 
-Also since object is exchanged, there is no concept of `Encoder` and `Decoder`. But, using a plain map is inconvenient sometimes. Then, you can convert its type using library like Jackson or Apache Commons BeanUtils.
+Though object is exchanged, using a plain map is inconvenient. A kind of `Encoder` and `Decoder` will be provided in upcoming release. Until then, you can convert data type using library like Jackson or Apache Commons BeanUtils.
 
 * **G** `server.all().send("message", message);`
 
-To broadcast an event to every client, you can use `server.all().send(event, data)` like using `Broadcaster.broadcast` or using an return value of a method annotated with `@Message`. Otherwise instead you can handle each socket:
+To broadcast an event to every client, you can use [`server.all().send(event, data)`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/Server.html#all()) like using `Broadcaster.broadcast` or using an return value of a method annotated with `@Message`. Otherwise instead you can handle each socket using [`server.all(socket -> {})`](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/Server.html#all(org.atmosphere.vibe.platform.Action)):
 
 ```java
 socket.on("message", data -> server.all(socket -> socket.send("message", data)));
 ```
 
-Though, notifying something of every client is not common. Practically, you will utilize tag a lot to handle a group of socket:
+Though, notifying something of every client is not common. Practically, you will utilize [tag](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/Server.html#byTag(java.lang.String[], org.atmosphere.vibe.platform.Action)) a lot to handle a group of socket:
 
 ```java
 socket.tag("room").on("message", data -> server.byTag("room").send("message", data));
 ```
 
-Also it's possible to attach callbacks receiving the result of event processing when sending event and to handle that callback when receiving event:
+Also it's possible to [attach callbacks](/projects/vibe-java-server/3.0.0-Alpha3/apidocs/org/atmosphere/vibe/server/ServerSocket.html#send(java.lang.String, java.lang.Object, org.atmosphere.vibe.platform.Action, org.atmosphere.vibe.platform.Action)) receiving the result of event processing when sending event and to handle those callbacks when receiving event:
 
 ```java
 socket.send("/account/find", "donghwan", account -> System.out.println(account), reason -> System.err.println(reason));
@@ -116,7 +116,7 @@ socket.on("/account/find", reply -> {
 });
 ```
 
-For details, [see the reference documentation](http://localhost:4000/projects/vibe-java-server/3.0.0-Alpha3/reference/).
+For details, [see the reference documentation](/projects/vibe-java-server/3.0.0-Alpha3/reference/).
 
 * **H** `new AtmosphereBridge(servletContext, "/chat").httpAction(server.httpAction()).websocketAction(server.websocketAction());`
 
@@ -202,37 +202,50 @@ $(function () {
 
 * **A** `vibe.open("/chat");`
 
-`vibe.open` opens a socket to a given URI like `atmosphere.subscribe(request)`. It takes an option object as a second argument, but since options like transport and heartbeat are set by the server in handshaking, you don't need to set them explicitly. Actually, you don't even need to be aware of what 'transport' is when using Vibe.
+[`vibe.open`](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#export-function-open-uri:-string--options-:-socketoptions-:-socket) opens a socket to a given URI like `atmosphere.subscribe(request)`. It takes an option object as a second argument, but since options like transport and heartbeat are set by the server in handshaking, you don't need to set them explicitly. Actually, you don't even need to be aware of what 'transport' is when using Vibe.
 
 * **B** `socket.on("connecting", () => {})`
 
-`connecting` event is fired when the transport is selected and starts connecting to the server. This is a first event of socket's life cycle where you can handle socket.
+[`connecting`](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#connecting---:-void) event is fired when the transport is selected and starts connecting to the server. This is a first event of socket's life cycle where you can handle socket.
 
 * **C** `socket.on("open", () => {})`
 
-`open` event is fired when the connection is established successfully and communication is possible like `request.onOpen`.
+[`open`](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#open---:-void) event is fired when the connection is established successfully and communication is possible like `request.onOpen`.
 
 * **D** `socket.on("error", error => {})`
 
-`error` event is fired when there is an error in connection with `error` object in question like `request.onError`, `request.onClientTimeout` and `request.onTransportFailure`. Unlike Atmosphere, there's nothing you should do for connection in this event.
+[`error`](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#error--error:-error-:-void) event is fired when there is an error in connection with `error` object in question like `request.onError`, `request.onClientTimeout` and `request.onTransportFailure`. Unlike Atmosphere, there's nothing you should do for connection in this event.
 
 * **E** `socket.on("close", () => {})`
 
-`close` event is fired when the connection has been closed, has been regarded as closed or could not be opened like `request.onClose`. Regardless of whether the connection is closed normally or abnormally, this event is always fired on disconnection. If you've disabled reconnection, this event is a destination of socket's life cycle. Here, since reconnection is enabled by default, next `waiting` event will be fired.
+[`close`](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#close--reason:-string-:-void) event is fired when the connection has been closed, has been regarded as closed or could not be opened like `request.onClose`. Regardless of whether the connection is closed normally or abnormally, this event is always fired on disconnection. If you've disabled reconnection, this event is a destination of socket's life cycle. Here, since reconnection is enabled by default, next `waiting` event will be fired.
 
 * **F** `socket.on("waiting", (delay, attempts) => {})`
 
-`waiting` event is fired when the reconnection is scheduled with the reconnection delay in milliseconds and the total number of reconnection attempts like `request.onReconnect`. The socket connects to the server after the reconnection delay and then new life cycle starts and `connecting` event is fired.
+[`waiting`](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#waiting--delay:-number--attempts:-number-:-void) event is fired when the reconnection is scheduled with the reconnection delay in milliseconds and the total number of reconnection attempts like `request.onReconnect`. The socket connects to the server after the reconnection delay and then new life cycle starts and `connecting` event is fired.
 
 * **G** `socket.on("message", data => {})`
 
-As mentioned in above, `message` event is just yet another custom event you can use and event data, `data`, is a JSON object not string as the server sent an object so that you don't need to parse it to JSON.
+As mentioned in above, `message` event is just yet another [custom event](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#-event:-string-:--data-:-any--reply-:--resolve:--data-:-any-----void--reject:--data-:-any-----void------void) you can use and event data, `data`, is a JSON object not string as the server sent an object so that you don't need to parse it to JSON.
 
 Also you may notice that message event handler actually does two things: setting username and broadcasting a message. That was necessary in Atmosphere since `request.onMessage` is the only handler receiving message from server. But in Vibe, you can split message event into two other events for separation of concerns using custom event.
 
 * **H** `socket.send("message", {author: author, message: msg})`
 
-As mentioned in above, you can send an event with object data so that you don't need to format object to JSON. If you formatted it to string, the server will receive that string not object.
+As mentioned in above, you can send an event with object data so that you don't need to format object to JSON. If you formatted it to string, the server will receive that string not object. Like server, client can [attach callbacks](http://localhost:4000/projects/vibe-javascript-client/3.0.0-Alpha3/api/#send-event:-string--data-:-any--resolved-:--data-:-any-----void--rejected-:--data-:-any-----void-:-socket) in sending event and handle those callbacks in receiving events as well.
+
+```javascript
+vibe.open(uri).on("open", () => {
+    this.send("/account/find", "donghwan", account => console.log(account), reason => console.error(reason));
+    this.on("/account/find", (id, reply) => {
+        try {
+            reply.resolve(entityManager.find("account", id));
+        } catch(e) {
+            reply.reject(e.message);
+        }
+    });
+});
+```
 
 ## Getting this example
 You can find this example on [GitHub](https://github.com/vibe-project/vibe-examples/tree/master/migration/atmosphere2/).
