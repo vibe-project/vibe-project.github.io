@@ -635,7 +635,7 @@ All you need is to add an action to `publishAction(Action<Map<String,Object>> ac
 
 **Note**
 
-* Most MOM in Java requires message to be serialized. In other words, `Action` instance used in `all`, `byId` and `byTag` (not `socketAction`) should implement `Serializable`. Whereas `Action` is generally used as anonymous class, but `Serializable` [can't be used in that manner](http://docs.oracle.com/javase/7/docs/platform/serialization/spec/serial-arch.html#4539). Therefore always use `Sentence` instead of `Action` especially in this case.
+* Most MOM in Java requires message to be serialized. In other words, `Action` instance used in `all`, `byId` and `byTag` (not `socketAction`) should implement `Serializable`. Whereas `Action` is generally used as anonymous class, but `Serializable` [can't be used in that manner](http://docs.oracle.com/javase/7/docs/platform/serialization/spec/serial-arch.html#4539). Therefore always use `Sentence` instead of `Action` especially in this case. However, Java 8's [lambda has no such issues](http://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.16) with additional bound. For example, you can use a lambda like `server.all((Action<ServerSocket> & Serializable) socket -> socket.send("chat", "Hi"))`.
 
 _Hazelcast example._
 
