@@ -232,7 +232,7 @@ Also you may notice that message event handler actually does two things: setting
 
 * **H** `socket.send("message", {author: author, message: msg})`
 
-As mentioned in above, you can send an event with object data so that you don't need to format object to JSON. If you formatted it to string, the server will receive that string not object. Like server, client can [attach callbacks](http://localhost:4000/projects/vibe-javascript-client/3.0.0-Alpha3/api/#send-event:-string--data-:-any--resolved-:--data-:-any-----void--rejected-:--data-:-any-----void-:-socket) in sending event and handle those callbacks in receiving events as well.
+As mentioned in above, you can send an event with object data so that you don't need to format object to JSON. If you formatted it to string, the server will receive that string not object. Like server, client can [attach callbacks](/projects/vibe-javascript-client/3.0.0-Alpha3/api/#send-event:-string--data-:-any--resolved-:--data-:-any-----void--rejected-:--data-:-any-----void-:-socket) in sending event and handle those callbacks in receiving events as well.
 
 ```javascript
 vibe.open(uri).on("open", () => {
