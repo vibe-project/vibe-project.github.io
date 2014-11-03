@@ -413,7 +413,7 @@ http.setHeader("content-type", "text/javascript; charset=utf-8");
 </div>
 
 #### Writing response
-`write` accepts a text chunk as `String` and a binary chunk as `ByteBuffer` and writes it to the response body. Each response must be completed by `end` after writing all chunks or even if there is nothing to write. It's the end of the response. 
+`write` accepts a text chunk as `String` and a binary chunk as `ByteBuffer` and writes it to the response body. Each response must be completed by `end` after writing all properties and chunks or even if there is nothing to write. It's the end of the response. 
 
 ```java
 http.write("chunk").end();
