@@ -4,7 +4,7 @@ title: "Vibe Java Platform 3.0.0-Alpha3 released"
 author: flowersinthesand
 ---
 
-I'm happy to to release Vibe Java Platform 3.0.0-Alpha3 and accordingly Vibe Java Server 3.0.0-Alpha4. The main focus of this release is completing the life cycle of `ServerHttpExchange` through [explicit read method](https://github.com/vibe-project/vibe-java-platform/issues/12), [reading request by chunk](https://github.com/vibe-project/vibe-java-platform/issues/14) and [handling binary](https://github.com/vibe-project/vibe-java-platform/issues/1). 
+I'm happy to to release Vibe Java Platform 3.0.0-Alpha3 and accordingly Vibe Java Server 3.0.0-Alpha4. The main focus of this release is completing the life cycle of `ServerHttpExchange`. 
 
 * Use `String` and `ByteBuffer` instead of `Data`. [vibe-java-platform#1](https://github.com/vibe-project/vibe-java-platform/issues/1)
 * Explicit `read` method to read request. [vibe-java-platform#12](https://github.com/vibe-project/vibe-java-platform/issues/12)
