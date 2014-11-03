@@ -36,6 +36,7 @@ The [Atmosphere 2](https://github.com/Atmosphere/atmosphere/) makes the applicat
 
 * Requires Servlet 3.0 container.
 * Requires Atmosphere 2.2 and later.
+* If the underlying Servlet container is 3.0, it can't read request asynchronously.
 * Using Servlet 3 and Java WebSocket 1 together is unintuitive and inconvenient unless handling vendor-specific code. Since Atmosphere 2 handles vendor-specific things which is picky to maintain, we uses it as a platform but in the future it might be replaced with new modules dealing with their vendor-specific code directly, e.g. vibe-platform-server-jetty9.
 
 ##### Dependency
@@ -117,6 +118,10 @@ public class Bootstrap extends Verticle {
 
 #### Servlet 3
 [Java Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Java Servlet 3.1](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 7. There is no WebSocket part in Servlet API and it exists as a separate specification. To use WebSocket in a JSR way, use Java WebSocket API in the next section.
+
+**Note**
+
+* If Servlet container is 3.0, it can't read request asynchronously.
 
 ##### Dependency
 
@@ -204,6 +209,10 @@ public class Bootstrap implements ServerApplicationConfig {
 
 #### Play 2
 [Play framework 2](http://www.playframework.org/) is a high velocity web framework for Java and Scala.
+
+**Note**
+
+* Play can't read request asynchronously.
 
 ##### Dependency
 Add the following dependency to your `build.sbt` or include it on your classpath manually.
