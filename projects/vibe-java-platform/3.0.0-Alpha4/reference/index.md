@@ -139,7 +139,7 @@ public class Bootstrap implements ServerApplicationConfig {
         ServerEndpointConfig config = ServerEndpointConfig.Builder.create(VibeServerEndpoint.class, "/vibe")
         .configurator(new Configurator() {
             @Override
-            protected <T> T getEndpointInstance(Class<T> endpointClass) throws InstantiationException {
+            public <T> T getEndpointInstance(Class<T> endpointClass) throws InstantiationException {
                 return endpointClass.cast(new VibeServerEndpoint() {
                     @Override
                     protected Action<ServerWebSocket> wsAction() {
@@ -416,7 +416,7 @@ public class Bootstrap extends Verticle {
                 }
             }
         });
-        server.websocketHandler(new Handler<org.vertx.java.core.http.ServerWebSocket>() {
+        httpServer.websocketHandler(new Handler<org.vertx.java.core.http.ServerWebSocket>() {
             @Override
             public void handle(org.vertx.java.core.http.ServerWebSocket socket) {
                 if (socket.path().equals("/vibe")) {
