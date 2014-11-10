@@ -75,7 +75,7 @@ public class Bootstrap implements ServletContextListener {
             }
         });
         reg.setAsyncSupported(true);
-        reg.setInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR, Boolean.TRUE.toString())
+        reg.setInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR, Boolean.TRUE.toString());
         reg.addMapping("/vibe");
     }
 
