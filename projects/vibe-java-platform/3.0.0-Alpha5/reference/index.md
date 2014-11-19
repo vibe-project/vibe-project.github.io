@@ -59,19 +59,19 @@ An application running on platform is a collection of actions that consumes `Ser
 
 Then see [ServerHttpExchange](#serverhttpexchange) to handle HTTP exchange and  [ServerWebSocket](#serverwebsocket) to handle WebSocket section.
 
+---
+
 ## Platform
 Platform stands for lietrally platform where web application runs by facilitating dealing with HTTP exchange and WebSocket like full-stack web application framework and raw web server.
 
 To bridge application and platform, a module called bridge is required which transforms the underlying platform's resources representing HTTP exchange and WebSocket into `ServerHttpExchange` and `ServerWebSocket`. The following bridges are available.
 
 ### Atmosphere 2
-[Atmosphere 2](https://github.com/Atmosphere/atmosphere/) is a platform to use Servlet 3 and Java WebSocket API together.
+[Atmosphere 2](https://github.com/Atmosphere/atmosphere/) is a platform to use Servlet 3 and Java WebSocket API together. Servlet 3 and Java WebSocket API 1 shares nothing, however, in most cases, application server implements Java WebSocket API as well as Servlet. But, using them together without the help of Atmosphere is unintuitive and inconvenient unless handling vendor-specific API, using `static` keyword or adopting Contexts and Dependency Injection (CDI).
 
 **Note**
 
 * Requires Atmosphere 2.2 and later.
-* Servlet less than version 3.1 can't read request asynchronously.
-* Using Servlet 3 and Java WebSocket API 1 together is unintuitive and inconvenient unless handling vendor-specific code, using `static` keyword or adopting Contexts and Dependency Injection (CDI). Since Atmosphere 2 handles vendor-specific things that is picky to maintain, we uses it as a platform.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2)**
 
@@ -125,7 +125,7 @@ With CDI, the following usage is also available.
     value = "/vibe", 
     asyncSupported = true, 
     initParams = {
-        @WebInitParam(name = "org.atmosphere.cpr.AtmosphereInterceptor.disableDefaults", value = "true") 
+        @WebInitParam(name = ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR, value = "true") 
     }
 )
 public class MyVibeAtmosphereServlet extends VibeAtmosphereServlet {
@@ -146,7 +146,7 @@ public class MyVibeAtmosphereServlet extends VibeAtmosphereServlet {
 ```
 
 ### Java WebSocket API 1
-[Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7. There is no HTTP part in WebSocket API and it exists as a separate specification. To deal with HTTP resources with JWA 1, use Atmosphere or Servlet with CDI, `static` or vendor-specific code.
+[Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7. There is no HTTP part in WebSocket API. To deal with HTTP resources with JWA 1, use Atmosphere or Servlet with CDI, `static` or vendor-specific API.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/jwa1)**
 
@@ -277,9 +277,7 @@ public class Bootstrap {
 
 **Note**
 
-* Play can't read request asynchronously.
-* Play can't send and receive text frame and binary frame together via a WebSocket connection.
-* However, with Scala API, the above issues may be solved. [vibe-java-platform#4](https://github.com/vibe-project/vibe-java-platform/issues/4) 
+* Play can't send and receive text frame and binary frame together via a WebSocket connection. However, it may be solved with Play's Scala API. [vibe-java-platform#4](https://github.com/vibe-project/vibe-java-platform/issues/4) 
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/play2)**
 
@@ -325,7 +323,7 @@ public class Bootstrap extends Controller {
 
 ```
 
-Play doesn't allow to share URI between HTTP and WebSocket entry points. Instead of `routes`, write `Global.scala` in the default package and override `onRouteRequest`. It's not easy to do that in Java, if any. Note that this uses internal API that has broken in minor release and even in patch release. I've confirmed the following code works in `2.2.2` and `2.3.2`.
+Play doesn't allow to share URI between HTTP and WebSocket entry points. Instead of `routes`, write `Global.scala` in the default package and override `onRouteRequest`. It's not easy to do that in Java, if any. Note that this uses internal API that has broken even in patch release. I've confirmed the following code works in `2.2.2` and `2.3.2`.
 
 ```scala
 import simple.{Bootstrap => T}
@@ -354,11 +352,7 @@ object Global extends GlobalSettings {
 ```
 
 ### Servlet 3
-[Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Servlet 3.1](https://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm) from Java EE 7. There is no WebSocket part in Servlet API and it exists as a separate specification. To use WebSocket with Servlet 3, use Atmosphere or Java WebSocket API with CDI, `static` or vendor-specific code.
-
-**Note**
-
-* Servlet less than version 3.1 can't read request asynchronously.
+[Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Servlet 3.1](https://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm) from Java EE 7. There is no WebSocket part in Servlet API. To use WebSocket with Servlet 3, use Atmosphere or Java WebSocket API with CDI, `static` or vendor-specific API.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3)**
 
