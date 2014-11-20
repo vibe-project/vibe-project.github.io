@@ -44,7 +44,7 @@ import javax.servlet.annotation.WebListener;
 
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.vibe.platform.Action;
-import org.atmosphere.vibe.platform.server.ServerHttpExchange;
+import org.atmosphere.vibe.platform.server.*;
 import org.atmosphere.vibe.platform.server.atmosphere2.VibeAtmosphereServlet;
 import org.atmosphere.vibe.server.*;
 

@@ -15,3 +15,145 @@ Vibe Java Platform is a simple <sup><strong>A</strong></sup> abstraction layer <
     <dt>D</dt>
     <dd>For example, Servlet, Vert.x. and Netty.</dd>
 </dl>
+
+---
+
+## Quick Start
+Vibe Java Platform is distributed through Maven Central. To write application running on any platform Vibe Java Platform supports, you need only one artifact: `org.atmosphere:vibe-platform-server:3.0.0-Alpha5`.
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.atmosphere</groupId>
+        <artifactId>vibe-platform-server</artifactId>
+        <version>3.0.0-Alpha5</version>
+    </dependency>
+</dependencies>
+```
+
+Once you've set up the build, all you need to do is to write actions receiving `ServerHttpExchange` and `ServerWebSocket`. As a simple example, let's write echo actions sending any incoming messages such as HTTP chunk and WebSocket data frame back.
+
+```java
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platform.server.*;
+
+public class EchoHandler {
+    public final Action<ServerHttpExchange> httpAction = new Action<ServerHttpExchange>() {
+        @Override
+        public void on(final ServerHttpExchange http) {
+            http.setHeader("content-type", http.header("content-type"))
+            .chunkAction(new Action<ByteBuffer>() {
+                @Override
+                public void on(ByteBuffer bytes) {
+                    http.write(bytes);
+                }
+            })
+            .endAction(new VoidAction() {
+                @Override
+                public void on() {
+                    http.end();
+                }
+            })
+            .readAsBinary()
+            .errorAction(new Action<Throwable>() {
+                @Override
+                public void on(Throwable t) {
+                    t.printStackTrace();
+                }
+            })
+            .closeAction(new VoidAction() {
+                @Override
+                public void on() {
+                    System.out.println("on close event");
+                }
+            });
+        }
+    };
+    public final Action<ServerWebSocket> wsAction = new Action<ServerWebSocket>() {
+        @Override
+        public void on(final ServerWebSocket ws) {
+            ws.textAction(new Action<String>() {
+                @Override
+                public void on(String data) {
+                    ws.send(data);
+                }
+            })
+            .binaryAction(new Action<ByteBuffer>() {
+                @Override
+                public void on(ByteBuffer bytes) {
+                    ws.send(bytes);
+                }
+            })
+            .errorAction(new Action<Throwable>() {
+                @Override
+                public void on(Throwable t) {
+                    t.printStackTrace();
+                }
+            })
+            .closeAction(new VoidAction() {
+                @Override
+                public void on() {
+                    System.out.println("on close event");
+                }
+            });
+        }
+    };
+}
+```
+
+Of course, you can use plain getter instead of public final field. Now to run this handler on the specific platform, we need to transform HTTP and WebSocket resources the platform produced into `ServerHttpExchange` and `ServerWebSocket` and feed them into an instance of `EchoHandler`. The module playing such roles is called bridge and Vibe Java Platform provides various bridges which matches with each platform's usage.
+
+For example, to run `EchoHandler` on Servlet 3 and Java WebSocket API 1 together, you can use Atmosphere 2 platform. Let's add the following bridge dependency.
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.atmosphere</groupId>
+        <artifactId>vibe-platform-server-atmosphere2</artifactId>
+        <version>3.0.0-Alpha5</version>
+    </dependency>
+</dependencies>
+```
+
+Then, through `VibeAtmosphereServlet`, you can configure `EchoHandler` and run it on an implementation of Servlet 3 and Java WebSocket API 1 such as Jetty 9 and Tomcat 8.
+
+```java
+import javax.servlet.*;
+import javax.servlet.annotation.WebListener;
+
+import org.atmosphere.cpr.ApplicationConfig;
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platform.server.*;
+import org.atmosphere.vibe.platform.server.atmosphere2.VibeAtmosphereServlet;
+
+@WebListener
+public class Bootstrap implements ServletContextListener {
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+        EchoHandler handler = new EchoHandler();
+        ServletContext context = event.getServletContext();
+        ServletRegistration.Dynamic reg = context.addServlet(VibeAtmosphereServlet.class.getName(), new VibeAtmosphereServlet() {
+            @Override
+            protected Action<ServerHttpExchange> httpAction() {
+                return handler.httpAction;
+            }
+            
+            @Override
+            protected Action<ServerWebSocket> wsAction() {
+                return handler.wsAction;
+            }
+        });
+        reg.setAsyncSupported(true);
+        reg.setInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR, Boolean.TRUE.toString());
+        reg.addMapping("/echo");
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {}
+}
+```
+
+### Further Reading
+
+* To get details of API, see [API document](/projects/vibe-java-platform/3.0.0-Alpha5/apidocs/).
+* To have a thorough knowledge, read out the [reference](/projects/vibe-java-platform/3.0.0-Alpha5/reference/).
