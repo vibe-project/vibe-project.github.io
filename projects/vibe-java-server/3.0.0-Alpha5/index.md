@@ -9,7 +9,7 @@ Vibe Java Server <sup><strong>A</strong></sup> is a simple <sup><strong>B</stron
     <dt>A</dt>
     <dd><a href="/projects/vibe-protocol/3.0.0-Alpha3">Vibe 3.0.0-Alpha3</a> server.</dd>
     <dt>B</dt>
-    <dd>All interface you need to know is Server and ServerSocket. Indeed.</dd>
+    <dd>All interface you need to know is <code>Server</code> and <code>ServerSocket</code>. Indeed.</dd>
     <dt>C</dt>
     <dd>Shared nothing architecture is adopted to help scale application horizontally with ease.</dd>
     <dt>D</dt>
