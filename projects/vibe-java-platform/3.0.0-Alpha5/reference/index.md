@@ -148,7 +148,7 @@ public class MyVibeAtmosphereServlet extends VibeAtmosphereServlet {
 ### Java WebSocket API 1
 [Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7. There is no HTTP part in WebSocket API. To deal with HTTP resources with JWA 1, use Atmosphere or Servlet with CDI, `static` or vendor-specific API.
 
-**[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/jwa1)**
+**[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3-jwa1)**
 
 Add the following dependency to your build or include it on your classpath manually.
 
@@ -354,7 +354,7 @@ object Global extends GlobalSettings {
 ### Servlet 3
 [Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Servlet 3.1](https://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm) from Java EE 7. There is no WebSocket part in Servlet API. To use WebSocket with Servlet 3, use Atmosphere or Java WebSocket API with CDI, `static` or vendor-specific API.
 
-**[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3)**
+**[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3-jwa1)**
 
 Add the following dependency to your build or include it on your classpath manually.
 
