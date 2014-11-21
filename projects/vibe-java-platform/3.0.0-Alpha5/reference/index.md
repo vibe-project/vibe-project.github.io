@@ -67,7 +67,7 @@ Platform stands for lietrally platform where web application runs by facilitatin
 To bridge application and platform, a module called bridge is required which transforms the underlying platform's resources representing HTTP exchange and WebSocket into `ServerHttpExchange` and `ServerWebSocket`. The following bridges are available.
 
 ### Atmosphere 2
-[Atmosphere 2](https://github.com/Atmosphere/atmosphere/) is a platform to use Servlet 3 and Java WebSocket API together. Servlet 3 and Java WebSocket API 1 shares nothing, however, in most cases, application server implements Java WebSocket API as well as Servlet. But, using them together without the help of Atmosphere is unintuitive and inconvenient unless handling vendor-specific API, using `static` keyword or adopting Contexts and Dependency Injection (CDI).
+[Atmosphere 2](https://github.com/Atmosphere/atmosphere/) is a platform to use Servlet 3 and Java WebSocket API together in more comfortable way.
 
 **Note**
 
@@ -118,35 +118,8 @@ public class Bootstrap implements ServletContextListener {
 }
 ```
 
-With CDI, the following usage is also available.
-
-```java
-@WebServlet(
-    value = "/vibe", 
-    asyncSupported = true, 
-    initParams = {
-        @WebInitParam(name = ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR, value = "true") 
-    }
-)
-public class MyVibeAtmosphereServlet extends VibeAtmosphereServlet {
-    // Your application
-    @Inject
-    private org.atmosphere.vibe.server.Server server;
-    
-    @Override
-    protected Action<ServerHttpExchange> httpAction() {
-        return server.httpAction();
-    }
-    
-    @Override
-    protected Action<ServerWebSocket> wsAction() {
-        return server.wsAction();
-    }
-}
-```
-
 ### Java WebSocket API 1
-[Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7. There is no HTTP part in WebSocket API. To deal with HTTP resources with JWA 1, use Atmosphere or Servlet with CDI, `static` or vendor-specific API.
+[Java WebSocket API 1](http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5) (JWA) from Java EE 7.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3-jwa1)**
 
@@ -165,11 +138,14 @@ Add the following dependency to your build or include it on your classpath manua
 Then, you should register an endpoint of `VibeServerEndpoint` overriding `wsAction`. Note that each WebSocket session is supposed to have each endpoint instance so an instance of `VibeServerEndpoint` can't be shared among `ServerEndpointConfig`s.
 
 ```java
-public class Bootstrap implements ServerApplicationConfig {
+@WebListener
+public class Bootstrap implements ServletContextListener {
     @Override
-    public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
+    public void contextInitialized(ServletContextEvent event) {
         // Your application
         final org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+        ServletContext context = event.getServletContext();
+        ServerContainer container = (ServerContainer) context.getAttribute(ServerContainer.class.getName());
         ServerEndpointConfig config = ServerEndpointConfig.Builder.create(VibeServerEndpoint.class, "/vibe")
         .configurator(new Configurator() {
             @Override
@@ -183,34 +159,20 @@ public class Bootstrap implements ServerApplicationConfig {
             }
         })
         .build();
-        return Collections.singleton(config);
+        try {
+            container.addEndpoint(config);
+        } catch (DeploymentException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> set) {
-        return Collections.emptySet();
-    }
-}
-```
-
-With CDI, the following usage is also available. Especially, this usage matches well with Servlet.
-
-```java
-@ServerEndpoint("/vibe")
-public class MyVibeServerEndpoint extends VibeServerEndpoint {
-    // Your application
-    @Inject
-    private org.atmosphere.vibe.server.Server server;
-    
-    @Override
-    protected Action<ServerWebSocket> wsAction() {
-        return server.wsAction();
-    }
+    public void contextDestroyed(ServletContextEvent sce) {}
 }
 ```
 
 ### Netty 4
-[Netty 4](http://netty.io/) is an asynchronous event-driven network application framework. Given some framework is based on Netty 4, only if it's allowed to add a custom `ChannelHandler`, then you can run application on that framework. Netty-based frameworks swallowing Netty like Play framework can't use this bridge. 
+[Netty 4](http://netty.io/) is an asynchronous event-driven network application framework.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/netty4)**
 
@@ -352,7 +314,7 @@ object Global extends GlobalSettings {
 ```
 
 ### Servlet 3
-[Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Servlet 3.1](https://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm) from Java EE 7. There is no WebSocket part in Servlet API. To use WebSocket with Servlet 3, use Atmosphere or Java WebSocket API with CDI, `static` or vendor-specific API.
+[Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Servlet 3.1](https://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm) from Java EE 7.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3-jwa1)**
 
@@ -390,22 +352,6 @@ public class Bootstrap implements ServletContextListener {
     
     @Override
     public void contextDestroyed(ServletContextEvent sce) {}
-}
-```
-
-With CDI, the following usage is also available. Especially, this usage matches well with Java WebSocket API.
-
-```java
-@WebServlet(value = "/vibe", asyncSupported = true)
-public class MyVibeServlet extends VibeServlet {
-    // Your application
-    @Inject
-    private org.atmosphere.vibe.server.Server server;
-    
-    @Override
-    protected Action<ServerHttpExchange> httpAction() {
-        return server.httpAction();
-    }
 }
 ```
 
