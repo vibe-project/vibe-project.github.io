@@ -73,6 +73,7 @@ To bridge application and platform, a module called bridge is required which tra
 **Note**
 
 * Requires Atmosphere 2.2 and later.
+* Servlet can't detect disconnection.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2)**
 
@@ -366,6 +367,10 @@ object Global extends GlobalSettings {
 
 ### Servlet 3
 [Servlet 3.0](http://docs.oracle.com/javaee/6/tutorial/doc/bnafd.html) from Java EE 6 and [Servlet 3.1](https://docs.oracle.com/javaee/7/tutorial/doc/servlets.htm) from Java EE 7.
+
+**Note**
+
+* Servlet can't detect disconnection.
 
 **[Example](https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3-jwa1)**
 
