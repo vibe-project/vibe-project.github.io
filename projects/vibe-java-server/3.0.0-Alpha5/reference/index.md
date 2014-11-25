@@ -42,12 +42,13 @@ Vibe Java Server requires Java 7 and is distributed through Maven Central. Add t
 </dependencies>
 ```
 
-[Vibe Java Platform](/projects/vibe-java-platform/) is created to run a vibe application on any framework or server transparently without or with a little bit of effort. See [reference guide](/projects/vibe-java-platform/3.0.0-Alpha4/reference/) for what platforms are supported, how to install vibe on them and what you can do when your favorite platform is not supported.
+[Vibe Java Platform](/projects/vibe-java-platform/) is created to run a vibe application on any framework or server transparently without or with a little bit of effort. See [reference guide](/projects/vibe-java-platform/3.0.0-Alpha6/reference/) for what platforms are supported, how to install vibe on them and what you can do when your favorite platform is not supported.
 
 **Examples**
 
 <ul class="inline-list">
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2">Atmosphere 2</a></li>
+<li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/grizzly2">Grizzly 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/netty4">Netty 4</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/play2">Play 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/servlet3-jwa1">Servlet 3 and Java WebSocket API 1</a></li>

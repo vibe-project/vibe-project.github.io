@@ -31,7 +31,7 @@ Vibe Java Server is distributed through Maven Central. A single artifact, <code>
     <dependency>
         <groupId>org.atmosphere</groupId>
         <artifactId>vibe-platform-server-atmosphere2</artifactId>
-        <version>3.0.0-Alpha5</version>
+        <version>3.0.0-Alpha6</version>
     </dependency>
 </dependencies>
 ```
