@@ -520,7 +520,7 @@ for (String name : http.headerNames()) {
 </div>
 
 ### Reading request
-`read` initiates reading the request body and read chunk is passed to `chunkAction`. Whether to read as text or binary is determined by the content-type header in conformance with [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec7.html#sec7.2.1). If the content-type header starts with `text/`, chunk will be read as text and passed as `String`. If not, chunk will be read as binary and passed as `ByteBuffer`. But you can force to read it as text or binary using `readAsText` and `readAsBinary`. Finally, the request is fully read. Then, `endAction` is fired which is the end of the request.
+`read` initiates reading the request body and read chunk is passed to `chunkAction`. Whether to read as text or binary is determined by the content-type request header in conformance with [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec7.html#sec7.2.1). If the header starts with `text/`, chunk will be read as text following the specified charset in the header (`ISO-8859-1` if not specified) and passed as `String`. If not, chunk will be read as binary and passed as `ByteBuffer`. But you can force the request to how to the body using `readAsText` and `readAsBinary`. Finally, the request is fully read. Then, `endAction` is fired which is the end of the request.
 
 ```java
 Stringbuilder bodyBuilder = new Stringbuilder();
@@ -579,7 +579,7 @@ http.setHeader("content-type", "text/javascript; charset=utf-8");
 </div>
 
 ### Writing response
-`write` accepts a text chunk as `String` and a binary chunk as `ByteBuffer` and writes it to the response body. Each response must be completed by `end` after writing all properties and chunks or even if there is nothing to write. It's the end of the response. 
+`write` accepts a text chunk as `String` and a binary chunk as `ByteBuffer` and writes it to the response body. Each response must be completed by `end` after writing all properties and chunks or even if there is nothing to write. It's the end of the response. In case of text chunk, if there is no specified charset parameter in the content-type response header or `write`, then `ISO-8859-1` is used.
 
 ```java
 http.write("chunk").end();
