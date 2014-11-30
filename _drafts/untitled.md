@@ -4,27 +4,75 @@ title: "Untitled"
 author: flowersinthesand
 ---
 
-Servlet specification had been designed to bring the _Write Once, Run Anywhere_ paradigm to web applications, but it could not have lasted long. Because of the lack of support of asynchronous I/O, uncomfortable API, poor productivity and so on, many platform and application framework arose to replace or drop Servlet. That's why some author have had to specify application's target platform and do more work to support others.
+Servlet specification had been designed to bring the _Write Once, Run Anywhere_ paradigm to web applications, but it could not have lasted long. Because of the lack of support of asynchronous I/O, uncomfortable API, poor productivity and so on, many platform arose to replace or drop Servlet. That's why application authors have had to specify an application's target platform and done more work to support others.
 
 By the same token, while I have developed embeddable web application, I have written abstract class for application and concrete class for platform. Later when I start to develop something similar I realized they are not reusuable so decided to create an abstraction layer for various web application platforms from high-level full-stack application frameworks like Play framework to low-level raw web servers like Netty to allow an application to run on as many platform as possible. It is the [Vibe Java Platform](/projects/vibe-java-platform).
 
-Vibe Java Platform requires Java 7 and is distributed through Maven Central. To write application running on any platform Vibe Java Platform supports, you need only one artifact: `org.atmosphere:vibe-platform-server:3.0.0-Alpha6`.
+Vibe Java Platform requires Java 7 and is distributed through Maven Central. To write application running on any platform Vibe Java Platform supports, you need only one artifact: `org.atmosphere:vibe-platform-server:3.0.0-Beta1`.
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-platform-server</artifactId>
-        <version>3.0.0-Alpha6</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.atmosphere</groupId>
+    <artifactId>vibe-platform-server</artifactId>
+    <version>3.0.0-Beta1</version>
+</dependency>
 ```
 
-Once you've set up the build, all you need to do is to write actions consuming [`ServerHttpExchange`](/projects/vibe-java-platform/3.0.0-Alpha6/apidocs/org/atmosphere/vibe/platform/server/ServerHttpExchange.html) and [`ServerWebSocket`](/projects/vibe-java-platform/3.0.0-Alpha6/apidocs/org/atmosphere/vibe/platform/server/ServerWebSocket.html) and expose them. In other words, there is no things you have to do except that. As a simple example, let's write echo actions sending any incoming messages such as HTTP chunk and WebSocket data frame back.
+Once you've set up the build, all you need to do is to write actions consuming [`ServerHttpExchange`](/projects/vibe-java-platform/3.0.0-Beta1/apidocs/org/atmosphere/vibe/platform/server/ServerHttpExchange.html) and [`ServerWebSocket`](/projects/vibe-java-platform/3.0.0-Beta1/apidocs/org/atmosphere/vibe/platform/server/ServerWebSocket.html) and expose them. In other words, there is no things you have to do except that. As a simple example, let's write echo actions sending any incoming messages such as HTTP chunk and WebSocket data frame back.
 
+<dl class="tabs" data-tab>
+    <dd class="active"><a href="#echohandler-java8">Java 8</a></dd>
+    <dd><a href="#echohandler-java7">Java 7</a></dd>
+</dl>
+<div class="tabs-content">
+    <div class="content active" id="echohandler-java8">
+{% capture panel %}
 ```java
+import java.nio.ByteBuffer;
+
 import org.atmosphere.vibe.platform.Action;
-import org.atmosphere.vibe.platform.server.*;
+import org.atmosphere.vibe.platform.server.ServerHttpExchange;
+import org.atmosphere.vibe.platform.server.ServerWebSocket;
+
+public class EchoHandler {
+    // You can use plain getter instead of public final field
+    public final Action<ServerHttpExchange> httpAction = (ServerHttpExchange http) -> {
+        // Get the request header, content-type, and set it to the response header, content-type 
+        http.setHeader("content-type", http.header("content-type"))
+        // When a chunk is read from the request body, writes a read chunk to the response body
+        .chunkAction((ByteBuffer bytes) -> http.write(bytes))
+        // When the request is fully read so the request is ended, ends the response
+        .endAction((Void v) -> http.end())
+        // Reads the request body as binary to circumvent encoding issue
+        .readAsBinary()
+        // When some error happens in request-response exchange
+        .errorAction((Throwable t) -> t.printStackTrace())
+        // When the request is fully read and the response is fully written or the underlying connection is aborted
+        .closeAction((Void v) -> System.out.println("on close event"));
+    };
+    public final Action<ServerWebSocket> wsAction = (ServerWebSocket ws) -> {
+        // When a text frame is arrived, sends it back
+        ws.textAction((String data) -> ws.send(data))
+        // When a binary frame is arrived, sends it back
+        .binaryAction((ByteBuffer bytes) -> ws.send(bytes))
+        // When some error happens in the connection
+        .errorAction((Throwable t) -> t.printStackTrace())
+        // When the connection is closed for any reason
+        .closeAction((Void v) -> System.out.println("on close event"));
+    };
+}
+```
+{% endcapture %}{{ panel | markdownify }}
+    </div>
+    <div class="content" id="echohandler-java7">
+{% capture panel %}
+```java
+import java.nio.ByteBuffer;
+
+import org.atmosphere.vibe.platform.Action;
+import org.atmosphere.vibe.platform.VoidAction;
+import org.atmosphere.vibe.platform.server.ServerHttpExchange;
+import org.atmosphere.vibe.platform.server.ServerWebSocket;
 
 public class EchoHandler {
     // You can use plain getter instead of public final field
@@ -104,23 +152,22 @@ public class EchoHandler {
     };
 }
 ```
+{% endcapture %}{{ panel | markdownify }}
+    </div>
+</div>
 
-Generally while full-stack frameworks have very simplified API, raw servers have very delicate API so that features which can be abstracted are limited to their intersection. For example, Play framework which is one of such full-stack frameworks doesn't support protocol upgrade and it's not possible to implement WebSocket protocol using only `ServerHttpExchange`.
+As a real world example, [Vibe Java Server](/projects/vibe-java-server) implements Vibe Protocol based on Vibe Java Platform. Likewise, it's possible to implement other similar protocol like Socket.IO, STOMP and WAMP.
 
-However, if you don't need such features, it doesn't matter. For example, [Vibe Java Server](/projects/vibe-java-server) implements Vibe Protocol using Vibe Java Platform. Likewise, it's possible to implement other similar protocol like Socket.IO, STOMP and WAMP based on Vibe Java Platform.
-
-Now that we have actions consuming [`ServerHttpExchange`](/projects/vibe-java-platform/3.0.0-Alpha6/apidocs/org/atmosphere/vibe/platform/server/ServerHttpExchange.html) and [`ServerWebSocket`](/projects/vibe-java-platform/3.0.0-Alpha6/apidocs/org/atmosphere/vibe/platform/server/ServerWebSocket.html), to run these actions on the specific platform, we need to transform HTTP and WebSocket resources which that specific platform produces into `ServerHttpExchange` and `ServerWebSocket` and feed them into those actions. The module playing such a role is called bridge and Vibe Java Platform provides various bridges which matches with each platform's usage.
+Now that we have actions consuming [`ServerHttpExchange`](/projects/vibe-java-platform/3.0.0-Beta1/apidocs/org/atmosphere/vibe/platform/server/ServerHttpExchange.html) and [`ServerWebSocket`](/projects/vibe-java-platform/3.0.0-Beta1/apidocs/org/atmosphere/vibe/platform/server/ServerWebSocket.html), to run these actions on the specific platform, we need to transform HTTP and WebSocket resources which that specific platform produces into `ServerHttpExchange` and `ServerWebSocket` and feed them into those actions. The module playing such a role is called bridge and Vibe Java Platform provides various bridges which matches with each platform's usage.
 
 Let's run `EchoHandler` on Servlet 3 and Java WebSocket API 1 together using Atmosphere 2 platform. (Of course, you can use Servlet 3 platform and Java WebSocket API 1 platform together but it's uncomfortable and tedious comparing to Atmosphere 2.) Let's add the following bridge dependency.
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.atmosphere</groupId>
-        <artifactId>vibe-platform-server-atmosphere2</artifactId>
-        <version>3.0.0-Alpha6</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.atmosphere</groupId>
+    <artifactId>vibe-platform-server-atmosphere2</artifactId>
+    <version>3.0.0-Beta1</version>
+</dependency>
 ```
 
 Then, through `VibeAtmosphereServlet`, you can configure resources to pass to `EchoHandler` and bridge the handler with an implementation of Servlet 3 and Java WebSocket API 1 such as Jetty 9 and Tomcat 8.
@@ -131,7 +178,8 @@ import javax.servlet.annotation.WebListener;
 
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.vibe.platform.Action;
-import org.atmosphere.vibe.platform.server.*;
+import org.atmosphere.vibe.platform.server.ServerHttpExchange;
+import org.atmosphere.vibe.platform.server.ServerWebSocket;
 import org.atmosphere.vibe.platform.server.atmosphere2.VibeAtmosphereServlet;
 
 @WebListener
@@ -141,7 +189,7 @@ public class Bootstrap implements ServletContextListener {
         // All you need to do for bridging is to expose actions
         EchoHandler handler = new EchoHandler();
         ServletContext context = event.getServletContext();
-        // Atmosphere 2 platform provides a Servlet called VibeAtmosphereServlet 
+        // Atmosphere 2 bridge provides a Servlet called VibeAtmosphereServlet 
         // to transform AtmosphereResource to ServerHttpExchange and ServerWebSocket
         ServletRegistration.Dynamic reg = context.addServlet(VibeAtmosphereServlet.class.getName(), new VibeAtmosphereServlet() {
             // When the web container produces Http request-response exchange
@@ -158,10 +206,10 @@ public class Bootstrap implements ServletContextListener {
                 return handler.wsAction;
             }
         });
-        // Except configuration required by Atmosphere 2 platform, 
-        // you can configure everything just like dealing with a plain Servlet (actually we are already doing that) 
+        // Atmosphere 2 bridge requires some configuration 
         reg.setAsyncSupported(true);
         reg.setInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR, Boolean.TRUE.toString());
+        // Except them, you can configure everything just like dealing with a plain Servlet (actually we are already doing that) 
         reg.addMapping("/echo");
     }
 
@@ -170,7 +218,7 @@ public class Bootstrap implements ServletContextListener {
 }
 ```
 
-The same pattern applies when bridging application to other platform. Here is working examples. They demonstrate how to run Vibe Java Server written using Vibe Java Platform on each platform.
+The same pattern applies when bridging application to other platform. Here is working examples. They demonstrate how to run Vibe Java Server based on Vibe Java Platform on each platform.
 
 <ul class="inline-list">
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/atmosphere2">Atmosphere 2</a></li>
@@ -181,10 +229,10 @@ The same pattern applies when bridging application to other platform. Here is wo
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform/vertx2">Vert.x 2</a></li>
 </ul>
 
-It's not the end. Some platform like JAX-RS 2 is based on the other platform and allows to deal with the underlying platform so that it's possible to run application on such platform without creating an additional bridge if the corresponding bridge is available. The general pattern is to share application between the platform and the underlying platform. Here is working examples for such cases.
+It's not the end. Some platform like JAX-RS 2 is based on the other platform like Servlet 3 and allows to deal with the underlying platform so that it's possible to run application on such platform without creating an additional bridge if the corresponding bridge is available. The general pattern is to share application between the platform and the underlying platform. Here is working examples for such cases.
 
 <ul class="inline-list">
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/platform-on-platform/jaxrs2-atmosphere2">JAX-RS 2 on Atmosphere 2</a></li>
 </ul>
 
-Your favorite platform is not supported? One of advantages of Vibe Java Platform is easy to extend. Just take a look how [Grizzly 2 bridge](https://github.com/vibe-project/vibe-java-platform/tree/master/grizzly2/src/main/java/org/atmosphere/vibe/platform/server/grizzly2) is written. Mostly, with more or less 300 lines, it's enough to write a bridge.
+Your favorite platform is not supported? One of advantages of Vibe Java Platform is easy to extend. Just take a look how [Grizzly 2 bridge](https://github.com/vibe-project/vibe-java-platform/tree/master/grizzly2/src/main/java/org/atmosphere/vibe/platform/server/grizzly2) is written. Mostly, with more or less 200 lines, it's enough to write a bridge.
