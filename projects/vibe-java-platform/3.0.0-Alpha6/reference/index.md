@@ -63,9 +63,19 @@ Then see [ServerHttpExchange](#serverhttpexchange) to handle HTTP exchange and  
 ---
 
 ## Platform
-Platform stands for lietrally platform where web application runs by facilitating dealing with HTTP exchange and WebSocket like full-stack web application framework and raw web server.
+Platform stands for lietrally platform where application runs by facilitating dealing with HTTP exchange and WebSocket like full-stack web application framework and raw web server.
 
 To bridge application and platform, a module called bridge is required which transforms the underlying platform's resources representing HTTP exchange and WebSocket into `ServerHttpExchange` and `ServerWebSocket`. The following bridges are available.
+
+|Platform|HTTP|WebSocket|
+|---|---|---|
+|[Atmosphere 2](#atmosphere-2)|&#10003;|&#10003;|
+|[Grizzly 2](#grizzly-2)|&#10003;|&#10003;|
+|[Java WebSocket API 1](#java-websocket-api-1)||&#10003;|
+|[Netty 4](#netty-4)|&#10003;|&#10003;|
+|[Play 2](#play-2)|&#10003;|&#10003;|
+|[Servlet 3](#servlet-3)|&#10003;||
+|[Vert.x 2](#vert.x-2)|&#10003;|&#10003;|
 
 ### Atmosphere 2
 [Atmosphere 2](https://github.com/Atmosphere/atmosphere/) is a platform to use Servlet 3 and Java WebSocket API together in more comfortable way.
