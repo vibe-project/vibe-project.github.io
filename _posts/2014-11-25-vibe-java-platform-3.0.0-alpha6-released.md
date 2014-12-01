@@ -11,4 +11,4 @@ I'm happy to announce Vibe Java Platform 3.0.0-Alpha6. The main focus of this re
 * Transformers like `VibeServlet` and `VibeServerEndPoint` are changed into abstract classes. [vibe-java-platform#32](https://github.com/vibe-project/vibe-java-platform/issues/32)
 * `netty-all` dependency is changed to `netty-codec-http`. [vibe-java-platform#30](https://github.com/vibe-project/vibe-java-platform/issues/30)
 
-In next phase, we will focus on [Transport calculation](https://github.com/vibe-project/vibe-protocol/issues/14) which is the process to find the very working transport for any given situation. With that protocol extension, you can forget what the transport is and does. If you have any feedback or suggestions, please [let us know](http://groups.google.com/group/atmosphere-framework) and we appreciate them as always.
+In next phase, we will focus on [Reorganize transport](https://github.com/vibe-project/vibe-protocol/issues/38) to process further transport related features. If you have any feedback or suggestions, please [let us know](http://groups.google.com/group/atmosphere-framework) and we appreciate them as always.
