@@ -22,6 +22,7 @@ title: Vibe JavaScript Client API
         * [on(event: string, handler: Function): Socket](#on-event:-string--handler:-function-:-socket)
             * [connecting (): void](#connecting---:-void)
             * [open (): void](#open---:-void)
+            * [error (error: Error): void](#error--error:-error-:-void)
             * [close (reason: string): void](#close--reason:-string-:-void)
             * [waiting (delay: number, attempts: number): void](#waiting--delay:-number--attempts:-number-:-void)
             * [[event: string]: (data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void](#-event:-string-:--data-:-any--reply-:--resolve:--data-:-any-----void--reject:--data-:-any-----void------void)
