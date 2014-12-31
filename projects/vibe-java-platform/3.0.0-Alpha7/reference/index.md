@@ -81,7 +81,7 @@ public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         // Your application
-        final org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+        final org.atmosphere.vibe.Server server = new org.atmosphere.vibe.DefaultServer();
         ServletContext context = event.getServletContext();
         ServletRegistration.Dynamic reg = context.addServlet(VibeAtmosphereServlet.class.getName(), new VibeAtmosphereServlet() {
             @Override
@@ -129,7 +129,7 @@ And then, you should register an instance of `VibeHttpHandler` to deal with HTTP
 public class Bootstrap {
     public static void main(String[] args) throws Exception {
         // Your application
-        final org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+        final org.atmosphere.vibe.Server server = new org.atmosphere.vibe.DefaultServer();
         HttpServer httpServer = HttpServer.createSimpleServer();
         ServerConfiguration config = httpServer.getServerConfiguration();
         config.addHttpHandler(new VibeHttpHandler() {
@@ -175,7 +175,7 @@ public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         // Your application
-        final org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+        final org.atmosphere.vibe.Server server = new org.atmosphere.vibe.DefaultServer();
         ServletContext context = event.getServletContext();
         ServerContainer container = (ServerContainer) context.getAttribute(ServerContainer.class.getName());
         ServerEndpointConfig config = ServerEndpointConfig.Builder.create(VibeServerEndpoint.class, "/vibe")
@@ -224,7 +224,7 @@ To bridge application and Netty, you should register a handler of `VibeServerCod
 public class Bootstrap {
     public static void main(String[] args) throws Exception {
         // Your application
-        final org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+        final org.atmosphere.vibe.Server server = new org.atmosphere.vibe.DefaultServer();
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -286,7 +286,7 @@ Then, write entry point for HTTP exchange and WebSocket extending `Controller`. 
 ```java
 public class Bootstrap extends Controller {
     // Your application
-    static org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+    static org.atmosphere.vibe.Server server = new org.atmosphere.vibe.DefaultServer();
 
     @BodyParser.Of(BodyParser.TolerantText.class)
     public static Promise<Result> http() {
@@ -363,7 +363,7 @@ public class Bootstrap implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         // Your application
-        final org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+        final org.atmosphere.vibe.Server server = new org.atmosphere.vibe.DefaultServer();
         ServletContext context = event.getServletContext();
         ServletRegistration.Dynamic reg = context.addServlet(VibeServlet.class.getName(), new VibeServlet() {
             @Override
@@ -402,7 +402,7 @@ public class Bootstrap extends Verticle {
     @Override
     public void start() {
         // Your application
-        final org.atmosphere.vibe.server.Server server = new org.atmosphere.vibe.server.DefaultServer();
+        final org.atmosphere.vibe.Server server = new org.atmosphere.vibe.DefaultServer();
         HttpServer httpServer = vertx.createHttpServer();
         RouteMatcher httpMatcher = new RouteMatcher();
         httpMatcher.all("/vibe", new VibeRequestHandler() {
