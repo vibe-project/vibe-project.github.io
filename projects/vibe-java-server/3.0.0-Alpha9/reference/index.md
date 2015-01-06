@@ -185,6 +185,7 @@ server.socketAction(new Action<ServerSocket>() {
 ### Properties
 These are read only.
 
+<div class="row">
 <div class="large-6 columns">
 {% capture panel %}
 #### URI
