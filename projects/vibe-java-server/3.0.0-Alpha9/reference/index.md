@@ -26,6 +26,7 @@ title: Vibe Java Server Reference
 * [Integration](#integration)
     * [Dependency Injection](#dependency-injection)
     * [Clustering](#clustering)
+    * [Others](#others)
     
 ---
 
@@ -658,3 +659,9 @@ public class Bootstrap implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {}
 }
 ```
+
+### Others
+The following 3rd party projects usually maintained by contribution of the community also make it easy to integrate Vibe Java Server with other technologies.
+
+#### Grails
+* [Vibe Plugin](http://www.grails.org/plugin/vibe) by Ken Siprell
