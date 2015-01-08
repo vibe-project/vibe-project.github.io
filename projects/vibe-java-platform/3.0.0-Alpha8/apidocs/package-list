@@ -1,0 +1,11 @@
+org.atmosphere.vibe.platform.action
+org.atmosphere.vibe.platform.bridge.atmosphere2
+org.atmosphere.vibe.platform.bridge.grizzly2
+org.atmosphere.vibe.platform.bridge.jwa1
+org.atmosphere.vibe.platform.bridge.netty4
+org.atmosphere.vibe.platform.bridge.play2
+org.atmosphere.vibe.platform.bridge.servlet3
+org.atmosphere.vibe.platform.bridge.vertx2
+org.atmosphere.vibe.platform.http
+org.atmosphere.vibe.platform.test
+org.atmosphere.vibe.platform.ws
