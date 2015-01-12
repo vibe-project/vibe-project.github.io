@@ -17,7 +17,6 @@ title: Vibe JavaScript Client Reference
     * [Error Handling](#error-handling)
     * [Sending and Receiving Event](#sending-and-receiving-event)
     * [Getting and Setting Result of Event Processing](#getting-and-setting-result-of-event-processing)
-    * [Heartbeat](#heartbeat)
     * [Reconnection](#reconnection)
     * [Transport](#transport)
 * [Transport](#transport-1) 
@@ -317,39 +316,6 @@ server.on("socket", function(socket) {
         console.log("resolved with ", data);
     }, function(data) {
         console.log("rejected with ", data);
-    });
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
-
-### Heartbeat
-Considering a multitude of browsers, transports, servers, networks and their combination, heartbeat is essential to maintain stable connection. For that reason, a socket starts heartbeat communication every 20 seconds on the open event by default. It can be configured only through the server.
-
-_Eavesdropping heartbeat of client and server._
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Client**
-
-```javascript
-vibe.open("http://localhost:8080/vibe", {reconnect: false})
-.on("heartbeat", function() {
-    console.log("heartbeat at ", Date.now());
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Server**
-
-```javascript
-server.on("socket", function(socket) {
-    socket.on("heartbeat", function() {
-        console.log("heartbeat at ", Date.now());
     });
 });
 ```
