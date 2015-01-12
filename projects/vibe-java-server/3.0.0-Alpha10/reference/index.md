@@ -166,7 +166,7 @@ Socket can be in either opened state where I/O operations are possible or closed
 * To deal with socket, always create a socket action and pass it to server's finder methods.
 * Otherwise make sure a socket you are dealing with is not closed.
 
-**Tracking socket state**
+_Tracking socket state._
 
 ```java
 server.socketAction(new Action<ServerSocket>() {
@@ -215,40 +215,29 @@ As a socket is a just connectivity, it is not suibtable for handling a specific 
 
 That's why tag is introduced. A tag is used to point to a group of sockets like class attribute in HTML. Tag set is managed only by server and unknown to client. `tag(String... names)`/`untag(String... names)` attcahes/detaches given names of tags to/from a socket.
 
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Tagging**
+**Note**
+
+* To manage a lot of tags easily, use [URI](http://tools.ietf.org/html/rfc3986) as tag name format like `/user/flowersinthesand`.
+
+_Notifying user of the login/logout through other device._
 
 ```java
 server.socketAction(new Action<ServerSocket>() {
     @Override
     public void on(final ServerSocket socket) {
-        socket.tag(Uris.parse(socket.uri()).param("name"));
+        Uri uri = Uris.parse(socket.uri());
+        final String username = uri.param("username");
+        final String devicename = uri.param("devicename");
+        socket.tag(username).closeAction(new VoidAction() {
+            @Override
+            public void on() {
+                server.byTag(username).send("/logout", "Using device " + devicename);
+            }
+        });
+        server.byTag(username).send("/login", "Using device " + devicename);
     }
 });
 ```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**Using tag**
-
-```java
-@Component
-public class AccountEntityListener {
-    @Resource
-    private Server server;
-    
-    @PostUpdate
-    public void postUpdate(Account acc) {
-        server.byTag(acc.name()).send("/account/update", acc);
-    }
-}
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
 
 ### Error Handling
 To capture any error happening in the socket, use `error` event. As an argument, `Throwable` in question is passed. Exceptions from the underlying transport are also propagated.
