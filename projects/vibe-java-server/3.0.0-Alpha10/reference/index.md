@@ -22,10 +22,11 @@ title: Vibe Java Server Reference
     * [Error Handling](#error-handling)
     * [Sending and Receiving Event](#sending-and-receiving-event)
     * [Getting and Setting Result of Event Processing](#getting-and-setting-result-of-event-processing)
-    * [Accessing Transport](#accessing-transport)
+    * [Accessing Underlying Object](#accessing-underlying-object)
 * [Integration](#integration)
     * [Dependency Injection](#dependency-injection)
     * [Clustering](#clustering)
+    * [Authentication and Authorization](#authentication-and-authorization)
     * [Others](#others)
     
 ---
@@ -474,25 +475,20 @@ vibe.open("http://localhost:8080/vibe")
 </div>
 </div>
 
-### Accessing Transport
-In any case, transport underlies socket. To access transport, you can use `unwrap(Class<?> clazz)`. Likewise resources like HTTP request-response exchange and WebSocket underlies transport. Usually it's useful when acessing session.
+### Accessing Underlying Object
+In any case, transport underlies socket and resource like HTTP request-response exchange and WebSocket underlies transport. To access such underlying objects, use `unwrap(Class<?> clazz)`.
 
 **Note**
 
-* Don't manipulate returned transport or its underlying resources unless you know what you are doing.
+* Don't manipulate returned object unless you know what you are doing.
 
-_Accessing HttpSession on Atmosphere._
+_Accessing platform-specific object through underlying resource._
 
 ```java
-AtmosphereResource resource = socket.unwrap(ServerTransport.class).unwrap(ServerHttpExchange.class).unwrap(AtmosphereResource.class);
+ServerTransport transport = socket.unwrap(ServerTransport.class);
+ServerHttpExchange http = transport.unwrap(ServerHttpExchange.class);
+AtmosphereResource resource = http.unwrap(AtmosphereResource.class);
 HttpSession session = resource.getRequest().getSession();
-```
-
-_Accessing HttpSession on Servlet._
-
-```java
-HttpServletRequest request = socket.unwrap(ServerTransport.class).unwrap(ServerHttpExchange.class).unwrap(HttpServletRequest.class);
-HttpSession session = request.getSession();
 ```
 
 ---
@@ -501,7 +497,7 @@ HttpSession session = request.getSession();
 Here is how to integrate Vibe Java Server with awesome technologies.
 
 ### Dependency Injection
-With Dependency Injection, you can inject Server wherever you need. Registers a `Server` as a singleton component and inject it wherever you want to handle socket.
+With Dependency Injection, you can inject server wherever you need. Registers a `Server` as a singleton component and inject it wherever you want to handle socket.
 
 **Examples**
 
@@ -576,10 +572,13 @@ public class Clock {
 ```
 
 ### Clustering
-
 All of the Message Oriented Middleware (MOM) supporting publish and subscribe model can be used to cluster multiple vibe applications with `ClusteredServer`. `ClusteredServer` intercepts a method invocation to `all` and `byTag`, converts the call into a message and execute actions added via `publishAction(Action<Map<String,Object>> action)` with that message.
 
 All you need is to add an action to `publishAction(Action<Map<String,Object>> action)` to publish message to all servers in the cluster including the one issued and to pass them to `messageAction().on(Map<String,Object> message)` when receiving such messages from other server.
+
+**Note**
+
+* Most MOM in Java requires message to be serialized. In other words, `Action` instance used in `all` and `byTag` (not `socketAction`) should implement `Serializable`. Whereas `Action` is generally used as anonymous class, but `Serializable` [can't be used in that manner](http://docs.oracle.com/javase/7/docs/platform/serialization/spec/serial-arch.html#4539). Therefore always use `Sentence` instead of `Action` especially in this case. However, Java 8's [lambda has no such issues](http://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.16) with additional bound. For example, you can use a lambda like `server.all((Action<ServerSocket> & Serializable) socket -> socket.send("chat", "Hi"))`.
 
 **Examples**
 
@@ -591,10 +590,6 @@ All you need is to add an action to `publishAction(Action<Map<String,Object>> ac
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/redis2">Redis 2</a></li>
 <li><a href="https://github.com/vibe-project/vibe-examples/tree/master/archetype/vibe-java-server/clustering/vertx2">Vert.x 2</a></li>
 </ul>
-
-**Note**
-
-* Most MOM in Java requires message to be serialized. In other words, `Action` instance used in `all` and `byTag` (not `socketAction`) should implement `Serializable`. Whereas `Action` is generally used as anonymous class, but `Serializable` [can't be used in that manner](http://docs.oracle.com/javase/7/docs/platform/serialization/spec/serial-arch.html#4539). Therefore always use `Sentence` instead of `Action` especially in this case. However, Java 8's [lambda has no such issues](http://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.16) with additional bound. For example, you can use a lambda like `server.all((Action<ServerSocket> & Serializable) socket -> socket.send("chat", "Hi"))`.
 
 _Hazelcast example._
 
@@ -649,6 +644,26 @@ public class Bootstrap implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {}
 }
 ```
+
+### Authentication and Authorization
+There is nothing new for you.
+
+TODO more explanation and examples will be added.
+
+**Note**
+
+* Token based authentication using URI is preferred to cookie based authentication using HTTP cookie header because token based one works with any transport but cookie based one works with only HTTP transport. In fact, all provided transports are based on HTTP but it doesn't matter. However, you should be aware that cookie header is not sent to the server in the following cases, which is the case of Internet Explorer 6-9.
+    * When HTTP Streaming or HTTP Long Polling is backed up by XDomainRequest.
+    * When HTTP Long Polling is backed up by script tag and a given URI is cross origin.
+
+**Examples**
+
+<ul class="inline-list">
+<li>Apache Shiro</li>
+<li>JAAS</li>
+<li>Play</li>
+<li>Spring Security</li>
+</ul>
 
 ### Others
 The following external projects usually maintained by contribution of the community also make it easy to integrate Vibe Java Server with other technologies.
