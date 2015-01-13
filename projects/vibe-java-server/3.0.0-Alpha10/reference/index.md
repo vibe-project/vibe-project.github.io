@@ -652,7 +652,7 @@ TODO more explanation and examples will be added.
 
 **Note**
 
-* Token based authentication using URI is preferred to cookie based authentication using HTTP cookie header because token based one works with any transport but cookie based one works with only HTTP transport. In fact, all provided transports are based on HTTP but it doesn't matter. However, you should be aware that cookie header is not sent to the server in the following cases, which is the case of Internet Explorer 6-9.
+* Token based authentication using URI is preferred to cookie based authentication using HTTP cookie header because token based one works with any transport but cookie based one works with only HTTP transport. In fact, all provided transports are based on HTTP so it doesn't matter. However, you should be aware that cookie header is not sent to the server in the following cases, which is the case of Internet Explorer 6-9.
     * When HTTP Streaming or HTTP Long Polling is backed up by XDomainRequest.
     * When HTTP Long Polling is backed up by script tag and a given URI is cross origin.
 
