@@ -8,7 +8,7 @@ Then, open [http://localhost:4000](http://localhost:4000) in your browser.
 
 Some project documents are generated from project source using external tools and should be updated after commit or release.
 
-* /projects/vibe-protocol/${version}/docs from `docco lib/*.js`
+* /projects/vibe-protocol/${version}/docs from `docco lib/*.js -o docs && docco lib/transport/*.js -o docs/transport`
 * /projects/vibe-java-server/${version}/apidocs from `mvn javadoc:aggregate`
 * /projects/vibe-java-platform/${version}/apidocs from `mvn javadoc:aggregate`
 * /projects/vibe-javascript-client/${version}/vibe.js by copy and paste

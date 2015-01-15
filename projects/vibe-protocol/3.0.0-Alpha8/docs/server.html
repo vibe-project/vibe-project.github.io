@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>server.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="client.html">
+                client.js
+              </a>
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="server.html">
+                server.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>server.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*
+ * Vibe
+ * http://vibe-project.github.io/projects/vibe-protocol/
+ * 
+ * Copyright 2014 The Vibe Project 
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */</span>
+<span class="hljs-keyword">var</span> events = <span class="hljs-built_in">require</span>(<span class="hljs-string">"events"</span>);
+<span class="hljs-keyword">var</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This function is exposed to the module’s <code>createServer</code> as a constructor of
+server which consumes transport and produces socket.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>A server object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Options to configure server and client.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> options = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>A heartbeat interval in milliseconds.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        heartbeat: <span class="hljs-number">20000</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>This is just to speed up heartbeat test and not required generally.
+It means the time to wait for the server’s response. The default
+value is <code>5000</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        _heartbeat: <span class="hljs-number">5000</span>
+    };
+    self.setHeartbeat = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(heartbeat)</span> </span>{
+        options.heartbeat = +heartbeat;
+    };
+    self.set_heartbeat = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(_heartbeat)</span> </span>{
+        options._heartbeat = +_heartbeat;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>A link between Vibe protocol and Vibe transport protocol. <code>transport</code> is
+expected to be passed from Vibe transport server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.handle = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(transport)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Builds a socket on top of a transport and fires <code>socket</code> event to
+server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        self.emit(<span class="hljs-string">"socket"</span>, createSocket(transport, options));
+    };
+    <span class="hljs-keyword">return</span> self;
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Consumes transport and produces socket</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createSocket</span><span class="hljs-params">(transport, options)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>A socket object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">new</span> events.EventEmitter();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>When the transport has received a message from the client.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"text"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(text)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Converts JSON text to an event object.</p>
+<p>It should have the following properties:</p>
+<ul>
+<li><code>id: string</code>: an event identifier.</li>
+<li><code>type: string</code>: an event type.</li>
+<li><code>data: any</code>: an event data.</li>
+<li><code>reply: boolean</code>: true if this event requires the reply.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> event = <span class="hljs-built_in">JSON</span>.parse(text);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>If the client sends a plain event, dispatch it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (!event.reply) {
+            self.emit(event.type, event.data);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">var</span> latch;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>A function to create a function. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reply</span><span class="hljs-params">(success)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>A controller function.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>The latch prevents double reply.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (!latch) {
+                        latch = <span class="hljs-literal">true</span>;
+                        self.send(<span class="hljs-string">"reply"</span>, {id: event.id, data: value, exception: !success});
+                    }
+                };
+            }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Here, the controller is passed to the handler as 2nd argument and
+calls the server’s <code>resolved</code> or <code>rejected</code> callback by sending
+<code>reply</code> event.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            self.emit(event.type, event.data, {resolve: reply(<span class="hljs-literal">true</span>), reject: reply(<span class="hljs-literal">false</span>)});
+        }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>When any error has occurred.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> </span>{
+        self.emit(<span class="hljs-string">"error"</span>, error);
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>When the transport has been closed for any reason.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    transport.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        self.emit(<span class="hljs-string">"close"</span>);
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>An id for event. It should be unique among events to be sent to the
+client and has nothing to do with one the client sent.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> eventId = <span class="hljs-number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>A map for reply callbacks for reply.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> callbacks = {};
+    self.send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(type, data, resolved, rejected)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>It should have the following properties:</p>
+<ul>
+<li><code>id: string</code>: an event identifier.</li>
+<li><code>type: string</code>: an event type.</li>
+<li><code>data: any</code>: an event data.</li>
+<li><code>reply: boolean</code>: true if this event requires the reply.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> event = {
+            id: <span class="hljs-string">""</span> + eventId++, 
+            type: type, 
+            data: data, 
+            reply: resolved != <span class="hljs-literal">null</span> || rejected != <span class="hljs-literal">null</span>
+        };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Stores resolved and rejected callbacks if they are given.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (event.reply) {
+            callbacks[event.id] = {resolved: resolved, rejected: rejected};
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Convert the event to a JSON message and sends it through the
+transport.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        transport.send(<span class="hljs-built_in">JSON</span>.stringify(event));
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Delegate closing to the transport.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.close = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        transport.close();
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>On the <code>reply</code> event, executes the stored reply callbacks with data.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.on(<span class="hljs-string">"reply"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(reply)</span> </span>{
+        <span class="hljs-keyword">if</span> (reply.id <span class="hljs-keyword">in</span> callbacks) {
+            <span class="hljs-keyword">var</span> cbs = callbacks[reply.id];
+            <span class="hljs-keyword">var</span> fn = reply.exception ? cbs.rejected : cbs.resolved;
+            <span class="hljs-keyword">if</span> (fn) {
+                fn.call(<span class="hljs-keyword">this</span>, reply.data);
+            }
+            <span class="hljs-keyword">delete</span> callbacks[reply.id];
+        }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Sets a timer to close the socket after the heartbeat interval.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> heartbeatTimer;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setHeartbeatTimer</span><span class="hljs-params">()</span> </span>{
+        heartbeatTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            self.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"heartbeat"</span>));
+            self.close();
+        }, options.heartbeat);
+    }
+    setHeartbeatTimer();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>The client will start to heartbeat on its <code>open</code> event and send the
+heartbaet event periodically. Then, cancels the timer, sets it up
+again and sends the heartbeat event as a response.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.on(<span class="hljs-string">"heartbeat"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        clearTimeout(heartbeatTimer);
+        setHeartbeatTimer();
+        self.send(<span class="hljs-string">"heartbeat"</span>);
+    })</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>To prevent a side effect of the timer, clears it on the close event.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    .on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        clearTimeout(heartbeatTimer);
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Starts handshake for the protocol. These params will be handled by
+client-side socket, and client-side socket will fire <code>open</code> event. The
+first message of transport is used to perform handshaking and should be
+formatted in URI.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    transport.send(url.format({query: {heartbeat: options.heartbeat, _heartbeat: options._heartbeat}}));
+    <span class="hljs-keyword">return</span> self;
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
