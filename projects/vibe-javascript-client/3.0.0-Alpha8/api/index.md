@@ -14,6 +14,8 @@ title: Vibe JavaScript Client API
     * [export function open(uris: string[], options?: SocketOptions): Socket](#export-function-open-uris:-string----options-:-socketoptions-:-socket)    
     * [interface SocketOptions](#interface-socketoptions)
         * [reconnect? (lastDelay: number, attempts: number): any](#reconnect---lastdelay:-number--attempts:-number-:-any)
+        * [timeout?: number](#timeout-:-number)
+        * [xdrURL? (uri: string): string](#xdrurl---uri:-string-:-string)
     * [interface Socket](#interface-socket)
         * [close(): Socket](#close--:-socket)
         * [off(event: string, handler: Function): Socket](#off-event:-string--handler:-function-:-socket)
@@ -26,19 +28,7 @@ title: Vibe JavaScript Client API
             * [[event: string]: (data?: any, reply?: {resolve: (data?: any) => void; reject: (data?: any) => void}) => void](#-event:-string-:--data-:-any--reply-:--resolve:--data-:-any-----void--reject:--data-:-any-----void------void)
         * [once(event: string, handler: Function): Socket](#once-event:-string--handler:-function-:-socket)
         * [send(event: string, data?: any, resolved?: (data?: any) => void, rejected?: (data?: any) => void): Socket](#send-event:-string--data-:-any--resolved-:--data-:-any-----void--rejected-:--data-:-any-----void-:-socket)
-        * [state(): string](#state--:-string ) 
-    * [interface TransportOptions](#interface-transportoptions)
-        * [timeout?: number](#timeout-:-number)
-        * [xdrURL? (uri: string): string](#xdrurl---uri:-string-:-string)
-    * [interface Transport](#interface-transport)
-        * [close(): Transport](#close--:-transport)
-        * [off(event: string, handler: Function): Transport](#off-event:-string--handler:-function-:-transport)
-        * [on(event: string, handler: Function): Transport](#on-event:-string--handler:-function-:-transport)
-            * [open (): void](#open---:-void-1)
-            * [error (error: Error): void](#error--error:-error-:-void-1)
-            * [close (): void](#close---:-void-1)
-            * [text (message: string): void](#text--message:-string-:-void)
-        * [send(message: string): Transport](#send-message:-string-:-transport)
+        * [state(): string](#state--:-string )
 
 ---
 
@@ -157,6 +147,55 @@ vibe.open(uri, {
     }
 });
 ```
+
+#### `timeout?: number`
+**Default**: `3000`
+
+A timeout value in milliseconds. It applies when a transport tries connection. If every transport fails, then the `close` event is fired with `error` event.
+
+#### `xdrURL? (uri: string): string`
+**Default**: `null`
+
+A function used to modify a url to add session information to enable transports depending on `XDomainRequest`. For security reasons, the `XDomainRequest` excludes cookie when sending a request, so that session cannot be tracked by cookie. However, if the server supports [session tracking by url](http://stackoverflow.com/questions/6453779/maintaining-session-by-rewriting-url), it is possible to track session by setting `xdrURL`.
+
+_Session tracking by modifying url_
+
+<div class="row">
+<div class="large-6 columns">
+{% capture panel %}
+**Java Servlet**
+
+```javascript
+vibe.open(uri, {
+    // input: url?k=v
+    // output: url;jsessionid=${cookie.JSESSIONID}?k=v
+    xdrURL: function(uri) {
+        var sid = /(?:^|; )JSESSIONID=([^;]*)/.exec(document.cookie)[1];
+        return url.replace(/;jsessionid=[^\?]*|(\?)|$/, 
+            ";jsessionid=" + sid + "$1");
+    }
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+<div class="large-6 columns">
+{% capture panel %}
+**PHP**
+
+```javascript
+vibe.open(uri, {
+    // input: url?k=v
+    // output: url?PHPSESSID=${cookie.PHPSESSID}&k=v
+    xdrURL: function(uri) {
+        var sid = /(?:^|; )PHPSESSID=([^;]*)/.exec(document.cookie)[1];
+        return url.replace(/\?PHPSESSID=[^&]*&?|\?|$/, 
+            "?PHPSESSID=" + sid + "&").replace(/&$/, "");
+    }
+});
+```
+{% endcapture %}{{ panel | markdownify }}
+</div>
+</div>
 
 ### `interface Socket`
 An interface representing a socket created by calling `vibe.open`.
@@ -344,85 +383,3 @@ function logState() {
 
 vibe.open(uri).on("connecting", logState).on("open", logState).on("close", logState).on("waiting", logState);
 ```
-
-### `interface TransportOptions`
-An interface of properties to get/set transport options. Since `SocketOptions` extends `TransportOptions`, it's possible to configure transport options through [`SocketOptions`](#interface-socketoptions).
-
-#### `timeout?: number`
-**Default**: `3000`
-
-A timeout value in milliseconds. It applies when a transport tries connection. If every transport fails, then the `close` event is fired with `error` event.
-
-#### `xdrURL? (uri: string): string`
-**Default**: `null`
-
-A function used to modify a url to add session information to enable transports depending on `XDomainRequest`. For security reasons, the `XDomainRequest` excludes cookie when sending a request, so that session cannot be tracked by cookie. However, if the server supports [session tracking by url](http://stackoverflow.com/questions/6453779/maintaining-session-by-rewriting-url), it is possible to track session by setting `xdrURL`.
-
-_Session tracking by modifying url_
-
-<div class="row">
-<div class="large-6 columns">
-{% capture panel %}
-**Java Servlet**
-
-```javascript
-vibe.open(uri, {
-    // input: url?k=v
-    // output: url;jsessionid=${cookie.JSESSIONID}?k=v
-    xdrURL: function(uri) {
-        var sid = /(?:^|; )JSESSIONID=([^;]*)/.exec(document.cookie)[1];
-        return url.replace(/;jsessionid=[^\?]*|(\?)|$/, 
-            ";jsessionid=" + sid + "$1");
-    }
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-<div class="large-6 columns">
-{% capture panel %}
-**PHP**
-
-```javascript
-vibe.open(uri, {
-    // input: url?k=v
-    // output: url?PHPSESSID=${cookie.PHPSESSID}&k=v
-    xdrURL: function(uri) {
-        var sid = /(?:^|; )PHPSESSID=([^;]*)/.exec(document.cookie)[1];
-        return url.replace(/\?PHPSESSID=[^&]*&?|\?|$/, 
-            "?PHPSESSID=" + sid + "&").replace(/&$/, "");
-    }
-});
-```
-{% endcapture %}{{ panel | markdownify }}
-</div>
-</div>
-
-### `interface Transport`
-An interface representing a full duplex message channel. For now it's internally used only. To make a plain vibe application, see [`Socket`](#interface-socket).
-
-#### `close(): Transport`
-Closes the transport.
-
-#### `off(event: string, handler: Function): Transport`
-Removes a given event handler for a given event. 
-
-#### `on(event: string, handler: Function): Transport`
-Adds a given event handler for a given event.
-
-##### `open (): void`
-Fired only once when a connection is established and communication is possible.
-
-##### `error (error: Error): void`
-Fired every time an error has occurred. The `error`'s message property can be one of the following values:
-
-* `timeout`: Failed to establish a connection in time.
-* Otherwise, a connection is closed due to some error.
- 
-##### `close (): void`
-Fired only once when a connection has been closed for any reason or couldn't be establiahsed.
-
-##### `text (message: string): void`
-Fired every time server sends a text message.
-
-#### `send(message: string): Transport`
-Sends a text message.
