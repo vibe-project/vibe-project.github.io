@@ -170,7 +170,7 @@ _Using your own transport._
 // A factory to create TCP transport
 function createNetTransport(uri, options) {
     // Only if URI's protocol is tcp and NetSocket which is an imaginary object for TCP communication is available 
-    if (/^tcp:/.test(uri) && !!NetSocket) {
+    if (/^tcp:/.test(uri) && NetSocket) {
         // Returns transport object
         return {/* skipped */};
     } else {
@@ -369,7 +369,7 @@ vibe.open(uri).on("connecting", logState).on("open", logState).on("close", logSt
 ```
 
 ## `module vibe.transport`
-As a sub module of vibe, it is used to create and manage transport and transport is used to build socket on top of itself by `vibe.open`. This module is useful to those who want write their own transport. If you are happy with default transports, you don't need to look at it. The module is accessible through `vibe.transport`.
+As a sub module of vibe, it is used to create and manage transport and transport is used to build socket on top of itself by `vibe.open`. This module is useful to those who want to write their own transport. If you are happy with default transports, you don't need to look at it. The module is accessible through `vibe.transport`.
 
 ### `export function createWebSocketTransport(uri: string, options?: TransportOptions): Transport`
 A factory to create a WebSocket transport. WebSocket is a protocol designed for a full-duplex communications over a TCP connection. However, many coporate proxies, firewalls and antivirus softwares blocks it for some reason.

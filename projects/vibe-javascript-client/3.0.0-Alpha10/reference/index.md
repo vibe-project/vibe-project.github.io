@@ -87,7 +87,7 @@ var socket = vibe.open("http://localhost:8080/vibe");
 ---
 
 ## Socket
-The feature-rich and flexible interface for two-way communication. To open a socket, use `vibe.open(uri: string, options?: SocketOptions)` and `vibe.open(uris: string[], options?: SocketOptions)`. Each URI should follow a specific URI format specified by each transport but it's allowed to use a plain form of URI like `http://localhost/vibe` or `/vibe` for convenience. And socket options can be skipped.
+The feature-rich and flexible interface for two-way communication. To open a socket, use `vibe.open(uri: string, options?: SocketOptions)` or `vibe.open(uris: string[], options?: SocketOptions)`. Each URI should follow a specific URI format specified by each transport but it's allowed to use a plain form of URI like `http://localhost/vibe` or `/vibe` for convenience. And socket options can be skipped.
 
 Internally, `vibe.open("http://host/vibe")` is treated as `vibe.open(["ws://host/vibe", "http://host/vibe?transport=stream", "http://host/vibe?transport=longpoll"])`, which correspond to WebSocket, HTTP Streaming and HTTP Long Polling transport respectively.
 
@@ -100,7 +100,7 @@ Socket always is in a specific state that can be accessed by `state()` method. A
     
 * **connecting**
 
-    The `connecting` event is fired. Given URIs, transports are created through transport factories specified by `transports?: ((uri: string, options: TransportOptions) => Transport)[]` option and used to establish a connection over wire. Each transport should establish a connection in time which is set to `timeout` option. If it turns out that a transport corresponding the current URI is not available, next URI is tried. The `connecting` event is an initial event where you can handle the socket during the life cycle.
+    The `connecting` event is fired. Given URIs, transports are created through transport factories specified by `transports?: ((uri: string, options: TransportOptions) => Transport)[]` option and used to establish a connection over wire. Each transport should establish a connection in time which is set to `timeout` option. If it turns out that the transport corresponding the current URI is not available, next URI is tried. The `connecting` event is an initial event where you can handle the socket during the life cycle.
     
     State transition occurs to
     * `opened`: if one of transports succeeds in establishing a connection.
@@ -120,10 +120,10 @@ Socket always is in a specific state that can be accessed by `state()` method. A
     
 * **closed**
 
-    The connection has been closed, has been regarded as closed or could not be opened. If the `reconnect` handler is `false` or returns `false`, the socket's life cycle ends here.
+    The connection has been closed, has been regarded as closed or could not be opened. If `reconnect? (lastDelay: number, attempts: number)` option is set to `false` or returns `false`, the socket's life cycle ends here.
     
     State transition occurs to
-    * `waiting`: if the `reconnect` handler returns a positive number.<p>
+    * `waiting`: if `reconnect` option returns a positive number.<p>
     
 * **waiting**
 
@@ -384,13 +384,13 @@ Node.js lower than 0.10 may work.
 ---
 
 ## Quirks
-The vibe.js always has tried to deal with any quirks in non-invasive way. However, it is not possible sometimes.
+There are problems which can't be dealt with in non-invasive way.
 
 #### The browser limits the number of simultaneous connections
 
 Applies to: HTTP transport
 
-According to the [HTTP/1.1 spec](http://tools.ietf.org/html/rfc2616#section-8.1.4), a single-user client should not maintain more than 2 connections. This restriction actually [varies with the browser](http://stackoverflow.com/questions/985431/max-parallel-http-connections-in-a-browser). If you consider multiple topics to subscribe and publish, utilize the custom event in a single connection.
+According to the [HTTP/1.1 spec](http://tools.ietf.org/html/rfc2616#section-8.1.4), a single-user client should not maintain more than 2 connections. This restriction actually [varies with the browser](http://stackoverflow.com/questions/985431/max-parallel-http-connections-in-a-browser). If you consider multiple topics to subscribe and publish, utilize the custom event using a single connection.
 
 #### Pressing ESC key aborts the connection
 
