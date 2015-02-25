@@ -260,7 +260,7 @@ public class Bootstrap extends Controller {
     static Action<ServerHttpExchange> httpAction = http -> {};
     static Action<ServerWebSocket> wsAction = ws -> {};
 
-    @BodyParser.Of(BodyParser.TolerantText.class)
+    @BodyParser.Of(BodyParser.Raw.class)
     public static Promise<Result> http() {
         PlayServerHttpExchange http = new PlayServerHttpExchange(request(), response());
         httpAction.on(http);
