@@ -7,7 +7,7 @@ Vibe Java Platform is a simple <sup><strong>A</strong></sup> abstraction layer <
 
 <dl>
     <dt>A</dt>
-    <dd>All interface you need to know is <code>ServerHttpExchange</code> and <code>ServerWebSocket</code>. Indeed.</dd>
+    <dd>All the interfaces you need to know are <code>ServerHttpExchange</code> and <code>ServerWebSocket</code>. Indeed.</dd>
     <dt>B</dt>
     <dd>An application based on Vibe Java Platform can run on any supported platforms seamlessly.</dd>
     <dt>C</dt>
